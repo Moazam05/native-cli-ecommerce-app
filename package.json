@@ -8,7 +8,8 @@
     "lint": "eslint .",
     "start": "react-native start",
     "test": "jest",
-    "clean": "cd android && ./gradlew clean && cd .."
+    "android-clean": "cd android && ./gradlew clean && cd .. && npm run android",
+    "ios-clean": "cd ios && rm -rf build && xcodebuild clean && pod update && cd .. && npm run ios"
   },
   "dependencies": {
     "@react-navigation/drawer": "^6.7.2",
