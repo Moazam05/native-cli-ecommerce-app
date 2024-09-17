@@ -11,6 +11,7 @@ import UserIcon from './user.png';
 import WishlistFill from './wishlist_fill.png';
 import WishlistIcon from './wishlist.png';
 import Star from './star.png';
+import ClearIcon from './clear.png';
 
 export {
   Back,
@@ -26,4 +27,5 @@ export {
   WishlistFill,
   WishlistIcon,
   Star,
+  ClearIcon,
 };

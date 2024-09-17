@@ -141,13 +141,17 @@ const Home = () => {
           <ActivityIndicator size="large" color="#0786DAFD" />
         </View>
       ) : (
-        <FlatList
-          data={products}
-          renderItem={renderProduct}
-          keyExtractor={item => item.id.toString()}
-          numColumns={2}
-          contentContainerStyle={styles.listContainer}
-        />
+        <>
+          {/* Search Bar */}
+
+          <FlatList
+            data={products}
+            renderItem={renderProduct}
+            keyExtractor={item => item.id.toString()}
+            numColumns={2}
+            contentContainerStyle={styles.listContainer}
+          />
+        </>
       )}
     </View>
   );
