@@ -6,6 +6,7 @@ import {
   Dimensions,
   Image,
   TouchableOpacity,
+  ActivityIndicator, // Import ActivityIndicator
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
 import Header from '../../components/Header';
@@ -14,8 +15,8 @@ import {useNavigation} from '@react-navigation/native';
 
 const Home = () => {
   const navigation = useNavigation();
-
   const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true); // Add loading state
 
   useEffect(() => {
     getProducts();
@@ -26,6 +27,7 @@ const Home = () => {
       .then(res => res.json())
       .then(json => {
         setProducts(json);
+        setLoading(false);
       });
   };
 
@@ -38,7 +40,11 @@ const Home = () => {
           navigation.navigate('ProductDetail', {item});
         }}>
         <View style={styles.imageContainer}>
-          <Image source={{uri: item.image}} style={styles.itemImage} />
+          {item.image ? (
+            <Image source={{uri: item.image}} style={styles.itemImage} />
+          ) : (
+            <Text>No Image Available</Text>
+          )}
           <TouchableOpacity style={styles.heartIconContainer}>
             <Image source={Heart} style={styles.heartIcon} />
           </TouchableOpacity>
@@ -51,7 +57,6 @@ const Home = () => {
         <Text style={styles.itemPrice}>${item.price.toFixed(2)}</Text>
 
         <View style={styles.ratingContainer}>
-          {/* Show star rating based on the item rating value */}
           {[...Array(5)].map((_, i) => (
             <Image
               key={i}
@@ -69,7 +74,6 @@ const Home = () => {
           <Text style={styles.ratingCount}>({item.rating.count})</Text>
         </View>
 
-        {/* Add to Cart Button */}
         <TouchableOpacity style={styles.addToCartButton}>
           <Text style={styles.addToCartText}>Add to Cart</Text>
         </TouchableOpacity>
@@ -87,13 +91,19 @@ const Home = () => {
           navigation.openDrawer();
         }}
       />
-      <FlatList
-        data={products}
-        renderItem={renderProduct}
-        keyExtractor={item => item.id.toString()}
-        numColumns={2} // To display 2 products per row
-        contentContainerStyle={styles.listContainer}
-      />
+      {loading ? (
+        <View style={styles.loaderContainer}>
+          <ActivityIndicator size="large" color="#0786DAFD" />
+        </View>
+      ) : (
+        <FlatList
+          data={products}
+          renderItem={renderProduct}
+          keyExtractor={item => item.id.toString()}
+          numColumns={2}
+          contentContainerStyle={styles.listContainer}
+        />
+      )}
     </View>
   );
 };
@@ -179,5 +189,10 @@ const styles = StyleSheet.create({
     fontSize: 13,
     fontWeight: '500',
     textAlign: 'center',
+  },
+  loaderContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
