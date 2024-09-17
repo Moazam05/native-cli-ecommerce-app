@@ -1,5 +1,12 @@
 import React, {useState} from 'react';
-import {View, Text, StyleSheet, Image, TouchableOpacity} from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  TouchableOpacity,
+  ScrollView,
+} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {Back, Cart, WishlistFill, WishlistIcon} from '../assets/images';
 import Header from '../components/Header';
@@ -30,52 +37,54 @@ const ProductDetail = () => {
           navigation.goBack();
         }}
       />
+      <ScrollView>
+        {/* Product Image */}
+        <View style={styles.imageWrapper}>
+          <Image source={{uri: item.image}} style={styles.productImage} />
+        </View>
 
-      {/* Product Image */}
-      <View style={styles.imageWrapper}>
-        <Image source={{uri: item.image}} style={styles.productImage} />
-      </View>
+        {/* Product Info */}
+        <View style={styles.infoContainer}>
+          <View style={styles.titleRow}>
+            <Text style={styles.productTitle}>{item.title}</Text>
+            {/* Wishlist/Favorite Icon */}
+            <TouchableOpacity onPress={toggleFavorite}>
+              <Image
+                source={isFavorited ? WishlistFill : WishlistIcon}
+                style={styles.wishlistIcon}
+              />
+            </TouchableOpacity>
+          </View>
 
-      {/* Product Info */}
-      <View style={styles.infoContainer}>
-        <View style={styles.titleRow}>
-          <Text style={styles.productTitle}>{item.title}</Text>
-          {/* Wishlist/Favorite Icon */}
-          <TouchableOpacity onPress={toggleFavorite}>
-            <Image
-              source={isFavorited ? WishlistFill : WishlistIcon}
-              style={styles.wishlistIcon}
-            />
+          <Text style={styles.productPrice}>${item.price.toFixed(2)}</Text>
+
+          <Text style={styles.productDescription}>{item.description}</Text>
+
+          {/* Rating */}
+          <View style={styles.ratingContainer}>
+            {[...Array(5)].map((_, i) => (
+              <Image
+                key={i}
+                source={require('../assets/images/star.png')} // Assuming star.png is your star icon
+                style={[
+                  styles.starIcon,
+                  // eslint-disable-next-line react-native/no-inline-styles
+                  {
+                    tintColor:
+                      i < Math.floor(item.rating.rate) ? '#FFD700' : '#ddd',
+                  },
+                ]}
+              />
+            ))}
+            <Text style={styles.ratingText}>({item.rating.count} reviews)</Text>
+          </View>
+
+          {/* Add to Cart Button */}
+          <TouchableOpacity style={styles.addToCartButton}>
+            <Text style={styles.addToCartText}>Add to Cart</Text>
           </TouchableOpacity>
         </View>
-
-        <Text style={styles.productPrice}>${item.price.toFixed(2)}</Text>
-
-        <Text style={styles.productDescription}>{item.description}</Text>
-
-        {/* Rating */}
-        <View style={styles.ratingContainer}>
-          {[...Array(5)].map((_, i) => (
-            <Image
-              key={i}
-              source={require('../assets/images/star.png')} // Assuming star.png is your star icon
-              style={[
-                styles.starIcon,
-                {
-                  tintColor:
-                    i < Math.floor(item.rating.rate) ? '#FFD700' : '#ddd',
-                },
-              ]}
-            />
-          ))}
-          <Text style={styles.ratingText}>({item.rating.count} reviews)</Text>
-        </View>
-
-        {/* Add to Cart Button */}
-        <TouchableOpacity style={styles.addToCartButton}>
-          <Text style={styles.addToCartText}>Add to Cart</Text>
-        </TouchableOpacity>
-      </View>
+      </ScrollView>
     </SafeAreaView>
   );
 };
