@@ -31,7 +31,12 @@ const Home = () => {
 
   const renderProduct = ({item}) => {
     return (
-      <View style={styles.productItem}>
+      <TouchableOpacity
+        activeOpacity={1}
+        style={styles.productItem}
+        onPress={() => {
+          navigation.navigate('ProductDetail', {item});
+        }}>
         <View style={styles.imageContainer}>
           <Image source={{uri: item.image}} style={styles.itemImage} />
           <TouchableOpacity style={styles.heartIconContainer}>
@@ -68,7 +73,7 @@ const Home = () => {
         <TouchableOpacity style={styles.addToCartButton}>
           <Text style={styles.addToCartText}>Add to Cart</Text>
         </TouchableOpacity>
-      </View>
+      </TouchableOpacity>
     );
   };
 
