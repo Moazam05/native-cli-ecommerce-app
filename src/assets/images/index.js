@@ -11,7 +11,7 @@ import User from './user.png';
 import WishlistFill from './wishlist_fill.png';
 import Wishlist from './wishlist.png';
 
-export default {
+export {
   Back,
   Cart,
   HomeFill,
