@@ -166,11 +166,12 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
     borderRadius: 20,
     marginTop: 10,
+    width: '100%',
   },
   addToCartText: {
     color: '#fff',
-    fontSize: 14,
-    fontWeight: 'bold',
+    fontSize: 13,
+    fontWeight: '500',
     textAlign: 'center',
   },
 });
