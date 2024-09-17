@@ -95,7 +95,7 @@ const styles = StyleSheet.create({
   },
   productImage: {
     width: '100%',
-    height: 300,
+    height: 250,
     resizeMode: 'contain',
   },
   infoContainer: {
@@ -118,12 +118,12 @@ const styles = StyleSheet.create({
   wishlistIcon: {
     width: 24,
     height: 24,
-    tintColor: '#FF6F61',
+    tintColor: '#0786DAFD',
   },
   productPrice: {
     fontSize: 18,
     fontWeight: 'bold',
-    color: '#FF6F61',
+    color: '#0786DAFD',
     marginVertical: 10,
   },
   productDescription: {
@@ -147,7 +147,7 @@ const styles = StyleSheet.create({
     marginLeft: 5,
   },
   addToCartButton: {
-    backgroundColor: '#FF6F61',
+    backgroundColor: '#0786DAFD',
     paddingVertical: 15,
     alignItems: 'center',
     borderRadius: 8,
