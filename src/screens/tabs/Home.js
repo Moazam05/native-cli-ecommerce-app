@@ -6,17 +6,30 @@ import {
   Dimensions,
   Image,
   TouchableOpacity,
-  ActivityIndicator, // Import ActivityIndicator
+  ActivityIndicator,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
 import Header from '../../components/Header';
 import {Cart, MenuIcon, Heart, Star} from '../../assets/images';
 import {useNavigation} from '@react-navigation/native';
+import useTypedSelector from '../../hooks/useTypedSelector';
+import {useDispatch} from 'react-redux';
+import {
+  selectedProducts,
+  setCartProducts,
+  incrementProductQuantity,
+  decrementProductQuantity,
+} from '../../redux/products/productsSlice';
 
 const Home = () => {
   const navigation = useNavigation();
+  const dispatch = useDispatch();
+  const cartProducts = useTypedSelector(selectedProducts);
+
+  console.log('cartProducts', cartProducts);
+
   const [products, setProducts] = useState([]);
-  const [loading, setLoading] = useState(true); // Add loading state
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     getProducts();
@@ -31,7 +44,19 @@ const Home = () => {
       });
   };
 
+  const addToCartHandler = item => {
+    const productInCart = cartProducts.find(product => product.id === item.id);
+
+    if (productInCart) {
+      dispatch(incrementProductQuantity(item.id)); // Increment product quantity if it's already in the cart
+    } else {
+      dispatch(setCartProducts({...item, quantity: 1})); // Add product to the cart with initial quantity 1
+    }
+  };
+
   const renderProduct = ({item}) => {
+    const productInCart = cartProducts.find(product => product.id === item.id);
+
     return (
       <TouchableOpacity
         activeOpacity={1}
@@ -74,9 +99,29 @@ const Home = () => {
           <Text style={styles.ratingCount}>({item.rating.count})</Text>
         </View>
 
-        <TouchableOpacity style={styles.addToCartButton}>
-          <Text style={styles.addToCartText}>Add to Cart</Text>
-        </TouchableOpacity>
+        {productInCart ? (
+          <View style={styles.cartActionsContainer}>
+            <TouchableOpacity
+              style={styles.decrementButton}
+              onPress={() => dispatch(decrementProductQuantity(item.id))}>
+              <Text style={styles.cartActionText}>-</Text>
+            </TouchableOpacity>
+
+            <Text style={styles.cartQuantity}>{productInCart.quantity}</Text>
+
+            <TouchableOpacity
+              style={styles.incrementButton}
+              onPress={() => dispatch(incrementProductQuantity(item.id))}>
+              <Text style={styles.cartActionText}>+</Text>
+            </TouchableOpacity>
+          </View>
+        ) : (
+          <TouchableOpacity
+            style={styles.addToCartButton}
+            onPress={() => addToCartHandler(item)}>
+            <Text style={styles.addToCartText}>Add to Cart</Text>
+          </TouchableOpacity>
+        )}
       </TouchableOpacity>
     );
   };
@@ -194,5 +239,35 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  cartActionsContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: 10,
+  },
+  decrementButton: {
+    backgroundColor: '#f5f5f5',
+    paddingHorizontal: 15,
+    paddingVertical: 5,
+    borderRadius: 20,
+    borderColor: '#ccc',
+    borderWidth: 1,
+  },
+  incrementButton: {
+    backgroundColor: '#f5f5f5',
+    paddingHorizontal: 15,
+    paddingVertical: 5,
+    borderRadius: 20,
+    borderColor: '#ccc',
+    borderWidth: 1,
+  },
+  cartQuantity: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    marginHorizontal: 10,
+  },
+  cartActionText: {
+    fontSize: 16,
+    fontWeight: 'bold',
   },
 });
