@@ -2,10 +2,14 @@ import React, {useState} from 'react';
 import {Image, StyleSheet, TouchableOpacity, View} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {
+  HomeFill,
   HomeIcon,
+  NotificationFill,
   NotificationIcon,
   SearchIcon,
+  UserFill,
   UserIcon,
+  WishlistFill,
   WishlistIcon,
 } from '../assets/images';
 import Home from './tabs/Home';
@@ -35,7 +39,10 @@ const HomeScreen = () => {
         <TouchableOpacity
           style={styles.bottomTab}
           onPress={() => setSelectedTab(0)}>
-          <Image source={HomeIcon} style={styles.bottomTabIcon} />
+          <Image
+            source={selectedTab === 0 ? HomeFill : HomeIcon}
+            style={styles.bottomTabIcon}
+          />
         </TouchableOpacity>
 
         <TouchableOpacity
@@ -47,19 +54,28 @@ const HomeScreen = () => {
         <TouchableOpacity
           style={styles.bottomTab}
           onPress={() => setSelectedTab(2)}>
-          <Image source={WishlistIcon} style={styles.bottomTabIcon} />
+          <Image
+            source={selectedTab === 2 ? WishlistFill : WishlistIcon}
+            style={styles.bottomTabIcon}
+          />
         </TouchableOpacity>
 
         <TouchableOpacity
           style={styles.bottomTab}
           onPress={() => setSelectedTab(3)}>
-          <Image source={NotificationIcon} style={styles.bottomTabIcon} />
+          <Image
+            source={selectedTab === 3 ? NotificationFill : NotificationIcon}
+            style={styles.bottomTabIcon}
+          />
         </TouchableOpacity>
 
         <TouchableOpacity
           style={styles.bottomTab}
           onPress={() => setSelectedTab(4)}>
-          <Image source={UserIcon} style={styles.bottomTabIcon} />
+          <Image
+            source={selectedTab === 4 ? UserFill : UserIcon}
+            style={styles.bottomTabIcon}
+          />
         </TouchableOpacity>
       </View>
     </SafeAreaView>
