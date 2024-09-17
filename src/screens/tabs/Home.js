@@ -51,6 +51,7 @@ const Home = () => {
             <Image
               key={i}
               source={Star}
+              // eslint-disable-next-line react-native/no-inline-styles
               style={{
                 width: 13,
                 height: 13,
