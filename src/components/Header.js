@@ -13,7 +13,7 @@ const {height, width} = Dimensions.get('window');
 const Header = ({title, leftIcon, rightIcon, leftClick, rightClick}) => {
   return (
     <View style={styles.header}>
-      <TouchableOpacity style={styles.btn}>
+      <TouchableOpacity style={styles.btn} onPress={leftClick}>
         <Image source={leftIcon} style={styles.icon} />
       </TouchableOpacity>
 
