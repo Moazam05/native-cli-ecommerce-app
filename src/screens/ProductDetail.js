@@ -32,7 +32,9 @@ const ProductDetail = () => {
       />
 
       {/* Product Image */}
-      <Image source={{uri: item.image}} style={styles.productImage} />
+      <View style={styles.imageWrapper}>
+        <Image source={{uri: item.image}} style={styles.productImage} />
+      </View>
 
       {/* Product Info */}
       <View style={styles.infoContainer}>
@@ -59,7 +61,6 @@ const ProductDetail = () => {
               source={require('../assets/images/star.png')} // Assuming star.png is your star icon
               style={[
                 styles.starIcon,
-                // eslint-disable-next-line react-native/no-inline-styles
                 {
                   tintColor:
                     i < Math.floor(item.rating.rate) ? '#FFD700' : '#ddd',
@@ -86,14 +87,21 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#f5f5f5',
   },
+  // Wrapping the image to add padding or margin
+  imageWrapper: {
+    backgroundColor: '#fff',
+    padding: 20, // Adding padding around the image
+    marginBottom: 10, // Spacing between the image and the details section
+  },
   productImage: {
     width: '100%',
     height: 300,
     resizeMode: 'contain',
-    backgroundColor: '#fff',
   },
   infoContainer: {
     padding: 20,
+    borderTopLeftRadius: 20, // Adding a smooth radius on top corners
+    borderTopRightRadius: 20,
   },
   titleRow: {
     flexDirection: 'row',
