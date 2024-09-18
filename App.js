@@ -2,7 +2,8 @@ import React from 'react';
 import AppNavigator from './src/AppNavigator';
 import {LogBox} from 'react-native';
 import {Provider} from 'react-redux';
-import {store} from './src/redux/store';
+import {PersistGate} from 'redux-persist/integration/react';
+import {store, persistor} from './src/redux/store';
 
 // Ignore specific warnings
 LogBox.ignoreLogs(['ReactImageView: Image source "null" doesn\'t exist']);
@@ -10,7 +11,9 @@ LogBox.ignoreLogs(['ReactImageView: Image source "null" doesn\'t exist']);
 const App = () => {
   return (
     <Provider store={store}>
-      <AppNavigator />
+      <PersistGate loading={null} persistor={persistor}>
+        <AppNavigator />
+      </PersistGate>
     </Provider>
   );
 };
