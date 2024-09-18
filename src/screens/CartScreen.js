@@ -1,7 +1,7 @@
 import {View, Text, StyleSheet} from 'react-native';
 import React from 'react';
 import {Header} from 'react-native/Libraries/NewAppScreen';
-import {Cart, MenuIcon} from '../assets/images';
+import {CartIcon, MenuIcon} from '../assets/images';
 import {useNavigation} from '@react-navigation/native';
 
 const CartScreen = () => {
@@ -11,7 +11,7 @@ const CartScreen = () => {
     <View style={styles.container}>
       <Header
         leftIcon={MenuIcon}
-        rightIcon={Cart}
+        rightIcon={CartIcon}
         title="Grocery App"
         leftClick={() => {
           navigation.openDrawer();

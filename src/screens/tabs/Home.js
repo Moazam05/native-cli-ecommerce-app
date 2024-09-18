@@ -13,7 +13,7 @@ import {
 import React, {useEffect, useState} from 'react';
 import Header from '../../components/Header';
 import {
-  Cart,
+  CartIcon,
   MenuIcon,
   Heart,
   Star,
@@ -157,7 +157,7 @@ const Home = () => {
     <View style={styles.container}>
       <Header
         leftIcon={MenuIcon}
-        rightIcon={Cart}
+        rightIcon={CartIcon}
         title="Grocery App"
         leftClick={() => {
           navigation.openDrawer();

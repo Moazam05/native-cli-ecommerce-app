@@ -1,5 +1,5 @@
 import Back from './back.png';
-import Cart from './cart.png';
+import CartIcon from './cart.png';
 import HomeFill from './home_fill.png';
 import HomeIcon from './home.png';
 import MenuIcon from './menu.png';
@@ -15,7 +15,7 @@ import ClearIcon from './clear.png';
 
 export {
   Back,
-  Cart,
+  CartIcon,
   HomeFill,
   HomeIcon,
   MenuIcon,

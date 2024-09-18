@@ -8,7 +8,13 @@ import {
   ScrollView,
 } from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import {Back, Cart, Star, WishlistFill, WishlistIcon} from '../assets/images';
+import {
+  Back,
+  CartIcon,
+  Star,
+  WishlistFill,
+  WishlistIcon,
+} from '../assets/images';
 import Header from '../components/Header';
 import {useNavigation, useRoute} from '@react-navigation/native';
 import {useDispatch} from 'react-redux';
@@ -69,7 +75,7 @@ const ProductDetail = () => {
     <SafeAreaView style={styles.container}>
       <Header
         leftIcon={Back}
-        rightIcon={Cart}
+        rightIcon={CartIcon}
         title="Product Details"
         leftClick={() => navigation.goBack()}
       />

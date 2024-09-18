@@ -10,7 +10,7 @@ import {
 import {useNavigation} from '@react-navigation/native';
 import {useDispatch} from 'react-redux';
 import Header from '../../components/Header';
-import {Cart, MenuIcon, WishlistFill} from '../../assets/images'; // Add HeartIcon if not available
+import {CartIcon, MenuIcon, WishlistFill} from '../../assets/images'; // Add HeartIcon if not available
 import useTypedSelector from '../../hooks/useTypedSelector';
 import {
   selectWishlistProducts,
@@ -43,7 +43,7 @@ const WishList = () => {
     <View style={styles.container}>
       <Header
         leftIcon={MenuIcon}
-        rightIcon={Cart}
+        rightIcon={CartIcon}
         title="Wishlist Items"
         leftClick={() => navigation.openDrawer()}
       />
