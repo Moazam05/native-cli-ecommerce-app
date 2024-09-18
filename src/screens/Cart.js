@@ -72,12 +72,15 @@ const Cart = () => {
 
   return (
     <SafeAreaView style={styles.container}>
+      {/* Header outside FlatList */}
       <Header
         leftIcon={Back}
         rightIcon={CartIcon}
         title="Your Shopping Cart"
         leftClick={() => navigation.goBack()}
       />
+
+      {/* FlatList to handle scrolling of products */}
       <FlatList
         data={cartProducts}
         keyExtractor={item => item.id.toString()}
@@ -86,25 +89,28 @@ const Cart = () => {
         ListEmptyComponent={
           <Text style={styles.emptyText}>Your cart is empty</Text>
         }
+        ListFooterComponent={
+          /* Payment details section after product list */
+          <View style={styles.paymentContainer}>
+            <Text style={styles.paymentTitle}>Payment Details</Text>
+            <View style={styles.paymentDetails}>
+              <Text style={styles.totalLabel}>Sub Total:</Text>
+              <Text style={styles.totalAmount}>${calculateTotal()}</Text>
+            </View>
+            <View style={styles.paymentDetails}>
+              <Text style={styles.discountLabel}>Discount:</Text>
+              <Text style={styles.discountAmount}>$0.00</Text>
+            </View>
+            <View style={styles.paymentDetails}>
+              <Text style={styles.totalLabel}>Total:</Text>
+              <Text style={styles.totalAmount}>${calculateTotal()}</Text>
+            </View>
+            <TouchableOpacity style={styles.checkoutButton} onPress={() => {}}>
+              <Text style={styles.checkoutText}>Proceed to Checkout</Text>
+            </TouchableOpacity>
+          </View>
+        }
       />
-      <View style={styles.paymentContainer}>
-        <Text style={styles.paymentTitle}>Payment Details</Text>
-        <View style={styles.paymentDetails}>
-          <Text style={styles.totalLabel}>Sub Total:</Text>
-          <Text style={styles.totalAmount}>${calculateTotal()}</Text>
-        </View>
-        <View style={styles.paymentDetails}>
-          <Text style={styles.discountLabel}>Discount:</Text>
-          <Text style={styles.discountAmount}>$0.00</Text>
-        </View>
-        <View style={styles.paymentDetails}>
-          <Text style={styles.totalLabel}>Total:</Text>
-          <Text style={styles.totalAmount}>${calculateTotal()}</Text>
-        </View>
-        <TouchableOpacity style={styles.checkoutButton} onPress={() => {}}>
-          <Text style={styles.checkoutText}>Proceed to Checkout</Text>
-        </TouchableOpacity>
-      </View>
     </SafeAreaView>
   );
 };
