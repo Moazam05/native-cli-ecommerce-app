@@ -1,3 +1,4 @@
+import React from 'react';
 import {
   View,
   Text,
@@ -6,11 +7,14 @@ import {
   TouchableOpacity,
   Image,
 } from 'react-native';
-import React from 'react';
+import useTypedSelector from '../hooks/useTypedSelector';
+import {selectedProducts} from '../redux/products/productsSlice';
 
 const {height, width} = Dimensions.get('window');
 
 const Header = ({title, leftIcon, rightIcon, leftClick, rightClick}) => {
+  const cartProducts = useTypedSelector(selectedProducts);
+
   return (
     <View style={styles.header}>
       <TouchableOpacity style={styles.btn} onPress={leftClick}>
@@ -19,8 +23,15 @@ const Header = ({title, leftIcon, rightIcon, leftClick, rightClick}) => {
 
       <Text style={styles.title}>{title}</Text>
 
-      <TouchableOpacity style={styles.btn}>
-        <Image source={rightIcon} style={styles.largeIcon} />
+      <TouchableOpacity style={styles.btn} onPress={rightClick}>
+        <View style={styles.cartIconWrapper}>
+          <Image source={rightIcon} style={styles.largeIcon} />
+          {cartProducts.length > 0 && (
+            <View style={styles.badge}>
+              <Text style={styles.badgeText}>{cartProducts.length}</Text>
+            </View>
+          )}
+        </View>
       </TouchableOpacity>
     </View>
   );
@@ -57,5 +68,26 @@ const styles = StyleSheet.create({
   title: {
     color: '#fff',
     fontSize: 20,
+  },
+  cartIconWrapper: {
+    position: 'relative',
+    width: 32,
+    height: 32,
+  },
+  badge: {
+    position: 'absolute',
+    top: -5,
+    right: -5,
+    backgroundColor: '#FF0000',
+    width: 20,
+    height: 20,
+    borderRadius: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  badgeText: {
+    color: '#fff',
+    fontSize: 12,
+    fontWeight: 'bold',
   },
 });

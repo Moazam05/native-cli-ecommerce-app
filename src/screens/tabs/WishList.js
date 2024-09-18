@@ -44,7 +44,7 @@ const WishList = () => {
       <Header
         leftIcon={MenuIcon}
         rightIcon={Cart}
-        title="Wish List"
+        title="Wishlist Items"
         leftClick={() => navigation.openDrawer()}
       />
       <FlatList
