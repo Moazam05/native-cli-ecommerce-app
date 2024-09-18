@@ -27,7 +27,7 @@ const Header = ({title, leftIcon, rightIcon, leftClick}) => {
 
       <TouchableOpacity
         style={styles.btn}
-        onPress={() => navigation.navigate('CartScreen')}>
+        onPress={() => navigation.navigate('Cart')}>
         <View style={styles.cartIconWrapper}>
           <Image source={rightIcon} style={styles.largeIcon} />
           {cartProducts.length > 0 && (
