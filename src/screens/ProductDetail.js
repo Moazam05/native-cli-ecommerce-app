@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   View,
   Text,
@@ -11,20 +11,37 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import {Back, Cart, WishlistFill, WishlistIcon} from '../assets/images';
 import Header from '../components/Header';
 import {useNavigation, useRoute} from '@react-navigation/native';
+import {useDispatch} from 'react-redux';
+import {
+  selectWishlistProducts,
+  setWishListProducts,
+} from '../redux/wishlist/wishlistsSlice';
+import useTypedSelector from '../hooks/useTypedSelector';
 
 const ProductDetail = () => {
   const navigation = useNavigation();
   const route = useRoute();
+  const dispatch = useDispatch();
 
-  // Extract the product details from the route
+  const wishListProducts = useTypedSelector(selectWishlistProducts);
   const {item} = route.params;
+
+  console.log('wishListProducts', wishListProducts);
 
   // State to toggle favorite icon
   const [isFavorited, setIsFavorited] = useState(false);
 
-  // Function to handle favorite icon toggle
+  useEffect(() => {
+    const isProductInWishlist = wishListProducts.some(
+      product => product.id === item.id,
+    );
+    console.log('isProductInWishlist', isProductInWishlist);
+    setIsFavorited(isProductInWishlist);
+  }, [item.id, wishListProducts]);
+
   const toggleFavorite = () => {
-    setIsFavorited(!isFavorited);
+    setIsFavorited(prev => !prev);
+    dispatch(setWishListProducts(item));
   };
 
   return (
@@ -33,9 +50,7 @@ const ProductDetail = () => {
         leftIcon={Back}
         rightIcon={Cart}
         title="Product Details"
-        leftClick={() => {
-          navigation.goBack();
-        }}
+        leftClick={() => navigation.goBack()}
       />
       <ScrollView>
         {/* Product Image */}
@@ -96,11 +111,10 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#f5f5f5',
   },
-  // Wrapping the image to add padding or margin
   imageWrapper: {
     backgroundColor: '#fff',
-    padding: 20, // Adding padding around the image
-    marginBottom: 10, // Spacing between the image and the details section
+    padding: 20,
+    marginBottom: 10,
   },
   productImage: {
     width: '100%',
@@ -109,7 +123,7 @@ const styles = StyleSheet.create({
   },
   infoContainer: {
     padding: 20,
-    borderTopLeftRadius: 20, // Adding a smooth radius on top corners
+    borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
   },
   titleRow: {
