@@ -206,6 +206,7 @@ const styles = StyleSheet.create({
   },
   listContainer: {
     padding: 10,
+    paddingBottom: 100,
   },
   productItem: {
     backgroundColor: '#fff',
