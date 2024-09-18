@@ -47,7 +47,6 @@ const Cart = () => {
         <View style={styles.productActions}>
           <View style={styles.cartActionsContainer}>
             <TouchableOpacity
-              style={styles.decrementButton}
               onPress={() => dispatch(decrementProductQuantity(item.id))}>
               <Text style={styles.cartActionText}>-</Text>
             </TouchableOpacity>
@@ -55,7 +54,7 @@ const Cart = () => {
             <Text style={styles.cartQuantity}>{item.quantity}</Text>
 
             <TouchableOpacity
-              style={styles.incrementButton}
+              s
               onPress={() => dispatch(incrementProductQuantity(item.id))}>
               <Text style={[styles.cartActionText, styles.textAlignRight]}>
                 +
@@ -76,7 +75,7 @@ const Cart = () => {
       <Header
         leftIcon={Back}
         rightIcon={CartIcon}
-        title="Your Shopping Cart"
+        title="My Cart"
         leftClick={() => navigation.goBack()}
       />
 
@@ -97,7 +96,7 @@ const Cart = () => {
               <Text style={styles.totalLabel}>Sub Total:</Text>
               <Text style={styles.totalAmount}>${calculateTotal()}</Text>
             </View>
-            <View style={styles.paymentDetails}>
+            <View style={styles.discountWrap}>
               <Text style={styles.discountLabel}>Discount:</Text>
               <Text style={styles.discountAmount}>$0.00</Text>
             </View>
@@ -152,6 +151,11 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#333',
     marginBottom: 5,
+  },
+  cartActionText: {
+    fontSize: 18,
+    color: '#0786DAFD',
+    fontWeight: 'bold',
   },
   productMeta: {
     flexDirection: 'row',
@@ -211,6 +215,14 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginBottom: 10,
+  },
+  discountWrap: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: 10,
+    borderBottomWidth: 1,
+    borderColor: '#eee',
+    paddingBottom: 10,
   },
   totalLabel: {
     fontSize: 14,
