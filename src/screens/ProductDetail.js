@@ -6,9 +6,10 @@ import {
   Image,
   TouchableOpacity,
   ScrollView,
+  Dimensions,
 } from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import {Back, Cart, WishlistFill, WishlistIcon} from '../assets/images';
+import {Back, Cart, Star, WishlistFill, WishlistIcon} from '../assets/images';
 import Header from '../components/Header';
 import {useNavigation, useRoute} from '@react-navigation/native';
 import {useDispatch} from 'react-redux';
@@ -17,17 +18,28 @@ import {
   setWishListProducts,
 } from '../redux/wishlist/wishlistsSlice';
 import useTypedSelector from '../hooks/useTypedSelector';
+import {
+  selectedProducts,
+  incrementProductQuantity,
+  decrementProductQuantity,
+  setCartProducts,
+} from '../redux/products/productsSlice';
+
+const {width} = Dimensions.get('window');
 
 const ProductDetail = () => {
   const navigation = useNavigation();
   const route = useRoute();
   const dispatch = useDispatch();
 
-  const wishListProducts = useTypedSelector(selectWishlistProducts);
   const {item} = route.params;
 
-  // State to toggle favorite icon
+  const wishListProducts = useTypedSelector(selectWishlistProducts);
+  const cartProducts = useTypedSelector(selectedProducts);
+
   const [isFavorited, setIsFavorited] = useState(false);
+  const [isInCart, setIsInCart] = useState(false);
+  const [productQuantity, setProductQuantity] = useState(0);
 
   useEffect(() => {
     const isProductInWishlist = wishListProducts.some(
@@ -36,9 +48,24 @@ const ProductDetail = () => {
     setIsFavorited(isProductInWishlist);
   }, [item.id, wishListProducts]);
 
+  useEffect(() => {
+    const productInCart = cartProducts.find(product => product.id === item.id);
+    if (productInCart) {
+      setIsInCart(true);
+      setProductQuantity(productInCart.quantity);
+    } else {
+      setIsInCart(false);
+      setProductQuantity(0);
+    }
+  }, [cartProducts, item.id]);
+
   const toggleFavorite = () => {
     setIsFavorited(prev => !prev);
     dispatch(setWishListProducts(item));
+  };
+
+  const addToCartHandler = () => {
+    dispatch(setCartProducts(item));
   };
 
   return (
@@ -77,7 +104,7 @@ const ProductDetail = () => {
             {[...Array(5)].map((_, i) => (
               <Image
                 key={i}
-                source={require('../assets/images/star.png')} // Assuming star.png is your star icon
+                source={Star}
                 style={[
                   styles.starIcon,
                   // eslint-disable-next-line react-native/no-inline-styles
@@ -91,10 +118,28 @@ const ProductDetail = () => {
             <Text style={styles.ratingText}>({item.rating.count} reviews)</Text>
           </View>
 
-          {/* Add to Cart Button */}
-          <TouchableOpacity style={styles.addToCartButton}>
-            <Text style={styles.addToCartText}>Add to Cart</Text>
-          </TouchableOpacity>
+          {/* Add to Cart / Quantity Buttons */}
+          {isInCart ? (
+            <View style={styles.cartActionsContainer}>
+              <TouchableOpacity
+                style={styles.quantityButton}
+                onPress={() => dispatch(decrementProductQuantity(item.id))}>
+                <Text style={styles.quantityButtonText}>-</Text>
+              </TouchableOpacity>
+              <Text style={styles.cartQuantity}>{productQuantity}</Text>
+              <TouchableOpacity
+                style={styles.quantityButton}
+                onPress={() => dispatch(incrementProductQuantity(item.id))}>
+                <Text style={styles.quantityButtonText}>+</Text>
+              </TouchableOpacity>
+            </View>
+          ) : (
+            <TouchableOpacity
+              style={styles.addToCartButton}
+              onPress={addToCartHandler}>
+              <Text style={styles.addToCartText}>Add to Cart</Text>
+            </TouchableOpacity>
+          )}
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -122,6 +167,7 @@ const styles = StyleSheet.create({
     padding: 20,
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
+    backgroundColor: '#fff',
   },
   titleRow: {
     flexDirection: 'row',
@@ -177,5 +223,31 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
     color: '#fff',
+  },
+  cartActionsContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 20,
+  },
+  quantityButton: {
+    backgroundColor: '#0786DAFD',
+    paddingHorizontal: 15,
+    paddingVertical: 8,
+    borderRadius: 5,
+    marginHorizontal: 5,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  quantityButtonText: {
+    fontSize: 18,
+    color: '#fff',
+    fontWeight: 'bold',
+  },
+  cartQuantity: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#333',
+    marginHorizontal: 10,
   },
 });
