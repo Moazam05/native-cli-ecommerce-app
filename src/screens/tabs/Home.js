@@ -137,7 +137,7 @@ const Home = () => {
             <TouchableOpacity
               style={styles.incrementButton}
               onPress={() => dispatch(incrementProductQuantity(item.id))}>
-              <Text style={[styles.cartActionText, {textAlign: 'right'}]}>
+              <Text style={[styles.cartActionText, styles.textAlignRight]}>
                 +
               </Text>
             </TouchableOpacity>
@@ -353,5 +353,8 @@ const styles = StyleSheet.create({
   icon: {
     width: 20,
     height: 20,
+  },
+  textAlignRight: {
+    textAlign: 'right',
   },
 });

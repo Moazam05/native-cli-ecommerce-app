@@ -6,7 +6,6 @@ import {
   Image,
   TouchableOpacity,
   ScrollView,
-  Dimensions,
 } from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {Back, Cart, Star, WishlistFill, WishlistIcon} from '../assets/images';
@@ -24,8 +23,6 @@ import {
   decrementProductQuantity,
   setCartProducts,
 } from '../redux/products/productsSlice';
-
-const {width} = Dimensions.get('window');
 
 const ProductDetail = () => {
   const navigation = useNavigation();
