@@ -318,7 +318,7 @@ const styles = StyleSheet.create({
   searchContainer: {
     paddingHorizontal: 15,
     marginTop: 15,
-    marginBottom: 10,
+    marginBottom: 5,
   },
   searchBar: {
     backgroundColor: '#fff',
