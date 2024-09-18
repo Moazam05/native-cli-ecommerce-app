@@ -44,29 +44,29 @@ const Cart = () => {
           <Text style={styles.productPrice}>${item.price.toFixed(2)}</Text>
         </View>
 
-        <View style={styles.cartActionsContainer}>
-          <TouchableOpacity
-            style={styles.decrementButton}
-            onPress={() => dispatch(decrementProductQuantity(item.id))}>
-            <Text style={styles.cartActionText}>-</Text>
-          </TouchableOpacity>
+        <View style={styles.productActions}>
+          <View style={styles.cartActionsContainer}>
+            <TouchableOpacity
+              style={styles.decrementButton}
+              onPress={() => dispatch(decrementProductQuantity(item.id))}>
+              <Text style={styles.cartActionText}>-</Text>
+            </TouchableOpacity>
 
-          <Text style={styles.cartQuantity}>{item.quantity}</Text>
+            <Text style={styles.cartQuantity}>{item.quantity}</Text>
 
-          <TouchableOpacity
-            style={styles.incrementButton}
-            onPress={() => dispatch(incrementProductQuantity(item.id))}>
-            <Text style={[styles.cartActionText, styles.textAlignRight]}>
-              +
-            </Text>
+            <TouchableOpacity
+              style={styles.incrementButton}
+              onPress={() => dispatch(incrementProductQuantity(item.id))}>
+              <Text style={[styles.cartActionText, styles.textAlignRight]}>
+                +
+              </Text>
+            </TouchableOpacity>
+          </View>
+          <TouchableOpacity onPress={() => handleRemoveProduct(item.id)}>
+            <Image style={styles.deleteIcon} source={DeleteIcon} />
           </TouchableOpacity>
         </View>
       </View>
-      <TouchableOpacity
-        onPress={() => handleRemoveProduct(item.id)}
-        style={styles.deleteButton}>
-        <Image style={styles.deleteIcon} source={DeleteIcon} />
-      </TouchableOpacity>
     </View>
   );
 
@@ -149,13 +149,10 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    width: 150,
+    width: 70,
     borderColor: '#0786DAFD',
-    borderWidth: 1,
-    borderRadius: 25,
-    paddingVertical: 3,
-    paddingHorizontal: 15,
     marginTop: 10,
+    borderBottomWidth: 1,
   },
   decrementButton: {
     backgroundColor: 'white',
@@ -195,13 +192,11 @@ const styles = StyleSheet.create({
     color: '#0786DAFD',
   },
 
-  deleteButton: {
-    padding: 10,
-  },
   deleteIcon: {
     width: 25,
     height: 25,
     resizeMode: 'contain',
+    marginTop: 10,
   },
   footer: {
     padding: 20,
@@ -232,5 +227,11 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: '#666',
     marginTop: 20,
+  },
+
+  productActions: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
 });
