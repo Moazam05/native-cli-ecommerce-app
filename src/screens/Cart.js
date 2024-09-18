@@ -25,8 +25,6 @@ const Cart = () => {
   const cartProducts = useTypedSelector(selectedProducts);
   const dispatch = useDispatch();
 
-  console.log('cartProducts', cartProducts);
-
   const handleRemoveProduct = id => {
     dispatch(removeProduct(id));
   };
@@ -84,11 +82,10 @@ const Cart = () => {
           <Text style={styles.emptyText}>Your cart is empty</Text>
         }
       />
-      {/* 
-      <View style={styles.footer}>
+      {/* <View style={styles.footer}>
         <Text style={styles.totalText}>Total: ${calculateTotal()}</Text>
         <TouchableOpacity style={styles.checkoutButton} onPress={() => {}}>
-          <Text style={styles.checkoutText}>Checkout</Text>
+          <Text style={styles.checkoutText}>Place Order</Text>
         </TouchableOpacity>
       </View> */}
     </SafeAreaView>
@@ -119,7 +116,7 @@ const styles = StyleSheet.create({
   },
   productImage: {
     width: 60,
-    height: 60,
+    height: 70,
     borderRadius: 10,
     marginRight: 15,
     resizeMode: 'contain',
@@ -138,24 +135,40 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
   },
-  colorIndicator: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  colorDot: {
-    width: 15,
-    height: 15,
-    borderRadius: 15 / 2,
-    marginRight: 10,
-  },
-  sizeText: {
-    fontSize: 14,
-    color: '#666',
-  },
   productPrice: {
     fontSize: 16,
     fontWeight: 'bold',
     color: '#0786DAFD',
+  },
+  cartActionsContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    width: 130,
+    borderColor: '#0786DAFD',
+    borderWidth: 1,
+    borderRadius: 25,
+    paddingVertical: 5,
+    paddingHorizontal: 10,
+    marginTop: 10,
+  },
+  quantityButton: {
+    backgroundColor: '#fff',
+    borderColor: '#0786DAFD',
+    width: 25,
+    height: 25,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  quantityButtonText: {
+    fontSize: 20,
+    color: '#0786DAFD',
+  },
+  cartQuantity: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: '#333',
+    paddingHorizontal: 10,
   },
   deleteButton: {
     padding: 10,
@@ -164,10 +177,6 @@ const styles = StyleSheet.create({
     width: 25,
     height: 25,
     resizeMode: 'contain',
-  },
-  deleteText: {
-    color: '#0786DAFD',
-    fontWeight: 'bold',
   },
   footer: {
     padding: 20,
@@ -183,7 +192,6 @@ const styles = StyleSheet.create({
     marginBottom: 15,
   },
   checkoutButton: {
-    // backgroundColor: '#ff6b6b',
     backgroundColor: '#0786DAFD',
     paddingVertical: 15,
     paddingHorizontal: 100,
