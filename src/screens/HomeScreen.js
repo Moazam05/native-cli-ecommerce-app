@@ -1,5 +1,11 @@
-import React, {useState} from 'react';
-import {Image, StyleSheet, TouchableOpacity, View} from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {
+  Image,
+  Keyboard,
+  StyleSheet,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {
   HomeFill,
@@ -20,6 +26,25 @@ import Wishlist from './tabs/WishList';
 
 const HomeScreen = () => {
   const [selectedTab, setSelectedTab] = useState(0);
+  const [isKeyboardVisible, setIsKeyboardVisible] = useState(false);
+
+  useEffect(() => {
+    const keyboardDidShowListener = Keyboard.addListener(
+      'keyboardDidShow',
+      () => setIsKeyboardVisible(true),
+    );
+
+    const keyboardDidHideListener = Keyboard.addListener(
+      'keyboardDidHide',
+      () => setIsKeyboardVisible(false),
+    );
+
+    // Cleanup listeners on component unmount
+    return () => {
+      keyboardDidShowListener.remove();
+      keyboardDidHideListener.remove();
+    };
+  }, []);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -35,49 +60,51 @@ const HomeScreen = () => {
         <User />
       )}
 
-      <View style={styles.bottomView}>
-        <TouchableOpacity
-          style={styles.bottomTab}
-          onPress={() => setSelectedTab(0)}>
-          <Image
-            source={selectedTab === 0 ? HomeFill : HomeIcon}
-            style={styles.bottomTabIcon}
-          />
-        </TouchableOpacity>
+      {!isKeyboardVisible && (
+        <View style={styles.bottomView}>
+          <TouchableOpacity
+            style={styles.bottomTab}
+            onPress={() => setSelectedTab(0)}>
+            <Image
+              source={selectedTab === 0 ? HomeFill : HomeIcon}
+              style={styles.bottomTabIcon}
+            />
+          </TouchableOpacity>
 
-        <TouchableOpacity
-          style={styles.bottomTab}
-          onPress={() => setSelectedTab(1)}>
-          <Image source={SearchIcon} style={styles.bottomTabIcon} />
-        </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.bottomTab}
+            onPress={() => setSelectedTab(1)}>
+            <Image source={SearchIcon} style={styles.bottomTabIcon} />
+          </TouchableOpacity>
 
-        <TouchableOpacity
-          style={styles.bottomTab}
-          onPress={() => setSelectedTab(2)}>
-          <Image
-            source={selectedTab === 2 ? WishlistFill : WishlistIcon}
-            style={styles.bottomTabIcon}
-          />
-        </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.bottomTab}
+            onPress={() => setSelectedTab(2)}>
+            <Image
+              source={selectedTab === 2 ? WishlistFill : WishlistIcon}
+              style={styles.bottomTabIcon}
+            />
+          </TouchableOpacity>
 
-        <TouchableOpacity
-          style={styles.bottomTab}
-          onPress={() => setSelectedTab(3)}>
-          <Image
-            source={selectedTab === 3 ? NotificationFill : NotificationIcon}
-            style={styles.bottomTabIcon}
-          />
-        </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.bottomTab}
+            onPress={() => setSelectedTab(3)}>
+            <Image
+              source={selectedTab === 3 ? NotificationFill : NotificationIcon}
+              style={styles.bottomTabIcon}
+            />
+          </TouchableOpacity>
 
-        <TouchableOpacity
-          style={styles.bottomTab}
-          onPress={() => setSelectedTab(4)}>
-          <Image
-            source={selectedTab === 4 ? UserFill : UserIcon}
-            style={styles.bottomTabIcon}
-          />
-        </TouchableOpacity>
-      </View>
+          <TouchableOpacity
+            style={styles.bottomTab}
+            onPress={() => setSelectedTab(4)}>
+            <Image
+              source={selectedTab === 4 ? UserFill : UserIcon}
+              style={styles.bottomTabIcon}
+            />
+          </TouchableOpacity>
+        </View>
+      )}
     </SafeAreaView>
   );
 };
