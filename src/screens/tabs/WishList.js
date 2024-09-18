@@ -22,9 +22,8 @@ const WishList = () => {
   const dispatch = useDispatch();
   const wishListProducts = useTypedSelector(selectWishlistProducts);
 
-  // Function to handle removing an item from the wishlist
   const removeFromWishlist = item => {
-    dispatch(setWishListProducts(item)); // Toggle logic already handled in the reducer
+    dispatch(setWishListProducts(item));
   };
 
   const renderItem = ({item}) => (
