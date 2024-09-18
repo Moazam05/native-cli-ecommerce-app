@@ -7,10 +7,18 @@ import {
   Image,
   TouchableOpacity,
   ActivityIndicator,
+  TextInput,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
 import Header from '../../components/Header';
-import {Cart, MenuIcon, Heart, Star} from '../../assets/images';
+import {
+  Cart,
+  MenuIcon,
+  Heart,
+  Star,
+  SearchIcon,
+  ClearIcon,
+} from '../../assets/images';
 import {useNavigation} from '@react-navigation/native';
 import useTypedSelector from '../../hooks/useTypedSelector';
 import {useDispatch} from 'react-redux';
@@ -26,20 +34,32 @@ const Home = () => {
   const dispatch = useDispatch();
   const cartProducts = useTypedSelector(selectedProducts);
 
-  console.log('cartProducts', cartProducts);
-
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [searchText, setSearchText] = useState('');
+  const [filteredProducts, setFilteredProducts] = useState([]);
 
   useEffect(() => {
     getProducts();
   }, []);
+
+  useEffect(() => {
+    if (searchText === '') {
+      setFilteredProducts(products);
+    } else {
+      const filtered = products.filter(product =>
+        product.title.toLowerCase().includes(searchText.toLowerCase()),
+      );
+      setFilteredProducts(filtered);
+    }
+  }, [searchText, products]);
 
   const getProducts = () => {
     fetch('https://fakestoreapi.com/products')
       .then(res => res.json())
       .then(json => {
         setProducts(json);
+        setFilteredProducts(json); // Set both products and filteredProducts initially
         setLoading(false);
       });
   };
@@ -143,9 +163,25 @@ const Home = () => {
       ) : (
         <>
           {/* Search Bar */}
+          <View style={styles.searchContainer}>
+            <View style={styles.searchBar}>
+              <Image source={SearchIcon} style={styles.icon} />
+              <TextInput
+                placeholder="Search here..."
+                style={styles.searchInput}
+                value={searchText}
+                onChangeText={text => setSearchText(text)}
+              />
+              {searchText.length > 0 && (
+                <TouchableOpacity onPress={() => setSearchText('')}>
+                  <Image source={ClearIcon} style={styles.icon} />
+                </TouchableOpacity>
+              )}
+            </View>
+          </View>
 
           <FlatList
-            data={products}
+            data={filteredProducts}
             renderItem={renderProduct}
             keyExtractor={item => item.id.toString()}
             numColumns={2}
@@ -244,7 +280,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-
   cartActionsContainer: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -265,7 +300,6 @@ const styles = StyleSheet.create({
   },
   incrementButton: {
     backgroundColor: 'white',
-
     borderColor: '#0786DAFD',
     justifyContent: 'center',
     alignItems: 'center',
@@ -280,5 +314,34 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#333',
     paddingHorizontal: 10,
+  },
+  searchContainer: {
+    paddingHorizontal: 15,
+    marginTop: 15,
+    marginBottom: 10,
+  },
+  searchBar: {
+    backgroundColor: '#fff',
+    flexDirection: 'row',
+    alignItems: 'center',
+    borderRadius: 25,
+    paddingHorizontal: 15,
+    elevation: 3,
+    height: 45,
+    shadowColor: '#000',
+    shadowOffset: {width: 0, height: 2},
+    shadowOpacity: 0.1,
+    shadowRadius: 8,
+    marginTop: 10,
+  },
+  searchInput: {
+    flex: 1,
+    fontSize: 16,
+    color: '#333',
+    paddingLeft: 15,
+  },
+  icon: {
+    width: 20,
+    height: 20,
   },
 });
