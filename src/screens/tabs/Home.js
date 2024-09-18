@@ -136,7 +136,9 @@ const Home = () => {
             <TouchableOpacity
               style={styles.incrementButton}
               onPress={() => dispatch(incrementProductQuantity(item.id))}>
-              <Text style={styles.cartActionText}>+</Text>
+              <Text style={[styles.cartActionText, {textAlign: 'right'}]}>
+                +
+              </Text>
             </TouchableOpacity>
           </View>
         ) : (
@@ -310,15 +312,17 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   cartActionText: {
-    fontSize: 18,
+    fontSize: 20,
     fontWeight: 'bold',
     color: '#0786DAFD',
+    width: 45,
   },
   cartQuantity: {
     fontSize: 16,
     fontWeight: 'bold',
     color: '#333',
     paddingHorizontal: 10,
+    width: 30,
   },
   searchContainer: {
     paddingHorizontal: 15,
