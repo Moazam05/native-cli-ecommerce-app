@@ -10,7 +10,12 @@ import {
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {useNavigation} from '@react-navigation/native';
 import useTypedSelector from '../hooks/useTypedSelector';
-import {selectedProducts, removeProduct} from '../redux/products/productsSlice';
+import {
+  selectedProducts,
+  removeProduct,
+  incrementProductQuantity,
+  decrementProductQuantity,
+} from '../redux/products/productsSlice';
 import {useDispatch} from 'react-redux';
 import Header from '../components/Header';
 import {Back, CartIcon, DeleteIcon} from '../assets/images';
@@ -20,8 +25,9 @@ const Cart = () => {
   const cartProducts = useTypedSelector(selectedProducts);
   const dispatch = useDispatch();
 
+  console.log('cartProducts', cartProducts);
+
   const handleRemoveProduct = id => {
-    // Dispatch action to remove product
     dispatch(removeProduct(id));
   };
 
@@ -38,6 +44,19 @@ const Cart = () => {
         <Text style={styles.productTitle}>{item.title}</Text>
         <View style={styles.productMeta}>
           <Text style={styles.productPrice}>${item.price.toFixed(2)}</Text>
+        </View>
+        <View style={styles.cartActionsContainer}>
+          <TouchableOpacity
+            style={styles.quantityButton}
+            onPress={() => dispatch(decrementProductQuantity(item.id))}>
+            <Text style={styles.quantityButtonText}>-</Text>
+          </TouchableOpacity>
+          <Text style={styles.cartQuantity}>{item.quantity}</Text>
+          <TouchableOpacity
+            style={styles.quantityButton}
+            onPress={() => dispatch(incrementProductQuantity(item.id))}>
+            <Text style={styles.quantityButtonText}>+</Text>
+          </TouchableOpacity>
         </View>
       </View>
       <TouchableOpacity
