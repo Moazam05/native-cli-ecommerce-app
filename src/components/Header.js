@@ -9,11 +9,13 @@ import {
 } from 'react-native';
 import useTypedSelector from '../hooks/useTypedSelector';
 import {selectedProducts} from '../redux/products/productsSlice';
+import {useNavigation} from '@react-navigation/native';
 
 const {height, width} = Dimensions.get('window');
 
-const Header = ({title, leftIcon, rightIcon, leftClick, rightClick}) => {
+const Header = ({title, leftIcon, rightIcon, leftClick}) => {
   const cartProducts = useTypedSelector(selectedProducts);
+  const navigation = useNavigation();
 
   return (
     <View style={styles.header}>
@@ -23,7 +25,9 @@ const Header = ({title, leftIcon, rightIcon, leftClick, rightClick}) => {
 
       <Text style={styles.title}>{title}</Text>
 
-      <TouchableOpacity style={styles.btn} onPress={rightClick}>
+      <TouchableOpacity
+        style={styles.btn}
+        onPress={() => navigation.navigate('CartScreen')}>
         <View style={styles.cartIconWrapper}>
           <Image source={rightIcon} style={styles.largeIcon} />
           {cartProducts.length > 0 && (
