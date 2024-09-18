@@ -87,12 +87,20 @@ const Cart = () => {
           <Text style={styles.emptyText}>Your cart is empty</Text>
         }
       />
-      {/* <View style={styles.footer}>
-        <Text style={styles.totalText}>Total: ${calculateTotal()}</Text>
+      <View style={styles.paymentContainer}>
+        <Text style={styles.paymentTitle}>Payment Details</Text>
+        <View style={styles.paymentDetails}>
+          <Text style={styles.totalLabel}>Total:</Text>
+          <Text style={styles.totalAmount}>${calculateTotal()}</Text>
+        </View>
+        <View style={styles.paymentDetails}>
+          <Text style={styles.discountLabel}>Discount:</Text>
+          <Text style={styles.discountAmount}>$0.00</Text>
+        </View>
         <TouchableOpacity style={styles.checkoutButton} onPress={() => {}}>
-          <Text style={styles.checkoutText}>Place Order</Text>
+          <Text style={styles.checkoutText}>Proceed to Checkout</Text>
         </TouchableOpacity>
-      </View> */}
+      </View>
     </SafeAreaView>
   );
 };
@@ -145,6 +153,11 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#0786DAFD',
   },
+  productActions: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
   cartActionsContainer: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -154,23 +167,6 @@ const styles = StyleSheet.create({
     marginTop: 10,
     borderBottomWidth: 1,
   },
-  decrementButton: {
-    backgroundColor: 'white',
-    borderColor: '#0786DAFD',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  incrementButton: {
-    backgroundColor: 'white',
-    borderColor: '#0786DAFD',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  cartActionText: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    color: '#0786DAFD',
-  },
   cartQuantity: {
     fontSize: 16,
     fontWeight: 'bold',
@@ -178,60 +174,62 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     width: 30,
   },
-
-  quantityButton: {
-    backgroundColor: '#fff',
-    borderColor: '#0786DAFD',
-    width: 25,
-    height: 25,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  quantityButtonText: {
-    fontSize: 20,
-    color: '#0786DAFD',
-  },
-
   deleteIcon: {
     width: 25,
     height: 25,
     resizeMode: 'contain',
     marginTop: 10,
   },
-  footer: {
+  paymentContainer: {
     padding: 20,
     backgroundColor: '#fff',
-    borderTopWidth: 1,
-    borderTopColor: '#e0e0e0',
-    alignItems: 'center',
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+    shadowColor: '#000',
+    shadowOpacity: 0.1,
+    shadowRadius: 10,
+    elevation: 5,
+    marginTop: 20,
   },
-  totalText: {
-    fontSize: 18,
+  paymentTitle: {
+    fontSize: 20,
     fontWeight: 'bold',
     color: '#333',
     marginBottom: 15,
   },
+  paymentDetails: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: 10,
+  },
+  totalLabel: {
+    fontSize: 16,
+    color: '#666',
+  },
+  totalAmount: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#333',
+  },
+  discountLabel: {
+    fontSize: 16,
+    color: '#666',
+  },
+  discountAmount: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#333',
+  },
   checkoutButton: {
     backgroundColor: '#0786DAFD',
     paddingVertical: 15,
-    paddingHorizontal: 100,
     borderRadius: 30,
+    marginTop: 20,
+    alignItems: 'center',
   },
   checkoutText: {
     fontSize: 16,
     fontWeight: 'bold',
     color: '#fff',
-  },
-  emptyText: {
-    textAlign: 'center',
-    fontSize: 16,
-    color: '#666',
-    marginTop: 20,
-  },
-
-  productActions: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
   },
 });
