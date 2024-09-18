@@ -54,14 +54,18 @@ const Home = () => {
     }
   }, [searchText, products]);
 
-  const getProducts = () => {
-    fetch('https://fakestoreapi.com/products')
-      .then(res => res.json())
-      .then(json => {
-        setProducts(json);
-        setFilteredProducts(json); // Set both products and filteredProducts initially
-        setLoading(false);
-      });
+  const getProducts = async () => {
+    try {
+      setLoading(true); // Start loading
+      const response = await fetch('https://fakestoreapi.com/products');
+      const data = await response.json();
+      setProducts(data);
+      setFilteredProducts(data); // Set both products and filteredProducts initially
+    } catch (error) {
+      console.error('Error fetching products:', error);
+    } finally {
+      setLoading(false); // Stop loading after the request is finished
+    }
   };
 
   const addToCartHandler = item => {
@@ -318,7 +322,7 @@ const styles = StyleSheet.create({
   searchContainer: {
     paddingHorizontal: 15,
     marginTop: 15,
-    marginBottom: 5,
+    marginBottom: 20,
   },
   searchBar: {
     backgroundColor: '#fff',
