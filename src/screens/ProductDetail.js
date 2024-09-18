@@ -26,8 +26,6 @@ const ProductDetail = () => {
   const wishListProducts = useTypedSelector(selectWishlistProducts);
   const {item} = route.params;
 
-  console.log('wishListProducts', wishListProducts);
-
   // State to toggle favorite icon
   const [isFavorited, setIsFavorited] = useState(false);
 
@@ -35,7 +33,6 @@ const ProductDetail = () => {
     const isProductInWishlist = wishListProducts.some(
       product => product.id === item.id,
     );
-    console.log('isProductInWishlist', isProductInWishlist);
     setIsFavorited(isProductInWishlist);
   }, [item.id, wishListProducts]);
 
