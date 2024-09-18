@@ -51,6 +51,11 @@ const productsSlice = createSlice({
         state.data = state.data.filter(product => product.id !== productId);
       }
     },
+
+    removeProduct(state, action) {
+      const productId = action.payload;
+      state.data = state.data.filter(product => product.id !== productId);
+    },
   },
 });
 
@@ -58,6 +63,7 @@ export const {
   setCartProducts,
   incrementProductQuantity,
   decrementProductQuantity,
+  removeProduct,
 } = productsSlice.actions;
 export default productsSlice.reducer;
 
