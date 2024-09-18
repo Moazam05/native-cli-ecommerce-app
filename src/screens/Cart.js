@@ -90,12 +90,16 @@ const Cart = () => {
       <View style={styles.paymentContainer}>
         <Text style={styles.paymentTitle}>Payment Details</Text>
         <View style={styles.paymentDetails}>
-          <Text style={styles.totalLabel}>Total:</Text>
+          <Text style={styles.totalLabel}>Sub Total:</Text>
           <Text style={styles.totalAmount}>${calculateTotal()}</Text>
         </View>
         <View style={styles.paymentDetails}>
           <Text style={styles.discountLabel}>Discount:</Text>
           <Text style={styles.discountAmount}>$0.00</Text>
+        </View>
+        <View style={styles.paymentDetails}>
+          <Text style={styles.totalLabel}>Total:</Text>
+          <Text style={styles.totalAmount}>${calculateTotal()}</Text>
         </View>
         <TouchableOpacity style={styles.checkoutButton} onPress={() => {}}>
           <Text style={styles.checkoutText}>Proceed to Checkout</Text>
@@ -203,20 +207,20 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   totalLabel: {
-    fontSize: 16,
+    fontSize: 14,
     color: '#666',
   },
   totalAmount: {
-    fontSize: 18,
+    fontSize: 14,
     fontWeight: 'bold',
     color: '#333',
   },
   discountLabel: {
-    fontSize: 16,
+    fontSize: 14,
     color: '#666',
   },
   discountAmount: {
-    fontSize: 18,
+    fontSize: 14,
     fontWeight: 'bold',
     color: '#333',
   },
