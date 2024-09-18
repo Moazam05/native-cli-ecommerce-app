@@ -13,7 +13,7 @@ import useTypedSelector from '../hooks/useTypedSelector';
 import {selectedProducts, removeProduct} from '../redux/products/productsSlice';
 import {useDispatch} from 'react-redux';
 import Header from '../components/Header';
-import {Back, CartIcon} from '../assets/images';
+import {Back, CartIcon, DeleteIcon} from '../assets/images';
 
 const Cart = () => {
   const navigation = useNavigation();
@@ -37,22 +37,13 @@ const Cart = () => {
       <View style={styles.productDetails}>
         <Text style={styles.productTitle}>{item.title}</Text>
         <View style={styles.productMeta}>
-          <View style={styles.colorIndicator}>
-            <View
-              style={{
-                ...styles.colorDot,
-                backgroundColor: item.color || '#ccc', // Color from item
-              }}
-            />
-            <Text style={styles.sizeText}>Size: {item.size}</Text>
-          </View>
           <Text style={styles.productPrice}>${item.price.toFixed(2)}</Text>
         </View>
       </View>
       <TouchableOpacity
         onPress={() => handleRemoveProduct(item.id)}
         style={styles.deleteButton}>
-        <Text style={styles.deleteText}>Remove</Text>
+        <Image style={styles.deleteIcon} source={DeleteIcon} />
       </TouchableOpacity>
     </View>
   );
@@ -112,6 +103,7 @@ const styles = StyleSheet.create({
     height: 60,
     borderRadius: 10,
     marginRight: 15,
+    resizeMode: 'contain',
   },
   productDetails: {
     flex: 1,
@@ -144,10 +136,15 @@ const styles = StyleSheet.create({
   productPrice: {
     fontSize: 16,
     fontWeight: 'bold',
-    color: '#333',
+    color: '#0786DAFD',
   },
   deleteButton: {
     padding: 10,
+  },
+  deleteIcon: {
+    width: 25,
+    height: 25,
+    resizeMode: 'contain',
   },
   deleteText: {
     color: '#0786DAFD',
