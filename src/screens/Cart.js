@@ -43,17 +43,22 @@ const Cart = () => {
         <View style={styles.productMeta}>
           <Text style={styles.productPrice}>${item.price.toFixed(2)}</Text>
         </View>
+
         <View style={styles.cartActionsContainer}>
           <TouchableOpacity
-            style={styles.quantityButton}
+            style={styles.decrementButton}
             onPress={() => dispatch(decrementProductQuantity(item.id))}>
-            <Text style={styles.quantityButtonText}>-</Text>
+            <Text style={styles.cartActionText}>-</Text>
           </TouchableOpacity>
+
           <Text style={styles.cartQuantity}>{item.quantity}</Text>
+
           <TouchableOpacity
-            style={styles.quantityButton}
+            style={styles.incrementButton}
             onPress={() => dispatch(incrementProductQuantity(item.id))}>
-            <Text style={styles.quantityButtonText}>+</Text>
+            <Text style={[styles.cartActionText, styles.textAlignRight]}>
+              +
+            </Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -144,14 +149,39 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    width: 130,
+    width: 150,
     borderColor: '#0786DAFD',
     borderWidth: 1,
     borderRadius: 25,
-    paddingVertical: 5,
-    paddingHorizontal: 10,
+    paddingVertical: 3,
+    paddingHorizontal: 15,
     marginTop: 10,
   },
+  decrementButton: {
+    backgroundColor: 'white',
+    borderColor: '#0786DAFD',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  incrementButton: {
+    backgroundColor: 'white',
+    borderColor: '#0786DAFD',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  cartActionText: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: '#0786DAFD',
+  },
+  cartQuantity: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: '#333',
+    paddingHorizontal: 10,
+    width: 30,
+  },
+
   quantityButton: {
     backgroundColor: '#fff',
     borderColor: '#0786DAFD',
@@ -164,12 +194,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     color: '#0786DAFD',
   },
-  cartQuantity: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    color: '#333',
-    paddingHorizontal: 10,
-  },
+
   deleteButton: {
     padding: 10,
   },
