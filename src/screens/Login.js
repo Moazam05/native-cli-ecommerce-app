@@ -55,7 +55,9 @@ const Login = () => {
               <View style={styles.formContainer}>
                 <View style={styles.inputContainer}>
                   <TextInput
-                    style={styles.input}
+                    style={StyleSheet.compose(styles.input, {
+                      marginBottom: errors.email ? 3 : 25,
+                    })}
                     placeholder="Email"
                     value={values.email}
                     onChangeText={handleChange('email')}
@@ -69,7 +71,9 @@ const Login = () => {
 
                 <View style={styles.passwordContainer}>
                   <TextInput
-                    style={styles.input}
+                    style={StyleSheet.compose(styles.input, {
+                      marginBottom: errors.email ? 3 : 25,
+                    })}
                     placeholder="Password"
                     value={values.password}
                     onChangeText={handleChange('password')}
@@ -135,7 +139,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
   },
   inputContainer: {
-    marginBottom: 15,
+    marginBottom: 5,
   },
   input: {
     height: 50,
@@ -163,7 +167,7 @@ const styles = StyleSheet.create({
     padding: 12,
     borderRadius: 8,
     alignItems: 'center',
-    marginTop: 20,
+    marginTop: 10,
   },
   buttonText: {
     color: '#ffffff',
@@ -181,7 +185,7 @@ const styles = StyleSheet.create({
   },
   errorText: {
     color: 'red',
-    fontSize: 14,
+    fontSize: 11,
     marginBottom: 10,
   },
 });

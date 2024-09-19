@@ -69,7 +69,9 @@ const Signup = () => {
           <>
             <View style={styles.inputContainer}>
               <TextInput
-                style={styles.input}
+                style={StyleSheet.compose(styles.input, {
+                  marginBottom: errors.email ? 3 : 25,
+                })}
                 placeholder="Name"
                 value={values.name}
                 onChangeText={handleChange('name')}
@@ -78,9 +80,13 @@ const Signup = () => {
               {touched.name && errors.name && (
                 <Text style={styles.errorText}>{errors.name}</Text>
               )}
+            </View>
 
+            <View style={styles.inputContainer}>
               <TextInput
-                style={styles.input}
+                style={StyleSheet.compose(styles.input, {
+                  marginBottom: errors.email ? 3 : 25,
+                })}
                 placeholder="Email"
                 value={values.email}
                 onChangeText={handleChange('email')}
@@ -90,9 +96,13 @@ const Signup = () => {
               {touched.email && errors.email && (
                 <Text style={styles.errorText}>{errors.email}</Text>
               )}
+            </View>
 
+            <View style={styles.inputContainer}>
               <TextInput
-                style={styles.input}
+                style={StyleSheet.compose(styles.input, {
+                  marginBottom: errors.email ? 3 : 25,
+                })}
                 placeholder="Mobile"
                 value={values.mobile}
                 onChangeText={handleChange('mobile')}
@@ -102,53 +112,59 @@ const Signup = () => {
               {touched.mobile && errors.mobile && (
                 <Text style={styles.errorText}>{errors.mobile}</Text>
               )}
-
-              <View style={styles.passwordContainer}>
-                <TextInput
-                  style={styles.input}
-                  placeholder="Password"
-                  value={values.password}
-                  onChangeText={handleChange('password')}
-                  onBlur={handleBlur('password')}
-                  secureTextEntry={!showPassword}
-                />
-                <TouchableOpacity
-                  style={styles.eyeIconContainer}
-                  onPress={() => setShowPassword(!showPassword)}>
-                  <Image
-                    source={showPassword ? OpenEye : HideEye}
-                    style={styles.eyeIcon}
-                  />
-                </TouchableOpacity>
-              </View>
-              {touched.password && errors.password && (
-                <Text style={styles.errorText}>{errors.password}</Text>
-              )}
-
-              <View style={styles.passwordContainer}>
-                <TextInput
-                  style={styles.input}
-                  placeholder="Confirm Password"
-                  value={values.confirmPassword}
-                  onChangeText={handleChange('confirmPassword')}
-                  onBlur={handleBlur('confirmPassword')}
-                  secureTextEntry={!showConfirmPassword}
-                />
-                <TouchableOpacity
-                  style={styles.eyeIconContainer}
-                  onPress={() => setShowConfirmPassword(!showConfirmPassword)}>
-                  <Image
-                    source={showConfirmPassword ? OpenEye : HideEye}
-                    style={styles.eyeIcon}
-                  />
-                </TouchableOpacity>
-              </View>
-              {touched.confirmPassword && errors.confirmPassword && (
-                <Text style={styles.errorText}>{errors.confirmPassword}</Text>
-              )}
             </View>
 
-            <TouchableOpacity style={styles.button} onPress={handleSubmit}>
+            <View style={styles.passwordContainer}>
+              <TextInput
+                style={StyleSheet.compose(styles.input, {
+                  marginBottom: errors.email ? 3 : 25,
+                })}
+                placeholder="Password"
+                value={values.password}
+                onChangeText={handleChange('password')}
+                onBlur={handleBlur('password')}
+                secureTextEntry={!showPassword}
+              />
+              <TouchableOpacity
+                style={styles.eyeIconContainer}
+                onPress={() => setShowPassword(!showPassword)}>
+                <Image
+                  source={showPassword ? OpenEye : HideEye}
+                  style={styles.eyeIcon}
+                />
+              </TouchableOpacity>
+            </View>
+            {touched.password && errors.password && (
+              <Text style={styles.errorText}>{errors.password}</Text>
+            )}
+
+            <View style={styles.passwordContainer}>
+              <TextInput
+                style={StyleSheet.compose(styles.input, {
+                  marginBottom: errors.email ? 3 : 25,
+                })}
+                placeholder="Confirm Password"
+                value={values.confirmPassword}
+                onChangeText={handleChange('confirmPassword')}
+                onBlur={handleBlur('confirmPassword')}
+                secureTextEntry={!showConfirmPassword}
+              />
+              <TouchableOpacity
+                style={styles.eyeIconContainer}
+                onPress={() => setShowConfirmPassword(!showConfirmPassword)}>
+                <Image
+                  source={showConfirmPassword ? OpenEye : HideEye}
+                  style={styles.eyeIcon}
+                />
+              </TouchableOpacity>
+            </View>
+            {touched.confirmPassword && errors.confirmPassword && (
+              <Text style={styles.errorText}>{errors.confirmPassword}</Text>
+            )}
+
+            <TouchableOpacity
+              style={styles.signupButton}
+              onPress={handleSubmit}>
               <Text style={styles.buttonText}>Sign Up</Text>
             </TouchableOpacity>
           </>
@@ -187,8 +203,9 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginBottom: 30,
   },
+
   inputContainer: {
-    marginBottom: 20,
+    marginBottom: 5,
   },
   input: {
     height: 50,
@@ -196,11 +213,12 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 8,
     paddingHorizontal: 15,
-    marginBottom: 15,
     backgroundColor: '#f9f9f9',
+    marginBottom: 5,
   },
   passwordContainer: {
     position: 'relative',
+    marginBottom: 5,
   },
   eyeIconContainer: {
     position: 'absolute',
@@ -224,6 +242,13 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
   },
+  signupButton: {
+    backgroundColor: '#0786DAFD',
+    padding: 12,
+    borderRadius: 8,
+    alignItems: 'center',
+    marginTop: 10,
+  },
   loginText: {
     textAlign: 'center',
     marginTop: 20,
@@ -235,7 +260,7 @@ const styles = StyleSheet.create({
   },
   errorText: {
     color: 'red',
-    fontSize: 14,
+    fontSize: 11,
     marginBottom: 10,
   },
 });
