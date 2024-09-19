@@ -45,6 +45,7 @@ const Signup = () => {
         password: values.password,
       });
       Alert.alert('Success', 'Account created successfully');
+      navigation.navigate('Login');
     } catch (error) {
       console.error('Error adding user: ', error);
     }
@@ -57,11 +58,11 @@ const Signup = () => {
 
       <Formik
         initialValues={{
-          name: 'Salman',
-          email: 'Salman@gmail.com',
-          mobile: '1234567891',
-          password: '123456',
-          confirmPassword: '123456',
+          name: '',
+          email: '',
+          mobile: '',
+          password: '',
+          confirmPassword: '',
         }}
         validationSchema={validationSchema}
         onSubmit={handleSignup}>
