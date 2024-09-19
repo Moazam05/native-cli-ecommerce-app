@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   ActivityIndicator,
   TextInput,
+  Alert,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
 import Header from '../../components/Header';
@@ -28,6 +29,8 @@ import {
   incrementProductQuantity,
   decrementProductQuantity,
 } from '../../redux/products/productsSlice';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import LoginModal from '../../components/LoginModal';
 
 const Home = () => {
   const navigation = useNavigation();
@@ -68,7 +71,17 @@ const Home = () => {
     }
   };
 
-  const addToCartHandler = item => {
+  const addToCartHandler = async item => {
+    const status = await AsyncStorage.getItem('IS_LOGGED_IN');
+
+    // console.log('status', status);
+
+    // if (status === null) {
+    //   Alert.alert('Please login to add products to cart');
+    // }
+
+    // return;
+
     const productInCart = cartProducts.find(product => product.id === item.id);
 
     if (productInCart) {
@@ -195,6 +208,9 @@ const Home = () => {
           />
         </>
       )}
+
+      {/* Modal */}
+      <LoginModal />
     </View>
   );
 };

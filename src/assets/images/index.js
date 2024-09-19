@@ -13,6 +13,7 @@ import WishlistIcon from './wishlist.png';
 import Star from './star.png';
 import ClearIcon from './clear.png';
 import DeleteIcon from './delete.png';
+import LoginImg from './login_modal.png';
 
 export {
   Back,
@@ -30,4 +31,5 @@ export {
   Star,
   ClearIcon,
   DeleteIcon,
+  LoginImg,
 };
