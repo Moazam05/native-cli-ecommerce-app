@@ -41,6 +41,7 @@ const Home = () => {
   const [loading, setLoading] = useState(true);
   const [searchText, setSearchText] = useState('');
   const [filteredProducts, setFilteredProducts] = useState([]);
+  const [isModalVisible, setIsModalVisible] = useState(true);
 
   useEffect(() => {
     getProducts();
@@ -210,7 +211,18 @@ const Home = () => {
       )}
 
       {/* Modal */}
-      <LoginModal />
+      <LoginModal
+        visible={isModalVisible}
+        onClose={() => setIsModalVisible(false)}
+        onLoginPress={() => {
+          setIsModalVisible(false);
+          navigation.navigate('Login');
+        }}
+        onSignupPress={() => {
+          setIsModalVisible(false);
+          navigation.navigate('Signup');
+        }}
+      />
     </View>
   );
 };
