@@ -59,7 +59,7 @@ const Signup = () => {
         initialValues={{
           name: 'Salman',
           email: 'Salman@gmail.com',
-          mobile: '12345678910',
+          mobile: '1234567891',
           password: '123456',
           confirmPassword: '123456',
         }}
