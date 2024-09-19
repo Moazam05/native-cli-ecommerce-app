@@ -14,6 +14,8 @@ import Star from './star.png';
 import ClearIcon from './clear.png';
 import DeleteIcon from './delete.png';
 import LoginImg from './login_modal.png';
+import OpenEye from './open-eye.png';
+import HideEye from './hide-eye.png';
 
 export {
   Back,
@@ -32,4 +34,6 @@ export {
   ClearIcon,
   DeleteIcon,
   LoginImg,
+  OpenEye,
+  HideEye,
 };
