@@ -31,10 +31,12 @@ const WishList = () => {
       <Image source={{uri: item.image}} style={styles.productImage} />
       <View style={styles.productInfo}>
         <Text style={styles.productTitle}>{item.title}</Text>
-        <Text style={styles.productPrice}>${item.price.toFixed(2)}</Text>
-        <TouchableOpacity onPress={() => removeFromWishlist(item)}>
-          <Image source={WishlistFill} style={styles.wishlistIcon} />
-        </TouchableOpacity>
+        <View style={styles.priceWrap}>
+          <Text style={styles.productPrice}>${item.price.toFixed(2)}</Text>
+          <TouchableOpacity onPress={() => removeFromWishlist(item)}>
+            <Image source={WishlistFill} style={styles.wishlistIcon} />
+          </TouchableOpacity>
+        </View>
       </View>
     </View>
   );
@@ -52,6 +54,8 @@ const WishList = () => {
         renderItem={renderItem}
         keyExtractor={item => item.id.toString()}
         contentContainerStyle={styles.listContainer}
+        tab
+        height
         ListEmptyComponent={
           <Text style={styles.emptyText}>No items in your wishlist</Text>
         }
@@ -69,6 +73,7 @@ const styles = StyleSheet.create({
   },
   listContainer: {
     padding: 20,
+    paddingBottom: 80,
   },
   productContainer: {
     flexDirection: 'row',
@@ -76,7 +81,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     borderRadius: 10,
     padding: 15,
-    marginBottom: 10,
+    marginBottom: 20,
     shadowColor: '#000',
     shadowOffset: {width: 0, height: 2},
     shadowOpacity: 0.1,
@@ -84,19 +89,25 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   productImage: {
-    width: 80,
-    height: 100,
+    width: 60,
+    height: 80,
     borderRadius: 10,
     marginRight: 15,
   },
   productInfo: {
     flex: 1,
   },
+  priceWrap: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
   productTitle: {
     fontSize: 16,
     fontWeight: 'bold',
     color: '#333',
     marginBottom: 5,
+    minHeight: 50,
   },
   productPrice: {
     fontSize: 14,
