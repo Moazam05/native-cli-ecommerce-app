@@ -1,7 +1,6 @@
-import {useNavigation} from '@react-navigation/native';
-import {Formik} from 'formik';
-import React from 'react';
+import React, {useState} from 'react';
 import {
+  ActivityIndicator,
   Alert,
   Dimensions,
   Image,
@@ -10,11 +9,14 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import {GestureHandlerRootView} from 'react-native-gesture-handler'; // Wrap this around the root component
 import {SafeAreaView} from 'react-native-safe-area-context';
+import {Formik} from 'formik';
 import * as Yup from 'yup';
+import {GestureHandlerRootView} from 'react-native-gesture-handler'; // Wrap this around the root component
 import {LoginImg} from '../assets/images';
 import TextField from '../components/TextField';
+import firestore from '@react-native-firebase/firestore';
+import {useNavigation} from '@react-navigation/native';
 
 // Validation Schema
 const validationSchema = Yup.object().shape({
@@ -25,10 +27,38 @@ const validationSchema = Yup.object().shape({
 });
 
 const Login = () => {
+  const [loading, setLoading] = useState(false);
   const navigation = useNavigation();
 
-  const handleSignin = values => {
-    Alert.alert('Success', 'Login successfully');
+  // Handle Sign-in function with async/await
+  const handleSignin = async values => {
+    setLoading(true);
+    try {
+      const querySnapshot = await firestore()
+        .collection('Users')
+        .where('email', '==', values.email) // Filter by email
+        .get();
+
+      if (querySnapshot.empty) {
+        Alert.alert('Error', 'User does not exist'); // User not found
+        setLoading(false);
+        return;
+      }
+
+      const userData = querySnapshot.docs[0].data(); // Get the first matching user
+
+      if (userData.password === values.password) {
+        Alert.alert('Success', 'Successfully signed in');
+        navigation.navigate('Main'); // Navigate to Main screen on successful login
+      } else {
+        Alert.alert('Error', 'Invalid credentials'); // Password does not match
+      }
+    } catch (error) {
+      console.error('Error signing in: ', error);
+      Alert.alert('Error', 'Something went wrong');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -72,9 +102,17 @@ const Login = () => {
 
                 <TouchableOpacity
                   style={styles.loginButton}
-                  onPress={handleSubmit}>
-                  <Text style={styles.buttonText}>Login</Text>
+                  onPress={handleSubmit}
+                  disabled={loading}>
+                  {loading ? (
+                    <Text style={styles.buttonText}>
+                      <ActivityIndicator color="#ffffff" />
+                    </Text>
+                  ) : (
+                    <Text style={styles.buttonText}>Login</Text>
+                  )}
                 </TouchableOpacity>
+
                 <Text style={styles.signupText}>
                   Don't have an account?{' '}
                   <Text
@@ -117,7 +155,6 @@ const styles = StyleSheet.create({
   formContainer: {
     paddingHorizontal: 20,
   },
-
   loginButton: {
     backgroundColor: '#0786DAFD',
     padding: 12,
