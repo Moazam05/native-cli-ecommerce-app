@@ -110,9 +110,9 @@ const styles = StyleSheet.create({
     minHeight: 50,
   },
   productPrice: {
-    fontSize: 14,
+    fontSize: 16,
+    fontWeight: '500',
     color: '#0786DAFD',
-    marginBottom: 10,
   },
   wishlistIcon: {
     width: 24,
