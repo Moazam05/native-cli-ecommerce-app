@@ -1,8 +1,14 @@
 import firestore from '@react-native-firebase/firestore';
 import {useNavigation} from '@react-navigation/native';
 import {Formik} from 'formik';
-import React from 'react';
-import {Alert, StyleSheet, Text, TouchableOpacity} from 'react-native';
+import React, {useState} from 'react';
+import {
+  ActivityIndicator,
+  Alert,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import * as Yup from 'yup';
 import TextField from '../components/TextField';
@@ -27,8 +33,11 @@ const validationSchema = Yup.object().shape({
 const Signup = () => {
   const navigation = useNavigation();
 
+  const [loading, setLoading] = useState(false);
+
   // Form submission logic
   const handleSignup = async values => {
+    setLoading(true);
     try {
       await firestore().collection('Users').add({
         name: values.name,
@@ -37,9 +46,12 @@ const Signup = () => {
         password: values.password,
       });
       Alert.alert('Success', 'Account created successfully');
+      setLoading(false);
       navigation.navigate('Login');
     } catch (error) {
       console.error('Error adding user: ', error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -110,7 +122,13 @@ const Signup = () => {
             <TouchableOpacity
               style={styles.signupButton}
               onPress={handleSubmit}>
-              <Text style={styles.buttonText}>Sign Up</Text>
+              {loading ? (
+                <Text style={styles.buttonText}>
+                  <ActivityIndicator color="#ffffff" />
+                </Text>
+              ) : (
+                <Text style={styles.buttonText}>Sign Up</Text>
+              )}
             </TouchableOpacity>
           </>
         )}
