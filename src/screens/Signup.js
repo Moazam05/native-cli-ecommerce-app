@@ -1,3 +1,4 @@
+import React, {useState} from 'react';
 import {
   View,
   Text,
@@ -7,29 +8,38 @@ import {
   Image,
   Alert,
 } from 'react-native';
-import React, {useState} from 'react';
 import {SafeAreaView} from 'react-native-safe-area-context';
+import {Formik} from 'formik';
+import * as Yup from 'yup';
 import {HideEye, OpenEye} from '../assets/images';
+import {useNavigation} from '@react-navigation/native';
 
 const Signup = () => {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [mobile, setMobile] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
+  const navigation = useNavigation();
+
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
-  const handleSignup = () => {
-    if (!name || !email || !mobile || !password || !confirmPassword) {
-      Alert.alert('Error', 'Please fill in all fields');
-      return;
-    }
-    if (password !== confirmPassword) {
-      Alert.alert('Error', 'Passwords do not match');
-      return;
-    }
-    // Proceed with signup logic
+  // Validation Schema
+  const validationSchema = Yup.object().shape({
+    name: Yup.string().required('Name is required'),
+    email: Yup.string()
+      .email('Invalid email address')
+      .required('Email is required'),
+    mobile: Yup.string()
+      .matches(/^\d{10}$/, 'Mobile number must be exactly 10 digits')
+      .required('Mobile number is required'),
+    password: Yup.string()
+      .min(6, 'Password must be at least 6 characters')
+      .required('Password is required'),
+    confirmPassword: Yup.string()
+      .oneOf([Yup.ref('password'), null], 'Passwords must match')
+      .required('Confirm Password is required'),
+  });
+
+  // Form submission logic
+  const handleSignup = values => {
+    // On success, you can proceed with your signup logic here
     Alert.alert('Success', 'Account created successfully');
   };
 
@@ -38,66 +48,120 @@ const Signup = () => {
       <Text style={styles.title}>Create Account</Text>
       <Text style={styles.subtitle}>Join us to get started!</Text>
 
-      <View style={styles.inputContainer}>
-        <TextInput
-          style={styles.input}
-          placeholder="Name"
-          value={name}
-          onChangeText={setName}
-        />
-        <TextInput
-          style={styles.input}
-          placeholder="Email"
-          value={email}
-          onChangeText={setEmail}
-          keyboardType="email-address"
-        />
-        <TextInput
-          style={styles.input}
-          placeholder="Mobile"
-          value={mobile}
-          onChangeText={setMobile}
-          keyboardType="phone-pad"
-        />
-        <View style={styles.passwordContainer}>
-          <TextInput
-            style={styles.input}
-            placeholder="Password"
-            value={password}
-            onChangeText={setPassword}
-            secureTextEntry={!showPassword}
-          />
-          <TouchableOpacity onPress={() => setShowPassword(!showPassword)}>
-            <Image
-              source={showPassword ? OpenEye : HideEye}
-              style={styles.eyeIcon}
-            />
-          </TouchableOpacity>
-        </View>
-        <View style={styles.passwordContainer}>
-          <TextInput
-            style={styles.input}
-            placeholder="Confirm Password"
-            value={confirmPassword}
-            onChangeText={setConfirmPassword}
-            secureTextEntry={!showConfirmPassword}
-          />
-          <TouchableOpacity
-            onPress={() => setShowConfirmPassword(!showConfirmPassword)}>
-            <Image
-              source={showConfirmPassword ? OpenEye : HideEye}
-              // style={styles.eyeIcon}
-            />
-          </TouchableOpacity>
-        </View>
-      </View>
+      <Formik
+        initialValues={{
+          name: '',
+          email: '',
+          mobile: '',
+          password: '',
+          confirmPassword: '',
+        }}
+        validationSchema={validationSchema}
+        onSubmit={handleSignup}>
+        {({
+          handleChange,
+          handleBlur,
+          handleSubmit,
+          values,
+          errors,
+          touched,
+        }) => (
+          <>
+            <View style={styles.inputContainer}>
+              <TextInput
+                style={styles.input}
+                placeholder="Name"
+                value={values.name}
+                onChangeText={handleChange('name')}
+                onBlur={handleBlur('name')}
+              />
+              {touched.name && errors.name && (
+                <Text style={styles.errorText}>{errors.name}</Text>
+              )}
 
-      <TouchableOpacity style={styles.button} onPress={handleSignup}>
-        <Text style={styles.buttonText}>Sign Up</Text>
-      </TouchableOpacity>
+              <TextInput
+                style={styles.input}
+                placeholder="Email"
+                value={values.email}
+                onChangeText={handleChange('email')}
+                onBlur={handleBlur('email')}
+                keyboardType="email-address"
+              />
+              {touched.email && errors.email && (
+                <Text style={styles.errorText}>{errors.email}</Text>
+              )}
+
+              <TextInput
+                style={styles.input}
+                placeholder="Mobile"
+                value={values.mobile}
+                onChangeText={handleChange('mobile')}
+                onBlur={handleBlur('mobile')}
+                keyboardType="phone-pad"
+              />
+              {touched.mobile && errors.mobile && (
+                <Text style={styles.errorText}>{errors.mobile}</Text>
+              )}
+
+              <View style={styles.passwordContainer}>
+                <TextInput
+                  style={styles.input}
+                  placeholder="Password"
+                  value={values.password}
+                  onChangeText={handleChange('password')}
+                  onBlur={handleBlur('password')}
+                  secureTextEntry={!showPassword}
+                />
+                <TouchableOpacity
+                  style={styles.eyeIconContainer}
+                  onPress={() => setShowPassword(!showPassword)}>
+                  <Image
+                    source={showPassword ? OpenEye : HideEye}
+                    style={styles.eyeIcon}
+                  />
+                </TouchableOpacity>
+              </View>
+              {touched.password && errors.password && (
+                <Text style={styles.errorText}>{errors.password}</Text>
+              )}
+
+              <View style={styles.passwordContainer}>
+                <TextInput
+                  style={styles.input}
+                  placeholder="Confirm Password"
+                  value={values.confirmPassword}
+                  onChangeText={handleChange('confirmPassword')}
+                  onBlur={handleBlur('confirmPassword')}
+                  secureTextEntry={!showConfirmPassword}
+                />
+                <TouchableOpacity
+                  style={styles.eyeIconContainer}
+                  onPress={() => setShowConfirmPassword(!showConfirmPassword)}>
+                  <Image
+                    source={showConfirmPassword ? OpenEye : HideEye}
+                    style={styles.eyeIcon}
+                  />
+                </TouchableOpacity>
+              </View>
+              {touched.confirmPassword && errors.confirmPassword && (
+                <Text style={styles.errorText}>{errors.confirmPassword}</Text>
+              )}
+            </View>
+
+            <TouchableOpacity style={styles.button} onPress={handleSubmit}>
+              <Text style={styles.buttonText}>Sign Up</Text>
+            </TouchableOpacity>
+          </>
+        )}
+      </Formik>
 
       <Text style={styles.loginText}>
-        Already have an account? <Text style={styles.loginLink}>Login</Text>
+        Already have an account?{' '}
+        <Text
+          style={styles.loginLink}
+          onPress={() => navigation.navigate('Login')}>
+          Login
+        </Text>
       </Text>
     </SafeAreaView>
   );
@@ -138,10 +202,12 @@ const styles = StyleSheet.create({
   passwordContainer: {
     position: 'relative',
   },
-  eyeIcon: {
+  eyeIconContainer: {
     position: 'absolute',
     right: 15,
     top: 13,
+  },
+  eyeIcon: {
     width: 20,
     height: 20,
     resizeMode: 'contain',
@@ -166,5 +232,10 @@ const styles = StyleSheet.create({
   loginLink: {
     color: '#007BFF',
     fontWeight: 'bold',
+  },
+  errorText: {
+    color: 'red',
+    fontSize: 14,
+    marginBottom: 10,
   },
 });
