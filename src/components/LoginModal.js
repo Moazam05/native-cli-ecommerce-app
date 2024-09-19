@@ -91,23 +91,20 @@ const styles = StyleSheet.create({
   buttonContainer: {
     flexDirection: 'column',
     width: '100%',
-    marginBottom: 20,
-    gap: 10,
+    marginBottom: 10,
     paddingHorizontal: 20,
   },
   button: {
-    backgroundColor: '#ead7c2',
+    backgroundColor: '#138ab2',
     borderRadius: 10,
     paddingVertical: 10,
-    paddingHorizontal: 20,
     alignItems: 'center',
-    flex: 1,
-    marginHorizontal: 5,
-    color: '#333',
+    marginBottom: 10,
   },
   buttonText: {
     fontSize: 16,
-    color: '#333',
+    color: '#fff',
+    fontWeight: '500',
   },
   footerText: {
     fontSize: 14,
