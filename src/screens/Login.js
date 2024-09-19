@@ -32,7 +32,7 @@ const Login = () => {
   };
 
   return (
-    <GestureHandlerRootView style={{flex: 1}}>
+    <GestureHandlerRootView style={styles.gestureHandle}>
       <SafeAreaView style={styles.container}>
         <Image source={LoginImg} style={styles.coverImage} />
         <Text style={styles.tagline}>
@@ -119,6 +119,9 @@ const Login = () => {
 export default Login;
 
 const styles = StyleSheet.create({
+  gestureHandle: {
+    flex: 1,
+  },
   container: {
     flex: 1,
     backgroundColor: '#f5f5f5',

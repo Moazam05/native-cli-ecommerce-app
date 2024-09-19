@@ -8,7 +8,6 @@ import {
   TouchableOpacity,
   ActivityIndicator,
   TextInput,
-  Alert,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
 import Header from '../../components/Header';
@@ -74,6 +73,7 @@ const Home = () => {
 
   const addToCartHandler = async item => {
     const status = await AsyncStorage.getItem('IS_LOGGED_IN');
+    console.log('status', status);
 
     // console.log('status', status);
 
