@@ -172,7 +172,7 @@ export default Signup;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#ffffff',
+    backgroundColor: '#f5f5f5',
     padding: 20,
   },
   title: {
@@ -213,8 +213,8 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
   },
   button: {
-    backgroundColor: '#007BFF',
-    padding: 15,
+    backgroundColor: '#0786DAFD',
+    padding: 12,
     borderRadius: 8,
     alignItems: 'center',
     marginTop: 10,
@@ -230,7 +230,7 @@ const styles = StyleSheet.create({
     color: '#555',
   },
   loginLink: {
-    color: '#007BFF',
+    color: '#0786DAFD',
     fontWeight: 'bold',
   },
   errorText: {
