@@ -22,8 +22,7 @@ const LoginModal = ({visible, onClose, onLoginPress, onSignupPress}) => {
           </TouchableOpacity>
           <Image source={LoginImg} style={styles.loginImage} />
           <Text style={styles.loginText}>
-            Please log in or create a new account before adding products to your
-            cart.
+            Join us for an amazing shopping experience!
           </Text>
           <View style={styles.buttonContainer}>
             <TouchableOpacity style={styles.button} onPress={onLoginPress}>
@@ -87,12 +86,14 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginBottom: 20,
     color: '#333',
+    paddingHorizontal: 20,
   },
   buttonContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    flexDirection: 'column',
     width: '100%',
     marginBottom: 20,
+    gap: 10,
+    paddingHorizontal: 20,
   },
   button: {
     backgroundColor: '#ead7c2',
@@ -102,6 +103,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flex: 1,
     marginHorizontal: 5,
+    color: '#333',
   },
   buttonText: {
     fontSize: 16,
