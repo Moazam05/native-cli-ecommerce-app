@@ -14,6 +14,7 @@ import * as Yup from 'yup';
 import {HideEye, OpenEye} from '../assets/images';
 import {useNavigation} from '@react-navigation/native';
 import firestore from '@react-native-firebase/firestore';
+import TextField from '../components/TextField';
 
 // Validation Schema
 const validationSchema = Yup.object().shape({
@@ -75,14 +76,14 @@ const Signup = () => {
           touched,
         }) => (
           <>
-            <InputField
+            <TextField
               placeholder="Name"
               value={values.name}
               onChangeText={handleChange('name')}
               onBlur={handleBlur('name')}
               error={touched.name && errors.name}
             />
-            <InputField
+            <TextField
               placeholder="Email"
               value={values.email}
               onChangeText={handleChange('email')}
@@ -90,7 +91,7 @@ const Signup = () => {
               keyboardType="email-address"
               error={touched.email && errors.email}
             />
-            <InputField
+            <TextField
               placeholder="Mobile"
               value={values.mobile}
               onChangeText={handleChange('mobile')}
@@ -98,19 +99,21 @@ const Signup = () => {
               keyboardType="phone-pad"
               error={touched.mobile && errors.mobile}
             />
-            <PasswordInputField
+            <TextField
               placeholder="Password"
               value={values.password}
               onChangeText={handleChange('password')}
               onBlur={handleBlur('password')}
               error={touched.password && errors.password}
+              password={true}
             />
-            <PasswordInputField
+            <TextField
               placeholder="Confirm Password"
               value={values.confirmPassword}
               onChangeText={handleChange('confirmPassword')}
               onBlur={handleBlur('confirmPassword')}
               error={touched.confirmPassword && errors.confirmPassword}
+              password={true}
             />
 
             <TouchableOpacity
@@ -134,61 +137,6 @@ const Signup = () => {
   );
 };
 
-// Reusable InputField Component
-const InputField = ({
-  placeholder,
-  value,
-  onChangeText,
-  onBlur,
-  error,
-  keyboardType = 'default',
-}) => (
-  <View style={styles.inputContainer}>
-    <TextInput
-      style={[styles.input, error ? styles.inputError : null]}
-      placeholder={placeholder}
-      value={value}
-      onChangeText={onChangeText}
-      onBlur={onBlur}
-      keyboardType={keyboardType}
-    />
-    {error && <Text style={styles.errorText}>{error}</Text>}
-  </View>
-);
-
-// Password Input Field with Eye Icon Toggle
-const PasswordInputField = ({
-  placeholder,
-  value,
-  onChangeText,
-  onBlur,
-  error,
-}) => {
-  const [showPassword, setShowPassword] = useState(false);
-
-  return (
-    <View style={styles.passwordContainer}>
-      <TextInput
-        style={[styles.input, error ? styles.inputError : null]}
-        placeholder={placeholder}
-        value={value}
-        onChangeText={onChangeText}
-        onBlur={onBlur}
-        secureTextEntry={!showPassword}
-      />
-      <TouchableOpacity
-        style={styles.eyeIconContainer}
-        onPress={() => setShowPassword(!showPassword)}>
-        <Image
-          source={showPassword ? OpenEye : HideEye}
-          style={styles.eyeIcon}
-        />
-      </TouchableOpacity>
-      {error && <Text style={styles.errorText}>{error}</Text>}
-    </View>
-  );
-};
-
 export default Signup;
 
 const styles = StyleSheet.create({
@@ -209,33 +157,13 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginBottom: 30,
   },
-  inputContainer: {
-    marginBottom: 15,
-  },
-  input: {
-    height: 50,
-    borderColor: '#ddd',
-    borderWidth: 1,
-    borderRadius: 8,
-    paddingHorizontal: 15,
-    backgroundColor: '#f9f9f9',
-  },
+
   inputError: {
     borderColor: 'red',
   },
   passwordContainer: {
     position: 'relative',
     marginBottom: 15,
-  },
-  eyeIconContainer: {
-    position: 'absolute',
-    right: 15,
-    top: 13,
-  },
-  eyeIcon: {
-    width: 20,
-    height: 20,
-    resizeMode: 'contain',
   },
   signupButton: {
     backgroundColor: '#0786DAFD',
