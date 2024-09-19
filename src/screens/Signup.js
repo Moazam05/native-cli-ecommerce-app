@@ -13,34 +13,41 @@ import {Formik} from 'formik';
 import * as Yup from 'yup';
 import {HideEye, OpenEye} from '../assets/images';
 import {useNavigation} from '@react-navigation/native';
+import firestore from '@react-native-firebase/firestore';
+
+// Validation Schema
+const validationSchema = Yup.object().shape({
+  name: Yup.string().required('Name is required'),
+  email: Yup.string()
+    .email('Invalid email address')
+    .required('Email is required'),
+  mobile: Yup.string()
+    .matches(/^\d{10}$/, 'Mobile number must be exactly 10 digits')
+    .required('Mobile number is required'),
+  password: Yup.string()
+    .min(6, 'Password must be at least 6 characters')
+    .required('Password is required'),
+  confirmPassword: Yup.string()
+    .oneOf([Yup.ref('password'), null], 'Passwords must match')
+    .required('Confirm Password is required'),
+});
 
 const Signup = () => {
   const navigation = useNavigation();
 
-  const [showPassword, setShowPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-
-  // Validation Schema
-  const validationSchema = Yup.object().shape({
-    name: Yup.string().required('Name is required'),
-    email: Yup.string()
-      .email('Invalid email address')
-      .required('Email is required'),
-    mobile: Yup.string()
-      .matches(/^\d{10}$/, 'Mobile number must be exactly 10 digits')
-      .required('Mobile number is required'),
-    password: Yup.string()
-      .min(6, 'Password must be at least 6 characters')
-      .required('Password is required'),
-    confirmPassword: Yup.string()
-      .oneOf([Yup.ref('password'), null], 'Passwords must match')
-      .required('Confirm Password is required'),
-  });
-
   // Form submission logic
-  const handleSignup = values => {
-    // On success, you can proceed with your signup logic here
-    Alert.alert('Success', 'Account created successfully');
+  const handleSignup = async values => {
+    try {
+      await firestore().collection('Users').add({
+        name: values.name,
+        email: values.email,
+        mobile: values.mobile,
+        password: values.password,
+      });
+      Alert.alert('Success', 'Account created successfully');
+    } catch (error) {
+      console.error('Error adding user: ', error);
+    }
   };
 
   return (
@@ -50,11 +57,11 @@ const Signup = () => {
 
       <Formik
         initialValues={{
-          name: '',
-          email: '',
-          mobile: '',
-          password: '',
-          confirmPassword: '',
+          name: 'Salman',
+          email: 'Salman@gmail.com',
+          mobile: '12345678910',
+          password: '123456',
+          confirmPassword: '123456',
         }}
         validationSchema={validationSchema}
         onSubmit={handleSignup}>
@@ -67,100 +74,43 @@ const Signup = () => {
           touched,
         }) => (
           <>
-            <View style={styles.inputContainer}>
-              <TextInput
-                style={StyleSheet.compose(styles.input, {
-                  marginBottom: errors.email ? 3 : 25,
-                })}
-                placeholder="Name"
-                value={values.name}
-                onChangeText={handleChange('name')}
-                onBlur={handleBlur('name')}
-              />
-              {touched.name && errors.name && (
-                <Text style={styles.errorText}>{errors.name}</Text>
-              )}
-            </View>
-
-            <View style={styles.inputContainer}>
-              <TextInput
-                style={StyleSheet.compose(styles.input, {
-                  marginBottom: errors.email ? 3 : 25,
-                })}
-                placeholder="Email"
-                value={values.email}
-                onChangeText={handleChange('email')}
-                onBlur={handleBlur('email')}
-                keyboardType="email-address"
-              />
-              {touched.email && errors.email && (
-                <Text style={styles.errorText}>{errors.email}</Text>
-              )}
-            </View>
-
-            <View style={styles.inputContainer}>
-              <TextInput
-                style={StyleSheet.compose(styles.input, {
-                  marginBottom: errors.email ? 3 : 25,
-                })}
-                placeholder="Mobile"
-                value={values.mobile}
-                onChangeText={handleChange('mobile')}
-                onBlur={handleBlur('mobile')}
-                keyboardType="phone-pad"
-              />
-              {touched.mobile && errors.mobile && (
-                <Text style={styles.errorText}>{errors.mobile}</Text>
-              )}
-            </View>
-
-            <View style={styles.passwordContainer}>
-              <TextInput
-                style={StyleSheet.compose(styles.input, {
-                  marginBottom: errors.email ? 3 : 25,
-                })}
-                placeholder="Password"
-                value={values.password}
-                onChangeText={handleChange('password')}
-                onBlur={handleBlur('password')}
-                secureTextEntry={!showPassword}
-              />
-              <TouchableOpacity
-                style={styles.eyeIconContainer}
-                onPress={() => setShowPassword(!showPassword)}>
-                <Image
-                  source={showPassword ? OpenEye : HideEye}
-                  style={styles.eyeIcon}
-                />
-              </TouchableOpacity>
-            </View>
-            {touched.password && errors.password && (
-              <Text style={styles.errorText}>{errors.password}</Text>
-            )}
-
-            <View style={styles.passwordContainer}>
-              <TextInput
-                style={StyleSheet.compose(styles.input, {
-                  marginBottom: errors.email ? 3 : 25,
-                })}
-                placeholder="Confirm Password"
-                value={values.confirmPassword}
-                onChangeText={handleChange('confirmPassword')}
-                onBlur={handleBlur('confirmPassword')}
-                secureTextEntry={!showConfirmPassword}
-              />
-              <TouchableOpacity
-                style={styles.eyeIconContainer}
-                onPress={() => setShowConfirmPassword(!showConfirmPassword)}>
-                <Image
-                  source={showConfirmPassword ? OpenEye : HideEye}
-                  style={styles.eyeIcon}
-                />
-              </TouchableOpacity>
-            </View>
-            {touched.confirmPassword && errors.confirmPassword && (
-              <Text style={styles.errorText}>{errors.confirmPassword}</Text>
-            )}
+            <InputField
+              placeholder="Name"
+              value={values.name}
+              onChangeText={handleChange('name')}
+              onBlur={handleBlur('name')}
+              error={touched.name && errors.name}
+            />
+            <InputField
+              placeholder="Email"
+              value={values.email}
+              onChangeText={handleChange('email')}
+              onBlur={handleBlur('email')}
+              keyboardType="email-address"
+              error={touched.email && errors.email}
+            />
+            <InputField
+              placeholder="Mobile"
+              value={values.mobile}
+              onChangeText={handleChange('mobile')}
+              onBlur={handleBlur('mobile')}
+              keyboardType="phone-pad"
+              error={touched.mobile && errors.mobile}
+            />
+            <PasswordInputField
+              placeholder="Password"
+              value={values.password}
+              onChangeText={handleChange('password')}
+              onBlur={handleBlur('password')}
+              error={touched.password && errors.password}
+            />
+            <PasswordInputField
+              placeholder="Confirm Password"
+              value={values.confirmPassword}
+              onChangeText={handleChange('confirmPassword')}
+              onBlur={handleBlur('confirmPassword')}
+              error={touched.confirmPassword && errors.confirmPassword}
+            />
 
             <TouchableOpacity
               style={styles.signupButton}
@@ -180,6 +130,61 @@ const Signup = () => {
         </Text>
       </Text>
     </SafeAreaView>
+  );
+};
+
+// Reusable InputField Component
+const InputField = ({
+  placeholder,
+  value,
+  onChangeText,
+  onBlur,
+  error,
+  keyboardType = 'default',
+}) => (
+  <View style={styles.inputContainer}>
+    <TextInput
+      style={[styles.input, error ? styles.inputError : null]}
+      placeholder={placeholder}
+      value={value}
+      onChangeText={onChangeText}
+      onBlur={onBlur}
+      keyboardType={keyboardType}
+    />
+    {error && <Text style={styles.errorText}>{error}</Text>}
+  </View>
+);
+
+// Password Input Field with Eye Icon Toggle
+const PasswordInputField = ({
+  placeholder,
+  value,
+  onChangeText,
+  onBlur,
+  error,
+}) => {
+  const [showPassword, setShowPassword] = useState(false);
+
+  return (
+    <View style={styles.passwordContainer}>
+      <TextInput
+        style={[styles.input, error ? styles.inputError : null]}
+        placeholder={placeholder}
+        value={value}
+        onChangeText={onChangeText}
+        onBlur={onBlur}
+        secureTextEntry={!showPassword}
+      />
+      <TouchableOpacity
+        style={styles.eyeIconContainer}
+        onPress={() => setShowPassword(!showPassword)}>
+        <Image
+          source={showPassword ? OpenEye : HideEye}
+          style={styles.eyeIcon}
+        />
+      </TouchableOpacity>
+      {error && <Text style={styles.errorText}>{error}</Text>}
+    </View>
   );
 };
 
@@ -203,9 +208,8 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginBottom: 30,
   },
-
   inputContainer: {
-    marginBottom: 5,
+    marginBottom: 15,
   },
   input: {
     height: 50,
@@ -214,11 +218,13 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     paddingHorizontal: 15,
     backgroundColor: '#f9f9f9',
-    marginBottom: 5,
+  },
+  inputError: {
+    borderColor: 'red',
   },
   passwordContainer: {
     position: 'relative',
-    marginBottom: 5,
+    marginBottom: 15,
   },
   eyeIconContainer: {
     position: 'absolute',
@@ -230,7 +236,7 @@ const styles = StyleSheet.create({
     height: 20,
     resizeMode: 'contain',
   },
-  button: {
+  signupButton: {
     backgroundColor: '#0786DAFD',
     padding: 12,
     borderRadius: 8,
@@ -241,13 +247,6 @@ const styles = StyleSheet.create({
     color: '#ffffff',
     fontSize: 18,
     fontWeight: 'bold',
-  },
-  signupButton: {
-    backgroundColor: '#0786DAFD',
-    padding: 12,
-    borderRadius: 8,
-    alignItems: 'center',
-    marginTop: 10,
   },
   loginText: {
     textAlign: 'center',
@@ -261,6 +260,6 @@ const styles = StyleSheet.create({
   errorText: {
     color: 'red',
     fontSize: 11,
-    marginBottom: 10,
+    marginTop: 3,
   },
 });
