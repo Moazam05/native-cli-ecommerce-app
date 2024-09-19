@@ -14,6 +14,7 @@ import {Formik} from 'formik';
 import * as Yup from 'yup';
 import {HideEye, LoginImg, OpenEye} from '../assets/images';
 import {useNavigation} from '@react-navigation/native';
+import TextField from '../components/TextField';
 
 // Validation Schema
 const validationSchema = Yup.object().shape({
@@ -53,52 +54,28 @@ const Login = () => {
           }) => (
             <>
               <View style={styles.formContainer}>
-                <View style={styles.inputContainer}>
-                  <TextInput
-                    style={StyleSheet.compose(styles.input, {
-                      marginBottom: errors.email ? 3 : 25,
-                    })}
-                    placeholder="Email"
-                    value={values.email}
-                    onChangeText={handleChange('email')}
-                    onBlur={handleBlur('email')}
-                    keyboardType="email-address"
-                  />
-                  {touched.email && errors.email && (
-                    <Text style={styles.errorText}>{errors.email}</Text>
-                  )}
-                </View>
-
-                <View style={styles.passwordContainer}>
-                  <TextInput
-                    style={StyleSheet.compose(styles.input, {
-                      marginBottom: errors.email ? 3 : 25,
-                    })}
-                    placeholder="Password"
-                    value={values.password}
-                    onChangeText={handleChange('password')}
-                    onBlur={handleBlur('password')}
-                    secureTextEntry={!showPassword}
-                  />
-                  <TouchableOpacity
-                    style={styles.eyeIconContainer}
-                    onPress={() => setShowPassword(!showPassword)}>
-                    <Image
-                      source={showPassword ? OpenEye : HideEye}
-                      style={styles.eyeIcon}
-                    />
-                  </TouchableOpacity>
-                </View>
-                {touched.password && errors.password && (
-                  <Text style={styles.errorText}>{errors.password}</Text>
-                )}
+                <TextField
+                  placeholder="Email"
+                  value={values.email}
+                  onChangeText={handleChange('email')}
+                  onBlur={handleBlur('email')}
+                  keyboardType="email-address"
+                  error={touched.email && errors.email}
+                />
+                <TextField
+                  placeholder="Password"
+                  value={values.password}
+                  onChangeText={handleChange('password')}
+                  onBlur={handleBlur('password')}
+                  error={touched.password && errors.password}
+                  password={true}
+                />
 
                 <TouchableOpacity
                   style={styles.loginButton}
                   onPress={handleSubmit}>
                   <Text style={styles.buttonText}>Login</Text>
                 </TouchableOpacity>
-
                 <Text style={styles.signupText}>
                   Don't have an account?{' '}
                   <Text
@@ -141,30 +118,7 @@ const styles = StyleSheet.create({
   formContainer: {
     paddingHorizontal: 20,
   },
-  inputContainer: {
-    marginBottom: 5,
-  },
-  input: {
-    height: 50,
-    borderColor: '#ddd',
-    borderWidth: 1,
-    borderRadius: 8,
-    paddingHorizontal: 15,
-    backgroundColor: '#f9f9f9',
-  },
-  passwordContainer: {
-    position: 'relative',
-  },
-  eyeIconContainer: {
-    position: 'absolute',
-    right: 15,
-    top: 13,
-  },
-  eyeIcon: {
-    width: 20,
-    height: 20,
-    resizeMode: 'contain',
-  },
+
   loginButton: {
     backgroundColor: '#0786DAFD',
     padding: 12,
@@ -185,10 +139,5 @@ const styles = StyleSheet.create({
   signupLink: {
     color: '#0786DAFD',
     fontWeight: 'bold',
-  },
-  errorText: {
-    color: 'red',
-    fontSize: 11,
-    marginBottom: 10,
   },
 });
