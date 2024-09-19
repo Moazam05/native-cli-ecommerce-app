@@ -234,6 +234,8 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     flexDirection: 'row',
     alignItems: 'center',
+    width: '100%',
+    justifyContent: 'space-evenly',
   },
   quantityButton: {
     alignItems: 'center',
@@ -245,6 +247,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     color: '#0786DAFD',
     fontWeight: 'bold',
+    width: 100,
     textAlign: 'center',
   },
   cartQuantity: {
