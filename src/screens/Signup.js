@@ -1,19 +1,10 @@
-import React, {useState} from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  TextInput,
-  TouchableOpacity,
-  Image,
-  Alert,
-} from 'react-native';
-import {SafeAreaView} from 'react-native-safe-area-context';
-import {Formik} from 'formik';
-import * as Yup from 'yup';
-import {HideEye, OpenEye} from '../assets/images';
-import {useNavigation} from '@react-navigation/native';
 import firestore from '@react-native-firebase/firestore';
+import {useNavigation} from '@react-navigation/native';
+import {Formik} from 'formik';
+import React from 'react';
+import {Alert, StyleSheet, Text, TouchableOpacity} from 'react-native';
+import {SafeAreaView} from 'react-native-safe-area-context';
+import * as Yup from 'yup';
 import TextField from '../components/TextField';
 
 // Validation Schema

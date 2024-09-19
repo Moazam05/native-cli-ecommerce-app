@@ -1,19 +1,19 @@
-import React, {useState} from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  Image,
-  Alert,
-  TouchableOpacity,
-  Dimensions,
-} from 'react-native';
-import {SafeAreaView} from 'react-native-safe-area-context';
-import {GestureHandlerRootView, TextInput} from 'react-native-gesture-handler'; // Wrap this around the root component
-import {Formik} from 'formik';
-import * as Yup from 'yup';
-import {HideEye, LoginImg, OpenEye} from '../assets/images';
 import {useNavigation} from '@react-navigation/native';
+import {Formik} from 'formik';
+import React from 'react';
+import {
+  Alert,
+  Dimensions,
+  Image,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
+import {GestureHandlerRootView} from 'react-native-gesture-handler'; // Wrap this around the root component
+import {SafeAreaView} from 'react-native-safe-area-context';
+import * as Yup from 'yup';
+import {LoginImg} from '../assets/images';
 import TextField from '../components/TextField';
 
 // Validation Schema
@@ -26,7 +26,6 @@ const validationSchema = Yup.object().shape({
 
 const Login = () => {
   const navigation = useNavigation();
-  const [showPassword, setShowPassword] = useState(false);
 
   const handleSignin = values => {
     Alert.alert('Success', 'Login successfully');
