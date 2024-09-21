@@ -6,11 +6,25 @@ import {selectedUser} from '../../redux/auth/authSlice';
 
 const Profile = () => {
   const loginUser = useTypedSelector(selectedUser);
-  console.log('loginUser', loginUser);
+  const firstLetter = loginUser?.name?.charAt(0)?.toUpperCase();
 
   return (
     <View style={styles.container}>
       <Header title="Profile" />
+      <View style={styles.profileContainer}>
+        <View style={styles.avatar}>
+          <Text style={styles.avatarText}>{firstLetter}</Text>
+        </View>
+
+        <Text style={styles.userName}>{loginUser?.name}</Text>
+
+        <View style={styles.card}>
+          <Text style={styles.textLabel}>Edit Profile</Text>
+          <Text style={styles.textLabel}>Orders</Text>
+          <Text style={styles.textLabel}>Address</Text>
+          <Text style={styles.textLabel}>Logout</Text>
+        </View>
+      </View>
     </View>
   );
 };
@@ -21,5 +35,47 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#f5f5f5',
+  },
+  profileContainer: {
+    flex: 1,
+    alignItems: 'center',
+    marginTop: 50,
+  },
+
+  avatar: {
+    width: 50,
+    height: 50,
+    borderRadius: 50,
+    backgroundColor: '#A0522D',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 10,
+  },
+  avatarText: {
+    fontSize: 20,
+    color: '#fff',
+  },
+
+  userName: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginBottom: 10,
+  },
+  card: {
+    width: '80%',
+    backgroundColor: '#fff',
+    padding: 15,
+    borderRadius: 10,
+    shadowColor: '#000',
+    shadowOpacity: 0.1,
+    shadowRadius: 10,
+    elevation: 3,
+    marginTop: 30,
+  },
+  textLabel: {
+    fontSize: 16,
+    padding: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: '#f5f5f5',
   },
 });
