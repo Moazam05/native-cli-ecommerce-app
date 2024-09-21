@@ -17,12 +17,12 @@ import {
   UserIcon,
   WishlistFill,
   WishlistIcon,
-} from '../assets/images';
-import Home from './tabs/Home';
-import Notification from './tabs/Notification';
-import Search from './tabs/Search';
-import User from './tabs/User';
-import Wishlist from './tabs/WishList';
+} from '../../assets/images';
+import Home from '../tabs/Home';
+import Notification from '../tabs/Notification';
+import Search from '../tabs/Search';
+import User from '../tabs/User';
+import Wishlist from '../tabs/WishList';
 
 const HomeScreen = () => {
   const [selectedTab, setSelectedTab] = useState(0);
