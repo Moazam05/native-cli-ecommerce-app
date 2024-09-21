@@ -3,10 +3,10 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {NavigationContainer} from '@react-navigation/native';
 import Main from './screens/Main';
 import ProductDetail from './screens/ProductDetail';
-import Cart from './screens/Cart';
+import Cart from './screens/Cart/Cart';
 import Login from './screens/Login';
 import Signup from './screens/Signup';
-import Checkout from './screens/Checkout';
+import Checkout from './screens/Cart/Checkout';
 import AddressList from './screens/Address/AddressList';
 import CreateAddress from './screens/Address/CreateAddress';
 

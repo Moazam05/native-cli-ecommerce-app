@@ -9,16 +9,16 @@ import {
 } from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {useNavigation} from '@react-navigation/native';
-import useTypedSelector from '../hooks/useTypedSelector';
+import useTypedSelector from '../../hooks/useTypedSelector';
 import {
   selectedProducts,
   removeProduct,
   incrementProductQuantity,
   decrementProductQuantity,
-} from '../redux/products/productsSlice';
+} from '../../redux/products/productsSlice';
 import {useDispatch} from 'react-redux';
-import Header from '../components/Header';
-import {Back, CartIcon, DeleteIcon} from '../assets/images';
+import Header from '../../components/Header';
+import {Back, CartIcon, DeleteIcon} from '../../assets/images';
 
 const Cart = () => {
   const navigation = useNavigation();
