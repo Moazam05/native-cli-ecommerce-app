@@ -25,7 +25,7 @@ const validationSchema = Yup.object().shape({
   city: Yup.string().required('City is required'),
   postalCode: Yup.string().required('Postal Code is required'),
   address: Yup.string().required('Address is required'),
-  addressType: Yup.string().required('Address type is required'), // New validation
+  addressType: Yup.string(),
 });
 
 const CreateAddress = () => {
@@ -33,6 +33,8 @@ const CreateAddress = () => {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
   const [isHome, setIsHome] = useState(true); // State to manage toggle
+
+  console.log('isHome', isHome);
 
   const handleSave = values => {
     const newAddress = {
