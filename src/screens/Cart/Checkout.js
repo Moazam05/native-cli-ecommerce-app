@@ -106,14 +106,25 @@ const Checkout = () => {
               <View style={styles.paymentDetails}>
                 <Text style={styles.totalLabel}>Default Address</Text>
                 <Text
-                  style={[
-                    styles.totalAmount,
-                    {textDecorationLine: 'underline'},
-                  ]}
+                  style={StyleSheet.compose(styles.totalAmount, {
+                    textDecorationLine: 'underline',
+                    color: '#0786DAFD',
+                    fontWeight: 'normal',
+                  })}
                   onPress={() => navigation.navigate('AddressList')}>
                   Edit Address
                 </Text>
               </View>
+
+              <View style={styles.addressType}>
+                <Text style={styles.totalLabel}>Address Type:</Text>
+                <Text style={styles.addressChip}>{address.addressType}</Text>
+              </View>
+
+              <Text style={styles.cardText}>{address.address}</Text>
+              <Text style={styles.cardText}>
+                {address.city}, {address.state} {address.postal}
+              </Text>
             </View>
 
             <View style={styles.paymentContainer}>
@@ -261,6 +272,19 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: 'bold',
     color: '#333',
+  },
+  addressType: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 10,
+    justifyContent: 'space-between',
+  },
+  addressChip: {
+    backgroundColor: '#44b678',
+    color: '#fff',
+    padding: 5,
+    paddingHorizontal: 20,
+    borderRadius: 5,
   },
   discountLabel: {
     fontSize: 14,
