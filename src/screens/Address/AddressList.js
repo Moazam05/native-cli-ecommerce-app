@@ -13,7 +13,11 @@ import Header from '../../components/Header';
 import {useNavigation} from '@react-navigation/native';
 import {AddIcon, Back, DeleteIcon, EditIcon} from '../../assets/images';
 import useTypedSelector from '../../hooks/useTypedSelector';
-import {selectAddress, deleteAddress} from '../../redux/address/addressSlice';
+import {
+  selectAddress,
+  deleteAddress,
+  setDefaultAddress,
+} from '../../redux/address/addressSlice';
 import {useDispatch} from 'react-redux';
 
 const AddressList = () => {
@@ -40,8 +44,12 @@ const AddressList = () => {
     );
   };
 
+  const handleSetDefault = id => {
+    dispatch(setDefaultAddress(id));
+  };
+
   const renderItem = ({item}) => (
-    <View style={styles.card}>
+    <View style={[styles.card, item.isDefault && styles.defaultCard]}>
       <Text style={styles.cardTitle}>
         {item.addressType ? item.addressType : 'Home'}
       </Text>
@@ -62,6 +70,11 @@ const AddressList = () => {
               },
             ]}
           />
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.defaultButton}
+          onPress={() => handleSetDefault(item.id)}>
+          <Text style={styles.buttonText}>Set as Default</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.deleteButton}
@@ -118,6 +131,10 @@ const styles = StyleSheet.create({
     shadowOffset: {width: 0, height: 2},
     margin: 20,
   },
+  defaultCard: {
+    borderColor: '#44b678',
+    borderWidth: 2,
+  },
   cardTitle: {
     fontSize: 18,
     fontWeight: 'bold',
@@ -137,6 +154,13 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: '#4caf50',
+    padding: 8,
+    borderRadius: 5,
+  },
+  defaultButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#0786DAFD',
     padding: 8,
     borderRadius: 5,
   },
