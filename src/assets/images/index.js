@@ -17,6 +17,7 @@ import LoginImg from './login_modal.png';
 import OpenEye from './open-eye.png';
 import HideEye from './hide-eye.png';
 import AddIcon from './plus.png';
+import EditIcon from './edit.png';
 
 export {
   Back,
@@ -38,4 +39,5 @@ export {
   OpenEye,
   HideEye,
   AddIcon,
+  EditIcon,
 };

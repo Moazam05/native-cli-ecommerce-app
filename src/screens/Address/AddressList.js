@@ -3,11 +3,13 @@ import React from 'react';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import Header from '../../components/Header';
 import {useNavigation} from '@react-navigation/native';
-import {AddIcon, Back} from '../../assets/images';
+import {AddIcon, Back, DeleteIcon, EditIcon} from '../../assets/images';
 import useTypedSelector from '../../hooks/useTypedSelector';
-import {selectAddress} from '../../redux/address/addressSlice';
+import {selectAddress, deleteAddress} from '../../redux/address/addressSlice';
+import {useDispatch} from 'react-redux';
 
 const AddressList = () => {
+  const dispatch = useDispatch();
   const navigation = useNavigation();
   const addressList = useTypedSelector(selectAddress);
 
@@ -20,6 +22,8 @@ const AddressList = () => {
         title="Addresses"
         leftClick={() => navigation.goBack()}
       />
+
+      <View></View>
 
       <TouchableOpacity
         style={styles.addButton}
