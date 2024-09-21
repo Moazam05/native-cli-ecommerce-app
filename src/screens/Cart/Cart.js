@@ -29,12 +29,6 @@ const Cart = () => {
     dispatch(removeProduct(id));
   };
 
-  const calculateTotal = () => {
-    return cartProducts
-      .reduce((total, product) => total + product.price * product.quantity, 0)
-      .toFixed(2);
-  };
-
   const renderItem = ({item}) => (
     <View style={styles.productContainer}>
       <Image source={{uri: item.image}} style={styles.productImage} />
