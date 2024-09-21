@@ -16,8 +16,8 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import {Formik} from 'formik';
 import * as Yup from 'yup';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
-import {LoginImg} from '../assets/images';
-import TextField from '../components/TextField';
+import {LoginImg} from '../../assets/images';
+import TextField from '../../components/TextField';
 import firestore from '@react-native-firebase/firestore';
 import {useNavigation} from '@react-navigation/native';
 

@@ -14,7 +14,7 @@ import {
   SafeAreaView,
 } from 'react-native';
 import * as Yup from 'yup';
-import TextField from '../components/TextField';
+import TextField from '../../components/TextField';
 
 // Validation Schema
 const validationSchema = Yup.object().shape({
