@@ -25,13 +25,14 @@ const validationSchema = Yup.object().shape({
   city: Yup.string().required('City is required'),
   postalCode: Yup.string().required('Postal Code is required'),
   address: Yup.string().required('Address is required'),
+  addressType: Yup.string().required('Address type is required'), // New validation
 });
 
 const CreateAddress = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
-
   const [loading, setLoading] = useState(false);
+  const [isHome, setIsHome] = useState(true); // State to manage toggle
 
   const handleSave = values => {
     const newAddress = {
@@ -40,6 +41,7 @@ const CreateAddress = () => {
       city: values.city,
       postal: values.postalCode,
       address: values.address,
+      addressType: isHome ? 'Home' : 'Office', // Use toggle state
     };
 
     dispatch(addAddress(newAddress));
@@ -72,7 +74,7 @@ const CreateAddress = () => {
               <View style={styles.formContainer}>
                 <TextField
                   placeholder="State"
-                  value={values.state} // Corrected here
+                  value={values.state}
                   onChangeText={handleChange('state')}
                   onBlur={handleBlur('state')}
                   error={touched.state && errors.state}
@@ -104,6 +106,38 @@ const CreateAddress = () => {
                   multiline
                   numberOfLines={4}
                 />
+
+                {/* Toggle Switch for Address Type */}
+                <View style={styles.toggleContainer}>
+                  <TouchableOpacity
+                    style={[styles.toggleButton, isHome && styles.activeToggle]}
+                    onPress={() => setIsHome(true)}>
+                    <Text
+                      style={[
+                        styles.toggleText,
+                        isHome && styles.activeToggleText,
+                      ]}>
+                      Home
+                    </Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    style={[
+                      styles.toggleButton,
+                      !isHome && styles.activeToggle,
+                    ]}
+                    onPress={() => setIsHome(false)}>
+                    <Text
+                      style={[
+                        styles.toggleText,
+                        !isHome && styles.activeToggleText,
+                      ]}>
+                      Office
+                    </Text>
+                  </TouchableOpacity>
+                </View>
+                {touched.addressType && errors.addressType && (
+                  <Text style={styles.errorText}>{errors.addressType}</Text>
+                )}
 
                 <TouchableOpacity
                   style={styles.saveButton}
@@ -140,14 +174,29 @@ const styles = StyleSheet.create({
   formContainer: {
     paddingVertical: 20,
   },
-  input: {
-    height: 50,
-    borderColor: '#ddd',
-    borderWidth: 1,
+  toggleContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginVertical: 15,
+  },
+
+  toggleButton: {
+    flex: 1,
+    padding: 8,
+    alignItems: 'center',
     borderRadius: 5,
-    paddingHorizontal: 10,
-    marginBottom: 10,
-    backgroundColor: '#fff',
+    backgroundColor: '#e0e0e0',
+    marginHorizontal: 5,
+  },
+  activeToggle: {
+    backgroundColor: '#0786DAFD',
+  },
+  toggleText: {
+    fontSize: 16,
+    color: '#333',
+  },
+  activeToggleText: {
+    color: '#fff',
   },
   saveButton: {
     backgroundColor: '#0786DAFD',
