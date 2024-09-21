@@ -89,24 +89,44 @@ const Checkout = () => {
         }
         ListFooterComponent={
           /* Payment details section after product list */
-          <View style={styles.paymentContainer}>
-            <Text style={styles.paymentTitle}>Payment Details</Text>
-            <View style={styles.paymentDetails}>
-              <Text style={styles.totalLabel}>Sub Total:</Text>
-              <Text style={styles.totalAmount}>${calculateTotal()}</Text>
+          <>
+            <View style={styles.paymentContainer}>
+              <Text style={styles.paymentTitle}>Addresses</Text>
+
+              <View style={styles.paymentDetails}>
+                <Text style={styles.totalLabel}>Select Address</Text>
+                <Text
+                  style={[
+                    styles.totalAmount,
+                    {textDecorationLine: 'underline'},
+                  ]}
+                  onPress={() => navigation.navigate('Addresses')}>
+                  Edit Address
+                </Text>
+              </View>
             </View>
-            <View style={styles.discountWrap}>
-              <Text style={styles.discountLabel}>Discount:</Text>
-              <Text style={styles.discountAmount}>$0.00</Text>
+
+            <View style={styles.paymentContainer}>
+              <Text style={styles.paymentTitle}>Payment Details</Text>
+              <View style={styles.paymentDetails}>
+                <Text style={styles.totalLabel}>Sub Total:</Text>
+                <Text style={styles.totalAmount}>${calculateTotal()}</Text>
+              </View>
+              <View style={styles.discountWrap}>
+                <Text style={styles.discountLabel}>Discount:</Text>
+                <Text style={styles.discountAmount}>$0.00</Text>
+              </View>
+              <View style={styles.paymentDetails}>
+                <Text style={styles.totalLabel}>Total:</Text>
+                <Text style={styles.totalAmount}>${calculateTotal()}</Text>
+              </View>
+              <TouchableOpacity
+                style={styles.checkoutButton}
+                onPress={() => {}}>
+                <Text style={styles.checkoutText}>Pay & Order</Text>
+              </TouchableOpacity>
             </View>
-            <View style={styles.paymentDetails}>
-              <Text style={styles.totalLabel}>Total:</Text>
-              <Text style={styles.totalAmount}>${calculateTotal()}</Text>
-            </View>
-            <TouchableOpacity style={styles.checkoutButton} onPress={() => {}}>
-              <Text style={styles.checkoutText}>Pay & Order</Text>
-            </TouchableOpacity>
-          </View>
+          </>
         }
       />
     </SafeAreaView>
