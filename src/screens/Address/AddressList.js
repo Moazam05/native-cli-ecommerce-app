@@ -1,11 +1,11 @@
 import {View, Text, StyleSheet, TouchableOpacity, Image} from 'react-native';
 import React from 'react';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import Header from '../components/Header';
+import Header from '../../components/Header';
 import {useNavigation} from '@react-navigation/native';
-import {AddIcon, Back} from '../assets/images';
+import {AddIcon, Back} from '../../assets/images';
 
-const Addresses = () => {
+const AddressList = () => {
   const navigation = useNavigation();
 
   return (
@@ -25,7 +25,7 @@ const Addresses = () => {
   );
 };
 
-export default Addresses;
+export default AddressList;
 
 const styles = StyleSheet.create({
   container: {

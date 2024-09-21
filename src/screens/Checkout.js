@@ -100,7 +100,7 @@ const Checkout = () => {
                     styles.totalAmount,
                     {textDecorationLine: 'underline'},
                   ]}
-                  onPress={() => navigation.navigate('Addresses')}>
+                  onPress={() => navigation.navigate('AddressList')}>
                   Edit Address
                 </Text>
               </View>

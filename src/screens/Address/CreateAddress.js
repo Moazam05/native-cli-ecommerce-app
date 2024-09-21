@@ -1,8 +1,8 @@
 import {View, Text, StyleSheet} from 'react-native';
 import React from 'react';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import Header from '../components/Header';
-import {Back} from '../assets/images';
+import Header from '../../components/Header';
+import {Back} from '../../assets/images';
 import {useNavigation} from '@react-navigation/native';
 
 const CreateAddress = () => {
