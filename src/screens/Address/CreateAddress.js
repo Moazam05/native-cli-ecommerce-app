@@ -6,39 +6,46 @@ import {
   TextInput,
   TouchableOpacity,
   Alert,
+  KeyboardAvoidingView,
+  ScrollView,
+  Platform,
+  ActivityIndicator,
 } from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import Header from '../../components/Header';
 import {Back} from '../../assets/images';
 import {useNavigation} from '@react-navigation/native';
 import {useDispatch} from 'react-redux';
+import {Formik} from 'formik';
+import * as Yup from 'yup';
 import {addAddress} from '../../redux/address/addressSlice';
+import TextField from '../../components/TextField';
+
+// Validation Schema
+const validationSchema = Yup.object().shape({
+  state: Yup.string().required('State is required'),
+  city: Yup.string().required('City is required'),
+  postalCode: Yup.string().required('Postal Code is required'),
+  address: Yup.string().required('Address is required'),
+});
 
 const CreateAddress = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
 
-  const [state, setState] = useState('');
-  const [city, setCity] = useState('');
-  const [postalCode, setPostalCode] = useState('');
-  const [address, setAddress] = useState('');
+  const [loading, setLoading] = useState(false);
 
-  const handleSave = () => {
-    if (!state || !city || !postalCode || !address) {
-      Alert.alert('Error', 'Please fill in all fields');
-      return;
-    }
-
+  const handleSave = values => {
     const newAddress = {
       id: Date.now().toString(),
-      state,
-      city,
-      postal: postalCode,
-      address,
+      state: values.state,
+      city: values.city,
+      postal: values.postalCode,
+      address: values.address,
     };
 
     dispatch(addAddress(newAddress));
-    navigation.navigate('AddressList');
+    navigation.navigate('Addresses');
   };
 
   return (
@@ -48,37 +55,73 @@ const CreateAddress = () => {
         title="Create Address"
         leftClick={() => navigation.goBack()}
       />
+      <KeyboardAvoidingView
+        style={styles.keyboardAvoidingView}
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
+        <ScrollView contentContainerStyle={styles.scrollContainer}>
+          <Formik
+            initialValues={{state: '', city: '', postalCode: '', address: ''}}
+            validationSchema={validationSchema}
+            onSubmit={handleSave}>
+            {({
+              handleChange,
+              handleBlur,
+              handleSubmit,
+              values,
+              errors,
+              touched,
+            }) => (
+              <View style={styles.formContainer}>
+                <TextField
+                  placeholder="State"
+                  value={values.emastateil}
+                  onChangeText={handleChange('state')}
+                  onBlur={handleBlur('state')}
+                  error={touched.state && errors.state}
+                />
 
-      <View style={styles.formContainer}>
-        <TextInput
-          placeholder="State"
-          value={state}
-          onChangeText={setState}
-          style={styles.input}
-        />
-        <TextInput
-          placeholder="City"
-          value={city}
-          onChangeText={setCity}
-          style={styles.input}
-        />
-        <TextInput
-          placeholder="Postal Code"
-          value={postalCode}
-          onChangeText={setPostalCode}
-          keyboardType="numeric"
-          style={styles.input}
-        />
-        <TextInput
-          placeholder="Address"
-          value={address}
-          onChangeText={setAddress}
-          style={styles.input}
-        />
-        <TouchableOpacity style={styles.saveButton} onPress={handleSave}>
-          <Text style={styles.buttonText}>Save</Text>
-        </TouchableOpacity>
-      </View>
+                <TextField
+                  placeholder="City"
+                  value={values.city}
+                  onChangeText={handleChange('city')}
+                  onBlur={handleBlur('city')}
+                  error={touched.city && errors.city}
+                />
+
+                <TextField
+                  placeholder="Postal Code"
+                  value={values.postalCode}
+                  onChangeText={handleChange('postalCode')}
+                  onBlur={handleBlur('postalCode')}
+                  error={touched.postalCode && errors.postalCode}
+                  keyboardType="number-pad"
+                />
+
+                <TextField
+                  placeholder="Address"
+                  value={values.address}
+                  onChangeText={handleChange('address')}
+                  onBlur={handleBlur('address')}
+                  error={touched.address && errors.address}
+                  multiline
+                  numberOfLines={4}
+                />
+
+                <TouchableOpacity
+                  style={styles.loginButton}
+                  onPress={handleSubmit}
+                  disabled={loading}>
+                  {loading ? (
+                    <ActivityIndicator color="#ffffff" />
+                  ) : (
+                    <Text style={styles.buttonText}>Create</Text>
+                  )}
+                </TouchableOpacity>
+              </View>
+            )}
+          </Formik>
+        </ScrollView>
+      </KeyboardAvoidingView>
     </SafeAreaView>
   );
 };
@@ -90,8 +133,14 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#f8f8f8',
   },
-  formContainer: {
+  keyboardAvoidingView: {
+    flex: 1,
+  },
+  scrollContainer: {
     padding: 20,
+  },
+  formContainer: {
+    paddingVertical: 20,
   },
   input: {
     height: 50,
@@ -99,7 +148,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 5,
     paddingHorizontal: 10,
-    marginBottom: 15,
+    marginBottom: 10,
     backgroundColor: '#fff',
   },
   saveButton: {
@@ -112,5 +161,10 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontWeight: 'bold',
     fontSize: 16,
+  },
+  errorText: {
+    color: 'red',
+    fontSize: 12,
+    marginBottom: 10,
   },
 });

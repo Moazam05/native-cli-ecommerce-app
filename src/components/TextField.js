@@ -17,6 +17,7 @@ const TextField = ({
   onBlur,
   keyboardType,
   secureTextEntry,
+  multiline,
 }) => {
   const [showPassword, setShowPassword] = useState(false);
 
@@ -30,6 +31,7 @@ const TextField = ({
         onBlur={onBlur}
         keyboardType={keyboardType}
         secureTextEntry={secureTextEntry && !showPassword} // Toggle visibility
+        multiline={multiline}
       />
       {secureTextEntry && (
         <TouchableOpacity
