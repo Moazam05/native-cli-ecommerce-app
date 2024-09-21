@@ -3,13 +3,11 @@ import {
   View,
   Text,
   StyleSheet,
-  TextInput,
   TouchableOpacity,
-  Alert,
+  ActivityIndicator,
   KeyboardAvoidingView,
   ScrollView,
   Platform,
-  ActivityIndicator,
 } from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import Header from '../../components/Header';
@@ -45,7 +43,7 @@ const CreateAddress = () => {
     };
 
     dispatch(addAddress(newAddress));
-    navigation.navigate('Addresses');
+    navigation.navigate('AddressList');
   };
 
   return (
@@ -74,7 +72,7 @@ const CreateAddress = () => {
               <View style={styles.formContainer}>
                 <TextField
                   placeholder="State"
-                  value={values.emastateil}
+                  value={values.state} // Corrected here
                   onChangeText={handleChange('state')}
                   onBlur={handleBlur('state')}
                   error={touched.state && errors.state}
@@ -108,7 +106,7 @@ const CreateAddress = () => {
                 />
 
                 <TouchableOpacity
-                  style={styles.loginButton}
+                  style={styles.saveButton}
                   onPress={handleSubmit}
                   disabled={loading}>
                   {loading ? (
@@ -153,14 +151,15 @@ const styles = StyleSheet.create({
   },
   saveButton: {
     backgroundColor: '#0786DAFD',
-    padding: 15,
+    padding: 10,
     borderRadius: 5,
     alignItems: 'center',
+    marginTop: 10,
   },
   buttonText: {
     color: '#fff',
-    fontWeight: 'bold',
-    fontSize: 16,
+    fontWeight: '500',
+    fontSize: 14,
   },
   errorText: {
     color: 'red',

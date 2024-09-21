@@ -24,7 +24,11 @@ const TextField = ({
   return (
     <View style={styles.inputContainer}>
       <TextInput
-        style={[styles.input, error ? styles.inputError : null]}
+        style={[
+          styles.input,
+          error ? styles.inputError : null,
+          multiline ? styles.multilineInput : null,
+        ]}
         placeholder={placeholder}
         value={value}
         onChangeText={onChangeText}
@@ -32,6 +36,8 @@ const TextField = ({
         keyboardType={keyboardType}
         secureTextEntry={secureTextEntry && !showPassword} // Toggle visibility
         multiline={multiline}
+        numberOfLines={multiline ? 3 : 1}
+        textAlignVertical={multiline ? 'top' : 'center'}
       />
       {secureTextEntry && (
         <TouchableOpacity
@@ -56,12 +62,15 @@ const styles = StyleSheet.create({
     position: 'relative',
   },
   input: {
-    height: 50,
     borderColor: '#ddd',
     borderWidth: 1,
     borderRadius: 8,
     paddingHorizontal: 15,
     backgroundColor: '#f9f9f9',
+  },
+  multilineInput: {
+    minHeight: 100, // Set a minimum height for multiline inputs
+    maxHeight: 200, // Optional: Limit the maximum height
   },
   inputError: {
     borderColor: 'red',
