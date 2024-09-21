@@ -16,6 +16,7 @@ import DeleteIcon from './delete.png';
 import LoginImg from './login_modal.png';
 import OpenEye from './open-eye.png';
 import HideEye from './hide-eye.png';
+import AddIcon from './plus.png';
 
 export {
   Back,
@@ -36,4 +37,5 @@ export {
   LoginImg,
   OpenEye,
   HideEye,
+  AddIcon,
 };

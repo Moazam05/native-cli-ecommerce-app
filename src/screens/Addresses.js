@@ -1,63 +1,25 @@
+import {View, Text, StyleSheet, TouchableOpacity, Image} from 'react-native';
 import React from 'react';
-import {View, Text, StyleSheet, TouchableOpacity, FlatList} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import {useNavigation} from '@react-navigation/native';
-import {Back, EditIcon, DeleteIcon, PlusIcon} from '../assets/images'; // Import your icons
 import Header from '../components/Header';
-
-const dummyAddresses = [
-  {
-    id: '1',
-    state: 'California',
-    city: 'Los Angeles',
-    postal: '90001',
-    address: '123 Sunset Blvd, Los Angeles, CA',
-  },
-  {
-    id: '2',
-    state: 'New York',
-    city: 'New York City',
-    postal: '10001',
-    address: '456 Broadway, New York, NY',
-  },
-];
+import {useNavigation} from '@react-navigation/native';
+import {AddIcon, Back} from '../assets/images';
 
 const Addresses = () => {
   const navigation = useNavigation();
 
-  const renderAddressCard = ({item}) => (
-    <View style={styles.card}>
-      <Text style={styles.cardTitle}>
-        {item.state}, {item.city}
-      </Text>
-      <Text style={styles.cardText}>{item.postal}</Text>
-      <Text style={styles.cardText}>{item.address}</Text>
-      <View style={styles.buttonContainer}>
-        <TouchableOpacity style={styles.editButton}>
-          <Text style={styles.buttonText}>Edit</Text>
-          <EditIcon />
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.deleteButton}>
-          <Text style={styles.buttonText}>Delete</Text>
-          <DeleteIcon />
-        </TouchableOpacity>
-      </View>
-    </View>
-  );
-
   return (
     <SafeAreaView style={styles.container}>
-      <Header title="My Addresses" leftClick={() => navigation.goBack()} />
-      <FlatList
-        data={dummyAddresses}
-        renderItem={renderAddressCard}
-        keyExtractor={item => item.id}
-        contentContainerStyle={styles.listContainer}
+      <Header
+        leftIcon={Back}
+        title="Addresses"
+        leftClick={() => navigation.goBack()}
       />
+
       <TouchableOpacity
         style={styles.addButton}
         onPress={() => navigation.navigate('CreateAddress')}>
-        <PlusIcon />
+        <Image source={AddIcon} style={styles.add} />
       </TouchableOpacity>
     </SafeAreaView>
   );
@@ -115,7 +77,7 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     color: '#ffffff',
-    marginRight: 5,
+    marginLeft: 5,
   },
   addButton: {
     position: 'absolute',
@@ -125,5 +87,10 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     padding: 15,
     elevation: 5,
+  },
+  add: {
+    width: 18,
+    height: 18,
+    tintColor: '#ffffff',
   },
 });
