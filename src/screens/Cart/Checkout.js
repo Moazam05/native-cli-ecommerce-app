@@ -117,7 +117,6 @@ const Checkout = () => {
               </View>
 
               <View style={styles.addressType}>
-                <Text style={styles.totalLabel}>Address Type:</Text>
                 <Text style={styles.addressChip}>{address.addressType}</Text>
               </View>
 
@@ -276,14 +275,14 @@ const styles = StyleSheet.create({
   addressType: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 10,
+    marginBottom: 5,
     justifyContent: 'space-between',
   },
   addressChip: {
     backgroundColor: '#44b678',
     color: '#fff',
-    padding: 5,
-    paddingHorizontal: 20,
+    padding: 3,
+    paddingHorizontal: 10,
     borderRadius: 5,
   },
   discountLabel: {
