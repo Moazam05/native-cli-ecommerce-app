@@ -89,20 +89,7 @@ const Cart = () => {
         }
         ListFooterComponent={
           /* Payment details section after product list */
-          <View style={styles.paymentContainer}>
-            <Text style={styles.paymentTitle}>Payment Details</Text>
-            <View style={styles.paymentDetails}>
-              <Text style={styles.totalLabel}>Sub Total:</Text>
-              <Text style={styles.totalAmount}>${calculateTotal()}</Text>
-            </View>
-            <View style={styles.discountWrap}>
-              <Text style={styles.discountLabel}>Discount:</Text>
-              <Text style={styles.discountAmount}>$0.00</Text>
-            </View>
-            <View style={styles.paymentDetails}>
-              <Text style={styles.totalLabel}>Total:</Text>
-              <Text style={styles.totalAmount}>${calculateTotal()}</Text>
-            </View>
+          <View>
             <TouchableOpacity
               style={styles.checkoutButton}
               onPress={() => {
