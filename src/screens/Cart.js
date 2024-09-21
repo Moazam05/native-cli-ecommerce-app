@@ -104,7 +104,11 @@ const Cart = () => {
               <Text style={styles.totalLabel}>Total:</Text>
               <Text style={styles.totalAmount}>${calculateTotal()}</Text>
             </View>
-            <TouchableOpacity style={styles.checkoutButton} onPress={() => {}}>
+            <TouchableOpacity
+              style={styles.checkoutButton}
+              onPress={() => {
+                navigation.navigate('Checkout');
+              }}>
               <Text style={styles.checkoutText}>Proceed to Checkout</Text>
             </TouchableOpacity>
           </View>
