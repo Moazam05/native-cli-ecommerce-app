@@ -12,7 +12,7 @@ import {
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {Formik} from 'formik';
 import * as Yup from 'yup';
-import {GestureHandlerRootView} from 'react-native-gesture-handler'; // Wrap this around the root component
+import {GestureHandlerRootView} from 'react-native-gesture-handler';
 import {LoginImg} from '../assets/images';
 import TextField from '../components/TextField';
 import firestore from '@react-native-firebase/firestore';
@@ -30,28 +30,26 @@ const Login = () => {
   const [loading, setLoading] = useState(false);
   const navigation = useNavigation();
 
-  // Handle Sign-in function with async/await
   const handleSignin = async values => {
     setLoading(true);
     try {
       const querySnapshot = await firestore()
         .collection('Users')
-        .where('email', '==', values.email) // Filter by email
+        .where('email', '==', values.email)
         .get();
 
       if (querySnapshot.empty) {
-        Alert.alert('Error', 'User does not exist'); // User not found
-        setLoading(false);
+        Alert.alert('Error', 'User does not exist');
         return;
       }
 
-      const userData = querySnapshot.docs[0].data(); // Get the first matching user
+      const userData = querySnapshot.docs[0].data();
 
       if (userData.password === values.password) {
         Alert.alert('Success', 'Successfully signed in');
-        navigation.navigate('Main'); // Navigate to Main screen on successful login
+        navigation.navigate('Main');
       } else {
-        Alert.alert('Error', 'Invalid credentials'); // Password does not match
+        Alert.alert('Error', 'Invalid credentials');
       }
     } catch (error) {
       console.error('Error signing in: ', error);
@@ -97,7 +95,7 @@ const Login = () => {
                   onChangeText={handleChange('password')}
                   onBlur={handleBlur('password')}
                   error={touched.password && errors.password}
-                  password={true}
+                  secureTextEntry={true}
                 />
 
                 <TouchableOpacity

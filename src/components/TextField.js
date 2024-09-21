@@ -16,7 +16,7 @@ const TextField = ({
   onChangeText,
   onBlur,
   keyboardType,
-  password,
+  secureTextEntry,
 }) => {
   const [showPassword, setShowPassword] = useState(false);
 
@@ -29,8 +29,9 @@ const TextField = ({
         onChangeText={onChangeText}
         onBlur={onBlur}
         keyboardType={keyboardType}
+        secureTextEntry={secureTextEntry && !showPassword} // Toggle visibility
       />
-      {password && (
+      {secureTextEntry && (
         <TouchableOpacity
           style={styles.eyeIconContainer}
           onPress={() => setShowPassword(!showPassword)}>
