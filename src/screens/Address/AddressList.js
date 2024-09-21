@@ -55,7 +55,7 @@ const AddressList = () => {
   };
 
   const renderItem = ({item}) => (
-    <View
+    <TouchableOpacity
       style={[styles.card, item.isDefault && styles.defaultCard]}
       onPress={() => handleSetDefault(item.id)}>
       <View style={styles.cardContent}>
@@ -100,7 +100,7 @@ const AddressList = () => {
           <Image source={DeleteIcon} style={styles.icon} />
         </TouchableOpacity>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 
   return (
@@ -168,7 +168,6 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
   },
-
   tickIcon: {
     width: 20,
     height: 20,
@@ -183,13 +182,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: '#4caf50',
-    padding: 8,
-    borderRadius: 5,
-  },
-  defaultButton: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: '#0786DAFD',
     padding: 8,
     borderRadius: 5,
   },
