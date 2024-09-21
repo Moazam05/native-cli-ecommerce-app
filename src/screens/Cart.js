@@ -54,7 +54,6 @@ const Cart = () => {
             <Text style={styles.cartQuantity}>{item.quantity}</Text>
 
             <TouchableOpacity
-              s
               onPress={() => dispatch(incrementProductQuantity(item.id))}>
               <Text style={[styles.cartActionText, styles.textAlignRight]}>
                 +
