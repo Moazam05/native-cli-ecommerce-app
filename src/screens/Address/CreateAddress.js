@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   View,
   Text,
@@ -12,7 +12,7 @@ import {
 import {SafeAreaView} from 'react-native-safe-area-context';
 import Header from '../../components/Header';
 import {Back} from '../../assets/images';
-import {useNavigation} from '@react-navigation/native';
+import {useNavigation, useRoute} from '@react-navigation/native';
 import {useDispatch} from 'react-redux';
 import {Formik} from 'formik';
 import * as Yup from 'yup';
@@ -30,11 +30,22 @@ const validationSchema = Yup.object().shape({
 
 const CreateAddress = () => {
   const navigation = useNavigation();
+  const route = useRoute();
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
   const [isHome, setIsHome] = useState(true); // State to manage toggle
 
-  console.log('isHome', isHome);
+  // Get the address from the route params
+  const {address} = route.params || {};
+
+  // Initial values for Formik
+  const initialValues = {
+    state: address ? address.state : '',
+    city: address ? address.city : '',
+    postalCode: address ? address.postal : '',
+    address: address ? address.address : '',
+    addressType: address ? address.addressType : '',
+  };
 
   const handleSave = values => {
     const newAddress = {
@@ -50,6 +61,12 @@ const CreateAddress = () => {
     navigation.navigate('AddressList');
   };
 
+  useEffect(() => {
+    if (address) {
+      setIsHome(address.addressType === 'Home');
+    }
+  }, [address]);
+
   return (
     <SafeAreaView style={styles.container}>
       <Header
@@ -62,7 +79,7 @@ const CreateAddress = () => {
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
         <ScrollView contentContainerStyle={styles.scrollContainer}>
           <Formik
-            initialValues={{state: '', city: '', postalCode: '', address: ''}}
+            initialValues={initialValues}
             validationSchema={validationSchema}
             onSubmit={handleSave}>
             {({

@@ -52,9 +52,7 @@ const AddressList = () => {
       <View style={styles.buttonContainer}>
         <TouchableOpacity
           style={styles.editButton}
-          onPress={() =>
-            navigation.navigate('CreateAddress', {addressId: item.id})
-          }>
+          onPress={() => navigation.navigate('CreateAddress', {address: item})}>
           <Image
             source={EditIcon}
             style={[
@@ -106,6 +104,7 @@ const styles = StyleSheet.create({
   },
   listContainer: {
     paddingBottom: 80,
+    marginTop: 15,
   },
   card: {
     backgroundColor: '#ffffff',
@@ -117,6 +116,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowRadius: 5,
     shadowOffset: {width: 0, height: 2},
+    margin: 20,
   },
   cardTitle: {
     fontSize: 18,
@@ -137,7 +137,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: '#4caf50',
-    padding: 10,
+    padding: 8,
     borderRadius: 5,
   },
   deleteButton: {
@@ -152,8 +152,9 @@ const styles = StyleSheet.create({
     marginLeft: 5,
   },
   icon: {
-    width: 20,
-    height: 20,
+    width: 17,
+    height: 17,
+    resizeMode: 'contain',
   },
   addButton: {
     position: 'absolute',
