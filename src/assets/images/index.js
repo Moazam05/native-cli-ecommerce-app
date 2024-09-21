@@ -18,6 +18,7 @@ import OpenEye from './open-eye.png';
 import HideEye from './hide-eye.png';
 import AddIcon from './plus.png';
 import EditIcon from './edit.png';
+import TickIcon from './tick.png';
 
 export {
   Back,
@@ -40,4 +41,5 @@ export {
   HideEye,
   AddIcon,
   EditIcon,
+  TickIcon,
 };

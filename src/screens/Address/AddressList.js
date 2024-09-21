@@ -11,7 +11,13 @@ import React from 'react';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import Header from '../../components/Header';
 import {useNavigation} from '@react-navigation/native';
-import {AddIcon, Back, DeleteIcon, EditIcon} from '../../assets/images';
+import {
+  AddIcon,
+  Back,
+  DeleteIcon,
+  EditIcon,
+  TickIcon,
+} from '../../assets/images';
 import useTypedSelector from '../../hooks/useTypedSelector';
 import {
   selectAddress,
@@ -49,10 +55,26 @@ const AddressList = () => {
   };
 
   const renderItem = ({item}) => (
-    <View style={[styles.card, item.isDefault && styles.defaultCard]}>
-      <Text style={styles.cardTitle}>
-        {item.addressType ? item.addressType : 'Home'}
-      </Text>
+    <View
+      style={[styles.card, item.isDefault && styles.defaultCard]}
+      onPress={() => handleSetDefault(item.id)}>
+      <View style={styles.cardContent}>
+        <Text style={styles.cardTitle}>
+          {item.addressType ? item.addressType : 'Home'}
+        </Text>
+
+        {item.isDefault && (
+          <Image
+            source={TickIcon}
+            style={[
+              styles.tickIcon,
+              {
+                tintColor: '#44b678',
+              },
+            ]}
+          />
+        )}
+      </View>
       <Text style={styles.cardText}>{item.address}</Text>
       <Text style={styles.cardText}>
         {item.city}, {item.state} {item.postal}
@@ -71,11 +93,7 @@ const AddressList = () => {
             ]}
           />
         </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.defaultButton}
-          onPress={() => handleSetDefault(item.id)}>
-          <Text style={styles.buttonText}>Set as Default</Text>
-        </TouchableOpacity>
+
         <TouchableOpacity
           style={styles.deleteButton}
           onPress={() => handleDelete(item.id)}>
@@ -144,6 +162,17 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: '#555',
     marginVertical: 2,
+  },
+  cardContent: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+
+  tickIcon: {
+    width: 20,
+    height: 20,
+    marginLeft: 10,
   },
   buttonContainer: {
     flexDirection: 'row',
