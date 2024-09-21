@@ -60,7 +60,7 @@ const Login = () => {
         AsyncStorage.setItem('user', JSON.stringify(userData));
 
         Alert.alert('Success', 'Successfully signed in');
-        // navigation.navigate('Main');
+        navigation.navigate('Main');
       } else {
         Alert.alert('Error', 'Invalid credentials');
       }

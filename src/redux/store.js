@@ -12,7 +12,7 @@ import authReducer from './auth/authSlice';
 const persistConfig = {
   key: 'root',
   storage: AsyncStorage,
-  whitelist: ['products', 'wishListProducts', 'address', 'user'], // Slices to persist
+  whitelist: ['products', 'wishListProducts', 'address', 'auth'], // Slices to persist
 };
 
 // Combine your reducers
