@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   View,
   Text,
@@ -19,11 +19,21 @@ import {
 import {useDispatch} from 'react-redux';
 import Header from '../../components/Header';
 import {Back, CartIcon, DeleteIcon} from '../../assets/images';
+import {selectAddress} from '../../redux/address/addressSlice';
 
 const Checkout = () => {
   const navigation = useNavigation();
-  const cartProducts = useTypedSelector(selectedProducts);
   const dispatch = useDispatch();
+  const cartProducts = useTypedSelector(selectedProducts);
+  const addressList = useTypedSelector(selectAddress);
+  const [address, setAddress] = useState('');
+
+  useEffect(() => {
+    if (addressList.length) {
+      const defaultAddress = addressList.find(add => add.isDefault);
+      setAddress(defaultAddress || {});
+    }
+  }, [addressList]);
 
   const handleRemoveProduct = id => {
     dispatch(removeProduct(id));
@@ -91,10 +101,10 @@ const Checkout = () => {
           /* Payment details section after product list */
           <>
             <View style={styles.paymentContainer}>
-              <Text style={styles.paymentTitle}>Addresses</Text>
+              <Text style={styles.paymentTitle}>Address Details</Text>
 
               <View style={styles.paymentDetails}>
-                <Text style={styles.totalLabel}>Select Address</Text>
+                <Text style={styles.totalLabel}>Default Address</Text>
                 <Text
                   style={[
                     styles.totalAmount,
