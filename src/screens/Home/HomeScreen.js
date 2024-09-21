@@ -21,7 +21,7 @@ import {
 import Home from '../tabs/Home';
 import Notification from '../tabs/Notification';
 import Search from '../tabs/Search';
-import User from '../tabs/User';
+import Profile from '../tabs/Profile';
 import Wishlist from '../tabs/WishList';
 
 const HomeScreen = () => {
@@ -57,7 +57,7 @@ const HomeScreen = () => {
       ) : selectedTab === 3 ? (
         <Notification />
       ) : (
-        <User />
+        <Profile />
       )}
 
       {!isKeyboardVisible && (

@@ -53,8 +53,6 @@ const Login = () => {
 
       const userData = querySnapshot.docs[0].data();
 
-      console.log('userData: ', userData);
-
       if (userData.password === values.password) {
         dispatch(setUser(userData));
         AsyncStorage.setItem('user', JSON.stringify(userData));
