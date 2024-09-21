@@ -20,6 +20,9 @@ import {LoginImg} from '../../assets/images';
 import TextField from '../../components/TextField';
 import firestore from '@react-native-firebase/firestore';
 import {useNavigation} from '@react-navigation/native';
+import {useDispatch} from 'react-redux';
+import {setUser} from '../../redux/auth/authSlice';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // Validation Schema
 const validationSchema = Yup.object().shape({
@@ -30,8 +33,10 @@ const validationSchema = Yup.object().shape({
 });
 
 const Login = () => {
-  const [loading, setLoading] = useState(false);
   const navigation = useNavigation();
+  const dispatch = useDispatch();
+
+  const [loading, setLoading] = useState(false);
 
   const handleSignin = async values => {
     setLoading(true);
@@ -48,9 +53,14 @@ const Login = () => {
 
       const userData = querySnapshot.docs[0].data();
 
+      console.log('userData: ', userData);
+
       if (userData.password === values.password) {
+        dispatch(setUser(userData));
+        AsyncStorage.setItem('user', JSON.stringify(userData));
+
         Alert.alert('Success', 'Successfully signed in');
-        navigation.navigate('Main');
+        // navigation.navigate('Main');
       } else {
         Alert.alert('Error', 'Invalid credentials');
       }

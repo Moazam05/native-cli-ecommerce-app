@@ -6,12 +6,13 @@ import {apiSlice} from './api/apiSlice';
 import productsReducer from './products/productsSlice';
 import wishListReducer from './wishlist/wishlistsSlice';
 import addressReducer from './address/addressSlice';
+import authReducer from './auth/authSlice';
 
 // Configurations for redux-persist
 const persistConfig = {
   key: 'root',
   storage: AsyncStorage,
-  whitelist: ['products', 'wishListProducts', 'address'], // Slices to persist
+  whitelist: ['products', 'wishListProducts', 'address', 'user'], // Slices to persist
 };
 
 // Combine your reducers
@@ -21,6 +22,7 @@ const rootReducer = combineReducers({
   products: productsReducer,
   wishListProducts: wishListReducer,
   address: addressReducer,
+  auth: authReducer,
 });
 
 // Create a persisted reducer
