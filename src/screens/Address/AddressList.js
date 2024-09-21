@@ -1,4 +1,12 @@
-import {View, Text, StyleSheet, TouchableOpacity, Image} from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  Image,
+  FlatList,
+  Alert,
+} from 'react-native';
 import React from 'react';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import Header from '../../components/Header';
@@ -13,7 +21,58 @@ const AddressList = () => {
   const navigation = useNavigation();
   const addressList = useTypedSelector(selectAddress);
 
-  console.log('AAA', addressList);
+  const handleDelete = id => {
+    Alert.alert(
+      'Delete Address',
+      'Are you sure you want to delete this address?',
+      [
+        {
+          text: 'Cancel',
+          style: 'cancel',
+        },
+        {
+          text: 'Delete',
+          onPress: () => dispatch(deleteAddress(id)),
+          style: 'destructive',
+        },
+      ],
+      {cancelable: true},
+    );
+  };
+
+  const renderItem = ({item}) => (
+    <View style={styles.card}>
+      <Text style={styles.cardTitle}>
+        {item.addressType ? item.addressType : 'Home'}
+      </Text>
+      <Text style={styles.cardText}>{item.address}</Text>
+      <Text style={styles.cardText}>
+        {item.city}, {item.state} {item.postal}
+      </Text>
+      <View style={styles.buttonContainer}>
+        <TouchableOpacity
+          style={styles.editButton}
+          onPress={() =>
+            navigation.navigate('CreateAddress', {addressId: item.id})
+          }>
+          <Image
+            source={EditIcon}
+            style={[
+              styles.icon,
+              {
+                tintColor: '#ffffff',
+              },
+            ]}
+          />
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.deleteButton}
+          onPress={() => handleDelete(item.id)}>
+          <Image source={DeleteIcon} style={styles.icon} />
+        </TouchableOpacity>
+      </View>
+    </View>
+  );
 
   return (
     <SafeAreaView style={styles.container}>
@@ -22,9 +81,13 @@ const AddressList = () => {
         title="Addresses"
         leftClick={() => navigation.goBack()}
       />
-
-      <View></View>
-
+      <FlatList
+        data={addressList}
+        renderItem={renderItem}
+        keyExtractor={item => item.id}
+        contentContainerStyle={styles.listContainer}
+        showsVerticalScrollIndicator={false}
+      />
       <TouchableOpacity
         style={styles.addButton}
         onPress={() => navigation.navigate('CreateAddress')}>
@@ -42,7 +105,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#f8f8f8',
   },
   listContainer: {
-    paddingBottom: 80, // Padding for the add button at the bottom
+    paddingBottom: 80,
   },
   card: {
     backgroundColor: '#ffffff',
@@ -87,6 +150,10 @@ const styles = StyleSheet.create({
   buttonText: {
     color: '#ffffff',
     marginLeft: 5,
+  },
+  icon: {
+    width: 20,
+    height: 20,
   },
   addButton: {
     position: 'absolute',
