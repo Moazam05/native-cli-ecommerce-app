@@ -8,6 +8,9 @@ import {
   Text,
   TouchableOpacity,
   View,
+  KeyboardAvoidingView,
+  ScrollView,
+  Platform,
 } from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {Formik} from 'formik';
@@ -67,62 +70,65 @@ const Login = () => {
           Welcome back! We're glad to see you again.
         </Text>
 
-        <Formik
-          initialValues={{email: '', password: ''}}
-          validationSchema={validationSchema}
-          onSubmit={handleSignin}>
-          {({
-            handleChange,
-            handleBlur,
-            handleSubmit,
-            values,
-            errors,
-            touched,
-          }) => (
-            <>
-              <View style={styles.formContainer}>
-                <TextField
-                  placeholder="Email"
-                  value={values.email}
-                  onChangeText={handleChange('email')}
-                  onBlur={handleBlur('email')}
-                  keyboardType="email-address"
-                  error={touched.email && errors.email}
-                />
-                <TextField
-                  placeholder="Password"
-                  value={values.password}
-                  onChangeText={handleChange('password')}
-                  onBlur={handleBlur('password')}
-                  error={touched.password && errors.password}
-                  secureTextEntry={true}
-                />
+        <KeyboardAvoidingView
+          style={styles.keyboardAvoidingView}
+          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+          keyboardVerticalOffset={100}>
+          <ScrollView contentContainerStyle={styles.scrollContainer}>
+            <Formik
+              initialValues={{email: '', password: ''}}
+              validationSchema={validationSchema}
+              onSubmit={handleSignin}>
+              {({
+                handleChange,
+                handleBlur,
+                handleSubmit,
+                values,
+                errors,
+                touched,
+              }) => (
+                <View style={styles.formContainer}>
+                  <TextField
+                    placeholder="Email"
+                    value={values.email}
+                    onChangeText={handleChange('email')}
+                    onBlur={handleBlur('email')}
+                    keyboardType="email-address"
+                    error={touched.email && errors.email}
+                  />
+                  <TextField
+                    placeholder="Password"
+                    value={values.password}
+                    onChangeText={handleChange('password')}
+                    onBlur={handleBlur('password')}
+                    error={touched.password && errors.password}
+                    secureTextEntry={true}
+                  />
 
-                <TouchableOpacity
-                  style={styles.loginButton}
-                  onPress={handleSubmit}
-                  disabled={loading}>
-                  {loading ? (
-                    <Text style={styles.buttonText}>
+                  <TouchableOpacity
+                    style={styles.loginButton}
+                    onPress={handleSubmit}
+                    disabled={loading}>
+                    {loading ? (
                       <ActivityIndicator color="#ffffff" />
-                    </Text>
-                  ) : (
-                    <Text style={styles.buttonText}>Login</Text>
-                  )}
-                </TouchableOpacity>
+                    ) : (
+                      <Text style={styles.buttonText}>Login</Text>
+                    )}
+                  </TouchableOpacity>
 
-                <Text style={styles.signupText}>
-                  Don't have an account?{' '}
-                  <Text
-                    style={styles.signupLink}
-                    onPress={() => navigation.navigate('Signup')}>
-                    Sign Up
+                  <Text style={styles.signupText}>
+                    Don't have an account?{' '}
+                    <Text
+                      style={styles.signupLink}
+                      onPress={() => navigation.navigate('Signup')}>
+                      Sign Up
+                    </Text>
                   </Text>
-                </Text>
-              </View>
-            </>
-          )}
-        </Formik>
+                </View>
+              )}
+            </Formik>
+          </ScrollView>
+        </KeyboardAvoidingView>
       </SafeAreaView>
     </GestureHandlerRootView>
   );
@@ -137,6 +143,12 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#f5f5f5',
+  },
+  keyboardAvoidingView: {
+    flex: 1,
+  },
+  scrollContainer: {
+    paddingBottom: 20,
   },
   coverImage: {
     width: Dimensions.get('window').width,

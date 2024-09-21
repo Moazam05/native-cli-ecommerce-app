@@ -8,8 +8,11 @@ import {
   StyleSheet,
   Text,
   TouchableOpacity,
+  ScrollView,
+  KeyboardAvoidingView,
+  Platform,
+  SafeAreaView,
 } from 'react-native';
-import {SafeAreaView} from 'react-native-safe-area-context';
 import * as Yup from 'yup';
 import TextField from '../components/TextField';
 
@@ -20,7 +23,7 @@ const validationSchema = Yup.object().shape({
     .email('Invalid email address')
     .required('Email is required'),
   mobile: Yup.string()
-    .matches(/^\d{10}$/, 'Mobile number must be exactly 10 digits')
+    .matches(/^\d{11}$/, 'Enter a valid mobile number')
     .required('Mobile number is required'),
   password: Yup.string()
     .min(6, 'Password must be at least 6 characters')
@@ -32,7 +35,6 @@ const validationSchema = Yup.object().shape({
 
 const Signup = () => {
   const navigation = useNavigation();
-
   const [loading, setLoading] = useState(false);
 
   // Form submission logic
@@ -46,10 +48,10 @@ const Signup = () => {
         password: values.password,
       });
       Alert.alert('Success', 'Account created successfully');
-      setLoading(false);
       navigation.navigate('Login');
     } catch (error) {
       console.error('Error adding user: ', error);
+      Alert.alert('Error', 'Something went wrong');
     } finally {
       setLoading(false);
     }
@@ -60,88 +62,94 @@ const Signup = () => {
       <Text style={styles.title}>Create Account</Text>
       <Text style={styles.subtitle}>Join us to get started!</Text>
 
-      <Formik
-        initialValues={{
-          name: '',
-          email: '',
-          mobile: '',
-          password: '',
-          confirmPassword: '',
-        }}
-        validationSchema={validationSchema}
-        onSubmit={handleSignup}>
-        {({
-          handleChange,
-          handleBlur,
-          handleSubmit,
-          values,
-          errors,
-          touched,
-        }) => (
-          <>
-            <TextField
-              placeholder="Name"
-              value={values.name}
-              onChangeText={handleChange('name')}
-              onBlur={handleBlur('name')}
-              error={touched.name && errors.name}
-            />
-            <TextField
-              placeholder="Email"
-              value={values.email}
-              onChangeText={handleChange('email')}
-              onBlur={handleBlur('email')}
-              keyboardType="email-address"
-              error={touched.email && errors.email}
-            />
-            <TextField
-              placeholder="Mobile"
-              value={values.mobile}
-              onChangeText={handleChange('mobile')}
-              onBlur={handleBlur('mobile')}
-              keyboardType="phone-pad"
-              error={touched.mobile && errors.mobile}
-            />
-            <TextField
-              placeholder="Password"
-              value={values.password}
-              onChangeText={handleChange('password')}
-              onBlur={handleBlur('password')}
-              error={touched.password && errors.password}
-              password={true}
-            />
-            <TextField
-              placeholder="Confirm Password"
-              value={values.confirmPassword}
-              onChangeText={handleChange('confirmPassword')}
-              onBlur={handleBlur('confirmPassword')}
-              error={touched.confirmPassword && errors.confirmPassword}
-              password={true}
-            />
+      <KeyboardAvoidingView
+        style={styles.keyboardAvoidingView}
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        keyboardVerticalOffset={100}>
+        <ScrollView contentContainerStyle={styles.scrollContainer}>
+          <Formik
+            initialValues={{
+              name: '',
+              email: '',
+              mobile: '',
+              password: '',
+              confirmPassword: '',
+            }}
+            validationSchema={validationSchema}
+            onSubmit={handleSignup}>
+            {({
+              handleChange,
+              handleBlur,
+              handleSubmit,
+              values,
+              errors,
+              touched,
+            }) => (
+              <>
+                <TextField
+                  placeholder="Name"
+                  value={values.name}
+                  onChangeText={handleChange('name')}
+                  onBlur={handleBlur('name')}
+                  error={touched.name && errors.name}
+                />
+                <TextField
+                  placeholder="Email"
+                  value={values.email}
+                  onChangeText={handleChange('email')}
+                  onBlur={handleBlur('email')}
+                  keyboardType="email-address"
+                  error={touched.email && errors.email}
+                />
+                <TextField
+                  placeholder="Mobile"
+                  value={values.mobile}
+                  onChangeText={handleChange('mobile')}
+                  onBlur={handleBlur('mobile')}
+                  keyboardType="phone-pad"
+                  error={touched.mobile && errors.mobile}
+                />
+                <TextField
+                  placeholder="Password"
+                  value={values.password}
+                  onChangeText={handleChange('password')}
+                  onBlur={handleBlur('password')}
+                  error={touched.password && errors.password}
+                  secureTextEntry={true}
+                />
+                <TextField
+                  placeholder="Confirm Password"
+                  value={values.confirmPassword}
+                  onChangeText={handleChange('confirmPassword')}
+                  onBlur={handleBlur('confirmPassword')}
+                  error={touched.confirmPassword && errors.confirmPassword}
+                  secureTextEntry={true}
+                />
 
-            <TouchableOpacity
-              style={styles.signupButton}
-              onPress={handleSubmit}>
-              {loading ? (
-                <Text style={styles.buttonText}>
-                  <ActivityIndicator color="#ffffff" />
+                <TouchableOpacity
+                  style={styles.signupButton}
+                  onPress={handleSubmit}
+                  disabled={loading}>
+                  {loading ? (
+                    <ActivityIndicator color="#ffffff" />
+                  ) : (
+                    <Text style={styles.buttonText}>Sign Up</Text>
+                  )}
+                </TouchableOpacity>
+
+                <Text style={styles.loginText}>
+                  Already have an account?{' '}
+                  <Text
+                    style={styles.loginLink}
+                    onPress={() => navigation.navigate('Login')}>
+                    Login
+                  </Text>
                 </Text>
-              ) : (
-                <Text style={styles.buttonText}>Sign Up</Text>
-              )}
-            </TouchableOpacity>
-          </>
-        )}
-      </Formik>
-
-      <Text style={styles.loginText}>
-        Already have an account?{' '}
-        <Text
-          style={styles.loginLink}
-          onPress={() => navigation.navigate('Login')}>
-          Login
-        </Text>
-      </Text>
+              </>
+            )}
+          </Formik>
+        </ScrollView>
+      </KeyboardAvoidingView>
     </SafeAreaView>
   );
 };
@@ -166,13 +174,11 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginBottom: 30,
   },
-
-  inputError: {
-    borderColor: 'red',
+  keyboardAvoidingView: {
+    flex: 1,
   },
-  passwordContainer: {
-    position: 'relative',
-    marginBottom: 15,
+  scrollContainer: {
+    paddingBottom: 20,
   },
   signupButton: {
     backgroundColor: '#0786DAFD',
@@ -194,10 +200,5 @@ const styles = StyleSheet.create({
   loginLink: {
     color: '#0786DAFD',
     fontWeight: 'bold',
-  },
-  errorText: {
-    color: 'red',
-    fontSize: 11,
-    marginTop: 3,
   },
 });
