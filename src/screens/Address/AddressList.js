@@ -4,9 +4,14 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import Header from '../../components/Header';
 import {useNavigation} from '@react-navigation/native';
 import {AddIcon, Back} from '../../assets/images';
+import useTypedSelector from '../../hooks/useTypedSelector';
+import {selectAddress} from '../../redux/address/addressSlice';
 
 const AddressList = () => {
   const navigation = useNavigation();
+  const addressList = useTypedSelector(selectAddress);
+
+  console.log('AAA', addressList);
 
   return (
     <SafeAreaView style={styles.container}>
