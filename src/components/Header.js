@@ -30,7 +30,7 @@ const Header = ({title, leftIcon, rightIcon, leftClick}) => {
         onPress={() => navigation.navigate('Cart')}>
         <View style={styles.cartIconWrapper}>
           <Image source={rightIcon} style={styles.largeIcon} />
-          {cartProducts.length > 0 && (
+          {rightIcon && cartProducts.length > 0 && (
             <View style={styles.badge}>
               <Text style={styles.badgeText}>{cartProducts.length}</Text>
             </View>

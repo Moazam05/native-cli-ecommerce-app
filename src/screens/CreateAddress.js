@@ -5,21 +5,21 @@ import Header from '../components/Header';
 import {Back} from '../assets/images';
 import {useNavigation} from '@react-navigation/native';
 
-const Addresses = () => {
+const CreateAddress = () => {
   const navigation = useNavigation();
 
   return (
     <SafeAreaView style={styles.container}>
       <Header
         leftIcon={Back}
-        title="My Addresses"
+        title="Create Address"
         leftClick={() => navigation.goBack()}
       />
     </SafeAreaView>
   );
 };
 
-export default Addresses;
+export default CreateAddress;
 
 const styles = StyleSheet.create({
   container: {

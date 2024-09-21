@@ -8,6 +8,7 @@ import Login from './screens/Login';
 import Signup from './screens/Signup';
 import Checkout from './screens/Checkout';
 import Addresses from './screens/Addresses';
+import CreateAddress from './screens/CreateAddress';
 
 const Stack = createNativeStackNavigator();
 
@@ -50,6 +51,14 @@ const AppNavigator = () => {
         <Stack.Screen
           name="Addresses"
           component={Addresses}
+          options={{
+            headerShown: false,
+          }}
+        />
+
+        <Stack.Screen
+          name="CreateAddress"
+          component={CreateAddress}
           options={{
             headerShown: false,
           }}
