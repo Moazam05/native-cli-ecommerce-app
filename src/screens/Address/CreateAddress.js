@@ -135,9 +135,6 @@ const CreateAddress = () => {
                     </Text>
                   </TouchableOpacity>
                 </View>
-                {touched.addressType && errors.addressType && (
-                  <Text style={styles.errorText}>{errors.addressType}</Text>
-                )}
 
                 <TouchableOpacity
                   style={styles.saveButton}
@@ -189,10 +186,10 @@ const styles = StyleSheet.create({
     marginHorizontal: 5,
   },
   activeToggle: {
-    backgroundColor: '#0786DAFD',
+    backgroundColor: '#44b678',
   },
   toggleText: {
-    fontSize: 16,
+    fontSize: 14,
     color: '#333',
   },
   activeToggleText: {
@@ -200,7 +197,7 @@ const styles = StyleSheet.create({
   },
   saveButton: {
     backgroundColor: '#0786DAFD',
-    padding: 10,
+    padding: 12,
     borderRadius: 5,
     alignItems: 'center',
     marginTop: 10,
@@ -208,7 +205,7 @@ const styles = StyleSheet.create({
   buttonText: {
     color: '#fff',
     fontWeight: '500',
-    fontSize: 14,
+    fontSize: 16,
   },
   errorText: {
     color: 'red',
