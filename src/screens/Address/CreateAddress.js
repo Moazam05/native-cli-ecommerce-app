@@ -16,7 +16,7 @@ import {useNavigation, useRoute} from '@react-navigation/native';
 import {useDispatch} from 'react-redux';
 import {Formik} from 'formik';
 import * as Yup from 'yup';
-import {addAddress} from '../../redux/address/addressSlice';
+import {addAddress, updateAddress} from '../../redux/address/addressSlice';
 import TextField from '../../components/TextField';
 
 // Validation Schema
@@ -25,7 +25,6 @@ const validationSchema = Yup.object().shape({
   city: Yup.string().required('City is required'),
   postalCode: Yup.string().required('Postal Code is required'),
   address: Yup.string().required('Address is required'),
-  addressType: Yup.string(),
 });
 
 const CreateAddress = () => {
@@ -33,7 +32,7 @@ const CreateAddress = () => {
   const route = useRoute();
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
-  const [isHome, setIsHome] = useState(true); // State to manage toggle
+  const [isHome, setIsHome] = useState(true);
 
   // Get the address from the route params
   const {address} = route.params || {};
@@ -44,20 +43,25 @@ const CreateAddress = () => {
     city: address ? address.city : '',
     postalCode: address ? address.postal : '',
     address: address ? address.address : '',
-    addressType: address ? address.addressType : '',
   };
 
   const handleSave = values => {
-    const newAddress = {
-      id: Date.now().toString(),
+    const addressData = {
+      id: address ? address.id : Date.now().toString(), // Use existing ID or generate new
       state: values.state,
       city: values.city,
       postal: values.postalCode,
       address: values.address,
-      addressType: isHome ? 'Home' : 'Office', // Use toggle state
+      addressType: isHome ? 'Home' : 'Office',
     };
 
-    dispatch(addAddress(newAddress));
+    if (address) {
+      // Update the existing address
+      dispatch(updateAddress({id: address.id, updatedAddress: addressData}));
+    } else {
+      // Add new address
+      dispatch(addAddress(addressData));
+    }
     navigation.navigate('AddressList');
   };
 
@@ -71,7 +75,7 @@ const CreateAddress = () => {
     <SafeAreaView style={styles.container}>
       <Header
         leftIcon={Back}
-        title="Create Address"
+        title={address ? 'Edit Address' : 'Create Address'}
         leftClick={() => navigation.goBack()}
       />
       <KeyboardAvoidingView
@@ -126,7 +130,6 @@ const CreateAddress = () => {
                   numberOfLines={4}
                 />
 
-                {/* Toggle Switch for Address Type */}
                 <View style={styles.toggleContainer}>
                   <TouchableOpacity
                     style={[styles.toggleButton, isHome && styles.activeToggle]}
@@ -162,7 +165,9 @@ const CreateAddress = () => {
                   {loading ? (
                     <ActivityIndicator color="#ffffff" />
                   ) : (
-                    <Text style={styles.buttonText}>Create</Text>
+                    <Text style={styles.buttonText}>
+                      {address ? 'Update' : 'Create'}
+                    </Text>
                   )}
                 </TouchableOpacity>
               </View>
@@ -195,7 +200,6 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     marginVertical: 15,
   },
-
   toggleButton: {
     flex: 1,
     padding: 8,
