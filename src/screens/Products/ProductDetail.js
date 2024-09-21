@@ -14,21 +14,21 @@ import {
   Star,
   WishlistFill,
   WishlistIcon,
-} from '../assets/images';
-import Header from '../components/Header';
+} from '../../assets/images';
+import Header from '../../components/Header';
 import {useNavigation, useRoute} from '@react-navigation/native';
 import {useDispatch} from 'react-redux';
 import {
   selectWishlistProducts,
   setWishListProducts,
-} from '../redux/wishlist/wishlistsSlice';
-import useTypedSelector from '../hooks/useTypedSelector';
+} from '../../redux/wishlist/wishlistsSlice';
+import useTypedSelector from '../../hooks/useTypedSelector';
 import {
   selectedProducts,
   incrementProductQuantity,
   decrementProductQuantity,
   setCartProducts,
-} from '../redux/products/productsSlice';
+} from '../../redux/products/productsSlice';
 
 const ProductDetail = () => {
   const navigation = useNavigation();

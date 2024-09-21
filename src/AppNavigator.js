@@ -2,7 +2,7 @@ import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {NavigationContainer} from '@react-navigation/native';
 import Main from './screens/Main';
-import ProductDetail from './screens/ProductDetail';
+import ProductDetail from './screens/Products/ProductDetail';
 import Cart from './screens/Cart/Cart';
 import Login from './screens/Authentication/Login';
 import Signup from './screens/Authentication/Signup';
