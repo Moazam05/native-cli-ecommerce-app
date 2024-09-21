@@ -66,12 +66,7 @@ const AddressList = () => {
         {item.isDefault && (
           <Image
             source={TickIcon}
-            style={[
-              styles.tickIcon,
-              {
-                tintColor: '#44b678',
-              },
-            ]}
+            style={StyleSheet.compose(styles.tickIcon, {tintColor: '#44b678'})}
           />
         )}
       </View>
@@ -85,12 +80,7 @@ const AddressList = () => {
           onPress={() => navigation.navigate('CreateAddress', {address: item})}>
           <Image
             source={EditIcon}
-            style={[
-              styles.icon,
-              {
-                tintColor: '#ffffff',
-              },
-            ]}
+            style={StyleSheet.compose(styles.icon, {tintColor: '#ffffff'})}
           />
         </TouchableOpacity>
 
