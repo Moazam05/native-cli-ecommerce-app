@@ -29,6 +29,7 @@ import {setUser} from '../../redux/auth/authSlice';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {Fonts} from '../../constants/fonts';
 import {Colors} from '../../constants/colors';
+import CustomButton from '../../components/CustomButton';
 
 // Validation Schema
 const validationSchema = Yup.object().shape({
@@ -129,25 +130,38 @@ const Login = () => {
                       leftIcon={<PasswordTextFieldIcon />}
                     />
 
-                    <TouchableOpacity
-                      style={styles.loginButton}
-                      onPress={handleSubmit}
-                      disabled={loading}>
-                      {loading ? (
-                        <ActivityIndicator color="#ffffff" />
-                      ) : (
-                        <Text style={styles.buttonText}>Login</Text>
-                      )}
-                    </TouchableOpacity>
+                    <View
+                      style={{
+                        marginTop: 20,
+                      }}>
+                      <CustomButton
+                        name={
+                          loading ? (
+                            <ActivityIndicator color="#ffffff" />
+                          ) : (
+                            'Login'
+                          )
+                        }
+                        onPress={handleSubmit}
+                        disabled={loading}
+                      />
+                    </View>
 
-                    <Text style={styles.signupText}>
-                      Don't have an account?{' '}
-                      <Text
-                        style={styles.signupLink}
-                        onPress={() => navigation.navigate('Signup')}>
-                        Sign Up
+                    <View
+                      style={{
+                        marginTop: 20,
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                      }}>
+                      <Text style={styles.signupText}>
+                        Don't have an account?{' '}
+                        <Text
+                          style={styles.signupLink}
+                          onPress={() => navigation.navigate('Signup')}>
+                          Sign Up
+                        </Text>
                       </Text>
-                    </Text>
+                    </View>
                   </View>
                 );
               }}
@@ -200,23 +214,6 @@ const styles = StyleSheet.create({
   formContainer: {
     marginTop: 36,
     // gap: 20,
-  },
-  loginButton: {
-    backgroundColor: '#0786DAFD',
-    padding: 12,
-    borderRadius: 8,
-    alignItems: 'center',
-    marginTop: 10,
-  },
-  buttonText: {
-    color: '#ffffff',
-    fontSize: 18,
-    fontWeight: 'bold',
-  },
-  signupText: {
-    textAlign: 'center',
-    marginTop: 20,
-    color: '#555',
   },
   signupLink: {
     color: '#0786DAFD',
