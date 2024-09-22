@@ -24,6 +24,8 @@ import WelcomeOne from './welcome-1.svg';
 import WelcomeTwo from './welcome-2.svg';
 import WelcomeThree from './welcome-3.svg';
 import ActiveSlide from './Active-Slide.svg';
+import UserTextFieldIcon from './user-textfield.svg';
+import PasswordTextFieldIcon from './password-textfield.svg';
 
 export {
   Back,
@@ -52,4 +54,6 @@ export {
   WelcomeTwo,
   WelcomeThree,
   ActiveSlide,
+  UserTextFieldIcon,
+  PasswordTextFieldIcon,
 };

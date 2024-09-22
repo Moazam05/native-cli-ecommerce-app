@@ -38,6 +38,7 @@ const TextField = ({
         multiline={multiline}
         numberOfLines={multiline ? 3 : 1}
         textAlignVertical={multiline ? 'top' : 'center'}
+        placeholderTextColor="#676767"
       />
       {secureTextEntry && (
         <TouchableOpacity
@@ -63,9 +64,9 @@ const styles = StyleSheet.create({
   input: {
     borderColor: '#ddd',
     borderWidth: 1,
-    borderRadius: 8,
+    borderRadius: 10,
     paddingHorizontal: 15,
-    backgroundColor: '#f9f9f9',
+    backgroundColor: '#F3F3F3',
   },
   multilineInput: {
     minHeight: 100, // Set a minimum height for multiline inputs
