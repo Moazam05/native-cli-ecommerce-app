@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 import React, {useState} from 'react';
 import {HideEye, OpenEye} from '../assets/images';
+import {Colors} from '../constants/colors';
 
 const TextField = ({
   error,
@@ -24,14 +25,10 @@ const TextField = ({
 
   return (
     <View style={styles.inputContainer}>
-      <View style={styles.input}>
+      <View style={[styles.input, error ? styles.inputError : null]}>
         {leftIcon && <View style={styles.leftIconContainer}>{leftIcon}</View>}
         <TextInput
-          style={[
-            styles.textInput,
-            error ? styles.inputError : null,
-            multiline ? styles.multilineInput : null,
-          ]}
+          style={[styles.textInput, multiline ? styles.multilineInput : null]}
           placeholder={placeholder}
           value={value}
           onChangeText={onChangeText}
@@ -54,7 +51,6 @@ const TextField = ({
           />
         </TouchableOpacity>
       )}
-      {error && <Text style={styles.errorText}>{error}</Text>}
     </View>
   );
 };
@@ -88,12 +84,7 @@ const styles = StyleSheet.create({
     maxHeight: 200,
   },
   inputError: {
-    borderColor: 'red',
-  },
-  errorText: {
-    color: 'red',
-    fontSize: 11,
-    marginTop: 3,
+    borderColor: Colors.PRIMARY,
   },
   eyeIconContainer: {
     position: 'absolute',

@@ -107,19 +107,22 @@ const Login = () => {
                 errors,
                 touched,
               }) => {
-                const gapValue = errors.email || errors.password ? 20 : 30;
-
                 return (
-                  <View style={[styles.formContainer, {gap: gapValue}]}>
-                    <TextField
-                      placeholder="Email"
-                      value={values.email}
-                      onChangeText={handleChange('email')}
-                      onBlur={handleBlur('email')}
-                      keyboardType="email-address"
-                      error={touched.email && errors.email}
-                      leftIcon={<UserTextFieldIcon />}
-                    />
+                  <View style={styles.formContainer}>
+                    <View
+                      style={{
+                        marginBottom: 30,
+                      }}>
+                      <TextField
+                        placeholder="Email"
+                        value={values.email}
+                        onChangeText={handleChange('email')}
+                        onBlur={handleBlur('email')}
+                        keyboardType="email-address"
+                        error={touched.email && errors.email}
+                        leftIcon={<UserTextFieldIcon />}
+                      />
+                    </View>
                     <TextField
                       placeholder="Password"
                       value={values.password}
@@ -129,10 +132,24 @@ const Login = () => {
                       secureTextEntry={true}
                       leftIcon={<PasswordTextFieldIcon />}
                     />
+                    <View
+                      style={{
+                        marginTop: 10,
+                        alignItems: 'flex-end',
+                        fontSize: 12,
+                        fontFamily: Fonts.REGULAR,
+                      }}>
+                      <Text
+                        style={{
+                          color: Colors.PRIMARY,
+                        }}>
+                        Forgot Password?
+                      </Text>
+                    </View>
 
                     <View
                       style={{
-                        marginTop: 20,
+                        marginTop: 50,
                       }}>
                       <CustomButton
                         name={
@@ -213,7 +230,7 @@ const styles = StyleSheet.create({
   },
   formContainer: {
     marginTop: 36,
-    // gap: 20,
+    // gap: 30,
   },
   signupLink: {
     color: '#0786DAFD',
