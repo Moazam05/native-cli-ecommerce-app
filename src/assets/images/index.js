@@ -19,6 +19,10 @@ import HideEye from './hide-eye.png';
 import AddIcon from './plus.png';
 import EditIcon from './edit.png';
 import TickIcon from './tick.png';
+// NEW //
+import WelcomeOne from './welcome-1.svg';
+import WelcomeTwo from './welcome-2.svg';
+import WelcomeThree from './welcome-3.svg';
 
 export {
   Back,
@@ -42,4 +46,8 @@ export {
   AddIcon,
   EditIcon,
   TickIcon,
+  // NEW //
+  WelcomeOne,
+  WelcomeTwo,
+  WelcomeThree,
 };
