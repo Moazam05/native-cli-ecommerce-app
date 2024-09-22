@@ -1,7 +1,7 @@
 // React Imports
 import React, {useRef, useState} from 'react';
 // React Native Imports
-import {Image, Text, TouchableOpacity, View, StyleSheet} from 'react-native';
+import {Text, TouchableOpacity, View, StyleSheet} from 'react-native';
 // React Navigation
 import {useNavigation} from '@react-navigation/native';
 // Safe Area View
@@ -33,47 +33,44 @@ const Welcome = () => {
         onIndexChanged={index => setActiveIndex(index)}
         showsPagination={false} // Hide the default pagination
       >
-        {onboarding.map(item => {
-          return (
-            <View key={item.id} style={styles.slide}>
-              <item.image />
-              <Text style={styles.title}>{item.title}</Text>
-              <Text style={styles.description}>{item.description}</Text>
-            </View>
-          );
-        })}
+        {onboarding.map(item => (
+          <View key={item.id} style={styles.slide}>
+            <item.image />
+            <Text style={styles.title}>{item.title}</Text>
+            <Text style={styles.description}>{item.description}</Text>
+          </View>
+        ))}
       </Swiper>
 
-      {/* Custom Pagination and Navigation Buttons */}
-      <View style={styles.paginationContainer}>
+      {/* Navigation and Pagination */}
+      <View style={styles.navigationContainer}>
+        <TouchableOpacity onPress={() => swiperRef.current?.scrollBy(-1)}>
+          <Text style={styles.prev}>Prev</Text>
+        </TouchableOpacity>
+
+        {/* Custom Pagination */}
         <View style={styles.pagination}>
-          {/* Render dots manually */}
           {onboarding.map((_, index) => (
             <View key={index} style={styles.dotWrapper}>
               {activeIndex === index ? (
-                <ActiveSlide /> // Use SVG for active dot
+                <ActiveSlide />
               ) : (
-                <View style={styles.dot} /> // Regular dot
+                <View style={styles.dot} />
               )}
             </View>
           ))}
         </View>
 
-        <View style={styles.buttonWrap}>
-          <TouchableOpacity onPress={() => swiperRef.current?.scrollBy(-1)}>
-            <Text style={styles.prev}>Prev</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => {
-              if (isLastSlide) {
-                navigation.replace('SignUp');
-              } else {
-                swiperRef.current?.scrollBy(1);
-              }
-            }}>
-            <Text style={styles.next}>Next</Text>
-          </TouchableOpacity>
-        </View>
+        <TouchableOpacity
+          onPress={() => {
+            if (isLastSlide) {
+              navigation.replace('Login');
+            } else {
+              swiperRef.current?.scrollBy(1);
+            }
+          }}>
+          <Text style={styles.next}>Next</Text>
+        </TouchableOpacity>
       </View>
     </SafeAreaView>
   );
@@ -118,16 +115,17 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     paddingHorizontal: 20,
   },
-  paginationContainer: {
+  navigationContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
     alignItems: 'center',
-    justifyContent: 'center',
+    width: '90%',
     marginBottom: 20,
   },
   pagination: {
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: 0,
   },
   dotWrapper: {
     marginHorizontal: 4,
@@ -137,11 +135,6 @@ const styles = StyleSheet.create({
     height: 12,
     backgroundColor: '#E2E8F0',
     borderRadius: 6,
-  },
-  buttonWrap: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    width: '90%',
   },
   prev: {
     fontSize: 16,
