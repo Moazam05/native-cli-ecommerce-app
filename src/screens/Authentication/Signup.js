@@ -1,20 +1,37 @@
-import firestore from '@react-native-firebase/firestore';
-import {useNavigation} from '@react-navigation/native';
-import {Formik} from 'formik';
 import React, {useState} from 'react';
 import {
   ActivityIndicator,
   Alert,
+  Dimensions,
+  Image,
   StyleSheet,
   Text,
   TouchableOpacity,
-  ScrollView,
+  View,
   KeyboardAvoidingView,
+  ScrollView,
   Platform,
-  SafeAreaView,
 } from 'react-native';
+import {SafeAreaView} from 'react-native-safe-area-context';
+import {Formik} from 'formik';
 import * as Yup from 'yup';
+import {GestureHandlerRootView} from 'react-native-gesture-handler';
+import {
+  GoogleIcon,
+  LoginImg,
+  MailIcon,
+  PasswordTextFieldIcon,
+  UserTextFieldIcon,
+} from '../../assets/images';
 import TextField from '../../components/TextField';
+import firestore from '@react-native-firebase/firestore';
+import {useNavigation} from '@react-navigation/native';
+import {useDispatch} from 'react-redux';
+import {setUser} from '../../redux/auth/authSlice';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {Fonts} from '../../constants/fonts';
+import {Colors} from '../../constants/colors';
+import CustomButton from '../../components/CustomButton';
 
 // Validation Schema
 const validationSchema = Yup.object().shape({
@@ -22,9 +39,6 @@ const validationSchema = Yup.object().shape({
   email: Yup.string()
     .email('Invalid email address')
     .required('Email is required'),
-  mobile: Yup.string()
-    .matches(/^\d{11}$/, 'Enter a valid mobile number')
-    .required('Mobile number is required'),
   password: Yup.string()
     .min(6, 'Password must be at least 6 characters')
     .required('Password is required'),
@@ -35,16 +49,15 @@ const validationSchema = Yup.object().shape({
 
 const Signup = () => {
   const navigation = useNavigation();
+
   const [loading, setLoading] = useState(false);
 
-  // Form submission logic
   const handleSignup = async values => {
     setLoading(true);
     try {
       await firestore().collection('Users').add({
         name: values.name,
         email: values.email,
-        mobile: values.mobile,
         password: values.password,
       });
       Alert.alert('Success', 'Account created successfully');
@@ -58,121 +71,158 @@ const Signup = () => {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
-      <Text style={styles.title}>Create Account</Text>
-      <Text style={styles.subtitle}>Join us to get started!</Text>
+    <GestureHandlerRootView style={styles.gestureHandle}>
+      <SafeAreaView style={styles.container}>
+        <View style={styles.headingWrap}>
+          <Text style={styles.heading}>Create an</Text>
+          <Text style={styles.heading}>account</Text>
+        </View>
 
-      <KeyboardAvoidingView
-        style={styles.keyboardAvoidingView}
-        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-        keyboardVerticalOffset={100}>
-        <ScrollView contentContainerStyle={styles.scrollContainer}>
-          <Formik
-            initialValues={{
-              name: '',
-              email: '',
-              mobile: '',
-              password: '',
-              confirmPassword: '',
-            }}
-            validationSchema={validationSchema}
-            onSubmit={handleSignup}>
-            {({
-              handleChange,
-              handleBlur,
-              handleSubmit,
-              values,
-              errors,
-              touched,
-            }) => (
-              <>
-                <TextField
-                  placeholder="Name"
-                  value={values.name}
-                  onChangeText={handleChange('name')}
-                  onBlur={handleBlur('name')}
-                  error={touched.name && errors.name}
-                />
-                <TextField
-                  placeholder="Email"
-                  value={values.email}
-                  onChangeText={handleChange('email')}
-                  onBlur={handleBlur('email')}
-                  keyboardType="email-address"
-                  error={touched.email && errors.email}
-                />
-                <TextField
-                  placeholder="Mobile"
-                  value={values.mobile}
-                  onChangeText={handleChange('mobile')}
-                  onBlur={handleBlur('mobile')}
-                  keyboardType="phone-pad"
-                  error={touched.mobile && errors.mobile}
-                />
-                <TextField
-                  placeholder="Password"
-                  value={values.password}
-                  onChangeText={handleChange('password')}
-                  onBlur={handleBlur('password')}
-                  error={touched.password && errors.password}
-                  secureTextEntry={true}
-                />
-                <TextField
-                  placeholder="Confirm Password"
-                  value={values.confirmPassword}
-                  onChangeText={handleChange('confirmPassword')}
-                  onBlur={handleBlur('confirmPassword')}
-                  error={touched.confirmPassword && errors.confirmPassword}
-                  secureTextEntry={true}
-                />
+        <KeyboardAvoidingView
+          style={styles.keyboardAvoidingView}
+          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+          keyboardVerticalOffset={100}>
+          <ScrollView contentContainerStyle={styles.scrollContainer}>
+            <Formik
+              initialValues={{
+                name: '',
+                email: '',
+                password: '',
+                confirmPassword: '',
+              }}
+              validationSchema={validationSchema}
+              onSubmit={handleSignup}>
+              {({
+                handleChange,
+                handleBlur,
+                handleSubmit,
+                values,
+                errors,
+                touched,
+              }) => {
+                return (
+                  <View style={styles.formContainer}>
+                    {/* Name Field */}
+                    <View style={styles.fieldContainer}>
+                      <TextField
+                        placeholder="Name"
+                        value={values.name}
+                        onChangeText={handleChange('name')}
+                        onBlur={handleBlur('name')}
+                        error={touched.name && errors.name}
+                        leftIcon={<UserTextFieldIcon />}
+                      />
+                    </View>
 
-                <TouchableOpacity
-                  style={styles.signupButton}
-                  onPress={handleSubmit}
-                  disabled={loading}>
-                  {loading ? (
-                    <ActivityIndicator color="#ffffff" />
-                  ) : (
-                    <Text style={styles.buttonText}>Sign Up</Text>
-                  )}
-                </TouchableOpacity>
+                    {/* Email Field */}
+                    <View style={styles.fieldContainer}>
+                      <TextField
+                        placeholder="Email"
+                        value={values.email}
+                        onChangeText={handleChange('email')}
+                        onBlur={handleBlur('email')}
+                        keyboardType="email-address"
+                        error={touched.email && errors.email}
+                        leftIcon={<MailIcon />}
+                      />
+                    </View>
 
-                <Text style={styles.loginText}>
-                  Already have an account?{' '}
-                  <Text
-                    style={styles.loginLink}
-                    onPress={() => navigation.navigate('Login')}>
-                    Login
-                  </Text>
-                </Text>
-              </>
-            )}
-          </Formik>
-        </ScrollView>
-      </KeyboardAvoidingView>
-    </SafeAreaView>
+                    {/* Password Field */}
+                    <View style={styles.fieldContainer}>
+                      <TextField
+                        placeholder="Password"
+                        value={values.password}
+                        onChangeText={handleChange('password')}
+                        onBlur={handleBlur('password')}
+                        error={touched.password && errors.password}
+                        secureTextEntry={true}
+                        leftIcon={<PasswordTextFieldIcon />}
+                      />
+                    </View>
+
+                    {/* Confirm Password Field */}
+                    <View style={styles.fieldContainer}>
+                      <TextField
+                        placeholder="Confirm Password"
+                        value={values.confirmPassword}
+                        onChangeText={handleChange('confirmPassword')}
+                        onBlur={handleBlur('confirmPassword')}
+                        error={
+                          touched.confirmPassword && errors.confirmPassword
+                        }
+                        secureTextEntry={true}
+                        leftIcon={<PasswordTextFieldIcon />}
+                      />
+                    </View>
+
+                    {/* Register Agreement */}
+                    <View style={styles.agreementContainer}>
+                      <Text style={styles.agreementText}>
+                        By clicking the{' '}
+                        <Text style={styles.registerText}>Register</Text>{' '}
+                        button, you agree
+                      </Text>
+                      <Text style={styles.agreementText}>
+                        to the public offer
+                      </Text>
+                    </View>
+
+                    {/* Create Account Button */}
+                    <View style={styles.buttonContainer}>
+                      <CustomButton
+                        name={
+                          loading ? (
+                            <ActivityIndicator color="#ffffff" />
+                          ) : (
+                            'Create Account'
+                          )
+                        }
+                        onPress={handleSubmit}
+                        disabled={loading}
+                      />
+                    </View>
+
+                    {/* OR with Google Icon */}
+                    <View style={styles.orContainer}>
+                      <Text style={styles.orText}>- OR Continue with -</Text>
+                      <View style={styles.googleIconContainer}>
+                        <Image source={GoogleIcon} style={styles.googleIcon} />
+                      </View>
+                    </View>
+
+                    {/* Login Link */}
+                    <View style={styles.signupContainer}>
+                      <Text style={styles.signupText}>
+                        I Already Have an Account{' '}
+                        <Text
+                          style={styles.signupLink}
+                          onPress={() => navigation.navigate('Login')}>
+                          Login
+                        </Text>
+                      </Text>
+                    </View>
+                  </View>
+                );
+              }}
+            </Formik>
+          </ScrollView>
+        </KeyboardAvoidingView>
+      </SafeAreaView>
+    </GestureHandlerRootView>
   );
 };
 
 export default Signup;
 
 const styles = StyleSheet.create({
+  gestureHandle: {
+    flex: 1,
+    backgroundColor: Colors.WHITE,
+  },
   container: {
     flex: 1,
-    backgroundColor: '#f5f5f5',
-    padding: 20,
-  },
-  title: {
-    fontSize: 28,
-    fontWeight: 'bold',
-    marginBottom: 10,
-    textAlign: 'center',
-  },
-  subtitle: {
-    fontSize: 16,
-    color: '#555',
-    textAlign: 'center',
-    marginBottom: 30,
+    marginHorizontal: 30,
+    marginVertical: 20,
   },
   keyboardAvoidingView: {
     flex: 1,
@@ -180,25 +230,68 @@ const styles = StyleSheet.create({
   scrollContainer: {
     paddingBottom: 20,
   },
-  signupButton: {
-    backgroundColor: '#0786DAFD',
-    padding: 12,
-    borderRadius: 8,
-    alignItems: 'center',
-    marginTop: 10,
-  },
-  buttonText: {
-    color: '#ffffff',
-    fontSize: 18,
-    fontWeight: 'bold',
-  },
-  loginText: {
-    textAlign: 'center',
+  headingWrap: {
     marginTop: 20,
-    color: '#555',
   },
-  loginLink: {
-    color: '#0786DAFD',
-    fontWeight: 'bold',
+  heading: {
+    fontSize: 36,
+    fontFamily: Fonts.BOLD,
+    color: Colors.BLACK,
+  },
+  formContainer: {
+    marginTop: 36,
+  },
+  fieldContainer: {
+    marginBottom: 30,
+  },
+  agreementContainer: {
+    marginTop: 0,
+  },
+  agreementText: {
+    fontSize: 12,
+    color: '#676767',
+    fontFamily: Fonts.REGULAR,
+  },
+  registerText: {
+    color: Colors.PRIMARY,
+  },
+  buttonContainer: {
+    marginTop: 50,
+  },
+  orContainer: {
+    marginTop: 75,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  orText: {
+    color: Colors.TEXT,
+    fontSize: 14,
+    fontFamily: Fonts.REGULAR,
+  },
+  googleIconContainer: {
+    marginTop: 20,
+    marginBottom: 30,
+  },
+  googleIcon: {
+    width: 50,
+    height: 50,
+    resizeMode: 'contain',
+  },
+  signupContainer: {
+    marginTop: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  signupText: {
+    color: Colors.TEXT,
+    fontSize: 14,
+    fontFamily: Fonts.REGULAR,
+  },
+  signupLink: {
+    color: Colors.PRIMARY,
+    fontFamily: Fonts.SEMIBOLD,
+    fontSize: 14,
+    textDecorationColor: Colors.PRIMARY,
+    textDecorationLine: 'underline',
   },
 });
