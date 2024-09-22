@@ -104,13 +104,13 @@ const AppNavigator = () => {
           </>
         ) : (
           <>
-            <Stack.Screen
+            {/* <Stack.Screen
               name="Welcome"
               component={Welcome}
               options={{
                 headerShown: false,
               }}
-            />
+            /> */}
 
             <Stack.Screen
               name="Login"

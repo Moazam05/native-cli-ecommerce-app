@@ -37,7 +37,7 @@ const TextField = ({
           onChangeText={onChangeText}
           onBlur={onBlur}
           keyboardType={keyboardType}
-          secureTextEntry={secureTextEntry && !showPassword} // Toggle visibility
+          secureTextEntry={secureTextEntry && !showPassword}
           multiline={multiline}
           numberOfLines={multiline ? 3 : 1}
           textAlignVertical={multiline ? 'top' : 'center'}
@@ -66,13 +66,14 @@ const styles = StyleSheet.create({
     position: 'relative',
   },
   input: {
-    borderColor: '#ddd',
+    borderColor: '#676767',
     borderWidth: 1,
     borderRadius: 10,
     backgroundColor: '#F3F3F3',
     flexDirection: 'row',
     alignItems: 'center',
     paddingHorizontal: 15,
+    height: 55,
   },
   leftIconContainer: {
     marginRight: 5,
@@ -97,7 +98,7 @@ const styles = StyleSheet.create({
   eyeIconContainer: {
     position: 'absolute',
     right: 15,
-    top: 13,
+    top: 18,
   },
   eyeIcon: {
     width: 20,

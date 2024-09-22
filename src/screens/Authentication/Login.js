@@ -105,48 +105,52 @@ const Login = () => {
                 values,
                 errors,
                 touched,
-              }) => (
-                <View style={styles.formContainer}>
-                  <TextField
-                    placeholder="Email"
-                    value={values.email}
-                    onChangeText={handleChange('email')}
-                    onBlur={handleBlur('email')}
-                    keyboardType="email-address"
-                    error={touched.email && errors.email}
-                    leftIcon={<UserTextFieldIcon />}
-                  />
-                  <TextField
-                    placeholder="Password"
-                    value={values.password}
-                    onChangeText={handleChange('password')}
-                    onBlur={handleBlur('password')}
-                    error={touched.password && errors.password}
-                    secureTextEntry={true}
-                    leftIcon={<PasswordTextFieldIcon />}
-                  />
+              }) => {
+                const gapValue = errors.email || errors.password ? 20 : 30;
 
-                  <TouchableOpacity
-                    style={styles.loginButton}
-                    onPress={handleSubmit}
-                    disabled={loading}>
-                    {loading ? (
-                      <ActivityIndicator color="#ffffff" />
-                    ) : (
-                      <Text style={styles.buttonText}>Login</Text>
-                    )}
-                  </TouchableOpacity>
+                return (
+                  <View style={[styles.formContainer, {gap: gapValue}]}>
+                    <TextField
+                      placeholder="Email"
+                      value={values.email}
+                      onChangeText={handleChange('email')}
+                      onBlur={handleBlur('email')}
+                      keyboardType="email-address"
+                      error={touched.email && errors.email}
+                      leftIcon={<UserTextFieldIcon />}
+                    />
+                    <TextField
+                      placeholder="Password"
+                      value={values.password}
+                      onChangeText={handleChange('password')}
+                      onBlur={handleBlur('password')}
+                      error={touched.password && errors.password}
+                      secureTextEntry={true}
+                      leftIcon={<PasswordTextFieldIcon />}
+                    />
 
-                  <Text style={styles.signupText}>
-                    Don't have an account?{' '}
-                    <Text
-                      style={styles.signupLink}
-                      onPress={() => navigation.navigate('Signup')}>
-                      Sign Up
+                    <TouchableOpacity
+                      style={styles.loginButton}
+                      onPress={handleSubmit}
+                      disabled={loading}>
+                      {loading ? (
+                        <ActivityIndicator color="#ffffff" />
+                      ) : (
+                        <Text style={styles.buttonText}>Login</Text>
+                      )}
+                    </TouchableOpacity>
+
+                    <Text style={styles.signupText}>
+                      Don't have an account?{' '}
+                      <Text
+                        style={styles.signupLink}
+                        onPress={() => navigation.navigate('Signup')}>
+                        Sign Up
+                      </Text>
                     </Text>
-                  </Text>
-                </View>
-              )}
+                  </View>
+                );
+              }}
             </Formik>
           </ScrollView>
         </KeyboardAvoidingView>
@@ -195,7 +199,7 @@ const styles = StyleSheet.create({
   },
   formContainer: {
     marginTop: 36,
-    gap: 30,
+    // gap: 20,
   },
   loginButton: {
     backgroundColor: '#0786DAFD',
