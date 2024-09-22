@@ -18,28 +18,31 @@ const TextField = ({
   keyboardType,
   secureTextEntry,
   multiline,
+  leftIcon,
 }) => {
   const [showPassword, setShowPassword] = useState(false);
 
   return (
     <View style={styles.inputContainer}>
-      <TextInput
-        style={[
-          styles.input,
-          error ? styles.inputError : null,
-          multiline ? styles.multilineInput : null,
-        ]}
-        placeholder={placeholder}
-        value={value}
-        onChangeText={onChangeText}
-        onBlur={onBlur}
-        keyboardType={keyboardType}
-        secureTextEntry={secureTextEntry && !showPassword} // Toggle visibility
-        multiline={multiline}
-        numberOfLines={multiline ? 3 : 1}
-        textAlignVertical={multiline ? 'top' : 'center'}
-        placeholderTextColor="#676767"
-      />
+      <View style={styles.input}>
+        {leftIcon}
+        <TextInput
+          style={[
+            error ? styles.inputError : null,
+            multiline ? styles.multilineInput : null,
+          ]}
+          placeholder={placeholder}
+          value={value}
+          onChangeText={onChangeText}
+          onBlur={onBlur}
+          keyboardType={keyboardType}
+          secureTextEntry={secureTextEntry && !showPassword} // Toggle visibility
+          multiline={multiline}
+          numberOfLines={multiline ? 3 : 1}
+          textAlignVertical={multiline ? 'top' : 'center'}
+          placeholderTextColor="#676767"
+        />
+      </View>
       {secureTextEntry && (
         <TouchableOpacity
           style={styles.eyeIconContainer}
@@ -67,6 +70,8 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     paddingHorizontal: 15,
     backgroundColor: '#F3F3F3',
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   multilineInput: {
     minHeight: 100, // Set a minimum height for multiline inputs
