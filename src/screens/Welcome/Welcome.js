@@ -30,9 +30,9 @@ const Welcome = () => {
       <Swiper
         ref={swiperRef}
         loop={false}
-        // dot={<View style={styles.dot} />}
-        // activeDot={<View style={styles.activeDot} />}
-        onIndexChanged={index => setActiveIndex(index)}>
+        onIndexChanged={index => setActiveIndex(index)}
+        showsPagination={false} // Hide the default pagination
+      >
         {onboarding.map(item => {
           return (
             <View key={item.id} style={styles.slide}>
@@ -44,24 +44,36 @@ const Welcome = () => {
         })}
       </Swiper>
 
-      {/* Next or Get Started Button */}
-      {/* <TouchableOpacity
-        style={styles.button}
-        onPress={() => {
-          if (isLastSlide) {
-            navigation.replace('SignUp');
-          } else {
-            swiperRef.current?.scrollBy(1);
-          }
-        }}>
-        <Text style={styles.buttonText}>
-          {isLastSlide ? 'Get Started' : 'Next'}
-        </Text>
-      </TouchableOpacity> */}
+      {/* Custom Pagination and Navigation Buttons */}
+      <View style={styles.paginationContainer}>
+        <View style={styles.pagination}>
+          {/* Render dots manually */}
+          {onboarding.map((_, index) => (
+            <View key={index} style={styles.dotWrapper}>
+              {activeIndex === index ? (
+                <ActiveSlide /> // Use SVG for active dot
+              ) : (
+                <View style={styles.dot} /> // Regular dot
+              )}
+            </View>
+          ))}
+        </View>
 
-      <View style={styles.buttonWrap}>
-        <Text style={styles.prev}>Prev</Text>
-        <Text style={styles.next}>Next</Text>
+        <View style={styles.buttonWrap}>
+          <TouchableOpacity onPress={() => swiperRef.current?.scrollBy(-1)}>
+            <Text style={styles.prev}>Prev</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => {
+              if (isLastSlide) {
+                navigation.replace('SignUp');
+              } else {
+                swiperRef.current?.scrollBy(1);
+              }
+            }}>
+            <Text style={styles.next}>Next</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     </SafeAreaView>
   );
@@ -86,27 +98,12 @@ const styles = StyleSheet.create({
     color: '#000',
     fontWeight: 'bold',
   },
-  dot: {
-    width: 32,
-    height: 4,
-    marginHorizontal: 4,
-    backgroundColor: '#E2E8F0',
-    borderRadius: 2,
-  },
-  activeDot: {
-    width: 32,
-    height: 4,
-    marginHorizontal: 4,
-    backgroundColor: '#0286FF',
-    borderRadius: 2,
-  },
   slide: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     paddingHorizontal: 20,
   },
-
   title: {
     marginTop: 20,
     fontSize: 24,
@@ -121,24 +118,30 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     paddingHorizontal: 20,
   },
-  button: {
-    width: '90%',
-    marginBottom: 20,
-    backgroundColor: '#0286FF',
-    paddingVertical: 15,
-    borderRadius: 5,
+  paginationContainer: {
     alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 20,
   },
-  buttonText: {
-    color: '#fff',
-    fontSize: 18,
-    fontWeight: 'bold',
+  pagination: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 0,
+  },
+  dotWrapper: {
+    marginHorizontal: 4,
+  },
+  dot: {
+    width: 12,
+    height: 12,
+    backgroundColor: '#E2E8F0',
+    borderRadius: 6,
   },
   buttonWrap: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     width: '90%',
-    marginBottom: 20,
   },
   prev: {
     fontSize: 16,
