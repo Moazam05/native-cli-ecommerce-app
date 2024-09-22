@@ -1,16 +1,10 @@
-// React Imports
 import React, {useRef, useState} from 'react';
-// React Native Imports
 import {Text, TouchableOpacity, View, StyleSheet} from 'react-native';
-// React Navigation
 import {useNavigation} from '@react-navigation/native';
-// Safe Area View
 import {SafeAreaView} from 'react-native-safe-area-context';
-// Swiper
 import Swiper from 'react-native-swiper';
-// Constants
-import {onboarding} from '../../constants'; // Update the path as needed
-import {ActiveSlide} from '../../assets/images'; // Update the path as needed
+import {onboarding} from '../../constants';
+import {ActiveSlide} from '../../assets/images';
 
 const Welcome = () => {
   const swiperRef = useRef(null);
@@ -20,7 +14,6 @@ const Welcome = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      {/* Skip Button */}
       <TouchableOpacity
         onPress={() => navigation.replace('Login')}
         style={styles.skipButton}>
@@ -31,8 +24,7 @@ const Welcome = () => {
         ref={swiperRef}
         loop={false}
         onIndexChanged={index => setActiveIndex(index)}
-        showsPagination={false} // Hide the default pagination
-      >
+        showsPagination={false}>
         {onboarding.map(item => (
           <View key={item.id} style={styles.slide}>
             <item.image />
@@ -42,13 +34,13 @@ const Welcome = () => {
         ))}
       </Swiper>
 
-      {/* Navigation and Pagination */}
       <View style={styles.navigationContainer}>
-        <TouchableOpacity onPress={() => swiperRef.current?.scrollBy(-1)}>
+        <TouchableOpacity
+          onPress={() => swiperRef.current?.scrollBy(-1)}
+          style={[activeIndex === 0 && styles.hidden]}>
           <Text style={styles.prev}>Prev</Text>
         </TouchableOpacity>
 
-        {/* Custom Pagination */}
         <View style={styles.pagination}>
           {onboarding.map((_, index) => (
             <View key={index} style={styles.dotWrapper}>
@@ -64,7 +56,7 @@ const Welcome = () => {
         <TouchableOpacity
           onPress={() => {
             if (isLastSlide) {
-              navigation.replace('Login');
+              navigation.replace('SignUp');
             } else {
               swiperRef.current?.scrollBy(1);
             }
@@ -136,12 +128,18 @@ const styles = StyleSheet.create({
     backgroundColor: '#E2E8F0',
     borderRadius: 6,
   },
+
+  hidden: {
+    opacity: 0,
+  },
   prev: {
     fontSize: 16,
     color: '#C4C4C4',
+    fontWeight: '600',
   },
   next: {
     fontSize: 16,
     color: '#F83758',
+    fontWeight: '600',
   },
 });
