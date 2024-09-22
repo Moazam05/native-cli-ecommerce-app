@@ -13,6 +13,7 @@ import Checkout from './screens/Cart/Checkout';
 import AddressList from './screens/Address/AddressList';
 import CreateAddress from './screens/Address/CreateAddress';
 import {ActivityIndicator, StyleSheet, View} from 'react-native';
+import Welcome from './screens/Welcome/Welcome';
 
 const Stack = createNativeStackNavigator();
 
@@ -103,6 +104,14 @@ const AppNavigator = () => {
           </>
         ) : (
           <>
+            <Stack.Screen
+              name="Welcome"
+              component={Welcome}
+              options={{
+                headerShown: false,
+              }}
+            />
+
             <Stack.Screen
               name="Login"
               component={Login}
