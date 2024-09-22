@@ -5,6 +5,7 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import Swiper from 'react-native-swiper';
 import {onboarding} from '../../constants';
 import {ActiveSlide} from '../../assets/images';
+import {Fonts} from '../../constants/fonts';
 
 const Welcome = () => {
   const swiperRef = useRef(null);
@@ -98,9 +99,9 @@ const styles = StyleSheet.create({
   title: {
     marginTop: 20,
     fontSize: 24,
-    fontWeight: 'bold',
     color: '#000',
     textAlign: 'center',
+    fontFamily: Fonts.BOLD,
   },
   description: {
     marginTop: 10,
