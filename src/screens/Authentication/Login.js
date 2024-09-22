@@ -17,6 +17,7 @@ import {Formik} from 'formik';
 import * as Yup from 'yup';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
 import {
+  GoogleIcon,
   LoginImg,
   PasswordTextFieldIcon,
   UserTextFieldIcon,
@@ -134,7 +135,7 @@ const Login = () => {
                     />
                     <View
                       style={{
-                        marginTop: 10,
+                        marginTop: 5,
                         alignItems: 'flex-end',
                         fontSize: 12,
                         fontFamily: Fonts.REGULAR,
@@ -166,12 +167,41 @@ const Login = () => {
 
                     <View
                       style={{
+                        marginTop: 75,
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                      }}>
+                      <Text
+                        style={{
+                          color: Colors.TEXT,
+                          fontSize: 14,
+                          fontFamily: Fonts.REGULAR,
+                        }}>
+                        - OR Continue with -
+                      </Text>
+
+                      <View
+                        style={{
+                          marginTop: 20,
+                          marginBottom: 30,
+                        }}>
+                        <GoogleIcon />
+                      </View>
+                    </View>
+
+                    <View
+                      style={{
                         marginTop: 20,
                         justifyContent: 'center',
                         alignItems: 'center',
                       }}>
-                      <Text style={styles.signupText}>
-                        Don't have an account?{' '}
+                      <Text
+                        style={{
+                          color: Colors.TEXT,
+                          fontSize: 14,
+                          fontFamily: Fonts.REGULAR,
+                        }}>
+                        Create An Account{' '}
                         <Text
                           style={styles.signupLink}
                           onPress={() => navigation.navigate('Signup')}>
@@ -233,7 +263,10 @@ const styles = StyleSheet.create({
     // gap: 30,
   },
   signupLink: {
-    color: '#0786DAFD',
-    fontWeight: 'bold',
+    color: Colors.PRIMARY,
+    fontFamily: Fonts.SEMIBOLD,
+    fontSize: 14,
+    textDecorationColor: Colors.PRIMARY,
+    textDecorationLine: 'underline',
   },
 });

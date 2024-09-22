@@ -5,4 +5,5 @@ export const Colors = {
   DOT: '#D1D3D8',
   LIGHTGREY: '#C4C4C4',
   WHITE: '#fff',
+  TEXT: '#575757',
 };
