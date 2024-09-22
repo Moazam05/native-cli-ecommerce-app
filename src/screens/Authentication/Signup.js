@@ -1,37 +1,31 @@
+import firestore from '@react-native-firebase/firestore';
+import {useNavigation} from '@react-navigation/native';
+import {Formik} from 'formik';
 import React, {useState} from 'react';
 import {
   ActivityIndicator,
   Alert,
-  Dimensions,
   Image,
+  KeyboardAvoidingView,
+  Platform,
+  ScrollView,
   StyleSheet,
   Text,
-  TouchableOpacity,
   View,
-  KeyboardAvoidingView,
-  ScrollView,
-  Platform,
 } from 'react-native';
-import {SafeAreaView} from 'react-native-safe-area-context';
-import {Formik} from 'formik';
-import * as Yup from 'yup';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
+import {SafeAreaView} from 'react-native-safe-area-context';
+import * as Yup from 'yup';
 import {
   GoogleIcon,
-  LoginImg,
   MailIcon,
   PasswordTextFieldIcon,
   UserTextFieldIcon,
 } from '../../assets/images';
-import TextField from '../../components/TextField';
-import firestore from '@react-native-firebase/firestore';
-import {useNavigation} from '@react-navigation/native';
-import {useDispatch} from 'react-redux';
-import {setUser} from '../../redux/auth/authSlice';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import {Fonts} from '../../constants/fonts';
-import {Colors} from '../../constants/colors';
 import CustomButton from '../../components/CustomButton';
+import TextField from '../../components/TextField';
+import {Colors} from '../../constants/colors';
+import {Fonts} from '../../constants/fonts';
 
 // Validation Schema
 const validationSchema = Yup.object().shape({
@@ -259,7 +253,7 @@ const styles = StyleSheet.create({
     marginTop: 50,
   },
   orContainer: {
-    marginTop: 75,
+    marginTop: 40,
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -270,7 +264,7 @@ const styles = StyleSheet.create({
   },
   googleIconContainer: {
     marginTop: 20,
-    marginBottom: 30,
+    marginBottom: 20,
   },
   googleIcon: {
     width: 50,
