@@ -27,6 +27,7 @@ import ActiveSlide from './Active-Slide.svg';
 import UserTextFieldIcon from './user-textfield.svg';
 import PasswordTextFieldIcon from './password-textfield.svg';
 import GoogleIcon from './Google.png';
+import MailIcon from './email.svg';
 
 export {
   Back,
@@ -58,4 +59,5 @@ export {
   UserTextFieldIcon,
   PasswordTextFieldIcon,
   GoogleIcon,
+  MailIcon,
 };
