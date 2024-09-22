@@ -26,7 +26,7 @@ import WelcomeThree from './welcome-3.svg';
 import ActiveSlide from './Active-Slide.svg';
 import UserTextFieldIcon from './user-textfield.svg';
 import PasswordTextFieldIcon from './password-textfield.svg';
-import GoogleIcon from './Google.svg';
+import GoogleIcon from './Google.png';
 
 export {
   Back,

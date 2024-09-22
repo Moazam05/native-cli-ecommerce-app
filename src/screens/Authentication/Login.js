@@ -148,7 +148,7 @@ const Login = () => {
                     <View style={styles.orContainer}>
                       <Text style={styles.orText}>- OR Continue with -</Text>
                       <View style={styles.googleIconContainer}>
-                        <GoogleIcon />
+                        <Image source={GoogleIcon} style={styles.googleIcon} />
                       </View>
                     </View>
 
@@ -230,6 +230,11 @@ const styles = StyleSheet.create({
   googleIconContainer: {
     marginTop: 20,
     marginBottom: 30,
+  },
+  googleIcon: {
+    width: 50, // Set appropriate width
+    height: 50, // Set appropriate height
+    resizeMode: 'contain', // Ensures the aspect ratio is maintained
   },
   signupContainer: {
     marginTop: 20,
