@@ -58,7 +58,6 @@ export default TextField;
 
 const styles = StyleSheet.create({
   inputContainer: {
-    marginBottom: 15,
     position: 'relative',
   },
   input: {

@@ -23,6 +23,8 @@ import {useNavigation} from '@react-navigation/native';
 import {useDispatch} from 'react-redux';
 import {setUser} from '../../redux/auth/authSlice';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {Fonts} from '../../constants/fonts';
+import {Colors} from '../../constants/colors';
 
 // Validation Schema
 const validationSchema = Yup.object().shape({
@@ -73,10 +75,15 @@ const Login = () => {
   return (
     <GestureHandlerRootView style={styles.gestureHandle}>
       <SafeAreaView style={styles.container}>
-        <Image source={LoginImg} style={styles.coverImage} />
+        <View style={styles.headingWrap}>
+          <Text style={styles.heading}>Welcome</Text>
+          <Text style={styles.heading}>Back!</Text>
+        </View>
+
+        {/* <Image source={LoginImg} style={styles.coverImage} />
         <Text style={styles.tagline}>
           Welcome back! We're glad to see you again.
-        </Text>
+        </Text> */}
 
         <KeyboardAvoidingView
           style={styles.keyboardAvoidingView}
@@ -147,16 +154,26 @@ export default Login;
 const styles = StyleSheet.create({
   gestureHandle: {
     flex: 1,
+    backgroundColor: Colors.WHITE,
   },
   container: {
     flex: 1,
-    backgroundColor: '#f5f5f5',
+    marginHorizontal: 30,
+    marginVertical: 20,
   },
   keyboardAvoidingView: {
     flex: 1,
   },
   scrollContainer: {
     paddingBottom: 20,
+  },
+  headingWrap: {
+    marginTop: 20,
+  },
+  heading: {
+    fontSize: 36,
+    fontFamily: Fonts.BOLD,
+    color: Colors.BLACK,
   },
   coverImage: {
     width: Dimensions.get('window').width,
@@ -171,7 +188,8 @@ const styles = StyleSheet.create({
     fontWeight: '600',
   },
   formContainer: {
-    paddingHorizontal: 20,
+    marginTop: 36,
+    gap: 30,
   },
   loginButton: {
     backgroundColor: '#0786DAFD',
