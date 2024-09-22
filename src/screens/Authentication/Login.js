@@ -232,9 +232,9 @@ const styles = StyleSheet.create({
     marginBottom: 30,
   },
   googleIcon: {
-    width: 50, // Set appropriate width
-    height: 50, // Set appropriate height
-    resizeMode: 'contain', // Ensures the aspect ratio is maintained
+    width: 50,
+    height: 50,
+    resizeMode: 'contain',
   },
   signupContainer: {
     marginTop: 20,
