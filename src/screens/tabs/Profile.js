@@ -2,11 +2,23 @@ import {View, Text, StyleSheet} from 'react-native';
 import React from 'react';
 import Header from '../../components/Header';
 import useTypedSelector from '../../hooks/useTypedSelector';
-import {selectedUser} from '../../redux/auth/authSlice';
+import {selectedUser, setUser} from '../../redux/auth/authSlice';
+import {useDispatch} from 'react-redux';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {useNavigation} from '@react-navigation/native';
 
 const Profile = () => {
+  const dispatch = useDispatch();
+  const navigation = useNavigation();
+
   const loginUser = useTypedSelector(selectedUser);
   const firstLetter = loginUser?.name?.charAt(0)?.toUpperCase();
+
+  const handleLogout = () => {
+    dispatch(setUser(null));
+    AsyncStorage.removeItem('user');
+    navigation.navigate('Login');
+  };
 
   return (
     <View style={styles.container}>
@@ -22,7 +34,13 @@ const Profile = () => {
           <Text style={styles.textLabel}>Edit Profile</Text>
           <Text style={styles.textLabel}>Orders</Text>
           <Text style={styles.textLabel}>Address</Text>
-          <Text style={styles.textLabel}>Logout</Text>
+          <Text
+            style={styles.textLabel}
+            onPress={() => {
+              handleLogout();
+            }}>
+            Logout
+          </Text>
         </View>
       </View>
     </View>
