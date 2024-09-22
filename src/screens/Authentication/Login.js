@@ -86,11 +86,6 @@ const Login = () => {
           <Text style={styles.heading}>Back!</Text>
         </View>
 
-        {/* <Image source={LoginImg} style={styles.coverImage} />
-        <Text style={styles.tagline}>
-          Welcome back! We're glad to see you again.
-        </Text> */}
-
         <KeyboardAvoidingView
           style={styles.keyboardAvoidingView}
           behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
@@ -110,10 +105,7 @@ const Login = () => {
               }) => {
                 return (
                   <View style={styles.formContainer}>
-                    <View
-                      style={{
-                        marginBottom: 30,
-                      }}>
+                    <View style={styles.fieldContainer}>
                       <TextField
                         placeholder="Email"
                         value={values.email}
@@ -133,25 +125,13 @@ const Login = () => {
                       secureTextEntry={true}
                       leftIcon={<PasswordTextFieldIcon />}
                     />
-                    <View
-                      style={{
-                        marginTop: 5,
-                        alignItems: 'flex-end',
-                        fontSize: 12,
-                        fontFamily: Fonts.REGULAR,
-                      }}>
-                      <Text
-                        style={{
-                          color: Colors.PRIMARY,
-                        }}>
+                    <View style={styles.forgotPasswordContainer}>
+                      <Text style={styles.forgotPasswordText}>
                         Forgot Password?
                       </Text>
                     </View>
 
-                    <View
-                      style={{
-                        marginTop: 50,
-                      }}>
+                    <View style={styles.buttonContainer}>
                       <CustomButton
                         name={
                           loading ? (
@@ -165,42 +145,15 @@ const Login = () => {
                       />
                     </View>
 
-                    <View
-                      style={{
-                        marginTop: 75,
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                      }}>
-                      <Text
-                        style={{
-                          color: Colors.TEXT,
-                          fontSize: 14,
-                          fontFamily: Fonts.REGULAR,
-                        }}>
-                        - OR Continue with -
-                      </Text>
-
-                      <View
-                        style={{
-                          marginTop: 20,
-                          marginBottom: 30,
-                        }}>
+                    <View style={styles.orContainer}>
+                      <Text style={styles.orText}>- OR Continue with -</Text>
+                      <View style={styles.googleIconContainer}>
                         <GoogleIcon />
                       </View>
                     </View>
 
-                    <View
-                      style={{
-                        marginTop: 20,
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                      }}>
-                      <Text
-                        style={{
-                          color: Colors.TEXT,
-                          fontSize: 14,
-                          fontFamily: Fonts.REGULAR,
-                        }}>
+                    <View style={styles.signupContainer}>
+                      <Text style={styles.signupText}>
                         Create An Account{' '}
                         <Text
                           style={styles.signupLink}
@@ -246,21 +199,47 @@ const styles = StyleSheet.create({
     fontFamily: Fonts.BOLD,
     color: Colors.BLACK,
   },
-  coverImage: {
-    width: Dimensions.get('window').width,
-    height: Dimensions.get('window').height / 2.5,
-    resizeMode: 'cover',
-  },
-  tagline: {
-    fontSize: 18,
-    textAlign: 'center',
-    marginVertical: 20,
-    color: '#333',
-    fontWeight: '600',
-  },
   formContainer: {
     marginTop: 36,
-    // gap: 30,
+  },
+  fieldContainer: {
+    marginBottom: 30,
+  },
+  forgotPasswordContainer: {
+    marginTop: 5,
+    alignItems: 'flex-end',
+  },
+  forgotPasswordText: {
+    color: Colors.PRIMARY,
+    fontSize: 12,
+    fontFamily: Fonts.REGULAR,
+  },
+  buttonContainer: {
+    marginTop: 50,
+  },
+  orContainer: {
+    marginTop: 75,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  orText: {
+    color: Colors.TEXT,
+    fontSize: 14,
+    fontFamily: Fonts.REGULAR,
+  },
+  googleIconContainer: {
+    marginTop: 20,
+    marginBottom: 30,
+  },
+  signupContainer: {
+    marginTop: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  signupText: {
+    color: Colors.TEXT,
+    fontSize: 14,
+    fontFamily: Fonts.REGULAR,
   },
   signupLink: {
     color: Colors.PRIMARY,
