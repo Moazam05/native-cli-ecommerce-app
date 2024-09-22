@@ -10,7 +10,7 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import Swiper from 'react-native-swiper';
 // Constants
 import {onboarding} from '../../constants'; // Update the path as needed
-import {WelcomeOne} from '../../assets/images';
+import {ActiveSlide} from '../../assets/images'; // Update the path as needed
 
 const Welcome = () => {
   const swiperRef = useRef(null);
@@ -22,28 +22,21 @@ const Welcome = () => {
     <SafeAreaView style={styles.container}>
       {/* Skip Button */}
       <TouchableOpacity
-        onPress={() => navigation.replace('SignUp')}
+        onPress={() => navigation.replace('Login')}
         style={styles.skipButton}>
         <Text style={styles.skipText}>Skip</Text>
       </TouchableOpacity>
 
-      {/* Swiper for onboarding slides */}
-      <WelcomeOne />
       <Swiper
         ref={swiperRef}
         loop={false}
-        dot={<View style={styles.dot} />}
-        activeDot={<View style={styles.activeDot} />}
+        // dot={<View style={styles.dot} />}
+        // activeDot={<View style={styles.activeDot} />}
         onIndexChanged={index => setActiveIndex(index)}>
         {onboarding.map(item => {
           return (
             <View key={item.id} style={styles.slide}>
-              {/* <Image
-                source={item.image}
-                resizeMode="contain"
-                style={styles.image}
-              /> */}
-              {/* {item.image} */}
+              <item.image />
               <Text style={styles.title}>{item.title}</Text>
               <Text style={styles.description}>{item.description}</Text>
             </View>
@@ -52,7 +45,7 @@ const Welcome = () => {
       </Swiper>
 
       {/* Next or Get Started Button */}
-      <TouchableOpacity
+      {/* <TouchableOpacity
         style={styles.button}
         onPress={() => {
           if (isLastSlide) {
@@ -64,7 +57,12 @@ const Welcome = () => {
         <Text style={styles.buttonText}>
           {isLastSlide ? 'Get Started' : 'Next'}
         </Text>
-      </TouchableOpacity>
+      </TouchableOpacity> */}
+
+      <View style={styles.buttonWrap}>
+        <Text style={styles.prev}>Prev</Text>
+        <Text style={styles.next}>Next</Text>
+      </View>
     </SafeAreaView>
   );
 };
@@ -108,10 +106,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingHorizontal: 20,
   },
-  image: {
-    width: '100%',
-    height: 300,
-  },
+
   title: {
     marginTop: 20,
     fontSize: 24,
@@ -138,5 +133,19 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: 18,
     fontWeight: 'bold',
+  },
+  buttonWrap: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: '90%',
+    marginBottom: 20,
+  },
+  prev: {
+    fontSize: 16,
+    color: '#C4C4C4',
+  },
+  next: {
+    fontSize: 16,
+    color: '#F83758',
   },
 });

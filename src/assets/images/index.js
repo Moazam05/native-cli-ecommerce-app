@@ -23,6 +23,7 @@ import TickIcon from './tick.png';
 import WelcomeOne from './welcome-1.svg';
 import WelcomeTwo from './welcome-2.svg';
 import WelcomeThree from './welcome-3.svg';
+import ActiveSlide from './Active-Slide.svg';
 
 export {
   Back,
@@ -50,4 +51,5 @@ export {
   WelcomeOne,
   WelcomeTwo,
   WelcomeThree,
+  ActiveSlide,
 };
