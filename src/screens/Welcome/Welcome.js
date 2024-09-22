@@ -56,12 +56,14 @@ const Welcome = () => {
         <TouchableOpacity
           onPress={() => {
             if (isLastSlide) {
-              navigation.replace('SignUp');
+              navigation.replace('Login');
             } else {
               swiperRef.current?.scrollBy(1);
             }
           }}>
-          <Text style={styles.next}>Next</Text>
+          <Text style={styles.next}>
+            {isLastSlide ? 'Get Started' : 'Next'}
+          </Text>
         </TouchableOpacity>
       </View>
     </SafeAreaView>
@@ -125,7 +127,7 @@ const styles = StyleSheet.create({
   dot: {
     width: 12,
     height: 12,
-    backgroundColor: '#E2E8F0',
+    backgroundColor: '#C4C4C4',
     borderRadius: 6,
   },
 
