@@ -25,9 +25,10 @@ const TextField = ({
   return (
     <View style={styles.inputContainer}>
       <View style={styles.input}>
-        {leftIcon}
+        {leftIcon && <View style={styles.leftIconContainer}>{leftIcon}</View>}
         <TextInput
           style={[
+            styles.textInput,
             error ? styles.inputError : null,
             multiline ? styles.multilineInput : null,
           ]}
@@ -68,14 +69,22 @@ const styles = StyleSheet.create({
     borderColor: '#ddd',
     borderWidth: 1,
     borderRadius: 10,
-    paddingHorizontal: 15,
     backgroundColor: '#F3F3F3',
     flexDirection: 'row',
     alignItems: 'center',
+    paddingHorizontal: 15,
+  },
+  leftIconContainer: {
+    marginRight: 5,
+    width: 25,
+  },
+  textInput: {
+    flex: 1,
+    paddingVertical: 10,
   },
   multilineInput: {
-    minHeight: 100, // Set a minimum height for multiline inputs
-    maxHeight: 200, // Optional: Limit the maximum height
+    minHeight: 100,
+    maxHeight: 200,
   },
   inputError: {
     borderColor: 'red',
@@ -94,5 +103,6 @@ const styles = StyleSheet.create({
     width: 20,
     height: 20,
     resizeMode: 'contain',
+    tintColor: '#626262',
   },
 });
