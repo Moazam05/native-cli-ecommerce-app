@@ -6,6 +6,7 @@ import Swiper from 'react-native-swiper';
 import {onboarding} from '../../constants';
 import {ActiveSlide} from '../../assets/images';
 import {Fonts} from '../../constants/fonts';
+import {Colors} from '../../constants/colors';
 
 const Welcome = () => {
   const swiperRef = useRef(null);
@@ -87,8 +88,8 @@ const styles = StyleSheet.create({
   },
   skipText: {
     fontSize: 16,
-    color: '#000',
-    fontWeight: 'bold',
+    color: Colors.BLACK,
+    fontFamily: Fonts.SEMIBOLD,
   },
   slide: {
     flex: 1,
@@ -99,16 +100,17 @@ const styles = StyleSheet.create({
   title: {
     marginTop: 20,
     fontSize: 24,
-    color: '#000',
+    color: Colors.BLACK,
     textAlign: 'center',
-    fontFamily: Fonts.BOLD,
+    fontFamily: Fonts.EXTRABOLD,
   },
   description: {
     marginTop: 10,
-    fontSize: 16,
-    color: '#858585',
+    fontSize: 14,
+    color: Colors.GRAY,
     textAlign: 'center',
     paddingHorizontal: 20,
+    fontFamily: Fonts.SEMIBOLD,
   },
   navigationContainer: {
     flexDirection: 'row',
@@ -128,7 +130,7 @@ const styles = StyleSheet.create({
   dot: {
     width: 12,
     height: 12,
-    backgroundColor: '#C4C4C4',
+    backgroundColor: '#D1D3D8',
     borderRadius: 6,
   },
 
@@ -137,12 +139,12 @@ const styles = StyleSheet.create({
   },
   prev: {
     fontSize: 16,
-    color: '#C4C4C4',
-    fontWeight: '600',
+    color: Colors.LIGHTGREY,
+    fontFamily: Fonts.SEMIBOLD,
   },
   next: {
     fontSize: 16,
-    color: '#F83758',
-    fontWeight: '600',
+    color: Colors.PRIMARY,
+    fontFamily: Fonts.SEMIBOLD,
   },
 });
