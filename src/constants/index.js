@@ -7,6 +7,7 @@ import {
   Kids,
   Mens,
   Womens,
+  Banner1,
 } from '../assets/images';
 
 export const onboarding = [
@@ -58,5 +59,32 @@ export const categoriesData = [
     id: 5,
     name: 'Womens',
     image: Womens,
+  },
+];
+
+export const bannersData = [
+  {
+    id: 1,
+    title: 'Beauty',
+    textOne: '50-40% OFF',
+    textTwo: 'Now in (product)',
+    buttonText: 'Shop Now',
+    image: Banner1,
+  },
+  {
+    id: 2,
+    title: 'Beauty',
+    textOne: '50-40% OFF',
+    textTwo: 'Now in (product)',
+    buttonText: 'Shop Now',
+    image: Banner1,
+  },
+  {
+    id: 3,
+    title: 'Beauty',
+    textOne: '50-40% OFF',
+    textTwo: 'Now in (product)',
+    buttonText: 'Shop Now',
+    image: Banner1,
   },
 ];
