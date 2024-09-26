@@ -1,5 +1,11 @@
 import React, {useRef, useState} from 'react';
-import {Text, TouchableOpacity, View, StyleSheet} from 'react-native';
+import {
+  Text,
+  TouchableOpacity,
+  View,
+  StyleSheet,
+  StatusBar,
+} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import Swiper from 'react-native-swiper';
@@ -15,60 +21,67 @@ const Welcome = () => {
   const navigation = useNavigation();
 
   return (
-    <SafeAreaView style={styles.container}>
-      <TouchableOpacity
-        onPress={() => navigation.replace('Login')}
-        style={styles.skipButton}>
-        <Text style={styles.skipText}>Skip</Text>
-      </TouchableOpacity>
-
-      <Swiper
-        ref={swiperRef}
-        loop={false}
-        onIndexChanged={index => setActiveIndex(index)}
-        showsPagination={false}>
-        {onboarding.map(item => (
-          <View key={item.id} style={styles.slide}>
-            <item.image />
-            <Text style={styles.title}>{item.title}</Text>
-            <Text style={styles.description}>{item.description}</Text>
-          </View>
-        ))}
-      </Swiper>
-
-      <View style={styles.navigationContainer}>
+    <>
+      <StatusBar
+        barStyle="dark-content"
+        translucent
+        backgroundColor="transparent"
+      />
+      <SafeAreaView style={styles.container}>
         <TouchableOpacity
-          onPress={() => swiperRef.current?.scrollBy(-1)}
-          style={[activeIndex === 0 && styles.hidden]}>
-          <Text style={styles.prev}>Prev</Text>
+          onPress={() => navigation.replace('Login')}
+          style={styles.skipButton}>
+          <Text style={styles.skipText}>Skip</Text>
         </TouchableOpacity>
 
-        <View style={styles.pagination}>
-          {onboarding.map((_, index) => (
-            <View key={index} style={styles.dotWrapper}>
-              {activeIndex === index ? (
-                <ActiveSlide />
-              ) : (
-                <View style={styles.dot} />
-              )}
+        <Swiper
+          ref={swiperRef}
+          loop={false}
+          onIndexChanged={index => setActiveIndex(index)}
+          showsPagination={false}>
+          {onboarding.map(item => (
+            <View key={item.id} style={styles.slide}>
+              <item.image />
+              <Text style={styles.title}>{item.title}</Text>
+              <Text style={styles.description}>{item.description}</Text>
             </View>
           ))}
-        </View>
+        </Swiper>
 
-        <TouchableOpacity
-          onPress={() => {
-            if (isLastSlide) {
-              navigation.replace('Login');
-            } else {
-              swiperRef.current?.scrollBy(1);
-            }
-          }}>
-          <Text style={styles.next}>
-            {isLastSlide ? 'Get Started' : 'Next'}
-          </Text>
-        </TouchableOpacity>
-      </View>
-    </SafeAreaView>
+        <View style={styles.navigationContainer}>
+          <TouchableOpacity
+            onPress={() => swiperRef.current?.scrollBy(-1)}
+            style={[activeIndex === 0 && styles.hidden]}>
+            <Text style={styles.prev}>Prev</Text>
+          </TouchableOpacity>
+
+          <View style={styles.pagination}>
+            {onboarding.map((_, index) => (
+              <View key={index} style={styles.dotWrapper}>
+                {activeIndex === index ? (
+                  <ActiveSlide />
+                ) : (
+                  <View style={styles.dot} />
+                )}
+              </View>
+            ))}
+          </View>
+
+          <TouchableOpacity
+            onPress={() => {
+              if (isLastSlide) {
+                navigation.replace('Login');
+              } else {
+                swiperRef.current?.scrollBy(1);
+              }
+            }}>
+            <Text style={styles.next}>
+              {isLastSlide ? 'Get Started' : 'Next'}
+            </Text>
+          </TouchableOpacity>
+        </View>
+      </SafeAreaView>
+    </>
   );
 };
 

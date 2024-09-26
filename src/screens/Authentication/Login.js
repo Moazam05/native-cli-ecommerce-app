@@ -10,6 +10,7 @@ import {
   KeyboardAvoidingView,
   Platform,
   ScrollView,
+  StatusBar,
   StyleSheet,
   Text,
   View,
@@ -76,101 +77,112 @@ const Login = () => {
   };
 
   return (
-    <GestureHandlerRootView style={styles.gestureHandle}>
-      <SafeAreaView style={styles.container}>
-        <ScrollView
-          contentContainerStyle={styles.scrollContainer}
-          showsVerticalScrollIndicator={false}>
-          <View style={styles.headingWrap}>
-            <Text style={styles.heading}>Welcome</Text>
-            <Text style={styles.heading}>Back!</Text>
-          </View>
+    <>
+      <StatusBar
+        barStyle="dark-content"
+        translucent
+        backgroundColor="transparent"
+      />
 
-          <KeyboardAvoidingView
-            style={styles.keyboardAvoidingView}
-            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-            keyboardVerticalOffset={100}>
-            <Formik
-              initialValues={{email: '', password: ''}}
-              validationSchema={validationSchema}
-              onSubmit={handleSignin}>
-              {({
-                handleChange,
-                handleBlur,
-                handleSubmit,
-                values,
-                errors,
-                touched,
-              }) => {
-                return (
-                  <View style={styles.formContainer}>
-                    <View style={styles.fieldContainer}>
+      <GestureHandlerRootView style={styles.gestureHandle}>
+        <SafeAreaView style={styles.container}>
+          <ScrollView
+            contentContainerStyle={styles.scrollContainer}
+            showsVerticalScrollIndicator={false}>
+            <View style={styles.headingWrap}>
+              <Text style={styles.heading}>Welcome</Text>
+              <Text style={styles.heading}>Back!</Text>
+            </View>
+
+            <KeyboardAvoidingView
+              style={styles.keyboardAvoidingView}
+              behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+              keyboardVerticalOffset={100}>
+              <Formik
+                initialValues={{email: '', password: ''}}
+                validationSchema={validationSchema}
+                onSubmit={handleSignin}>
+                {({
+                  handleChange,
+                  handleBlur,
+                  handleSubmit,
+                  values,
+                  errors,
+                  touched,
+                }) => {
+                  return (
+                    <View style={styles.formContainer}>
+                      <View style={styles.fieldContainer}>
+                        <TextField
+                          placeholder="Email"
+                          value={values.email}
+                          onChangeText={handleChange('email')}
+                          onBlur={handleBlur('email')}
+                          keyboardType="email-address"
+                          error={touched.email && errors.email}
+                          leftIcon={<UserTextFieldIcon />}
+                        />
+                      </View>
                       <TextField
-                        placeholder="Email"
-                        value={values.email}
-                        onChangeText={handleChange('email')}
-                        onBlur={handleBlur('email')}
-                        keyboardType="email-address"
-                        error={touched.email && errors.email}
-                        leftIcon={<UserTextFieldIcon />}
+                        placeholder="Password"
+                        value={values.password}
+                        onChangeText={handleChange('password')}
+                        onBlur={handleBlur('password')}
+                        error={touched.password && errors.password}
+                        secureTextEntry={true}
+                        leftIcon={<PasswordTextFieldIcon />}
                       />
-                    </View>
-                    <TextField
-                      placeholder="Password"
-                      value={values.password}
-                      onChangeText={handleChange('password')}
-                      onBlur={handleBlur('password')}
-                      error={touched.password && errors.password}
-                      secureTextEntry={true}
-                      leftIcon={<PasswordTextFieldIcon />}
-                    />
-                    <View style={styles.forgotPasswordContainer}>
-                      <Text
-                        style={styles.forgotPasswordText}
-                        onPress={() => navigation.navigate('ForgotPassword')}>
-                        Forgot Password?
-                      </Text>
-                    </View>
+                      <View style={styles.forgotPasswordContainer}>
+                        <Text
+                          style={styles.forgotPasswordText}
+                          onPress={() => navigation.navigate('ForgotPassword')}>
+                          Forgot Password?
+                        </Text>
+                      </View>
 
-                    <View style={styles.buttonContainer}>
-                      <CustomButton
-                        name={
-                          loading ? (
-                            <ActivityIndicator color="#ffffff" />
-                          ) : (
-                            'Login'
-                          )
-                        }
-                        onPress={handleSubmit}
-                        disabled={loading}
-                      />
-                    </View>
+                      <View style={styles.buttonContainer}>
+                        <CustomButton
+                          name={
+                            loading ? (
+                              <ActivityIndicator color="#ffffff" />
+                            ) : (
+                              'Login'
+                            )
+                          }
+                          onPress={handleSubmit}
+                          disabled={loading}
+                        />
+                      </View>
 
-                    <View style={styles.orContainer}>
-                      <Text style={styles.orText}>- OR Continue with -</Text>
-                      <View style={styles.googleIconContainer}>
-                        <Image source={GoogleIcon} style={styles.googleIcon} />
+                      <View style={styles.orContainer}>
+                        <Text style={styles.orText}>- OR Continue with -</Text>
+                        <View style={styles.googleIconContainer}>
+                          <Image
+                            source={GoogleIcon}
+                            style={styles.googleIcon}
+                          />
+                        </View>
+                      </View>
+
+                      <View style={styles.signupContainer}>
+                        <Text style={styles.signupText}>
+                          Create An Account{' '}
+                          <Text
+                            style={styles.signupLink}
+                            onPress={() => navigation.navigate('Signup')}>
+                            Sign Up
+                          </Text>
+                        </Text>
                       </View>
                     </View>
-
-                    <View style={styles.signupContainer}>
-                      <Text style={styles.signupText}>
-                        Create An Account{' '}
-                        <Text
-                          style={styles.signupLink}
-                          onPress={() => navigation.navigate('Signup')}>
-                          Sign Up
-                        </Text>
-                      </Text>
-                    </View>
-                  </View>
-                );
-              }}
-            </Formik>
-          </KeyboardAvoidingView>
-        </ScrollView>
-      </SafeAreaView>
-    </GestureHandlerRootView>
+                  );
+                }}
+              </Formik>
+            </KeyboardAvoidingView>
+          </ScrollView>
+        </SafeAreaView>
+      </GestureHandlerRootView>
+    </>
   );
 };
 

@@ -155,7 +155,7 @@ const Signup = () => {
                     <View style={styles.agreementContainer}>
                       <Text style={styles.agreementText}>
                         By clicking the{' '}
-                        <Text style={styles.registerText}>Register</Text>{' '}
+                        <Text style={styles.registerText}>Create Account</Text>{' '}
                         button, you agree
                       </Text>
                       <Text style={styles.agreementText}>
