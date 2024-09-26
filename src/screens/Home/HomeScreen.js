@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {
   Image,
   Keyboard,
+  StatusBar,
   StyleSheet,
   TouchableOpacity,
   View,
@@ -47,65 +48,73 @@ const HomeScreen = () => {
   }, []);
 
   return (
-    <SafeAreaView style={styles.container}>
-      {selectedTab === 0 ? (
-        <Home />
-      ) : selectedTab === 1 ? (
-        <Search />
-      ) : selectedTab === 2 ? (
-        <Wishlist />
-      ) : selectedTab === 3 ? (
-        <Notification />
-      ) : (
-        <Profile />
-      )}
+    <>
+      <StatusBar
+        barStyle="dark-content"
+        translucent
+        backgroundColor="transparent"
+      />
 
-      {!isKeyboardVisible && (
-        <View style={styles.bottomView}>
-          <TouchableOpacity
-            style={styles.bottomTab}
-            onPress={() => setSelectedTab(0)}>
-            <Image
-              source={selectedTab === 0 ? HomeFill : HomeIcon}
-              style={styles.bottomTabIcon}
-            />
-          </TouchableOpacity>
+      <SafeAreaView style={styles.container}>
+        {selectedTab === 0 ? (
+          <Home />
+        ) : selectedTab === 1 ? (
+          <Search />
+        ) : selectedTab === 2 ? (
+          <Wishlist />
+        ) : selectedTab === 3 ? (
+          <Notification />
+        ) : (
+          <Profile />
+        )}
 
-          <TouchableOpacity
-            style={styles.bottomTab}
-            onPress={() => setSelectedTab(1)}>
-            <Image source={SearchIcon} style={styles.bottomTabIcon} />
-          </TouchableOpacity>
+        {!isKeyboardVisible && (
+          <View style={styles.bottomView}>
+            <TouchableOpacity
+              style={styles.bottomTab}
+              onPress={() => setSelectedTab(0)}>
+              <Image
+                source={selectedTab === 0 ? HomeFill : HomeIcon}
+                style={styles.bottomTabIcon}
+              />
+            </TouchableOpacity>
 
-          <TouchableOpacity
-            style={styles.bottomTab}
-            onPress={() => setSelectedTab(2)}>
-            <Image
-              source={selectedTab === 2 ? WishlistFill : WishlistIcon}
-              style={styles.bottomTabIcon}
-            />
-          </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.bottomTab}
+              onPress={() => setSelectedTab(1)}>
+              <Image source={SearchIcon} style={styles.bottomTabIcon} />
+            </TouchableOpacity>
 
-          <TouchableOpacity
-            style={styles.bottomTab}
-            onPress={() => setSelectedTab(3)}>
-            <Image
-              source={selectedTab === 3 ? NotificationFill : NotificationIcon}
-              style={styles.bottomTabIcon}
-            />
-          </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.bottomTab}
+              onPress={() => setSelectedTab(2)}>
+              <Image
+                source={selectedTab === 2 ? WishlistFill : WishlistIcon}
+                style={styles.bottomTabIcon}
+              />
+            </TouchableOpacity>
 
-          <TouchableOpacity
-            style={styles.bottomTab}
-            onPress={() => setSelectedTab(4)}>
-            <Image
-              source={selectedTab === 4 ? UserFill : UserIcon}
-              style={styles.bottomTabIcon}
-            />
-          </TouchableOpacity>
-        </View>
-      )}
-    </SafeAreaView>
+            <TouchableOpacity
+              style={styles.bottomTab}
+              onPress={() => setSelectedTab(3)}>
+              <Image
+                source={selectedTab === 3 ? NotificationFill : NotificationIcon}
+                style={styles.bottomTabIcon}
+              />
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              style={styles.bottomTab}
+              onPress={() => setSelectedTab(4)}>
+              <Image
+                source={selectedTab === 4 ? UserFill : UserIcon}
+                style={styles.bottomTabIcon}
+              />
+            </TouchableOpacity>
+          </View>
+        )}
+      </SafeAreaView>
+    </>
   );
 };
 
