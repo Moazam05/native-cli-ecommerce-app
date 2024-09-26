@@ -90,7 +90,9 @@ const Home = () => {
                 <Text style={styles.colorText}>All colors</Text>
                 <TouchableOpacity style={styles.shopNowBtn}>
                   <Text style={styles.shopNowText}>Shop Now</Text>
-                  <RightArrow />
+                  <View style={styles.rightArrow}>
+                    <RightArrow />
+                  </View>
                 </TouchableOpacity>
               </View>
             </View>
@@ -118,14 +120,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   user: {
-    marginRight: 5,
+    // marginRight: 5,
   },
   wrap: {
     width: '100%',
   },
   searchContainer: {
     paddingHorizontal: 16,
-    paddingRight: 25,
   },
   searchBar: {
     paddingHorizontal: 15,
@@ -185,7 +186,7 @@ const styles = StyleSheet.create({
   },
   textContainer: {
     position: 'absolute',
-    left: 16,
+    left: 25,
   },
   discountText: {
     fontSize: 20,
@@ -214,10 +215,14 @@ const styles = StyleSheet.create({
     marginTop: 10,
     flexDirection: 'row',
     alignItems: 'center',
+    gap: 15,
   },
   shopNowText: {
     color: Colors.WHITE,
     fontFamily: Fonts.SEMIBOLD,
     fontSize: 12,
+  },
+  rightArrow: {
+    marginTop: 2,
   },
 });
