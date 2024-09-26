@@ -7,8 +7,6 @@ import {
   ActivityIndicator,
   Alert,
   Image,
-  KeyboardAvoidingView,
-  Platform,
   ScrollView,
   StatusBar,
   StyleSheet,
@@ -94,91 +92,83 @@ const Login = () => {
               <Text style={styles.heading}>Back!</Text>
             </View>
 
-            <KeyboardAvoidingView
-              style={styles.keyboardAvoidingView}
-              behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-              keyboardVerticalOffset={100}>
-              <Formik
-                initialValues={{email: '', password: ''}}
-                validationSchema={validationSchema}
-                onSubmit={handleSignin}>
-                {({
-                  handleChange,
-                  handleBlur,
-                  handleSubmit,
-                  values,
-                  errors,
-                  touched,
-                }) => {
-                  return (
-                    <View style={styles.formContainer}>
-                      <View style={styles.fieldContainer}>
-                        <TextField
-                          placeholder="Email"
-                          value={values.email}
-                          onChangeText={handleChange('email')}
-                          onBlur={handleBlur('email')}
-                          keyboardType="email-address"
-                          error={touched.email && errors.email}
-                          leftIcon={<UserTextFieldIcon />}
-                        />
-                      </View>
+            <Formik
+              initialValues={{email: '', password: ''}}
+              validationSchema={validationSchema}
+              onSubmit={handleSignin}>
+              {({
+                handleChange,
+                handleBlur,
+                handleSubmit,
+                values,
+                errors,
+                touched,
+              }) => {
+                return (
+                  <View style={styles.formContainer}>
+                    <View style={styles.fieldContainer}>
                       <TextField
-                        placeholder="Password"
-                        value={values.password}
-                        onChangeText={handleChange('password')}
-                        onBlur={handleBlur('password')}
-                        error={touched.password && errors.password}
-                        secureTextEntry={true}
-                        leftIcon={<PasswordTextFieldIcon />}
+                        placeholder="Email"
+                        value={values.email}
+                        onChangeText={handleChange('email')}
+                        onBlur={handleBlur('email')}
+                        keyboardType="email-address"
+                        error={touched.email && errors.email}
+                        leftIcon={<UserTextFieldIcon />}
                       />
-                      <View style={styles.forgotPasswordContainer}>
-                        <Text
-                          style={styles.forgotPasswordText}
-                          onPress={() => navigation.navigate('ForgotPassword')}>
-                          Forgot Password?
-                        </Text>
-                      </View>
+                    </View>
+                    <TextField
+                      placeholder="Password"
+                      value={values.password}
+                      onChangeText={handleChange('password')}
+                      onBlur={handleBlur('password')}
+                      error={touched.password && errors.password}
+                      secureTextEntry={true}
+                      leftIcon={<PasswordTextFieldIcon />}
+                    />
+                    <View style={styles.forgotPasswordContainer}>
+                      <Text
+                        style={styles.forgotPasswordText}
+                        onPress={() => navigation.navigate('ForgotPassword')}>
+                        Forgot Password?
+                      </Text>
+                    </View>
 
-                      <View style={styles.buttonContainer}>
-                        <CustomButton
-                          name={
-                            loading ? (
-                              <ActivityIndicator color="#ffffff" />
-                            ) : (
-                              'Login'
-                            )
-                          }
-                          onPress={handleSubmit}
-                          disabled={loading}
-                        />
-                      </View>
+                    <View style={styles.buttonContainer}>
+                      <CustomButton
+                        name={
+                          loading ? (
+                            <ActivityIndicator color="#ffffff" />
+                          ) : (
+                            'Login'
+                          )
+                        }
+                        onPress={handleSubmit}
+                        disabled={loading}
+                      />
+                    </View>
 
-                      <View style={styles.orContainer}>
-                        <Text style={styles.orText}>- OR Continue with -</Text>
-                        <View style={styles.googleIconContainer}>
-                          <Image
-                            source={GoogleIcon}
-                            style={styles.googleIcon}
-                          />
-                        </View>
-                      </View>
-
-                      <View style={styles.signupContainer}>
-                        <Text style={styles.signupText}>
-                          Create An Account{' '}
-                          <Text
-                            style={styles.signupLink}
-                            onPress={() => navigation.navigate('Signup')}>
-                            Sign Up
-                          </Text>
-                        </Text>
+                    <View style={styles.orContainer}>
+                      <Text style={styles.orText}>- OR Continue with -</Text>
+                      <View style={styles.googleIconContainer}>
+                        <Image source={GoogleIcon} style={styles.googleIcon} />
                       </View>
                     </View>
-                  );
-                }}
-              </Formik>
-            </KeyboardAvoidingView>
+
+                    <View style={styles.signupContainer}>
+                      <Text style={styles.signupText}>
+                        Create An Account{' '}
+                        <Text
+                          style={styles.signupLink}
+                          onPress={() => navigation.navigate('Signup')}>
+                          Sign Up
+                        </Text>
+                      </Text>
+                    </View>
+                  </View>
+                );
+              }}
+            </Formik>
           </ScrollView>
         </SafeAreaView>
       </GestureHandlerRootView>

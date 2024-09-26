@@ -2,8 +2,6 @@ import {Formik} from 'formik';
 import React, {useState} from 'react';
 import {
   ActivityIndicator,
-  KeyboardAvoidingView,
-  Platform,
   ScrollView,
   StyleSheet,
   Text,
@@ -42,62 +40,57 @@ const ForgotPassword = () => {
             <Text style={styles.heading}>password?</Text>
           </View>
 
-          <KeyboardAvoidingView
-            style={styles.keyboardAvoidingView}
-            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-            keyboardVerticalOffset={100}>
-            <Formik
-              initialValues={{email: '', password: ''}}
-              validationSchema={validationSchema}
-              onSubmit={handleSignin}>
-              {({
-                handleChange,
-                handleBlur,
-                handleSubmit,
-                values,
-                errors,
-                touched,
-              }) => {
-                return (
-                  <View style={styles.formContainer}>
-                    <View style={styles.fieldContainer}>
-                      <TextField
-                        placeholder="Enter your email address"
-                        value={values.email}
-                        onChangeText={handleChange('email')}
-                        onBlur={handleBlur('email')}
-                        keyboardType="email-address"
-                        error={touched.email && errors.email}
-                        leftIcon={<UserTextFieldIcon />}
-                      />
-                    </View>
-
-                    <View style={styles.forgotPasswordContainer}>
-                      <Text style={styles.forgotPasswordText}>
-                        <Text style={styles.forgotPasswordStar}>* </Text>
-                        We will send you a message to set or reset your new
-                        password
-                      </Text>
-                    </View>
-
-                    <View style={styles.buttonContainer}>
-                      <CustomButton
-                        name={
-                          loading ? (
-                            <ActivityIndicator color="#ffffff" />
-                          ) : (
-                            'Submit'
-                          )
-                        }
-                        onPress={handleSubmit}
-                        disabled={loading}
-                      />
-                    </View>
+          <Formik
+            initialValues={{email: '', password: ''}}
+            validationSchema={validationSchema}
+            onSubmit={handleSignin}>
+            {({
+              handleChange,
+              handleBlur,
+              handleSubmit,
+              values,
+              errors,
+              touched,
+            }) => {
+              return (
+                <View style={styles.formContainer}>
+                  <View style={styles.fieldContainer}>
+                    <TextField
+                      placeholder="Enter your email address"
+                      value={values.email}
+                      onChangeText={handleChange('email')}
+                      onBlur={handleBlur('email')}
+                      keyboardType="email-address"
+                      error={touched.email && errors.email}
+                      leftIcon={<UserTextFieldIcon />}
+                    />
                   </View>
-                );
-              }}
-            </Formik>
-          </KeyboardAvoidingView>
+
+                  <View style={styles.forgotPasswordContainer}>
+                    <Text style={styles.forgotPasswordText}>
+                      <Text style={styles.forgotPasswordStar}>* </Text>
+                      We will send you a message to set or reset your new
+                      password
+                    </Text>
+                  </View>
+
+                  <View style={styles.buttonContainer}>
+                    <CustomButton
+                      name={
+                        loading ? (
+                          <ActivityIndicator color="#ffffff" />
+                        ) : (
+                          'Submit'
+                        )
+                      }
+                      onPress={handleSubmit}
+                      disabled={loading}
+                    />
+                  </View>
+                </View>
+              );
+            }}
+          </Formik>
         </ScrollView>
       </SafeAreaView>
     </GestureHandlerRootView>

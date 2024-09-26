@@ -6,8 +6,6 @@ import {
   ActivityIndicator,
   Alert,
   Image,
-  KeyboardAvoidingView,
-  Platform,
   ScrollView,
   StyleSheet,
   Text,
@@ -75,133 +73,126 @@ const Signup = () => {
             <Text style={styles.heading}>account</Text>
           </View>
 
-          <KeyboardAvoidingView
-            style={styles.keyboardAvoidingView}
-            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-            keyboardVerticalOffset={100}>
-            <Formik
-              initialValues={{
-                name: '',
-                email: '',
-                password: '',
-                confirmPassword: '',
-              }}
-              validationSchema={validationSchema}
-              onSubmit={handleSignup}>
-              {({
-                handleChange,
-                handleBlur,
-                handleSubmit,
-                values,
-                errors,
-                touched,
-              }) => {
-                return (
-                  <View style={styles.formContainer}>
-                    {/* Name Field */}
-                    <View style={styles.fieldContainer}>
-                      <TextField
-                        placeholder="Name"
-                        value={values.name}
-                        onChangeText={handleChange('name')}
-                        onBlur={handleBlur('name')}
-                        error={touched.name && errors.name}
-                        leftIcon={<UserTextFieldIcon />}
-                      />
-                    </View>
+          <Formik
+            initialValues={{
+              name: '',
+              email: '',
+              password: '',
+              confirmPassword: '',
+            }}
+            validationSchema={validationSchema}
+            onSubmit={handleSignup}>
+            {({
+              handleChange,
+              handleBlur,
+              handleSubmit,
+              values,
+              errors,
+              touched,
+            }) => {
+              return (
+                <View style={styles.formContainer}>
+                  {/* Name Field */}
+                  <View style={styles.fieldContainer}>
+                    <TextField
+                      placeholder="Name"
+                      value={values.name}
+                      onChangeText={handleChange('name')}
+                      onBlur={handleBlur('name')}
+                      error={touched.name && errors.name}
+                      leftIcon={<UserTextFieldIcon />}
+                    />
+                  </View>
 
-                    {/* Email Field */}
-                    <View style={styles.fieldContainer}>
-                      <TextField
-                        placeholder="Email"
-                        value={values.email}
-                        onChangeText={handleChange('email')}
-                        onBlur={handleBlur('email')}
-                        keyboardType="email-address"
-                        error={touched.email && errors.email}
-                        leftIcon={<MailIcon />}
-                      />
-                    </View>
+                  {/* Email Field */}
+                  <View style={styles.fieldContainer}>
+                    <TextField
+                      placeholder="Email"
+                      value={values.email}
+                      onChangeText={handleChange('email')}
+                      onBlur={handleBlur('email')}
+                      keyboardType="email-address"
+                      error={touched.email && errors.email}
+                      leftIcon={<MailIcon />}
+                    />
+                  </View>
 
-                    {/* Password Field */}
-                    <View style={styles.fieldContainer}>
-                      <TextField
-                        placeholder="Password"
-                        value={values.password}
-                        onChangeText={handleChange('password')}
-                        onBlur={handleBlur('password')}
-                        error={touched.password && errors.password}
-                        secureTextEntry={true}
-                        leftIcon={<PasswordTextFieldIcon />}
-                      />
-                    </View>
+                  {/* Password Field */}
+                  <View style={styles.fieldContainer}>
+                    <TextField
+                      placeholder="Password"
+                      value={values.password}
+                      onChangeText={handleChange('password')}
+                      onBlur={handleBlur('password')}
+                      error={touched.password && errors.password}
+                      secureTextEntry={true}
+                      leftIcon={<PasswordTextFieldIcon />}
+                    />
+                  </View>
 
-                    {/* Confirm Password Field */}
-                    <View style={styles.fieldContainer}>
-                      <TextField
-                        placeholder="Confirm Password"
-                        value={values.confirmPassword}
-                        onChangeText={handleChange('confirmPassword')}
-                        onBlur={handleBlur('confirmPassword')}
-                        error={
-                          touched.confirmPassword && errors.confirmPassword
-                        }
-                        secureTextEntry={true}
-                        leftIcon={<PasswordTextFieldIcon />}
-                      />
-                    </View>
+                  {/* Confirm Password Field */}
+                  <View style={styles.fieldContainer}>
+                    <TextField
+                      placeholder="Confirm Password"
+                      value={values.confirmPassword}
+                      onChangeText={handleChange('confirmPassword')}
+                      onBlur={handleBlur('confirmPassword')}
+                      error={touched.confirmPassword && errors.confirmPassword}
+                      secureTextEntry={true}
+                      leftIcon={<PasswordTextFieldIcon />}
+                    />
+                  </View>
 
-                    {/* Register Agreement */}
-                    <View style={styles.agreementContainer}>
-                      <Text style={styles.agreementText}>
-                        By clicking the{' '}
-                        <Text style={styles.registerText}>Create Account</Text>{' '}
-                        button, you agree
-                      </Text>
-                      <Text style={styles.agreementText}>
-                        to the public offer
-                      </Text>
-                    </View>
+                  {/* Register Agreement */}
+                  <View style={styles.agreementContainer}>
+                    <Text style={styles.agreementText}>
+                      By clicking the{' '}
+                      <Text style={styles.registerText}>Create Account</Text>{' '}
+                      button, you agree
+                    </Text>
+                    <Text style={styles.agreementText}>
+                      to the public offer
+                    </Text>
+                  </View>
 
-                    {/* Create Account Button */}
-                    <View style={styles.buttonContainer}>
-                      <CustomButton
-                        name={
-                          loading ? (
-                            <ActivityIndicator color="#ffffff" />
-                          ) : (
-                            'Create Account'
-                          )
-                        }
-                        onPress={handleSubmit}
-                        disabled={loading}
-                      />
-                    </View>
+                  {/* Create Account Button */}
+                  <View style={styles.buttonContainer}>
+                    <CustomButton
+                      name={
+                        loading ? (
+                          <ActivityIndicator color="#ffffff" />
+                        ) : (
+                          'Create Account'
+                        )
+                      }
+                      onPress={handleSubmit}
+                      disabled={loading}
+                    />
+                  </View>
 
-                    {/* OR with Google Icon */}
-                    <View style={styles.orContainer}>
-                      <Text style={styles.orText}>- OR Continue with -</Text>
-                      <View style={styles.googleIconContainer}>
-                        <Image source={GoogleIcon} style={styles.googleIcon} />
-                      </View>
-                    </View>
-
-                    {/* Login Link */}
-                    <View style={styles.signupContainer}>
-                      <Text style={styles.signupText}>
-                        I Already Have an Account{' '}
-                        <Text
-                          style={styles.signupLink}
-                          onPress={() => navigation.navigate('Login')}>
-                          Login
-                        </Text>
-                      </Text>
+                  {/* OR with Google Icon */}
+                  <View style={styles.orContainer}>
+                    <Text style={styles.orText}>- OR Continue with -</Text>
+                    <View style={styles.googleIconContainer}>
+                      <Image source={GoogleIcon} style={styles.googleIcon} />
                     </View>
                   </View>
-                );
-              }}
-            </Formik>
-          </KeyboardAvoidingView>
+
+                  {/* Login Link */}
+                  <View style={styles.signupContainer}>
+                    <Text style={styles.signupText}>
+                      I Already Have an Account{' '}
+                      <Text
+                        style={styles.signupLink}
+                        onPress={() => navigation.navigate('Login')}>
+                        Login
+                      </Text>
+                    </Text>
+                  </View>
+                </View>
+              );
+            }}
+          </Formik>
         </ScrollView>
       </SafeAreaView>
     </GestureHandlerRootView>
