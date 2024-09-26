@@ -5,8 +5,6 @@ import {Formik} from 'formik';
 import React, {useState} from 'react';
 import {
   ActivityIndicator,
-  Alert,
-  Image,
   KeyboardAvoidingView,
   Platform,
   ScrollView,
@@ -16,64 +14,24 @@ import {
 } from 'react-native';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import {useDispatch} from 'react-redux';
 import * as Yup from 'yup';
-import {
-  GoogleIcon,
-  PasswordTextFieldIcon,
-  UserTextFieldIcon,
-} from '../../assets/images';
+import {UserTextFieldIcon} from '../../assets/images';
 import CustomButton from '../../components/CustomButton';
 import TextField from '../../components/TextField';
 import {Colors} from '../../constants/colors';
 import {Fonts} from '../../constants/fonts';
-import {setUser} from '../../redux/auth/authSlice';
 
 // Validation Schema
 const validationSchema = Yup.object().shape({
   email: Yup.string()
     .email('Invalid email address')
     .required('Email is required'),
-  password: Yup.string().required('Password is required'),
 });
 
-const Login = () => {
-  const navigation = useNavigation();
-  const dispatch = useDispatch();
-
+const ForgotPassword = () => {
   const [loading, setLoading] = useState(false);
 
-  const handleSignin = async values => {
-    setLoading(true);
-    try {
-      const querySnapshot = await firestore()
-        .collection('Users')
-        .where('email', '==', values.email)
-        .get();
-
-      if (querySnapshot.empty) {
-        Alert.alert('Error', 'User does not exist');
-        return;
-      }
-
-      const userData = querySnapshot.docs[0].data();
-
-      if (userData.password === values.password) {
-        dispatch(setUser(userData));
-        AsyncStorage.setItem('user', JSON.stringify(userData));
-
-        Alert.alert('Success', 'Successfully signed in');
-        navigation.navigate('Main');
-      } else {
-        Alert.alert('Error', 'Invalid credentials');
-      }
-    } catch (error) {
-      console.error('Error signing in: ', error);
-      Alert.alert('Error', 'Something went wrong');
-    } finally {
-      setLoading(false);
-    }
-  };
+  const handleSignin = async values => {};
 
   return (
     <GestureHandlerRootView style={styles.gestureHandle}>
@@ -82,8 +40,8 @@ const Login = () => {
           contentContainerStyle={styles.scrollContainer}
           showsVerticalScrollIndicator={false}>
           <View style={styles.headingWrap}>
-            <Text style={styles.heading}>Welcome</Text>
-            <Text style={styles.heading}>Back!</Text>
+            <Text style={styles.heading}>Forgot</Text>
+            <Text style={styles.heading}>password?</Text>
           </View>
 
           <KeyboardAvoidingView
@@ -106,7 +64,7 @@ const Login = () => {
                   <View style={styles.formContainer}>
                     <View style={styles.fieldContainer}>
                       <TextField
-                        placeholder="Email"
+                        placeholder="Enter your email address"
                         value={values.email}
                         onChangeText={handleChange('email')}
                         onBlur={handleBlur('email')}
@@ -115,20 +73,12 @@ const Login = () => {
                         leftIcon={<UserTextFieldIcon />}
                       />
                     </View>
-                    <TextField
-                      placeholder="Password"
-                      value={values.password}
-                      onChangeText={handleChange('password')}
-                      onBlur={handleBlur('password')}
-                      error={touched.password && errors.password}
-                      secureTextEntry={true}
-                      leftIcon={<PasswordTextFieldIcon />}
-                    />
+
                     <View style={styles.forgotPasswordContainer}>
-                      <Text
-                        style={styles.forgotPasswordText}
-                        onPress={() => navigation.navigate('ForgotPassword')}>
-                        Forgot Password?
+                      <Text style={styles.forgotPasswordText}>
+                        <Text style={styles.forgotPasswordStar}>* </Text>
+                        We will send you a message to set or reset your new
+                        password
                       </Text>
                     </View>
 
@@ -138,30 +88,12 @@ const Login = () => {
                           loading ? (
                             <ActivityIndicator color="#ffffff" />
                           ) : (
-                            'Login'
+                            'Submit'
                           )
                         }
                         onPress={handleSubmit}
                         disabled={loading}
                       />
-                    </View>
-
-                    <View style={styles.orContainer}>
-                      <Text style={styles.orText}>- OR Continue with -</Text>
-                      <View style={styles.googleIconContainer}>
-                        <Image source={GoogleIcon} style={styles.googleIcon} />
-                      </View>
-                    </View>
-
-                    <View style={styles.signupContainer}>
-                      <Text style={styles.signupText}>
-                        Create An Account{' '}
-                        <Text
-                          style={styles.signupLink}
-                          onPress={() => navigation.navigate('Signup')}>
-                          Sign Up
-                        </Text>
-                      </Text>
                     </View>
                   </View>
                 );
@@ -174,7 +106,7 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default ForgotPassword;
 
 const styles = StyleSheet.create({
   gestureHandle: {
@@ -204,13 +136,17 @@ const styles = StyleSheet.create({
     marginTop: 36,
   },
   fieldContainer: {
-    marginBottom: 30,
+    marginBottom: 25,
   },
   forgotPasswordContainer: {
     marginTop: 5,
-    alignItems: 'flex-end',
   },
   forgotPasswordText: {
+    color: Colors.SECONDARYTEXT,
+    fontSize: 12,
+    fontFamily: Fonts.REGULAR,
+  },
+  forgotPasswordStar: {
     color: Colors.PRIMARY,
     fontSize: 12,
     fontFamily: Fonts.REGULAR,

@@ -15,6 +15,7 @@ import CreateAddress from './screens/Address/CreateAddress';
 import {ActivityIndicator, StyleSheet, View} from 'react-native';
 import Welcome from './screens/Welcome/Welcome';
 import {Colors} from './constants/colors';
+import ForgotPassword from './screens/Authentication/ForgotPassword';
 
 const Stack = createNativeStackNavigator();
 
@@ -112,7 +113,6 @@ const AppNavigator = () => {
                 headerShown: false,
               }}
             />
-
             <Stack.Screen
               name="Login"
               component={Login}
@@ -120,10 +120,9 @@ const AppNavigator = () => {
                 headerShown: false,
               }}
             />
-
             <Stack.Screen
-              name="Signup"
-              component={Signup}
+              name="ForgotPassword"
+              component={ForgotPassword}
               options={{
                 headerShown: false,
               }}
