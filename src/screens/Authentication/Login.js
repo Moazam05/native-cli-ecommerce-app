@@ -78,16 +78,18 @@ const Login = () => {
   return (
     <GestureHandlerRootView style={styles.gestureHandle}>
       <SafeAreaView style={styles.container}>
-        <View style={styles.headingWrap}>
-          <Text style={styles.heading}>Welcome</Text>
-          <Text style={styles.heading}>Back!</Text>
-        </View>
+        <ScrollView
+          contentContainerStyle={styles.scrollContainer}
+          showsVerticalScrollIndicator={false}>
+          <View style={styles.headingWrap}>
+            <Text style={styles.heading}>Welcome</Text>
+            <Text style={styles.heading}>Back!</Text>
+          </View>
 
-        <KeyboardAvoidingView
-          style={styles.keyboardAvoidingView}
-          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-          keyboardVerticalOffset={100}>
-          <ScrollView contentContainerStyle={styles.scrollContainer}>
+          <KeyboardAvoidingView
+            style={styles.keyboardAvoidingView}
+            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+            keyboardVerticalOffset={100}>
             <Formik
               initialValues={{email: '', password: ''}}
               validationSchema={validationSchema}
@@ -163,8 +165,8 @@ const Login = () => {
                 );
               }}
             </Formik>
-          </ScrollView>
-        </KeyboardAvoidingView>
+          </KeyboardAvoidingView>
+        </ScrollView>
       </SafeAreaView>
     </GestureHandlerRootView>
   );
