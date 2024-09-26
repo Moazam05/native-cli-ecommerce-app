@@ -1,41 +1,34 @@
 import {useNavigation} from '@react-navigation/native';
 import React, {useState} from 'react';
 import {
-  FlatList,
+  ScrollView,
   Image,
   StyleSheet,
   Text,
   TextInput,
   TouchableOpacity,
   View,
+  FlatList,
 } from 'react-native';
 import {
-  Beauty,
   ClearIcon,
-  Fashion,
   Logo,
   NavigationIcon,
   SearchIcon,
   UserIcon,
-  Kids,
-  Mens,
-  Womens,
-  Banner1,
-  RightArrow,
 } from '../../assets/images';
-import {Colors} from '../../constants/colors';
-import OldHome from './OldHome';
-import {Fonts} from '../../constants/fonts';
 import {categoriesData} from '../../constants';
+import {Colors} from '../../constants/colors';
+import {Fonts} from '../../constants/fonts';
 import Banners from '../Home/components/Banners';
+import OldHome from './OldHome';
 
 const Home = () => {
   const navigation = useNavigation();
-
   const [searchText, setSearchText] = useState('');
 
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
       <View style={styles.topBar}>
         <TouchableOpacity onPress={() => navigation.openDrawer()}>
           <NavigationIcon />
@@ -45,6 +38,7 @@ const Home = () => {
           <UserIcon />
         </View>
       </View>
+
       <View style={styles.wrap}>
         <View style={styles.searchContainer}>
           <View style={styles.searchBar}>
@@ -86,9 +80,10 @@ const Home = () => {
           <Banners />
         </View>
       </View>
-      {/* New */}
+
+      {/* Old Home Section */}
       <OldHome />
-    </View>
+    </ScrollView>
   );
 };
 
@@ -107,7 +102,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   user: {
-    // marginRight: 5,
+    // Optional: Add marginRight if needed
   },
   wrap: {
     width: '100%',
