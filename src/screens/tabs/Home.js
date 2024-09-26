@@ -20,6 +20,7 @@ import {
   Kids,
   Mens,
   Womens,
+  Banner1,
 } from '../../assets/images';
 import {Colors} from '../../constants/colors';
 import OldHome from './OldHome';
@@ -77,6 +78,20 @@ const Home = () => {
                 </TouchableOpacity>
               )}
             />
+          </View>
+
+          <View style={styles.banner}>
+            <View style={styles.bannerImg}>
+              <Banner1 />
+              <View style={styles.textContainer}>
+                <Text style={styles.discountText}>50-40% OFF</Text>
+                <Text style={styles.productText}>Now in (product)</Text>
+                <Text style={styles.colorText}>All colors</Text>
+                <TouchableOpacity style={styles.shopNowBtn}>
+                  <Text style={styles.shopNowText}>Shop Now</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
           </View>
         </View>
       </View>
@@ -157,5 +172,48 @@ const styles = StyleSheet.create({
     marginTop: 5,
     fontSize: 12,
     fontFamily: Fonts.REGULAR,
+  },
+  banner: {
+    marginVertical: 16,
+    position: 'relative',
+  },
+  bannerImg: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  textContainer: {
+    position: 'absolute',
+    left: 16,
+  },
+  discountText: {
+    fontSize: 20,
+    color: Colors.WHITE,
+    fontFamily: Fonts.BOLD,
+  },
+  productText: {
+    fontSize: 12,
+    color: Colors.WHITE,
+    fontFamily: Fonts.REGULAR,
+    marginTop: 5,
+    marginBottom: 5,
+  },
+  colorText: {
+    fontSize: 12,
+    color: Colors.WHITE,
+    fontFamily: Fonts.REGULAR,
+    marginBottom: 5,
+  },
+  shopNowBtn: {
+    borderColor: Colors.WHITE,
+    borderWidth: 1,
+    paddingVertical: 8,
+    paddingHorizontal: 12,
+    borderRadius: 6,
+    marginTop: 10,
+  },
+  shopNowText: {
+    color: Colors.WHITE,
+    fontFamily: Fonts.SEMIBOLD,
+    fontSize: 12,
   },
 });
