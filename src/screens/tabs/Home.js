@@ -174,12 +174,31 @@ const Home = () => {
   return (
     <View style={styles.container}>
       <View style={styles.topBar}>
-        <View>
+        <TouchableOpacity onPress={() => navigation.openDrawer()}>
           <NavigationIcon />
-        </View>
+        </TouchableOpacity>
         <Logo />
         <View style={styles.user}>
           <UserIcon />
+        </View>
+      </View>
+      <View style={styles.wrap}>
+        <View style={styles.searchContainer}>
+          <View style={styles.searchBar}>
+            <SearchIcon />
+            <TextInput
+              placeholder="Search any product.."
+              style={styles.searchInput}
+              value={searchText}
+              onChangeText={text => setSearchText(text)}
+              placeholderTextColor="#BBBBBB"
+            />
+            {searchText.length > 0 && (
+              <TouchableOpacity onPress={() => setSearchText('')}>
+                <Image source={ClearIcon} style={styles.icon} />
+              </TouchableOpacity>
+            )}
+          </View>
         </View>
       </View>
       {/* New */}
@@ -197,24 +216,6 @@ const Home = () => {
         </View>
       ) : (
         <>
-          {/* Search Bar */}
-          <View style={styles.searchContainer}>
-            <View style={styles.searchBar}>
-              <Image source={SearchIcon} style={styles.icon} />
-              <TextInput
-                placeholder="Search here..."
-                style={styles.searchInput}
-                value={searchText}
-                onChangeText={text => setSearchText(text)}
-              />
-              {searchText.length > 0 && (
-                <TouchableOpacity onPress={() => setSearchText('')}>
-                  <Image source={ClearIcon} style={styles.icon} />
-                </TouchableOpacity>
-              )}
-            </View>
-          </View>
-
           <FlatList
             data={filteredProducts}
             renderItem={renderProduct}
@@ -259,6 +260,45 @@ const styles = StyleSheet.create({
   user: {
     marginRight: 10,
   },
+  wrap: {
+    // paddingHorizontal: 16,
+    // backgroundColor: 'orange',
+    width: '100%',
+  },
+  searchContainer: {
+    paddingRight: 25,
+    paddingLeft: 15,
+  },
+  searchBar: {
+    paddingHorizontal: 15,
+    backgroundColor: '#fff',
+    flexDirection: 'row',
+    alignItems: 'center',
+    borderRadius: 4,
+    elevation: 3,
+    height: 45,
+    shadowColor: '#000',
+    shadowOffset: {width: 0, height: 2},
+    shadowOpacity: 0.1,
+    shadowRadius: 8,
+    marginTop: 8,
+    marginBottom: 16,
+  },
+  searchInput: {
+    flex: 1,
+    fontSize: 16,
+    color: '#333',
+    paddingLeft: 15,
+  },
+  icon: {
+    width: 20,
+    height: 20,
+    tintColor: '#BBBBBB',
+  },
+  textAlignRight: {
+    textAlign: 'right',
+  },
+  // jj
   listContainer: {
     padding: 10,
     paddingBottom: 100,
@@ -375,37 +415,5 @@ const styles = StyleSheet.create({
     color: '#333',
     paddingHorizontal: 10,
     width: 30,
-  },
-  searchContainer: {
-    paddingHorizontal: 15,
-    marginTop: 15,
-    marginBottom: 20,
-  },
-  searchBar: {
-    backgroundColor: '#fff',
-    flexDirection: 'row',
-    alignItems: 'center',
-    borderRadius: 25,
-    paddingHorizontal: 15,
-    elevation: 3,
-    height: 45,
-    shadowColor: '#000',
-    shadowOffset: {width: 0, height: 2},
-    shadowOpacity: 0.1,
-    shadowRadius: 8,
-    marginTop: 10,
-  },
-  searchInput: {
-    flex: 1,
-    fontSize: 16,
-    color: '#333',
-    paddingLeft: 15,
-  },
-  icon: {
-    width: 20,
-    height: 20,
-  },
-  textAlignRight: {
-    textAlign: 'right',
   },
 });
