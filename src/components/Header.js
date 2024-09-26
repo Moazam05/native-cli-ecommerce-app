@@ -17,6 +17,8 @@ const Header = ({title, leftIcon, rightIcon, leftClick}) => {
   const cartProducts = useTypedSelector(selectedProducts);
   const navigation = useNavigation();
 
+  console.log('height', height);
+
   return (
     <View style={styles.header}>
       <TouchableOpacity style={styles.btn} onPress={leftClick}>

@@ -120,6 +120,14 @@ const AppNavigator = () => {
                 headerShown: false,
               }}
             />
+
+            <Stack.Screen
+              name="Signup"
+              component={Signup}
+              options={{
+                headerShown: false,
+              }}
+            />
             <Stack.Screen
               name="ForgotPassword"
               component={ForgotPassword}

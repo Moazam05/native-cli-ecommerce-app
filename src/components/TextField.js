@@ -1,12 +1,11 @@
+import React, {useState} from 'react';
 import {
-  View,
-  Text,
+  Image,
   StyleSheet,
   TextInput,
   TouchableOpacity,
-  Image,
+  View,
 } from 'react-native';
-import React, {useState} from 'react';
 import {HideEye, OpenEye} from '../assets/images';
 import {Colors} from '../constants/colors';
 

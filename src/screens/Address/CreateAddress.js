@@ -31,6 +31,7 @@ const CreateAddress = () => {
   const navigation = useNavigation();
   const route = useRoute();
   const dispatch = useDispatch();
+  // eslint-disable-next-line no-unused-vars
   const [loading, setLoading] = useState(false);
   const [isHome, setIsHome] = useState(true);
 
