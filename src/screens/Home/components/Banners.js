@@ -51,10 +51,10 @@ const Banners = () => {
       </View>
       <View>
         <Text>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi
-          eligendi cumque, ex accusamus dolorum obcaecati fugiat iusto sit ea
-          earum, iure itaque quas tenetur laudantium, facere optio asperiores
-          natus ipsum.
+          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Mollitia sed
+          culpa debitis obcaecati, dolorem ex impedit, error perferendis tempore
+          ducimus voluptate nisi numquam dignissimos. Unde at beatae dolor fuga
+          blanditiis.
         </Text>
       </View>
     </>
@@ -65,7 +65,7 @@ export default Banners;
 
 const styles = StyleSheet.create({
   swiperContainer: {
-    height: 260,
+    height: 250,
     justifyContent: 'center',
   },
   banner: {
@@ -120,8 +120,8 @@ const styles = StyleSheet.create({
   pagination: {
     flexDirection: 'row',
     justifyContent: 'center',
-    marginTop: 20,
-    marginBottom: 30,
+    marginTop: 5,
+    marginBottom: 20,
   },
   dot: {
     width: 8,
