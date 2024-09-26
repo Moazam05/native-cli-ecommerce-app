@@ -6,7 +6,11 @@ const Drawer = createDrawerNavigator();
 
 const Main = () => {
   return (
-    <Drawer.Navigator>
+    <Drawer.Navigator
+      screenOptions={{
+        headerShown: false,
+        gestureEnabled: false,
+      }}>
       <Drawer.Screen
         name="HomeScreen"
         component={HomeScreen}
