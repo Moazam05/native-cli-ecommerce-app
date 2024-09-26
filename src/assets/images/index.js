@@ -5,9 +5,7 @@ import HomeIcon from './home.png';
 import MenuIcon from './menu.png';
 import NotificationFill from './notification_fill.png';
 import NotificationIcon from './notification.png';
-import SearchIcon from './search.png';
 import UserFill from './user_fill.png';
-import UserIcon from './user.png';
 import WishlistFill from './wishlist_fill.png';
 import WishlistIcon from './wishlist.png';
 import Star from './star.png';
@@ -29,6 +27,10 @@ import PasswordTextFieldIcon from './password-textfield.svg';
 import GoogleIcon from './Google.png';
 import MailIcon from './email.svg';
 import GetStartedImg from './GetStarted.svg';
+import Logo from './Logo.svg';
+import NavigationIcon from './NavigationIcon.svg';
+import SearchIcon from './Search.svg';
+import UserIcon from './User.svg';
 
 export {
   Back,
@@ -62,4 +64,6 @@ export {
   GoogleIcon,
   MailIcon,
   GetStartedImg,
+  Logo,
+  NavigationIcon,
 };
