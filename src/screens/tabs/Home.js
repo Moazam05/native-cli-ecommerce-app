@@ -21,6 +21,7 @@ import {
   Mens,
   Womens,
   Banner1,
+  RightArrow,
 } from '../../assets/images';
 import {Colors} from '../../constants/colors';
 import OldHome from './OldHome';
@@ -89,6 +90,7 @@ const Home = () => {
                 <Text style={styles.colorText}>All colors</Text>
                 <TouchableOpacity style={styles.shopNowBtn}>
                   <Text style={styles.shopNowText}>Shop Now</Text>
+                  <RightArrow />
                 </TouchableOpacity>
               </View>
             </View>
@@ -210,6 +212,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12,
     borderRadius: 6,
     marginTop: 10,
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   shopNowText: {
     color: Colors.WHITE,

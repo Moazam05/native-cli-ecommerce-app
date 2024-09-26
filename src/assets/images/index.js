@@ -37,6 +37,7 @@ import Kids from './Kids.svg';
 import Mens from './Mens.svg';
 import Womens from './Womens.svg';
 import Banner1 from './Banner.svg';
+import RightArrow from './RightArrow.svg';
 
 export {
   Back,
@@ -78,4 +79,5 @@ export {
   Mens,
   Womens,
   Banner1,
+  RightArrow,
 };
