@@ -1,16 +1,21 @@
-import {View, Text, StyleSheet} from 'react-native';
+import {View, Text, StyleSheet, StatusBar} from 'react-native';
 import React from 'react';
 import CustomButton from '../components/CustomButton';
 import {useNavigation} from '@react-navigation/native';
-import {GetStartedImg} from '../assets/images'; // Assuming it's an SVG file
+import {GetStartedImg} from '../assets/images';
 import {Colors} from '../constants/colors';
 import {Fonts} from '../constants/fonts';
-import {SafeAreaView} from 'react-native-safe-area-context';
 
 const PreMain = () => {
   const navigation = useNavigation();
+
   return (
-    <SafeAreaView style={styles.safeArea}>
+    <>
+      <StatusBar
+        barStyle="light-content"
+        translucent
+        backgroundColor="transparent"
+      />
       <View style={styles.container}>
         <View style={styles.coverImg}>
           <GetStartedImg
@@ -30,17 +35,13 @@ const PreMain = () => {
           </View>
         </View>
       </View>
-    </SafeAreaView>
+    </>
   );
 };
 
 export default PreMain;
 
 const styles = StyleSheet.create({
-  safeArea: {
-    flex: 1,
-    backgroundColor: Colors.WHITE,
-  },
   container: {
     flex: 1,
     justifyContent: 'flex-end',
