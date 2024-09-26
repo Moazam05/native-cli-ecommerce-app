@@ -16,6 +16,7 @@ import {ActivityIndicator, StyleSheet, View} from 'react-native';
 import Welcome from './screens/Welcome/Welcome';
 import {Colors} from './constants/colors';
 import ForgotPassword from './screens/Authentication/ForgotPassword';
+import PreMain from './screens/PreMain';
 
 const Stack = createNativeStackNavigator();
 
@@ -56,6 +57,14 @@ const AppNavigator = () => {
       <Stack.Navigator>
         {loginUser ? (
           <>
+            <Stack.Screen
+              name="PreMain"
+              component={PreMain}
+              options={{
+                headerShown: false,
+              }}
+            />
+
             <Stack.Screen
               name="Main"
               component={Main}
