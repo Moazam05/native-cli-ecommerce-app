@@ -140,7 +140,7 @@ const styles = StyleSheet.create({
     marginTop: 5,
   },
   forgotPasswordText: {
-    color: Colors.SECONDARYTEXT,
+    color: Colors.SECONDARY_TEXT,
     fontSize: 12,
     fontFamily: Fonts.REGULAR,
   },

@@ -18,6 +18,9 @@ import {
   Star,
   SearchIcon,
   ClearIcon,
+  NavigationIcon,
+  UserIcon,
+  Logo,
 } from '../../assets/images';
 import {useNavigation} from '@react-navigation/native';
 import useTypedSelector from '../../hooks/useTypedSelector';
@@ -167,8 +170,19 @@ const Home = () => {
     );
   };
 
+  // Salman
   return (
     <View style={styles.container}>
+      <View style={styles.topBar}>
+        <View>
+          <NavigationIcon />
+        </View>
+        <Logo />
+        <View style={styles.user}>
+          <UserIcon />
+        </View>
+      </View>
+      {/* New */}
       <Header
         leftIcon={MenuIcon}
         rightIcon={CartIcon}
@@ -233,7 +247,17 @@ export default Home;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f5f5f5',
+    backgroundColor: Colors.PRIMARY_BG,
+  },
+  topBar: {
+    paddingHorizontal: 16,
+    paddingVertical: 12,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  user: {
+    marginRight: 10,
   },
   listContainer: {
     padding: 10,

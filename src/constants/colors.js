@@ -6,5 +6,6 @@ export const Colors = {
   LIGHTGREY: '#C4C4C4',
   WHITE: '#fff',
   TEXT: '#575757',
-  SECONDARYTEXT: '#676767',
+  SECONDARY_TEXT: '#676767',
+  PRIMARY_BG: '#F9F9F9',
 };
