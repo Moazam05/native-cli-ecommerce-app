@@ -28,6 +28,7 @@ import UserTextFieldIcon from './user-textfield.svg';
 import PasswordTextFieldIcon from './password-textfield.svg';
 import GoogleIcon from './Google.png';
 import MailIcon from './email.svg';
+import GetStartedImg from './GetStarted.svg';
 
 export {
   Back,
@@ -60,4 +61,5 @@ export {
   PasswordTextFieldIcon,
   GoogleIcon,
   MailIcon,
+  GetStartedImg,
 };
