@@ -12,7 +12,7 @@ import {LoginImg, ClearIcon} from '../assets/images';
 
 const LoginModal = ({visible, onClose, onLoginPress, onSignupPress}) => {
   return (
-    <Modal visible={visible} transparent>
+    <Modal visible={false} transparent>
       <View style={styles.modalView}>
         <View style={styles.mainView}>
           <TouchableOpacity style={styles.closeButton} onPress={onClose}>
