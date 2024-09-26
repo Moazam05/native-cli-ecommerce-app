@@ -1,7 +1,7 @@
 import {useNavigation} from '@react-navigation/native';
 import React, {useState} from 'react';
 import {
-  Dimensions,
+  FlatList,
   Image,
   StyleSheet,
   Text,
@@ -10,15 +10,48 @@ import {
   View,
 } from 'react-native';
 import {
+  Beauty,
   ClearIcon,
+  Fashion,
   Logo,
   NavigationIcon,
   SearchIcon,
   UserIcon,
+  Kids,
+  Mens,
+  Womens,
 } from '../../assets/images';
 import {Colors} from '../../constants/colors';
 import OldHome from './OldHome';
 import {Fonts} from '../../constants/fonts';
+
+const categoriesData = [
+  {
+    id: 1,
+    name: 'Beauty',
+    image: <Beauty />,
+  },
+  {
+    id: 2,
+    name: 'Fashion',
+    image: <Fashion />,
+  },
+  {
+    id: 3,
+    name: 'Kids',
+    image: <Kids />,
+  },
+  {
+    id: 4,
+    name: 'Mens',
+    image: <Mens />,
+  },
+  {
+    id: 5,
+    name: 'Womens',
+    image: <Womens />,
+  },
+];
 
 const Home = () => {
   const navigation = useNavigation();
@@ -55,6 +88,23 @@ const Home = () => {
           </View>
 
           <Text style={styles.featured}>All Featured</Text>
+
+          <View style={styles.categories}>
+            <FlatList
+              data={categoriesData}
+              keyExtractor={item => item.id.toString()}
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              renderItem={({item}) => (
+                <TouchableOpacity>
+                  <View style={styles.categoryWrap}>
+                    {item.image}
+                    <Text style={styles.categoryName}>{item.name}</Text>
+                  </View>
+                </TouchableOpacity>
+              )}
+            />
+          </View>
         </View>
       </View>
       {/* New */}
@@ -115,8 +165,24 @@ const styles = StyleSheet.create({
   },
   featured: {
     fontFamily: Fonts.SEMIBOLD,
-    marginBottom: 16,
     fontSize: 18,
     color: Colors.BLACK,
+  },
+  categories: {
+    marginTop: 16,
+    backgroundColor: Colors.WHITE,
+    paddingHorizontal: 8,
+    paddingVertical: 8,
+    borderRadius: 10,
+  },
+  categoryWrap: {
+    alignItems: 'center',
+    marginHorizontal: 10,
+  },
+  categoryName: {
+    color: '#21003D',
+    marginTop: 5,
+    fontSize: 12,
+    fontFamily: Fonts.REGULAR,
   },
 });
