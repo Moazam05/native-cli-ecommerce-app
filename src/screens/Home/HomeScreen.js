@@ -24,6 +24,7 @@ import Notification from '../tabs/Notification';
 import Search from '../tabs/Search';
 import Profile from '../tabs/Profile';
 import Wishlist from '../tabs/WishList';
+import {Colors} from '../../constants/colors';
 
 const HomeScreen = () => {
   const [selectedTab, setSelectedTab] = useState(0);
@@ -52,7 +53,7 @@ const HomeScreen = () => {
       <StatusBar
         barStyle="dark-content"
         translucent
-        backgroundColor="transparent"
+        backgroundColor={Colors.PRIMARY_BG}
       />
 
       <SafeAreaView style={styles.container}>
