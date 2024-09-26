@@ -31,6 +31,11 @@ import Logo from './Logo.svg';
 import NavigationIcon from './NavigationIcon.svg';
 import SearchIcon from './Search.svg';
 import UserIcon from './User.svg';
+import Beauty from './Beauty.svg';
+import Fashion from './Fashion.svg';
+import Kids from './Kids.svg';
+import Mens from './Mens.svg';
+import Womens from './Womens.svg';
 
 export {
   Back,
@@ -66,4 +71,9 @@ export {
   GetStartedImg,
   Logo,
   NavigationIcon,
+  Beauty,
+  Fashion,
+  Kids,
+  Mens,
+  Womens,
 };

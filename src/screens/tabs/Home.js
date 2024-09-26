@@ -18,6 +18,7 @@ import {
 } from '../../assets/images';
 import {Colors} from '../../constants/colors';
 import OldHome from './OldHome';
+import {Fonts} from '../../constants/fonts';
 
 const Home = () => {
   const navigation = useNavigation();
@@ -52,10 +53,8 @@ const Home = () => {
               </TouchableOpacity>
             )}
           </View>
-        </View>
 
-        <View>
-          <Text>All Featured</Text>
+          <Text style={styles.featured}>All Featured</Text>
         </View>
       </View>
       {/* New */}
@@ -79,14 +78,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   user: {
-    marginRight: 10,
+    marginRight: 5,
   },
   wrap: {
     width: '100%',
   },
   searchContainer: {
+    paddingHorizontal: 16,
     paddingRight: 25,
-    paddingLeft: 15,
   },
   searchBar: {
     paddingHorizontal: 15,
@@ -114,6 +113,10 @@ const styles = StyleSheet.create({
     height: 20,
     tintColor: '#BBBBBB',
   },
-
-  // jj
+  featured: {
+    fontFamily: Fonts.SEMIBOLD,
+    marginBottom: 16,
+    fontSize: 18,
+    color: Colors.BLACK,
+  },
 });
