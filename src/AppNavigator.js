@@ -14,6 +14,7 @@ import AddressList from './screens/Address/AddressList';
 import CreateAddress from './screens/Address/CreateAddress';
 import {ActivityIndicator, StyleSheet, View} from 'react-native';
 import Welcome from './screens/Welcome/Welcome';
+import {Colors} from './constants/colors';
 
 const Stack = createNativeStackNavigator();
 
@@ -44,7 +45,7 @@ const AppNavigator = () => {
   if (isLoading) {
     return (
       <View style={styles.loadingContainer}>
-        <ActivityIndicator size="large" color="#0786DAFD" />
+        <ActivityIndicator size="large" color={Colors.PRIMARY} />
       </View>
     );
   }

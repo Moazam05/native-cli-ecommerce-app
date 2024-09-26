@@ -30,6 +30,7 @@ import {
 } from '../../redux/products/productsSlice';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import LoginModal from '../../components/LoginModal';
+import {Colors} from '../../constants/colors';
 
 const Home = () => {
   const navigation = useNavigation();
@@ -178,7 +179,7 @@ const Home = () => {
       />
       {loading ? (
         <View style={styles.loaderContainer}>
-          <ActivityIndicator size="large" color="#0786DAFD" />
+          <ActivityIndicator size="large" color={Colors.PRIMARY} />
         </View>
       ) : (
         <>
