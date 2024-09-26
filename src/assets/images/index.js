@@ -36,6 +36,7 @@ import Fashion from './Fashion.svg';
 import Kids from './Kids.svg';
 import Mens from './Mens.svg';
 import Womens from './Womens.svg';
+import Banner1 from './Banner.svg';
 
 export {
   Back,
@@ -76,4 +77,5 @@ export {
   Kids,
   Mens,
   Womens,
+  Banner1,
 };

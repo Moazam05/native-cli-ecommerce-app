@@ -1,4 +1,13 @@
-import {WelcomeOne, WelcomeThree, WelcomeTwo} from '../assets/images';
+import {
+  Beauty,
+  WelcomeOne,
+  WelcomeThree,
+  WelcomeTwo,
+  Fashion,
+  Kids,
+  Mens,
+  Womens,
+} from '../assets/images';
 
 export const onboarding = [
   {
@@ -21,5 +30,33 @@ export const onboarding = [
     description:
       'Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit.',
     image: WelcomeThree,
+  },
+];
+
+export const categoriesData = [
+  {
+    id: 1,
+    name: 'Beauty',
+    image: Beauty,
+  },
+  {
+    id: 2,
+    name: 'Fashion',
+    image: Fashion,
+  },
+  {
+    id: 3,
+    name: 'Kids',
+    image: Kids,
+  },
+  {
+    id: 4,
+    name: 'Mens',
+    image: Mens,
+  },
+  {
+    id: 5,
+    name: 'Womens',
+    image: Womens,
   },
 ];

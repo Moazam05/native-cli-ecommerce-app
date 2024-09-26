@@ -24,34 +24,7 @@ import {
 import {Colors} from '../../constants/colors';
 import OldHome from './OldHome';
 import {Fonts} from '../../constants/fonts';
-
-const categoriesData = [
-  {
-    id: 1,
-    name: 'Beauty',
-    image: <Beauty />,
-  },
-  {
-    id: 2,
-    name: 'Fashion',
-    image: <Fashion />,
-  },
-  {
-    id: 3,
-    name: 'Kids',
-    image: <Kids />,
-  },
-  {
-    id: 4,
-    name: 'Mens',
-    image: <Mens />,
-  },
-  {
-    id: 5,
-    name: 'Womens',
-    image: <Womens />,
-  },
-];
+import {categoriesData} from '../../constants';
 
 const Home = () => {
   const navigation = useNavigation();
@@ -98,7 +71,7 @@ const Home = () => {
               renderItem={({item}) => (
                 <TouchableOpacity>
                   <View style={styles.categoryWrap}>
-                    {item.image}
+                    <item.image />
                     <Text style={styles.categoryName}>{item.name}</Text>
                   </View>
                 </TouchableOpacity>
