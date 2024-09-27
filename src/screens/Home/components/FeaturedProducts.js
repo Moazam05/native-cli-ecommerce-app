@@ -1,4 +1,11 @@
-import {View, Text, StyleSheet, FlatList, TouchableOpacity} from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  FlatList,
+  TouchableOpacity,
+  Image,
+} from 'react-native';
 import React, {useRef} from 'react';
 import {FillStar, HalfStar, Next} from '../../../assets/images';
 import {Fonts} from '../../../constants/fonts';
@@ -45,7 +52,7 @@ const FeaturedProducts = () => {
   const renderProduct = ({item}) => (
     <View style={styles.productWrap}>
       <View style={styles.image}>
-        <item.image width="100%" height="120" />
+        <Image source={item.image} style={styles.imgWrap} />
       </View>
       <View style={styles.card}>
         <Text style={styles.title}>{item.name}</Text>
@@ -108,6 +115,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 4,
+  },
+  imgWrap: {
+    width: '100%',
+    height: '100%',
+    resizeMode: 'contain',
   },
   card: {
     marginHorizontal: 4,

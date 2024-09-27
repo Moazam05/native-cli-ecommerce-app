@@ -1,5 +1,12 @@
 import React, {useRef} from 'react';
-import {FlatList, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {
+  FlatList,
+  Image,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import {Next} from '../../../assets/images';
 import {discountedProducts} from '../../../constants';
 import {Colors} from '../../../constants/colors';
@@ -27,7 +34,7 @@ const DiscountedProducts = () => {
   const renderProduct = ({item}) => (
     <View style={styles.productWrap}>
       <View style={styles.image}>
-        <item.image width="100%" height="100" />
+        <Image source={item.image} style={styles.imgWrap} />
       </View>
       <View style={styles.card}>
         <Text style={styles.title}>{item.name}</Text>
@@ -84,6 +91,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 4,
+  },
+  imgWrap: {
+    width: '100%',
+    height: '100%',
+    resizeMode: 'contain',
   },
   card: {
     marginHorizontal: 4,
