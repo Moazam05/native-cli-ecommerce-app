@@ -31,8 +31,8 @@ const Banners = () => {
     <>
       <View style={styles.swiperContainer}>
         <Swiper
-          autoplay
-          autoplayTimeout={7}
+          // autoplay
+          // autoplayTimeout={7}
           showsPagination={false}
           onIndexChanged={index => setActiveIndex(index)}>
           {bannersData.map(banner => (
@@ -96,6 +96,7 @@ const styles = StyleSheet.create({
   swiperContainer: {
     height: 250,
     justifyContent: 'center',
+    width: '100%',
   },
   banner: {
     marginVertical: 16,

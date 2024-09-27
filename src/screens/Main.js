@@ -8,8 +8,8 @@ const Main = () => {
   return (
     <Drawer.Navigator
       screenOptions={{
-        headerShown: false,
-        gestureEnabled: false,
+        swipeEdgeWidth: 0,
+        swipeEnabled: false,
       }}>
       <Drawer.Screen
         name="HomeScreen"

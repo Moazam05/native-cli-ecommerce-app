@@ -1,14 +1,13 @@
 import {useNavigation} from '@react-navigation/native';
 import React, {useState} from 'react';
 import {
-  ScrollView,
+  FlatList,
   Image,
   StyleSheet,
   Text,
   TextInput,
   TouchableOpacity,
   View,
-  FlatList,
 } from 'react-native';
 import {
   ClearIcon,
@@ -27,63 +26,71 @@ const Home = () => {
   const navigation = useNavigation();
   const [searchText, setSearchText] = useState('');
 
+  const renderCategoryItem = ({item}) => (
+    <TouchableOpacity>
+      <View style={styles.categoryWrap}>
+        <item.image />
+        <Text style={styles.categoryName}>{item.name}</Text>
+      </View>
+    </TouchableOpacity>
+  );
+
   return (
-    <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
-      <View style={styles.topBar}>
-        <TouchableOpacity onPress={() => navigation.openDrawer()}>
-          <NavigationIcon />
-        </TouchableOpacity>
-        <Logo />
-        <View style={styles.user}>
-          <UserIcon />
-        </View>
-      </View>
-
-      <View style={styles.wrap}>
-        <View style={styles.searchContainer}>
-          <View style={styles.searchBar}>
-            <SearchIcon />
-            <TextInput
-              placeholder="Search any product.."
-              style={styles.searchInput}
-              value={searchText}
-              onChangeText={text => setSearchText(text)}
-              placeholderTextColor="#BBBBBB"
-            />
-            {searchText.length > 0 && (
-              <TouchableOpacity onPress={() => setSearchText('')}>
-                <Image source={ClearIcon} style={styles.icon} />
-              </TouchableOpacity>
-            )}
+    <FlatList
+      data={categoriesData}
+      keyExtractor={item => item.id.toString()}
+      ListHeaderComponent={
+        <View style={styles.parentWrap}>
+          {/* Top Bar */}
+          <View style={styles.topBar}>
+            <TouchableOpacity onPress={() => navigation.openDrawer()}>
+              <NavigationIcon />
+            </TouchableOpacity>
+            <Logo />
+            <UserIcon />
           </View>
 
-          <Text style={styles.featured}>All Featured</Text>
+          {/* Search Bar */}
+          <View style={styles.wrap}>
+            <View>
+              <View style={styles.searchBar}>
+                <SearchIcon />
+                <TextInput
+                  placeholder="Search any product.."
+                  style={styles.searchInput}
+                  value={searchText}
+                  onChangeText={text => setSearchText(text)}
+                  placeholderTextColor="#BBBBBB"
+                />
+                {searchText.length > 0 && (
+                  <TouchableOpacity onPress={() => setSearchText('')}>
+                    <Image source={ClearIcon} style={styles.icon} />
+                  </TouchableOpacity>
+                )}
+              </View>
+            </View>
 
-          <View style={styles.categories}>
-            <FlatList
-              data={categoriesData}
-              keyExtractor={item => item.id.toString()}
-              horizontal
-              showsHorizontalScrollIndicator={false}
-              renderItem={({item}) => (
-                <TouchableOpacity>
-                  <View style={styles.categoryWrap}>
-                    <item.image />
-                    <Text style={styles.categoryName}>{item.name}</Text>
-                  </View>
-                </TouchableOpacity>
-              )}
-            />
+            {/* Categories */}
+            <Text style={styles.featured}>All Featured</Text>
+            <View style={styles.categories}>
+              <FlatList
+                data={categoriesData}
+                keyExtractor={item => item.id.toString()}
+                horizontal
+                showsHorizontalScrollIndicator={false}
+                renderItem={renderCategoryItem}
+              />
+            </View>
+
+            {/* Banners */}
+            <Banners />
           </View>
-
-          {/* Banners */}
-          <Banners />
         </View>
-      </View>
-
-      {/* Old Home Section */}
-      <OldHome />
-    </ScrollView>
+      }
+      showsVerticalScrollIndicator={false}
+      renderItem={null} // Since categories are part of ListHeaderComponent
+      ListFooterComponent={<OldHome />} // Old Home will come at the end
+    />
   );
 };
 
@@ -94,22 +101,20 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: Colors.PRIMARY_BG,
   },
-  topBar: {
+  parentWrap: {
     paddingHorizontal: 16,
+  },
+  topBar: {
     paddingVertical: 12,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
   },
-  user: {
-    // Optional: Add marginRight if needed
-  },
+
   wrap: {
     width: '100%',
   },
-  searchContainer: {
-    paddingHorizontal: 16,
-  },
+
   searchBar: {
     paddingHorizontal: 15,
     backgroundColor: '#fff',
@@ -140,6 +145,7 @@ const styles = StyleSheet.create({
     fontFamily: Fonts.SEMIBOLD,
     fontSize: 18,
     color: Colors.BLACK,
+    marginBottom: 10,
   },
   categories: {
     marginTop: 16,
