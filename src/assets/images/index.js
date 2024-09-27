@@ -48,6 +48,7 @@ import FillStar from './FillStar.svg';
 import HalfStar from './HalfStar.svg';
 import OfferIcon from './offer.svg';
 import OopsIcon from './oops.png';
+import FlatHeel from './FlatBanner.png';
 
 export {
   Back,
@@ -100,4 +101,5 @@ export {
   HalfStar,
   OfferIcon,
   OopsIcon,
+  FlatHeel,
 };
