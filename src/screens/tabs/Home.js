@@ -22,6 +22,7 @@ import {Fonts} from '../../constants/fonts';
 import Banners from '../Home/components/Banners';
 import OldHome from './OldHome';
 import FeaturedProducts from '../Home/components/FeaturedProducts';
+import OfferBanner from '../Home/components/OfferBanner';
 
 const Home = () => {
   const navigation = useNavigation();
@@ -88,6 +89,9 @@ const Home = () => {
 
             {/* Featured Products */}
             <FeaturedProducts />
+
+            {/* Offer Banner */}
+            <OfferBanner />
           </View>
         </View>
       }
@@ -152,7 +156,6 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   categories: {
-    marginTop: 16,
     backgroundColor: Colors.WHITE,
     paddingHorizontal: 8,
     paddingVertical: 8,
@@ -161,6 +164,7 @@ const styles = StyleSheet.create({
   categoryWrap: {
     alignItems: 'center',
     marginHorizontal: 10,
+    marginTop: 5,
   },
   categoryName: {
     color: '#21003D',
