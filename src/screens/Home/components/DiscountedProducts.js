@@ -88,6 +88,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     marginBottom: 16,
+    position: 'relative',
   },
   productWrap: {
     backgroundColor: Colors.WHITE,
@@ -135,5 +136,11 @@ const styles = StyleSheet.create({
     color: '#FE735C',
     marginLeft: 4,
     fontFamily: Fonts.REGULAR,
+  },
+  nextButton: {
+    position: 'absolute',
+    right: 10,
+    top: '65%',
+    transform: [{translateY: -50}],
   },
 });
