@@ -30,14 +30,14 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.WHITE,
     paddingVertical: 8,
     borderRadius: 8,
-    height: 360,
+    height: 355,
     paddingLeft: 16,
   },
   title: {
     fontSize: 20,
     fontFamily: Fonts.MEDIUM,
     color: Colors.BLACK,
-    marginBottom: 12,
+    marginBottom: 8,
   },
   bannerImg: {
     width: '100%',

@@ -20,7 +20,6 @@ import {categoriesData} from '../../constants';
 import {Colors} from '../../constants/colors';
 import {Fonts} from '../../constants/fonts';
 import Banners from '../Home/components/Banners';
-import OldHome from './OldHome';
 import FeaturedProducts from '../Home/components/FeaturedProducts';
 import OfferBanner from '../Home/components/OfferBanner';
 import FlatBanner from '../Home/components/FlatBanner';
@@ -113,7 +112,8 @@ const Home = () => {
       }
       showsVerticalScrollIndicator={false}
       renderItem={null} // Since categories are part of ListHeaderComponent
-      ListFooterComponent={<OldHome />}
+      ListFooterComponent={<View style={styles.footer} />}
+      contentContainerStyle={styles.contentContainer}
     />
   );
 };
@@ -187,5 +187,11 @@ const styles = StyleSheet.create({
     marginTop: 5,
     fontSize: 12,
     fontFamily: Fonts.REGULAR,
+  },
+  footer: {
+    marginBottom: 80,
+  },
+  contentContainer: {
+    paddingTop: 20, // Adjust this value for more or less spacing
   },
 });
