@@ -28,7 +28,9 @@ const FlatBanner = () => {
           <Text style={styles.dealTitle}>Trending Products</Text>
 
           <View style={styles.timerWrapper}>
-            <CalendarIcon />
+            <View>
+              <Image source={CalendarIcon} style={styles.imgClock} />
+            </View>
             <Text style={styles.timer}>Last Date 31/10/2024</Text>
           </View>
         </View>
@@ -125,6 +127,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     gap: 5,
     marginTop: 5,
+  },
+  imgClock: {
+    width: 15,
+    height: 15,
+    resizeMode: 'contain',
   },
   timer: {
     fontSize: 12,

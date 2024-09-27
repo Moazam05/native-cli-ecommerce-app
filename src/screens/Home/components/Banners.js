@@ -74,7 +74,9 @@ const Banners = () => {
           <Text style={styles.dealTitle}>Deal of the Day</Text>
 
           <View style={styles.timerWrapper}>
-            <ClockIcon />
+            <View>
+              <Image source={ClockIcon} style={styles.imgClock} />
+            </View>
             <Text style={styles.timer}>{formatTime(timeLeft)} remaining</Text>
           </View>
         </View>
@@ -193,6 +195,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     gap: 5,
     marginTop: 5,
+  },
+  imgClock: {
+    width: 15,
+    height: 15,
+    resizeMode: 'contain',
   },
   timer: {
     fontSize: 12,
