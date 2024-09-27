@@ -45,7 +45,7 @@ const FeaturedProducts = () => {
   const renderProduct = ({item}) => (
     <View style={styles.productWrap}>
       <View style={styles.image}>
-        <item.image />
+        <item.image width="100%" height="120" />
       </View>
       <View style={styles.card}>
         <Text style={styles.title}>{item.name}</Text>
@@ -103,7 +103,10 @@ const styles = StyleSheet.create({
   },
   image: {
     width: '100%',
-    height: 124,
+    height: 120,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 4,
   },
   card: {
     marginHorizontal: 4,
