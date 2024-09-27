@@ -134,6 +134,7 @@ const styles = StyleSheet.create({
   priceWrap: {
     flexDirection: 'row',
     alignItems: 'center',
+    gap: 2,
   },
   oldPrice: {
     fontSize: 12,
@@ -151,6 +152,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     marginTop: 4,
+    gap: 4,
   },
   count: {
     fontSize: 10,

@@ -46,6 +46,8 @@ import Product4 from './Product4.svg';
 import Next from './Next.svg';
 import FillStar from './FillStar.svg';
 import HalfStar from './HalfStar.svg';
+import OfferIcon from './offer.svg';
+import OopsIcon from './oops.png';
 
 export {
   Back,
@@ -96,4 +98,6 @@ export {
   Next,
   FillStar,
   HalfStar,
+  OfferIcon,
+  OopsIcon,
 };
