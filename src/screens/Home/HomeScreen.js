@@ -1,4 +1,4 @@
-import React, {act, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   Image,
   Keyboard,
@@ -12,24 +12,17 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import {
   BottomSearch,
   CartIcon,
-  HomeFill,
   HomeIcon,
-  NotificationFill,
-  NotificationIcon,
-  SearchIcon,
-  SettingIcon,
-  UserFill,
-  UserIcon,
-  WishlistFill,
   WishlistIcon,
+  SettingIcon,
 } from '../../assets/images';
 import Home from '../tabs/Home';
-import Notification from '../tabs/Notification';
 import Search from '../tabs/Search';
-import Profile from '../tabs/Profile';
 import Wishlist from '../tabs/WishList';
+import Profile from '../tabs/Profile';
 import {Colors} from '../../constants/colors';
 import {Fonts} from '../../constants/fonts';
+import Notification from '../tabs/Notification';
 
 const HomeScreen = () => {
   const [selectedTab, setSelectedTab] = useState(0);
@@ -46,7 +39,6 @@ const HomeScreen = () => {
       () => setIsKeyboardVisible(false),
     );
 
-    // Cleanup listeners on component unmount
     return () => {
       keyboardDidShowListener.remove();
       keyboardDidHideListener.remove();
@@ -110,18 +102,22 @@ const HomeScreen = () => {
               </Text>
             </TouchableOpacity>
 
-            <TouchableOpacity
-              style={selectedTab === 2 ? styles.activeCartTab : styles.cartTab}
-              onPress={() => setSelectedTab(2)}>
-              <Image
-                source={CartIcon}
+            <View style={styles.cartContainer}>
+              <TouchableOpacity
                 style={
-                  selectedTab === 2
-                    ? styles.lastActiveBottomTabIcon
-                    : styles.bottomTabIcon
+                  selectedTab === 2 ? styles.activeCartTab : styles.cartTab
                 }
-              />
-            </TouchableOpacity>
+                onPress={() => setSelectedTab(2)}>
+                <Image
+                  source={CartIcon}
+                  style={
+                    selectedTab === 2
+                      ? styles.lastActiveBottomTabIcon
+                      : styles.bottomTabIcon
+                  }
+                />
+              </TouchableOpacity>
+            </View>
 
             <TouchableOpacity
               style={styles.bottomTab}
@@ -175,15 +171,14 @@ const styles = StyleSheet.create({
     width: '100%',
     height: 65,
     flexDirection: 'row',
-    justifyContent: 'space-evenly',
+    justifyContent: 'space-between',
     alignItems: 'center',
     backgroundColor: '#fff',
     borderTopColor: '#DADADA',
     borderWidth: 1,
   },
-
   bottomTab: {
-    width: '20%',
+    flex: 1,
     height: '100%',
     justifyContent: 'center',
     alignItems: 'center',
@@ -210,6 +205,11 @@ const styles = StyleSheet.create({
     fontFamily: Fonts.MEDIUM,
   },
 
+  cartContainer: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
   cartTab: {
     backgroundColor: Colors.WHITE,
     width: 50,
@@ -217,9 +217,7 @@ const styles = StyleSheet.create({
     borderRadius: 25,
     justifyContent: 'center',
     alignItems: 'center',
-    position: 'absolute',
     top: -25,
-    left: '40%',
     boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',
   },
   activeCartTab: {
@@ -229,12 +227,9 @@ const styles = StyleSheet.create({
     borderRadius: 25,
     justifyContent: 'center',
     alignItems: 'center',
-    position: 'absolute',
     top: -25,
-    left: '40%',
     boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',
   },
-
   lastActiveBottomTabIcon: {
     width: 19,
     height: 24,
