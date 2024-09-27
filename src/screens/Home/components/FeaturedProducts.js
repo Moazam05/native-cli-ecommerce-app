@@ -94,6 +94,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     marginBottom: 16,
+    position: 'relative',
   },
   productWrap: {
     backgroundColor: Colors.WHITE,
@@ -161,9 +162,8 @@ const styles = StyleSheet.create({
   },
   nextButton: {
     position: 'absolute',
-    right: 0,
-    justifyContent: 'center',
-    height: '100%',
-    paddingHorizontal: 10,
+    right: 10,
+    top: '63%',
+    transform: [{translateY: -50}],
   },
 });

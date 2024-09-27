@@ -93,7 +93,7 @@ const styles = StyleSheet.create({
   productWrap: {
     backgroundColor: Colors.WHITE,
     width: 140,
-    marginHorizontal: 8,
+    marginHorizontal: 7,
     borderRadius: 4,
   },
   image: {
