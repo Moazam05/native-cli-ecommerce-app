@@ -1,26 +1,46 @@
 import {View, Text, StyleSheet, TouchableOpacity, Image} from 'react-native';
 import React from 'react';
-import {FlatHeel, RightArrow} from '../../../assets/images';
+import {CalendarIcon, FlatHeel, RightArrow} from '../../../assets/images';
 import {Fonts} from '../../../constants/fonts';
 import {Colors} from '../../../constants/colors';
 
 const FlatBanner = () => {
   return (
-    <View style={styles.wrap}>
-      <Image source={FlatHeel} style={styles.banner} />
+    <>
+      <View style={styles.wrap}>
+        <Image source={FlatHeel} style={styles.banner} />
 
-      {/* Content Overlay */}
-      <View style={styles.contentWrap}>
-        <Text style={styles.title}>Flat and Heels</Text>
-        <Text style={styles.tagline}>Stand a chance to get rewarded</Text>
-        <View style={styles.buttonWrap}>
-          <TouchableOpacity style={styles.button}>
-            <Text style={styles.visit}>Visit now</Text>
-            <RightArrow style={styles.arrow} />
-          </TouchableOpacity>
+        {/* Content Overlay */}
+        <View style={styles.contentWrap}>
+          <Text style={styles.title}>Flat and Heels</Text>
+          <Text style={styles.tagline}>Stand a chance to get rewarded</Text>
+          <View style={styles.buttonWrap}>
+            <TouchableOpacity style={styles.button}>
+              <Text style={styles.visit}>Visit now</Text>
+              <RightArrow style={styles.arrow} />
+            </TouchableOpacity>
+          </View>
         </View>
       </View>
-    </View>
+
+      <View style={styles.dealWrapper}>
+        <View style={styles.dealTextWrapper}>
+          <Text style={styles.dealTitle}>Trending Products</Text>
+
+          <View style={styles.timerWrapper}>
+            <CalendarIcon />
+            <Text style={styles.timer}>Last Date 31/10/2024</Text>
+          </View>
+        </View>
+
+        <TouchableOpacity style={styles.viewAllButton}>
+          <Text style={styles.viewAllText}>View all</Text>
+          <View style={styles.viewAllArrow}>
+            <RightArrow />
+          </View>
+        </TouchableOpacity>
+      </View>
+    </>
   );
 };
 
@@ -78,6 +98,55 @@ const styles = StyleSheet.create({
     color: Colors.WHITE,
   },
   arrow: {
+    marginTop: 2,
+  },
+
+  dealWrapper: {
+    backgroundColor: '#FD6E87',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    borderRadius: 8,
+    padding: 8,
+    marginBottom: 20,
+    paddingHorizontal: 12,
+  },
+  dealTextWrapper: {
+    flexDirection: 'column',
+    gap: 5,
+  },
+  dealTitle: {
+    fontSize: 16,
+    fontFamily: Fonts.MEDIUM,
+    color: Colors.WHITE,
+  },
+  timerWrapper: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 5,
+    marginTop: 5,
+  },
+  timer: {
+    fontSize: 12,
+    fontFamily: Fonts.REGULAR,
+    color: Colors.WHITE,
+  },
+  viewAllButton: {
+    borderColor: Colors.WHITE,
+    borderWidth: 1,
+    paddingVertical: 8,
+    paddingHorizontal: 12,
+    borderRadius: 6,
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 15,
+  },
+  viewAllText: {
+    color: Colors.WHITE,
+    fontFamily: Fonts.SEMIBOLD,
+    fontSize: 12,
+  },
+  viewAllArrow: {
     marginTop: 2,
   },
 });

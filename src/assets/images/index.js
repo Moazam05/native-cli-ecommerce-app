@@ -49,6 +49,7 @@ import HalfStar from './HalfStar.svg';
 import OfferIcon from './offer.svg';
 import OopsIcon from './oops.png';
 import FlatHeel from './FlatBanner.png';
+import CalendarIcon from './date.svg';
 
 export {
   Back,
@@ -102,4 +103,5 @@ export {
   OfferIcon,
   OopsIcon,
   FlatHeel,
+  CalendarIcon,
 };
