@@ -13,10 +13,12 @@ const FlatBanner = () => {
       <View style={styles.contentWrap}>
         <Text style={styles.title}>Flat and Heels</Text>
         <Text style={styles.tagline}>Stand a chance to get rewarded</Text>
-        <TouchableOpacity style={styles.button}>
-          <Text style={styles.visit}>Visit now</Text>
-          <RightArrow style={styles.arrow} />
-        </TouchableOpacity>
+        <View style={styles.buttonWrap}>
+          <TouchableOpacity style={styles.button}>
+            <Text style={styles.visit}>Visit now</Text>
+            <RightArrow style={styles.arrow} />
+          </TouchableOpacity>
+        </View>
       </View>
     </View>
   );
@@ -37,10 +39,9 @@ const styles = StyleSheet.create({
   },
   contentWrap: {
     position: 'absolute',
-    right: 15,
-    top: '50%',
-    transform: [{translateY: -50}],
-    // alignItems: 'flex-start',
+    left: '50%',
+    top: '55%',
+    transform: [{translateX: -0}, {translateY: -50}],
   },
   title: {
     fontSize: 16,
@@ -48,24 +49,28 @@ const styles = StyleSheet.create({
     color: '#232327',
     marginBottom: 2,
     textAlign: 'center',
-    alignItems: 'center',
   },
   tagline: {
     fontSize: 10,
     fontFamily: Fonts.REGULAR,
     color: '#232327',
     marginBottom: 8,
+    textAlign: 'center',
+  },
+  buttonWrap: {
+    alignItems: 'flex-end',
   },
   button: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'end',
+    justifyContent: 'flex-end',
     borderRadius: 4,
     backgroundColor: '#F83758',
-    paddingVertical: 4,
-    paddingHorizontal: 8,
+    paddingVertical: 6,
+    paddingHorizontal: 10,
     gap: 8,
     width: 100,
+    marginTop: 6,
   },
   visit: {
     fontSize: 12,
