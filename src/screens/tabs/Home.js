@@ -34,7 +34,9 @@ const Home = () => {
   const renderCategoryItem = ({item}) => (
     <TouchableOpacity>
       <View style={styles.categoryWrap}>
-        <item.image />
+        <View>
+          <Image source={item.image} style={styles.imgWrap} />
+        </View>
         <Text style={styles.categoryName}>{item.name}</Text>
       </View>
     </TouchableOpacity>
@@ -181,6 +183,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginHorizontal: 10,
     marginTop: 5,
+  },
+  imgWrap: {
+    width: 60,
+    height: 60,
+    resizeMode: 'contain',
   },
   categoryName: {
     color: '#21003D',
