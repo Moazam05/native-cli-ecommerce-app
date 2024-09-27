@@ -8,7 +8,7 @@ const OfferBanner = () => {
   return (
     <View style={styles.bannerContainer}>
       <View>
-        <OfferIcon />
+        <Image source={OfferIcon} style={styles.offerIcon} />
       </View>
 
       <View>
@@ -36,6 +36,11 @@ const styles = StyleSheet.create({
     paddingHorizontal: 8,
     marginBottom: 16,
     gap: 24,
+  },
+  offerIcon: {
+    width: 65,
+    height: 65,
+    resizeMode: 'contain',
   },
   header: {
     flexDirection: 'row',

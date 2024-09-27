@@ -18,11 +18,6 @@ const PreMain = () => {
       />
       <View style={styles.container}>
         <View style={styles.coverImg}>
-          {/* <GetStartedImg
-            width="100%"
-            height="100%"
-            preserveAspectRatio="xMidYMid slice"
-          /> */}
           <Image source={GetStartedImg} style={styles.imgWrap} />
         </View>
         <View style={styles.content}>

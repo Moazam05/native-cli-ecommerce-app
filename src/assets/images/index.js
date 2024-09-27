@@ -46,7 +46,7 @@ import Product4 from './Product4.svg';
 import Next from './Next.svg';
 import FillStar from './FillStar.svg';
 import HalfStar from './HalfStar.svg';
-import OfferIcon from './offer.svg';
+import OfferIcon from './offer.png';
 import OopsIcon from './oops.png';
 import FlatHeel from './FlatBanner.png';
 import CalendarIcon from './date.png';
