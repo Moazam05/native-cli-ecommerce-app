@@ -8,6 +8,10 @@ import {
   Mens,
   Womens,
   Banner1,
+  Product1,
+  Product2,
+  Product4,
+  Product3,
 } from '../assets/images';
 
 export const onboarding = [
@@ -83,5 +87,52 @@ export const bannersData = [
     textTwo: 'Now in (product)',
     buttonText: 'Shop Now',
     image: Banner1,
+  },
+];
+
+export const featuredProducts = [
+  {
+    id: 1,
+    name: 'Women Printed Kurta',
+    description: 'Neque porro quisquam est qui dolorem ipsum quia',
+    price: '1500',
+    oldPrice: '2499',
+    off: '40% OFF',
+    rating: 4.5,
+    ratingCount: 5680,
+    image: Product1,
+  },
+  {
+    id: 2,
+    name: 'HRX by Hrithik Roshan',
+    description: 'Neque porro quisquam est qui dolorem ipsum quia',
+    price: '2499',
+    oldPrice: '4999',
+    off: '50% OFF',
+    rating: 4.5,
+    ratingCount: 3445,
+    image: Product2,
+  },
+  {
+    id: 3,
+    name: 'IWC Schaffhausen',
+    description: "2021 Pilot's Watch 'SIHH 2019' 44mm",
+    price: '4999',
+    oldPrice: '9999',
+    off: '50% OFF',
+    rating: 4.5,
+    ratingCount: 3004,
+    image: Product3,
+  },
+  {
+    id: 4,
+    name: 'Labbin White Sneakers',
+    description: 'For Men and Female',
+    price: '1650',
+    oldPrice: '2499',
+    off: '40% OFF',
+    rating: 4,
+    ratingCount: 1500,
+    image: Product4,
   },
 ];

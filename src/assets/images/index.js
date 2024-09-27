@@ -43,6 +43,9 @@ import Product1 from './Product1.svg';
 import Product2 from './Product2.svg';
 import Product3 from './Product3.svg';
 import Product4 from './Product4.svg';
+import Next from './Next.svg';
+import FillStar from './FillStar.svg';
+import HalfStar from './HalfStar.svg';
 
 export {
   Back,
@@ -90,4 +93,7 @@ export {
   Product2,
   Product3,
   Product4,
+  Next,
+  FillStar,
+  HalfStar,
 };
