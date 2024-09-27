@@ -53,6 +53,8 @@ import CalendarIcon from './date.png';
 import SummerBannerImg from './SummerBanner.png';
 import SponsoredImg from './SponseredBanner.png';
 import RightBlack from './RightBlack.svg';
+import BottomSearch from './bottomSearch.png';
+import SettingIcon from './settings.png';
 
 export {
   Back,
@@ -110,4 +112,6 @@ export {
   SummerBannerImg,
   SponsoredImg,
   RightBlack,
+  BottomSearch,
+  SettingIcon,
 };
