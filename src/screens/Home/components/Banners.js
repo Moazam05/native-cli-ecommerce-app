@@ -1,4 +1,4 @@
-import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
+import {View, Text, StyleSheet, TouchableOpacity, Image} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {ClockIcon, RightArrow} from '../../../assets/images';
 import {Colors} from '../../../constants/colors';
@@ -37,8 +37,8 @@ const Banners = () => {
           onIndexChanged={index => setActiveIndex(index)}>
           {bannersData.map(banner => (
             <View key={banner.id} style={styles.banner}>
-              <View style={styles.bannerImg}>
-                <banner.image />
+              <View>
+                <Image source={banner.image} style={styles.bannerImg} />
                 <View style={styles.textContainer}>
                   <Text style={styles.discountText}>{banner.textOne}</Text>
                   <Text style={styles.productText}>{banner.textTwo}</Text>
@@ -103,13 +103,15 @@ const styles = StyleSheet.create({
     position: 'relative',
   },
   bannerImg: {
-    justifyContent: 'center',
-    alignItems: 'center',
     borderRadius: 12,
+    width: '100%',
+    height: '100%',
+    resizeMode: 'cover',
   },
   textContainer: {
     position: 'absolute',
     left: 25,
+    bottom: 35,
   },
   discountText: {
     fontSize: 20,

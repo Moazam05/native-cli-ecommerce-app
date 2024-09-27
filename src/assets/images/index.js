@@ -36,7 +36,7 @@ import Fashion from './Fashion.svg';
 import Kids from './Kids.svg';
 import Mens from './Mens.svg';
 import Womens from './Womens.svg';
-import Banner1 from './Banner.svg';
+import Banner1 from './Banner.png';
 import RightArrow from './RightArrow.svg';
 import ClockIcon from './clock.svg';
 import Product1 from './Product1.svg';
