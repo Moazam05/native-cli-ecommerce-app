@@ -1,4 +1,4 @@
-import {View, Text, StyleSheet, StatusBar} from 'react-native';
+import {View, Text, StyleSheet, StatusBar, Image} from 'react-native';
 import React from 'react';
 import CustomButton from '../components/CustomButton';
 import {useNavigation} from '@react-navigation/native';
@@ -18,11 +18,12 @@ const PreMain = () => {
       />
       <View style={styles.container}>
         <View style={styles.coverImg}>
-          <GetStartedImg
+          {/* <GetStartedImg
             width="100%"
             height="100%"
             preserveAspectRatio="xMidYMid slice"
-          />
+          /> */}
+          <Image source={GetStartedImg} style={styles.imgWrap} />
         </View>
         <View style={styles.content}>
           <Text style={styles.tagLine}>You want Authentic, here you go!</Text>
@@ -54,6 +55,11 @@ const styles = StyleSheet.create({
     right: 0,
     bottom: 0,
     height: '100%',
+  },
+  imgWrap: {
+    width: '100%',
+    height: '100%',
+    resizeMode: 'cover',
   },
   content: {
     alignItems: 'center',
