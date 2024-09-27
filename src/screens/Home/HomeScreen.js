@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {act, useEffect, useState} from 'react';
 import {
   Image,
   Keyboard,
@@ -11,6 +11,7 @@ import {
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {
   BottomSearch,
+  CartIcon,
   HomeFill,
   HomeIcon,
   NotificationFill,
@@ -109,14 +110,18 @@ const HomeScreen = () => {
               </Text>
             </TouchableOpacity>
 
-            {/* <TouchableOpacity
-              style={styles.bottomTab}
+            <TouchableOpacity
+              style={selectedTab === 2 ? styles.activeCartTab : styles.cartTab}
               onPress={() => setSelectedTab(2)}>
               <Image
-                source={selectedTab === 2 ? WishlistFill : WishlistIcon}
-                style={styles.bottomTabIcon}
+                source={CartIcon}
+                style={
+                  selectedTab === 2
+                    ? styles.lastActiveBottomTabIcon
+                    : styles.bottomTabIcon
+                }
               />
-            </TouchableOpacity> */}
+            </TouchableOpacity>
 
             <TouchableOpacity
               style={styles.bottomTab}
@@ -168,12 +173,13 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: 0,
     width: '100%',
-    height: 70,
+    height: 65,
     flexDirection: 'row',
     justifyContent: 'space-evenly',
     alignItems: 'center',
-    // backgroundColor: '#0786DAFD',
     backgroundColor: '#fff',
+    borderTopColor: '#DADADA',
+    borderWidth: 1,
   },
 
   bottomTab: {
@@ -202,5 +208,37 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: '#EB3030',
     fontFamily: Fonts.MEDIUM,
+  },
+
+  cartTab: {
+    backgroundColor: Colors.WHITE,
+    width: 50,
+    height: 50,
+    borderRadius: 25,
+    justifyContent: 'center',
+    alignItems: 'center',
+    position: 'absolute',
+    top: -25,
+    left: '40%',
+    boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',
+  },
+  activeCartTab: {
+    backgroundColor: '#EB3030',
+    width: 50,
+    height: 50,
+    borderRadius: 25,
+    justifyContent: 'center',
+    alignItems: 'center',
+    position: 'absolute',
+    top: -25,
+    left: '40%',
+    boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',
+  },
+
+  lastActiveBottomTabIcon: {
+    width: 19,
+    height: 24,
+    resizeMode: 'contain',
+    tintColor: Colors.WHITE,
   },
 });
