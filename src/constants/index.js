@@ -136,3 +136,38 @@ export const featuredProducts = [
     image: Product4,
   },
 ];
+
+export const discountedProducts = [
+  {
+    id: 1,
+    name: "IWC Schaffhausen 2021 Pilot's Watch 'SIHH 2019' 44mm",
+    price: '4999',
+    oldPrice: '9999',
+    off: '50% OFF',
+    image: Product3,
+  },
+  {
+    id: 2,
+    name: 'Labbin White Sneakers For Men and Female',
+    price: '1650',
+    oldPrice: '2499',
+    off: '30% OFF',
+    image: Product4,
+  },
+  {
+    id: 3,
+    name: 'Women Printed Kurta Neque porro quisquam',
+    price: '1500',
+    oldPrice: '2499',
+    off: '40% OFF',
+    image: Product1,
+  },
+  {
+    id: 4,
+    name: 'HRX by Hrithik Roshan Neque porro quisquam',
+    price: '2499',
+    oldPrice: '3199',
+    off: '22% OFF',
+    image: Product2,
+  },
+];

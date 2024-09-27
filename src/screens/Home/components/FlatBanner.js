@@ -108,7 +108,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     borderRadius: 8,
     padding: 8,
-    marginBottom: 20,
+    marginBottom: 16,
     paddingHorizontal: 12,
   },
   dealTextWrapper: {
