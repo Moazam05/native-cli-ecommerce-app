@@ -51,6 +51,8 @@ import OopsIcon from './oops.png';
 import FlatHeel from './FlatBanner.png';
 import CalendarIcon from './date.svg';
 import SummerBannerImg from './SummerBanner.png';
+import SponsoredImg from './SponseredBanner.png';
+import RightBlack from './RightBlack.svg';
 
 export {
   Back,
@@ -106,4 +108,6 @@ export {
   FlatHeel,
   CalendarIcon,
   SummerBannerImg,
+  SponsoredImg,
+  RightBlack,
 };

@@ -26,6 +26,7 @@ import OfferBanner from '../Home/components/OfferBanner';
 import FlatBanner from '../Home/components/FlatBanner';
 import DiscountedProducts from '../Home/components/DiscountedProducts';
 import SummerBanner from '../Home/components/SummerBanner';
+import SponsoredBanner from '../Home/components/SponsoredBanner';
 
 const Home = () => {
   const navigation = useNavigation();
@@ -104,12 +105,15 @@ const Home = () => {
 
             {/* Summer Banner */}
             <SummerBanner />
+
+            {/* Sponsored Banner */}
+            <SponsoredBanner />
           </View>
         </View>
       }
       showsVerticalScrollIndicator={false}
       renderItem={null} // Since categories are part of ListHeaderComponent
-      ListFooterComponent={<OldHome />} // Old Home will come at the end
+      ListFooterComponent={<OldHome />}
     />
   );
 };

@@ -55,6 +55,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontFamily: Fonts.MEDIUM,
     color: Colors.BLACK,
+    marginBottom: 4,
   },
   saleUpto: {
     fontSize: 16,
