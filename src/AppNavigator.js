@@ -57,13 +57,13 @@ const AppNavigator = () => {
       <Stack.Navigator>
         {loginUser ? (
           <>
-            {/* <Stack.Screen
+            <Stack.Screen
               name="PreMain"
               component={PreMain}
               options={{
                 headerShown: false,
               }}
-            /> */}
+            />
 
             <Stack.Screen
               name="Main"

@@ -1,39 +1,28 @@
-import {
-  View,
-  Text,
-  StyleSheet,
-  FlatList,
-  Dimensions,
-  Image,
-  TouchableOpacity,
-  ActivityIndicator,
-  TextInput,
-} from 'react-native';
-import React, {useEffect, useState} from 'react';
-import Header from '../../components/Header';
-import {
-  CartIcon,
-  MenuIcon,
-  Heart,
-  Star,
-  SearchIcon,
-  ClearIcon,
-  NavigationIcon,
-  UserIcon,
-  Logo,
-} from '../../assets/images';
-import {useNavigation} from '@react-navigation/native';
-import useTypedSelector from '../../hooks/useTypedSelector';
-import {useDispatch} from 'react-redux';
-import {
-  selectedProducts,
-  setCartProducts,
-  incrementProductQuantity,
-  decrementProductQuantity,
-} from '../../redux/products/productsSlice';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {useNavigation} from '@react-navigation/native';
+import React, {useEffect, useState} from 'react';
+import {
+  ActivityIndicator,
+  Dimensions,
+  FlatList,
+  Image,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
+import {useDispatch} from 'react-redux';
+import {CartIcon, Heart, MenuIcon, Star} from '../../assets/images';
+import Header from '../../components/Header';
 import LoginModal from '../../components/LoginModal';
 import {Colors} from '../../constants/colors';
+import useTypedSelector from '../../hooks/useTypedSelector';
+import {
+  decrementProductQuantity,
+  incrementProductQuantity,
+  selectedProducts,
+  setCartProducts,
+} from '../../redux/products/productsSlice';
 
 const OldHome = () => {
   const navigation = useNavigation();
@@ -42,6 +31,7 @@ const OldHome = () => {
 
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
+  // eslint-disable-next-line no-unused-vars
   const [searchText, setSearchText] = useState('');
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [isModalVisible, setIsModalVisible] = useState(true);
