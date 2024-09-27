@@ -1,32 +1,88 @@
-import {View, Text, StyleSheet} from 'react-native';
-import React from 'react';
-import {Product1} from '../../../assets/images';
+import {View, Text, StyleSheet, FlatList, TouchableOpacity} from 'react-native';
+import React, {useRef} from 'react';
+import {FillStar, HalfStar, Next} from '../../../assets/images';
 import {Fonts} from '../../../constants/fonts';
 import {Colors} from '../../../constants/colors';
+import {featuredProducts} from '../../../constants';
 
 const FeaturedProducts = () => {
-  return (
-    <View style={styles.wrap}>
-      <View style={styles.productWrap}>
-        <View style={styles.image}>
-          <Product1 />
+  const flatListRef = useRef(null);
+  const productsPerPage = 2; // Show 2 products at a time
+  let currentIndex = 0;
+
+  const formatPrice = price => {
+    return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ','); // Thousand separator
+  };
+
+  const renderStars = rating => {
+    const stars = [];
+    const fullStars = Math.floor(rating);
+    const isHalfStar = rating % 1 !== 0;
+
+    // Add full stars
+    for (let i = 0; i < fullStars; i++) {
+      stars.push(<FillStar key={i} />);
+    }
+
+    // Add half star if necessary
+    if (isHalfStar) {
+      stars.push(<HalfStar key="half" />);
+    }
+
+    return stars;
+  };
+
+  const handleNextPress = () => {
+    if (flatListRef.current) {
+      currentIndex += productsPerPage;
+      if (currentIndex >= featuredProducts.length) {
+        currentIndex = 0; // Reset to the beginning if end is reached
+      }
+      flatListRef.current.scrollToIndex({index: currentIndex});
+    }
+  };
+
+  const renderProduct = ({item}) => (
+    <View style={styles.productWrap}>
+      <View style={styles.image}>
+        <item.image />
+      </View>
+      <View style={styles.card}>
+        <Text style={styles.title}>{item.name}</Text>
+        <Text style={styles.description}>{item.description}</Text>
+        <Text style={styles.price}>PKR {formatPrice(item.price)}</Text>
+
+        <View style={styles.priceWrap}>
+          <Text style={styles.oldPrice}>PKR {formatPrice(item.oldPrice)}</Text>
+          <Text style={styles.off}>{item.off}</Text>
         </View>
-        <View style={styles.card}>
-          <Text style={styles.title}>Title</Text>
-          <Text style={styles.description}>Descriptiion</Text>
-          <Text style={styles.price}>PKR 1200</Text>
 
-          <View style={styles.priceWrap}>
-            <Text style={styles.oldPrice}>PKR 2499</Text>
-            <Text style={styles.off}>40% Off</Text>
-          </View>
-
-          <View style={styles.starWrap}>
-            <Text>Rating Star</Text>
-            <Text style={styles.count}>Rating Count</Text>
-          </View>
+        <View style={styles.starWrap}>
+          <Text>{renderStars(item.rating)}</Text>
+          <Text style={styles.count}>({item.ratingCount})</Text>
         </View>
       </View>
+    </View>
+  );
+
+  return (
+    <View style={styles.wrap}>
+      <FlatList
+        ref={flatListRef}
+        data={featuredProducts}
+        keyExtractor={item => item.id.toString()}
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        renderItem={renderProduct}
+        pagingEnabled
+        snapToAlignment="center"
+        decelerationRate="fast"
+      />
+
+      {/* Next button to show next set of products */}
+      <TouchableOpacity style={styles.nextButton} onPress={handleNextPress}>
+        <Next />
+      </TouchableOpacity>
     </View>
   );
 };
@@ -35,10 +91,15 @@ export default FeaturedProducts;
 
 const styles = StyleSheet.create({
   wrap: {
-    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 16,
   },
   productWrap: {
     backgroundColor: Colors.WHITE,
+    width: 170,
+    marginHorizontal: 8,
+    borderRadius: 4,
   },
   image: {
     width: '100%',
@@ -53,11 +114,13 @@ const styles = StyleSheet.create({
     fontFamily: Fonts.MEDIUM,
     color: Colors.BLACK,
     fontWeight: '600',
+    marginBottom: 4,
   },
   description: {
     fontSize: 10,
     color: Colors.BLACK,
     fontFamily: Fonts.REGULAR,
+    marginBottom: 4,
   },
   price: {
     fontSize: 12,
@@ -68,7 +131,6 @@ const styles = StyleSheet.create({
   priceWrap: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 4,
   },
   oldPrice: {
     fontSize: 12,
@@ -85,11 +147,18 @@ const styles = StyleSheet.create({
   starWrap: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 4,
+    marginTop: 4,
   },
   count: {
     fontSize: 10,
     color: '#A4A9B3',
     fontFamily: Fonts.REGULAR,
+  },
+  nextButton: {
+    position: 'absolute',
+    right: 0,
+    justifyContent: 'center',
+    height: '100%',
+    paddingHorizontal: 10,
   },
 });
