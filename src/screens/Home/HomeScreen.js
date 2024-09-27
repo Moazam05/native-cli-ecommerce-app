@@ -4,16 +4,19 @@ import {
   Keyboard,
   StatusBar,
   StyleSheet,
+  Text,
   TouchableOpacity,
   View,
 } from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {
+  BottomSearch,
   HomeFill,
   HomeIcon,
   NotificationFill,
   NotificationIcon,
   SearchIcon,
+  SettingIcon,
   UserFill,
   UserIcon,
   WishlistFill,
@@ -25,6 +28,7 @@ import Search from '../tabs/Search';
 import Profile from '../tabs/Profile';
 import Wishlist from '../tabs/WishList';
 import {Colors} from '../../constants/colors';
+import {Fonts} from '../../constants/fonts';
 
 const HomeScreen = () => {
   const [selectedTab, setSelectedTab] = useState(0);
@@ -75,42 +79,77 @@ const HomeScreen = () => {
               style={styles.bottomTab}
               onPress={() => setSelectedTab(0)}>
               <Image
-                source={selectedTab === 0 ? HomeFill : HomeIcon}
-                style={styles.bottomTabIcon}
+                source={HomeIcon}
+                style={
+                  selectedTab === 0
+                    ? styles.activeBottomTabIcon
+                    : styles.bottomTabIcon
+                }
               />
+              <Text
+                style={selectedTab === 0 ? styles.activeLabel : styles.label}>
+                Home
+              </Text>
             </TouchableOpacity>
 
             <TouchableOpacity
               style={styles.bottomTab}
               onPress={() => setSelectedTab(1)}>
-              <Image source={SearchIcon} style={styles.bottomTabIcon} />
+              <Image
+                source={WishlistIcon}
+                style={
+                  selectedTab === 1
+                    ? styles.activeBottomTabIcon
+                    : styles.bottomTabIcon
+                }
+              />
+              <Text
+                style={selectedTab === 1 ? styles.activeLabel : styles.label}>
+                Wishlist
+              </Text>
             </TouchableOpacity>
 
-            <TouchableOpacity
+            {/* <TouchableOpacity
               style={styles.bottomTab}
               onPress={() => setSelectedTab(2)}>
               <Image
                 source={selectedTab === 2 ? WishlistFill : WishlistIcon}
                 style={styles.bottomTabIcon}
               />
-            </TouchableOpacity>
+            </TouchableOpacity> */}
 
             <TouchableOpacity
               style={styles.bottomTab}
               onPress={() => setSelectedTab(3)}>
               <Image
-                source={selectedTab === 3 ? NotificationFill : NotificationIcon}
-                style={styles.bottomTabIcon}
+                source={BottomSearch}
+                style={
+                  selectedTab === 3
+                    ? styles.activeBottomTabIcon
+                    : styles.bottomTabIcon
+                }
               />
+              <Text
+                style={selectedTab === 3 ? styles.activeLabel : styles.label}>
+                Search
+              </Text>
             </TouchableOpacity>
 
             <TouchableOpacity
               style={styles.bottomTab}
               onPress={() => setSelectedTab(4)}>
               <Image
-                source={selectedTab === 4 ? UserFill : UserIcon}
-                style={styles.bottomTabIcon}
+                source={SettingIcon}
+                style={
+                  selectedTab === 4
+                    ? styles.activeBottomTabIcon
+                    : styles.bottomTabIcon
+                }
               />
+              <Text
+                style={selectedTab === 4 ? styles.activeLabel : styles.label}>
+                Setting
+              </Text>
             </TouchableOpacity>
           </View>
         )}
@@ -144,7 +183,24 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   bottomTabIcon: {
-    width: 24,
+    width: 19,
     height: 24,
+    resizeMode: 'contain',
+  },
+  activeBottomTabIcon: {
+    width: 19,
+    height: 24,
+    tintColor: '#EB3030',
+    resizeMode: 'contain',
+  },
+  label: {
+    fontSize: 12,
+    color: Colors.BLACK,
+    fontFamily: Fonts.REGULAR,
+  },
+  activeLabel: {
+    fontSize: 12,
+    color: '#EB3030',
+    fontFamily: Fonts.MEDIUM,
   },
 });
