@@ -39,6 +39,10 @@ import Womens from './Womens.svg';
 import Banner1 from './Banner.svg';
 import RightArrow from './RightArrow.svg';
 import ClockIcon from './clock.svg';
+import Product1 from './Product1.svg';
+import Product2 from './Product2.svg';
+import Product3 from './Product3.svg';
+import Product4 from './Product4.svg';
 
 export {
   Back,
@@ -82,4 +86,8 @@ export {
   Banner1,
   RightArrow,
   ClockIcon,
+  Product1,
+  Product2,
+  Product3,
+  Product4,
 };

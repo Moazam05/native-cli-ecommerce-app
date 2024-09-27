@@ -21,6 +21,7 @@ import {Colors} from '../../constants/colors';
 import {Fonts} from '../../constants/fonts';
 import Banners from '../Home/components/Banners';
 import OldHome from './OldHome';
+import FeaturedProducts from '../Home/components/FeaturedProducts';
 
 const Home = () => {
   const navigation = useNavigation();
@@ -84,6 +85,9 @@ const Home = () => {
 
             {/* Banners */}
             <Banners />
+
+            {/* Featured Products */}
+            <FeaturedProducts />
           </View>
         </View>
       }
