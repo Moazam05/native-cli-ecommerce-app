@@ -50,6 +50,7 @@ import OfferIcon from './offer.svg';
 import OopsIcon from './oops.png';
 import FlatHeel from './FlatBanner.png';
 import CalendarIcon from './date.svg';
+import SummerBannerImg from './SummerBanner.png';
 
 export {
   Back,
@@ -104,4 +105,5 @@ export {
   OopsIcon,
   FlatHeel,
   CalendarIcon,
+  SummerBannerImg,
 };

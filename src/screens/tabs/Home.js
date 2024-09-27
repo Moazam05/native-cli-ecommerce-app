@@ -25,6 +25,7 @@ import FeaturedProducts from '../Home/components/FeaturedProducts';
 import OfferBanner from '../Home/components/OfferBanner';
 import FlatBanner from '../Home/components/FlatBanner';
 import DiscountedProducts from '../Home/components/DiscountedProducts';
+import SummerBanner from '../Home/components/SummerBanner';
 
 const Home = () => {
   const navigation = useNavigation();
@@ -100,6 +101,9 @@ const Home = () => {
 
             {/* Discounted Products */}
             <DiscountedProducts />
+
+            {/* Summer Banner */}
+            <SummerBanner />
           </View>
         </View>
       }
