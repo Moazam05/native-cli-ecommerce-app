@@ -2,6 +2,7 @@ import {useNavigation, useRoute} from '@react-navigation/native';
 import React, {useEffect, useRef, useState} from 'react';
 import {
   Image,
+  ScrollView,
   StatusBar,
   StyleSheet,
   Text,
@@ -16,6 +17,8 @@ import {
   leftArrow,
   ReturnPolicyIcon,
   SecureIcon,
+  WishlistFill,
+  WishlistIcon,
 } from '../../assets/images';
 import {Colors} from '../../constants/colors';
 import {featuredProducts, imagesData} from '../../constants/index';
@@ -23,17 +26,32 @@ import Swiper from 'react-native-swiper';
 import {Fonts} from '../../constants/fonts';
 import {thousandSeparator} from '../../utils';
 import RatingStar from '../../components/RatingStar';
+import {useDispatch} from 'react-redux';
+import {
+  selectWishlistProducts,
+  setWishListProducts,
+} from '../../redux/wishlist/wishlistsSlice';
+import useTypedSelector from '../../hooks/useTypedSelector';
+import {selectedProducts} from '../../redux/products/productsSlice';
 
 const ProductDetail = () => {
   const navigation = useNavigation();
   const swiperRef = useRef(null);
+  const dispatch = useDispatch();
   const route = useRoute();
   const {item} = route.params;
+
+  const wishListProducts = useTypedSelector(selectWishlistProducts);
+  const cartProducts = useTypedSelector(selectedProducts);
 
   const [selectedProduct, setSelectedProduct] = useState();
   const [productImages, setProductImages] = useState([]);
   const [activeIndex, setActiveIndex] = useState(0);
   const [productSize, setProductSize] = useState(item?.productSize[1]?.size);
+  // New
+  const [isFavorited, setIsFavorited] = useState(false);
+  const [isInCart, setIsInCart] = useState(false);
+  const [productQuantity, setProductQuantity] = useState(0);
 
   useEffect(() => {
     const product = featuredProducts.find(pr => pr.linkId === item.linkId);
@@ -41,9 +59,32 @@ const ProductDetail = () => {
 
     const findImages = imagesData.find(pr => pr.linkId === item.linkId);
     if (findImages) {
-      setProductImages(findImages.images); // Set the actual images array
+      setProductImages(findImages.images);
     }
   }, [item]);
+
+  useEffect(() => {
+    const isProductInWishlist = wishListProducts.some(
+      product => product.id === item.id,
+    );
+    setIsFavorited(isProductInWishlist);
+  }, [item.id, wishListProducts]);
+
+  useEffect(() => {
+    const productInCart = cartProducts.find(product => product.id === item.id);
+    if (productInCart) {
+      setIsInCart(true);
+      setProductQuantity(productInCart.quantity);
+    } else {
+      setIsInCart(false);
+      setProductQuantity(0);
+    }
+  }, [cartProducts, item.id]);
+
+  const toggleFavorite = () => {
+    setIsFavorited(prev => !prev);
+    dispatch(setWishListProducts(item));
+  };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -52,97 +93,114 @@ const ProductDetail = () => {
         translucent
         backgroundColor={Colors.PRIMARY_BG}
       />
-      {/* Top Bar */}
-      <View style={styles.topBar}>
-        <TouchableOpacity onPress={() => navigation.goBack()}>
-          <Image source={leftArrow} style={styles.backIcon} />
-        </TouchableOpacity>
-        <View style={styles.rightIcons}>
-          <TouchableOpacity>
-            <Image source={CartTwo} style={styles.cartIcon} />
+      <ScrollView
+        contentContainerStyle={styles.scrollContainer}
+        showsVerticalScrollIndicator={false}>
+        {/* Top Bar */}
+        <View style={styles.topBar}>
+          <TouchableOpacity onPress={() => navigation.goBack()}>
+            <Image source={leftArrow} style={styles.backIcon} />
           </TouchableOpacity>
+          <View style={styles.rightIcons}>
+            <TouchableOpacity>
+              <Image source={CartTwo} style={styles.cartIcon} />
+            </TouchableOpacity>
+          </View>
         </View>
-      </View>
-      {/* Swiper */}
-      <View style={styles.imgWrap}>
-        <Swiper
-          ref={swiperRef}
-          loop={false}
-          onIndexChanged={index => setActiveIndex(index)}
-          showsPagination={false}>
-          {productImages.map((image, index) => (
-            <View key={index} style={styles.banner}>
-              <Image source={image} style={styles.bannerImg} />
-            </View>
-          ))}
-        </Swiper>
+        {/* Swiper */}
+        <View style={styles.imgWrap}>
+          <Swiper
+            ref={swiperRef}
+            loop={false}
+            onIndexChanged={index => setActiveIndex(index)}
+            showsPagination={false}>
+            {productImages.map((image, index) => (
+              <View key={index} style={styles.banner}>
+                <Image source={image} style={styles.bannerImg} />
+              </View>
+            ))}
+          </Swiper>
 
-        <View style={styles.pagination}>
-          {productImages.map((_, index) => (
-            <View
-              key={index}
-              style={[
-                styles.dot,
-                activeIndex === index ? styles.activeDot : styles.inactiveDot,
-              ]}
-            />
-          ))}
-        </View>
-      </View>
+          <View style={styles.wishWrap}>
+            <TouchableOpacity onPress={toggleFavorite}>
+              <Image
+                source={isFavorited ? WishlistFill : WishlistIcon}
+                // style={styles.wishlistIcon}
+                style={[
+                  styles.wishlistIcon,
+                  isFavorited ? styles.activeWishlistIcon : null,
+                ]}
+              />
+            </TouchableOpacity>
+          </View>
 
-      {/* Product Info */}
-      <View style={styles.productInfo}>
-        <View style={styles.sizeWrap}>
-          <Text style={styles.sizeTitle}>Size:</Text>
-          <Text style={styles.sizeTitle}>{productSize}</Text>
-        </View>
-        <View style={styles.chipWrap}>
-          {selectedProduct?.productSize.map((size, index) => {
-            return (
-              <Text
+          <View style={styles.pagination}>
+            {productImages.map((_, index) => (
+              <View
                 key={index}
                 style={[
-                  styles.chip,
-                  productSize === size.size ? styles.activeChip : null,
+                  styles.dot,
+                  activeIndex === index ? styles.activeDot : styles.inactiveDot,
                 ]}
-                onPress={() => setProductSize(size.size)}>
-                {size?.size}
-              </Text>
-            );
-          })}
-        </View>
-
-        <Text style={styles.title}>{selectedProduct?.name}</Text>
-
-        <View style={styles.starWrap}>
-          <View>
-            {/* Rating */}
-            <RatingStar rating={selectedProduct?.rating} />
+              />
+            ))}
           </View>
-          <Text style={styles.count}>
-            ({thousandSeparator(selectedProduct?.ratingCount)})
-          </Text>
         </View>
 
-        <View style={styles.priceWrap}>
-          <Text style={styles.oldPrice}>
-            PKR {thousandSeparator(selectedProduct?.oldPrice)}
-          </Text>
-          <Text style={styles.price}>
-            PKR {thousandSeparator(selectedProduct?.price)}
-          </Text>
+        {/* Product Info */}
+        <View style={styles.productInfo}>
+          <View style={styles.sizeWrap}>
+            <Text style={styles.sizeTitle}>Size:</Text>
+            <Text style={styles.sizeTitle}>{productSize}</Text>
+          </View>
+          <View style={styles.chipWrap}>
+            {selectedProduct?.productSize.map((size, index) => {
+              return (
+                <Text
+                  key={index}
+                  style={[
+                    styles.chip,
+                    productSize === size.size ? styles.activeChip : null,
+                  ]}
+                  onPress={() => setProductSize(size.size)}>
+                  {size?.size}
+                </Text>
+              );
+            })}
+          </View>
 
-          <Text style={styles.off}>{selectedProduct?.off}</Text>
+          <Text style={styles.title}>{selectedProduct?.name}</Text>
+
+          <View style={styles.starWrap}>
+            <View>
+              {/* Rating */}
+              <RatingStar rating={selectedProduct?.rating} />
+            </View>
+            <Text style={styles.count}>
+              ({thousandSeparator(selectedProduct?.ratingCount)})
+            </Text>
+          </View>
+
+          <View style={styles.priceWrap}>
+            <Text style={styles.oldPrice}>
+              PKR {thousandSeparator(selectedProduct?.oldPrice)}
+            </Text>
+            <Text style={styles.price}>
+              PKR {thousandSeparator(selectedProduct?.price)}
+            </Text>
+
+            <Text style={styles.off}>{selectedProduct?.off}</Text>
+          </View>
+
+          <Text style={styles.desTitle}>Product Details</Text>
+          <Text style={styles.description}>{selectedProduct?.description}</Text>
+
+          <View style={styles.iconWrap}>
+            <Image source={SecureIcon} style={styles.secureImg} />
+            <Image source={ReturnPolicyIcon} style={styles.secureImgTwo} />
+          </View>
         </View>
-
-        <Text style={styles.desTitle}>Product Details</Text>
-        <Text style={styles.description}>{selectedProduct?.description}</Text>
-
-        <View style={styles.iconWrap}>
-          <Image source={SecureIcon} style={styles.secureImg} />
-          <Image source={ReturnPolicyIcon} style={styles.secureImgTwo} />
-        </View>
-      </View>
+      </ScrollView>
     </SafeAreaView>
   );
 };
@@ -153,6 +211,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Colors.PRIMARY_BG,
+  },
+  scrollContainer: {
+    paddingBottom: 20,
   },
   topBar: {
     flexDirection: 'row',
@@ -178,6 +239,24 @@ const styles = StyleSheet.create({
     height: 275,
     justifyContent: 'center',
     width: '100%',
+    position: 'relative',
+  },
+  wishWrap: {
+    position: 'absolute',
+    top: 22,
+    right: 22,
+    backgroundColor: '#F9F9F9',
+    padding: 8,
+    borderRadius: 50,
+  },
+  wishlistIcon: {
+    width: 18,
+    height: 18,
+    resizeMode: 'contain',
+    tintColor: '#F83758',
+  },
+  activeWishlistIcon: {
+    tintColor: '#F83758',
   },
   banner: {
     marginHorizontal: 16,
