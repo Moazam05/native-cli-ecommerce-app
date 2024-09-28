@@ -33,7 +33,7 @@ const ProductDetail = () => {
   const [selectedProduct, setSelectedProduct] = useState();
   const [productImages, setProductImages] = useState([]);
   const [activeIndex, setActiveIndex] = useState(0);
-  const [productSize, setProductSize] = useState('');
+  const [productSize, setProductSize] = useState(item?.productSize[1]?.size);
 
   useEffect(() => {
     const product = featuredProducts.find(pr => pr.linkId === item.linkId);
@@ -44,8 +44,6 @@ const ProductDetail = () => {
       setProductImages(findImages.images); // Set the actual images array
     }
   }, [item]);
-
-  console.log('productImages', productImages);
 
   return (
     <SafeAreaView style={styles.container}>

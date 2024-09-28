@@ -61,6 +61,7 @@ import leftArrow from './leftArrow.png';
 import CartTwo from './cartTwo.png';
 import SecureIcon from './secure.png';
 import ReturnPolicyIcon from './returnPolicy.png';
+import AddToCart from './AddToCart.png';
 
 export {
   Back,
@@ -126,4 +127,5 @@ export {
   FillStarTwo,
   SecureIcon,
   ReturnPolicyIcon,
+  AddToCart,
 };
