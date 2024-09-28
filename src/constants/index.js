@@ -69,21 +69,21 @@ export const categoriesData = [
 export const bannersData = [
   {
     id: 1,
-    textOne: '50-40% OFF',
+    textOne: '40-50% OFF',
     textTwo: 'Now in (product)',
     buttonText: 'Shop Now',
     image: Banner1,
   },
   {
     id: 2,
-    textOne: '50-40% OFF',
+    textOne: '40-50% OFF',
     textTwo: 'Now in (product)',
     buttonText: 'Shop Now',
     image: Banner1,
   },
   {
     id: 3,
-    textOne: '50-40% OFF',
+    textOne: '40-50% OFF',
     textTwo: 'Now in (product)',
     buttonText: 'Shop Now',
     image: Banner1,
