@@ -9,12 +9,30 @@ import {
   View,
 } from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import {CartTwo, leftArrow} from '../../assets/images';
+import {CartTwo, FillStar, HalfStar, leftArrow} from '../../assets/images';
 import {Colors} from '../../constants/colors';
 import {featuredProducts, imagesData} from '../../constants/index';
 import Swiper from 'react-native-swiper';
 import {Fonts} from '../../constants/fonts';
-import {renderStars, thousandSeparator} from '../../utils';
+import {thousandSeparator} from '../../utils';
+
+const renderStars = rating => {
+  const stars = [];
+  const fullStars = Math?.floor(rating);
+  const isHalfStar = rating % 1 !== 0;
+
+  // Add full stars
+  for (let i = 0; i < fullStars; i++) {
+    stars.push(<FillStar key={i} />);
+  }
+
+  // Add half star if necessary
+  if (isHalfStar) {
+    stars.push(<HalfStar key="half" />);
+  }
+
+  return stars;
+};
 
 const ProductDetail = () => {
   const navigation = useNavigation();
@@ -106,21 +124,26 @@ const ProductDetail = () => {
           })}
         </View>
 
-        <Text style={styles.title}>{selectedProduct.name}</Text>
-        <Text style={styles.price}>
-          PKR {thousandSeparator(selectedProduct?.price)}
-        </Text>
+        <Text style={styles.title}>{selectedProduct?.name}</Text>
+
+        <View style={styles.starWrap}>
+          <Text style={styles.star}>
+            {renderStars(selectedProduct?.rating)}
+          </Text>
+          <Text style={styles.count}>
+            ({thousandSeparator(selectedProduct?.ratingCount)})
+          </Text>
+        </View>
 
         <View style={styles.priceWrap}>
           <Text style={styles.oldPrice}>
             PKR {thousandSeparator(selectedProduct?.oldPrice)}
           </Text>
-          <Text style={styles.off}>{selectedProduct?.off}</Text>
-        </View>
+          <Text style={styles.price}>
+            PKR {thousandSeparator(selectedProduct?.price)}
+          </Text>
 
-        <View style={styles.starWrap}>
-          <Text>{renderStars(selectedProduct?.rating)}</Text>
-          <Text style={styles.count}>({selectedProduct?.ratingCount})</Text>
+          <Text style={styles.off}>{selectedProduct?.off}</Text>
         </View>
       </View>
     </SafeAreaView>
@@ -229,44 +252,44 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
   title: {
-    fontSize: 12,
-    fontFamily: Fonts.MEDIUM,
+    fontSize: 20,
+    fontFamily: Fonts.SEMIBOLD,
     color: Colors.BLACK,
     fontWeight: '600',
-    marginBottom: 4,
+    marginTop: 16,
+    marginBottom: 8,
   },
   price: {
-    fontSize: 12,
+    fontSize: 14,
     fontFamily: Fonts.MEDIUM,
     color: Colors.BLACK,
-    fontWeight: '600',
   },
   priceWrap: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 2,
+    gap: 8,
   },
   oldPrice: {
-    fontSize: 12,
-    color: '#BBBBBB',
+    fontSize: 14,
+    color: '#808488',
     textDecorationLine: 'line-through',
-    fontFamily: Fonts.LIGHT,
+    fontFamily: Fonts.REGULAR,
   },
   off: {
-    fontSize: 10,
-    color: '#FE735C',
+    fontSize: 14,
+    color: '#FA7189',
     marginLeft: 4,
-    fontFamily: Fonts.REGULAR,
+    fontFamily: Fonts.SEMIBOLD,
   },
   starWrap: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginTop: 4,
-    gap: 4,
+    gap: 8,
+    marginBottom: 8,
   },
   count: {
-    fontSize: 10,
-    color: '#A4A9B3',
-    fontFamily: Fonts.REGULAR,
+    fontSize: 14,
+    color: '#828282',
+    fontFamily: Fonts.MEDIUM,
   },
 });
