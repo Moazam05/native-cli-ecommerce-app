@@ -71,8 +71,9 @@ const WishList = () => {
           data={wishListProducts}
           renderItem={renderItem}
           keyExtractor={item => item.id.toString()}
+          key={2} // This forces re-render when numColumns changes (currently fixed at 2)
           contentContainerStyle={styles.listContainer}
-          // numColumns={2}
+          numColumns={2} // Ensures two items per row
           ListEmptyComponent={
             <Text style={styles.emptyText}>No items in your wishlist</Text>
           }
