@@ -59,6 +59,8 @@ import BottomSearch from './bottomSearch.png';
 import SettingIcon from './settings.png';
 import leftArrow from './leftArrow.png';
 import CartTwo from './cartTwo.png';
+import SecureIcon from './secure.png';
+import ReturnPolicyIcon from './returnPolicy.png';
 
 export {
   Back,
@@ -122,4 +124,6 @@ export {
   CartTwo,
   HalfStarTwo,
   FillStarTwo,
+  SecureIcon,
+  ReturnPolicyIcon,
 };

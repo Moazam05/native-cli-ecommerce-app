@@ -9,7 +9,14 @@ import {
   View,
 } from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import {CartTwo, FillStar, HalfStar, leftArrow} from '../../assets/images';
+import {
+  CartTwo,
+  FillStar,
+  HalfStar,
+  leftArrow,
+  ReturnPolicyIcon,
+  SecureIcon,
+} from '../../assets/images';
 import {Colors} from '../../constants/colors';
 import {featuredProducts, imagesData} from '../../constants/index';
 import Swiper from 'react-native-swiper';
@@ -110,10 +117,8 @@ const ProductDetail = () => {
         <Text style={styles.title}>{selectedProduct?.name}</Text>
 
         <View style={styles.starWrap}>
-          {/* <Text style={styles.star}>
-            {renderStars(selectedProduct?.rating)}
-          </Text> */}
           <View>
+            {/* Rating */}
             <RatingStar rating={selectedProduct?.rating} />
           </View>
           <Text style={styles.count}>
@@ -130,6 +135,14 @@ const ProductDetail = () => {
           </Text>
 
           <Text style={styles.off}>{selectedProduct?.off}</Text>
+        </View>
+
+        <Text style={styles.desTitle}>Product Details</Text>
+        <Text style={styles.description}>{selectedProduct?.description}</Text>
+
+        <View style={styles.iconWrap}>
+          <Image source={SecureIcon} style={styles.secureImg} />
+          <Image source={ReturnPolicyIcon} style={styles.secureImgTwo} />
         </View>
       </View>
     </SafeAreaView>
@@ -270,12 +283,39 @@ const styles = StyleSheet.create({
   starWrap: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 8,
-    marginBottom: 8,
+    gap: 4,
+    marginBottom: 6,
   },
   count: {
     fontSize: 14,
     color: '#828282',
     fontFamily: Fonts.MEDIUM,
+  },
+  desTitle: {
+    fontSize: 14,
+    color: Colors.BLACK,
+    fontFamily: Fonts.MEDIUM,
+    marginTop: 8,
+    marginBottom: 4,
+  },
+  description: {
+    fontSize: 12,
+    color: Colors.BLACK,
+    fontFamily: Fonts.REGULAR,
+  },
+  iconWrap: {
+    flexDirection: 'row',
+    gap: 8,
+    marginTop: 4,
+  },
+  secureImg: {
+    width: 45,
+    height: 45,
+    resizeMode: 'contain',
+  },
+  secureImgTwo: {
+    width: 90,
+    height: 45,
+    resizeMode: 'contain',
   },
 });
