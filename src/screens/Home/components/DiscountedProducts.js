@@ -11,9 +11,12 @@ import {Next} from '../../../assets/images';
 import {discountedProducts} from '../../../constants';
 import {Colors} from '../../../constants/colors';
 import {Fonts} from '../../../constants/fonts';
+import {useNavigation} from '@react-navigation/native';
 
 const DiscountedProducts = () => {
+  const navigation = useNavigation();
   const flatListRef = useRef(null);
+
   const productsPerPage = 2; // Show 2 products at a time
   let currentIndex = 0;
 
@@ -32,7 +35,11 @@ const DiscountedProducts = () => {
   };
 
   const renderProduct = ({item}) => (
-    <View style={styles.productWrap}>
+    <TouchableOpacity
+      style={styles.productWrap}
+      onPress={() => {
+        navigation.navigate('ProductDetail', {item});
+      }}>
       <View style={styles.image}>
         <Image source={item.image} style={styles.imgWrap} />
       </View>
@@ -45,7 +52,7 @@ const DiscountedProducts = () => {
           <Text style={styles.off}>{item.off}</Text>
         </View>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 
   return (
