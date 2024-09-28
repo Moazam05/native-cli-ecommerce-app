@@ -37,8 +37,6 @@ const ProductDetail = () => {
 
   const {item} = route.params;
 
-  console.log('item', item);
-
   const wishListProducts = useTypedSelector(selectWishlistProducts);
   const cartProducts = useTypedSelector(selectedProducts);
 
@@ -46,23 +44,23 @@ const ProductDetail = () => {
   const [isInCart, setIsInCart] = useState(false);
   const [productQuantity, setProductQuantity] = useState(0);
 
-  // useEffect(() => {
-  //   const isProductInWishlist = wishListProducts.some(
-  //     product => product.id === item.id,
-  //   );
-  //   setIsFavorited(isProductInWishlist);
-  // }, [item.id, wishListProducts]);
+  useEffect(() => {
+    const isProductInWishlist = wishListProducts.some(
+      product => product.id === item.id,
+    );
+    setIsFavorited(isProductInWishlist);
+  }, [item.id, wishListProducts]);
 
-  // useEffect(() => {
-  //   const productInCart = cartProducts.find(product => product.id === item.id);
-  //   if (productInCart) {
-  //     setIsInCart(true);
-  //     setProductQuantity(productInCart.quantity);
-  //   } else {
-  //     setIsInCart(false);
-  //     setProductQuantity(0);
-  //   }
-  // }, [cartProducts, item.id]);
+  useEffect(() => {
+    const productInCart = cartProducts.find(product => product.id === item.id);
+    if (productInCart) {
+      setIsInCart(true);
+      setProductQuantity(productInCart.quantity);
+    } else {
+      setIsInCart(false);
+      setProductQuantity(0);
+    }
+  }, [cartProducts, item.id]);
 
   const toggleFavorite = () => {
     setIsFavorited(prev => !prev);
@@ -73,7 +71,82 @@ const ProductDetail = () => {
     dispatch(setCartProducts(item));
   };
 
-  return <SafeAreaView style={styles.container}></SafeAreaView>;
+  return (
+    <SafeAreaView style={styles.container}>
+      <Header
+        leftIcon={Back}
+        rightIcon={CartIcon}
+        title="Product Details"
+        leftClick={() => navigation.goBack()}
+      />
+      <ScrollView>
+        {/* Product Image */}
+        <View style={styles.imageWrapper}>
+          <Image source={{uri: item.image}} style={styles.productImage} />
+        </View>
+
+        {/* Product Info */}
+        <View style={styles.infoContainer}>
+          <View style={styles.titleRow}>
+            <Text style={styles.productTitle}>{item.title}</Text>
+            {/* Wishlist/Favorite Icon */}
+            <TouchableOpacity onPress={toggleFavorite}>
+              <Image
+                source={isFavorited ? WishlistFill : WishlistIcon}
+                style={styles.wishlistIcon}
+              />
+            </TouchableOpacity>
+          </View>
+
+          <Text style={styles.productPrice}>${item.price.toFixed(2)}</Text>
+
+          <Text style={styles.productDescription}>{item.description}</Text>
+
+          {/* Rating */}
+          <View style={styles.ratingContainer}>
+            {[...Array(5)].map((_, i) => (
+              <Image
+                key={i}
+                source={Star}
+                style={[
+                  styles.starIcon,
+                  // eslint-disable-next-line react-native/no-inline-styles
+                  {
+                    tintColor:
+                      i < Math.floor(item.rating.rate) ? '#FFD700' : '#ddd',
+                  },
+                ]}
+              />
+            ))}
+            <Text style={styles.ratingText}>({item.rating.count} reviews)</Text>
+          </View>
+
+          {/* Add to Cart / Quantity Buttons */}
+          {isInCart ? (
+            <View style={styles.cartActionsContainer}>
+              <TouchableOpacity
+                style={styles.quantityButton}
+                onPress={() => dispatch(decrementProductQuantity(item.id))}>
+                <Text style={styles.quantityButtonText}>-</Text>
+              </TouchableOpacity>
+              <Text style={styles.cartQuantity}>{productQuantity}</Text>
+              <TouchableOpacity
+                style={styles.quantityButton}
+                onPress={() => dispatch(incrementProductQuantity(item.id))}>
+                <Text style={styles.quantityButtonText}>+</Text>
+              </TouchableOpacity>
+            </View>
+          ) : (
+            <TouchableOpacity
+              style={styles.addToCartButton}
+              onPress={addToCartHandler}>
+              <Text style={styles.addToCartText}>Add to Cart</Text>
+            </TouchableOpacity>
+          )}
+        </View>
+      </ScrollView>
+    </SafeAreaView>
+  );
 };
 
 export default ProductDetail;

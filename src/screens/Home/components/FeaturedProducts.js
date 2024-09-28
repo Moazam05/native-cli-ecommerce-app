@@ -11,9 +11,12 @@ import {FillStar, HalfStar, Next} from '../../../assets/images';
 import {Fonts} from '../../../constants/fonts';
 import {Colors} from '../../../constants/colors';
 import {featuredProducts} from '../../../constants';
+import {useNavigation} from '@react-navigation/native';
 
 const FeaturedProducts = () => {
+  const navigation = useNavigation();
   const flatListRef = useRef(null);
+
   const productsPerPage = 2; // Show 2 products at a time
   let currentIndex = 0;
 
@@ -50,7 +53,11 @@ const FeaturedProducts = () => {
   };
 
   const renderProduct = ({item}) => (
-    <View style={styles.productWrap}>
+    <TouchableOpacity
+      style={styles.productWrap}
+      onPress={() => {
+        navigation.navigate('ProductDetail', {item});
+      }}>
       <View style={styles.image}>
         <Image source={item.image} style={styles.imgWrap} />
       </View>
@@ -69,7 +76,7 @@ const FeaturedProducts = () => {
           <Text style={styles.count}>({item.ratingCount})</Text>
         </View>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 
   return (
