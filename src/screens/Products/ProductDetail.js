@@ -211,25 +211,30 @@ const ProductDetail = () => {
           </View>
 
           {/* Add to Cart / Quantity Buttons */}
-          {isInCart ? (
-            <View style={styles.cartActionsContainer}>
-              <TouchableOpacity
-                style={styles.quantityButton}
-                onPress={() => dispatch(decrementProductQuantity(item.id))}>
-                <Text style={styles.quantityButtonText}>-</Text>
-              </TouchableOpacity>
-              <Text style={styles.cartQuantity}>{productQuantity}</Text>
-              <TouchableOpacity
-                style={styles.quantityButton}
-                onPress={() => dispatch(incrementProductQuantity(item.id))}>
-                <Text style={styles.quantityButtonText}>+</Text>
-              </TouchableOpacity>
-            </View>
-          ) : (
-            <TouchableOpacity onPress={addToCartHandler}>
-              <Image source={AddToCart} style={styles.addCartImg} />
+          <View style={styles.cartActionsContainer}>
+            <TouchableOpacity onPress={addToCartHandler} disabled={isInCart}>
+              <Image
+                source={AddToCart}
+                style={[styles.addCartImg, isInCart && styles.disabledCartImg]}
+              />
             </TouchableOpacity>
-          )}
+
+            {isInCart && (
+              <View style={styles.quantityContainer}>
+                <TouchableOpacity
+                  style={styles.quantityButton}
+                  onPress={() => dispatch(decrementProductQuantity(item.id))}>
+                  <Text style={styles.quantityButtonText}>-</Text>
+                </TouchableOpacity>
+                <Text style={styles.cartQuantity}>{productQuantity}</Text>
+                <TouchableOpacity
+                  style={styles.quantityButton}
+                  onPress={() => dispatch(incrementProductQuantity(item.id))}>
+                  <Text style={styles.quantityButtonText}>+</Text>
+                </TouchableOpacity>
+              </View>
+            )}
+          </View>
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -427,21 +432,28 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
   },
   addCartImg: {
-    width: 100,
-    height: 40,
+    width: 120,
+    height: 30,
     resizeMode: 'contain',
+  },
+  disabledCartImg: {
+    opacity: 0.5,
   },
   cartActionsContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginTop: 8,
+    marginTop: 4,
+    gap: 12,
+  },
+  quantityContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
     borderWidth: 1,
     borderColor: '#F83758',
     borderRadius: 4,
-    width: 120,
+    width: 100,
     justifyContent: 'space-between',
     paddingHorizontal: 8,
-    paddingVertical: 2,
   },
   quantityButton: {
     alignItems: 'center',
@@ -456,5 +468,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: '#F83758',
     fontFamily: Fonts.SEMIBOLD,
+    marginHorizontal: 8,
   },
 });
