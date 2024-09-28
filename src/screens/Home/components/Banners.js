@@ -1,5 +1,5 @@
 import {View, Text, StyleSheet, TouchableOpacity, Image} from 'react-native';
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {ClockIcon, RightArrow} from '../../../assets/images';
 import {Colors} from '../../../constants/colors';
 import {Fonts} from '../../../constants/fonts';
@@ -7,6 +7,8 @@ import Swiper from 'react-native-swiper';
 import {bannersData} from '../../../constants';
 
 const Banners = () => {
+  const swiperRef = useRef(null);
+
   const [activeIndex, setActiveIndex] = useState(0);
   const [timeLeft, setTimeLeft] = useState(36000); // Initial time in seconds (10 hours)
 
@@ -33,8 +35,10 @@ const Banners = () => {
         <Swiper
           // autoplay
           // autoplayTimeout={7}
-          showsPagination={false}
-          onIndexChanged={index => setActiveIndex(index)}>
+          ref={swiperRef}
+          loop={false}
+          onIndexChanged={index => setActiveIndex(index)}
+          showsPagination={false}>
           {bannersData.map(banner => (
             <View key={banner.id} style={styles.banner}>
               <View>
@@ -101,6 +105,7 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   banner: {
+    marginHorizontal: 5,
     marginVertical: 16,
     position: 'relative',
   },
