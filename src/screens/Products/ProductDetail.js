@@ -29,6 +29,7 @@ import {
   decrementProductQuantity,
   setCartProducts,
 } from '../../redux/products/productsSlice';
+import {Colors} from 'react-native/Libraries/NewAppScreen';
 
 const ProductDetail = () => {
   const navigation = useNavigation();
@@ -81,108 +82,6 @@ export default ProductDetail;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f5f5f5',
-  },
-  imageWrapper: {
-    backgroundColor: '#fff',
-    padding: 20,
-    marginBottom: 10,
-  },
-  productImage: {
-    width: '100%',
-    height: 250,
-    resizeMode: 'contain',
-  },
-  infoContainer: {
-    padding: 20,
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
-    // backgroundColor: '#fff',
-  },
-  titleRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
-  productTitle: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    color: '#333',
-    flex: 1,
-    marginRight: 10,
-  },
-  wishlistIcon: {
-    width: 24,
-    height: 24,
-    tintColor: '#0786DAFD',
-  },
-  productPrice: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    color: '#0786DAFD',
-    marginVertical: 10,
-  },
-  productDescription: {
-    fontSize: 16,
-    color: '#666',
-    marginVertical: 10,
-  },
-  ratingContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginTop: 10,
-  },
-  starIcon: {
-    width: 16,
-    height: 16,
-    marginRight: 2,
-  },
-  ratingText: {
-    fontSize: 14,
-    color: '#555',
-    marginLeft: 5,
-  },
-  addToCartButton: {
-    backgroundColor: '#0786DAFD',
-    paddingVertical: 15,
-    alignItems: 'center',
-    borderRadius: 8,
-    marginTop: 20,
-  },
-  addToCartText: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    color: '#fff',
-  },
-  cartActionsContainer: {
-    marginTop: 20,
-    borderColor: '#0786DAFD',
-    borderWidth: 1,
-    borderRadius: 8,
-    flexDirection: 'row',
-    alignItems: 'center',
-    width: '100%',
-    justifyContent: 'space-evenly',
-  },
-  quantityButton: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    margin: 8,
-    width: 100,
-  },
-  quantityButtonText: {
-    fontSize: 20,
-    color: '#0786DAFD',
-    fontWeight: 'bold',
-    width: 100,
-    textAlign: 'center',
-  },
-  cartQuantity: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    color: '#333',
-    marginHorizontal: 10,
-    width: 100,
-    textAlign: 'center',
+    backgroundColor: Colors.PRIMARY_BG,
   },
 });

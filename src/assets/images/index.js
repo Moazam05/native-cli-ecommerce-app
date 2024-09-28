@@ -55,6 +55,8 @@ import SponsoredImg from './SponseredBanner.png';
 import RightBlack from './RightBlack.svg';
 import BottomSearch from './bottomSearch.png';
 import SettingIcon from './settings.png';
+import leftArrow from './leftArrow.png';
+import CartTwo from './cartTwo.png';
 
 export {
   Back,
@@ -114,4 +116,6 @@ export {
   RightBlack,
   BottomSearch,
   SettingIcon,
+  leftArrow,
+  CartTwo,
 };
