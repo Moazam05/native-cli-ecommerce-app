@@ -11,6 +11,7 @@ import {
 } from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {
+  AddToCart,
   CartTwo,
   FillStar,
   HalfStar,
@@ -32,7 +33,12 @@ import {
   setWishListProducts,
 } from '../../redux/wishlist/wishlistsSlice';
 import useTypedSelector from '../../hooks/useTypedSelector';
-import {selectedProducts} from '../../redux/products/productsSlice';
+import {
+  decrementProductQuantity,
+  incrementProductQuantity,
+  selectedProducts,
+  setCartProducts,
+} from '../../redux/products/productsSlice';
 
 const ProductDetail = () => {
   const navigation = useNavigation();
@@ -84,6 +90,10 @@ const ProductDetail = () => {
   const toggleFavorite = () => {
     setIsFavorited(prev => !prev);
     dispatch(setWishListProducts(item));
+  };
+
+  const addToCartHandler = () => {
+    dispatch(setCartProducts(item));
   };
 
   return (
@@ -199,6 +209,27 @@ const ProductDetail = () => {
             <Image source={SecureIcon} style={styles.secureImg} />
             <Image source={ReturnPolicyIcon} style={styles.secureImgTwo} />
           </View>
+
+          {/* Add to Cart / Quantity Buttons */}
+          {isInCart ? (
+            <View style={styles.cartActionsContainer}>
+              <TouchableOpacity
+                style={styles.quantityButton}
+                onPress={() => dispatch(decrementProductQuantity(item.id))}>
+                <Text style={styles.quantityButtonText}>-</Text>
+              </TouchableOpacity>
+              <Text style={styles.cartQuantity}>{productQuantity}</Text>
+              <TouchableOpacity
+                style={styles.quantityButton}
+                onPress={() => dispatch(incrementProductQuantity(item.id))}>
+                <Text style={styles.quantityButtonText}>+</Text>
+              </TouchableOpacity>
+            </View>
+          ) : (
+            <TouchableOpacity onPress={addToCartHandler}>
+              <Image source={AddToCart} style={styles.addCartImg} />
+            </TouchableOpacity>
+          )}
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -394,5 +425,36 @@ const styles = StyleSheet.create({
     width: 90,
     height: 45,
     resizeMode: 'contain',
+  },
+  addCartImg: {
+    width: 100,
+    height: 40,
+    resizeMode: 'contain',
+  },
+  cartActionsContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: 8,
+    borderWidth: 1,
+    borderColor: '#F83758',
+    borderRadius: 4,
+    width: 120,
+    justifyContent: 'space-between',
+    paddingHorizontal: 8,
+    paddingVertical: 2,
+  },
+  quantityButton: {
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  quantityButtonText: {
+    fontSize: 20,
+    color: '#F83758',
+    fontFamily: Fonts.SEMIBOLD,
+  },
+  cartQuantity: {
+    fontSize: 16,
+    color: '#F83758',
+    fontFamily: Fonts.SEMIBOLD,
   },
 });
