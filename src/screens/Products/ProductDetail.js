@@ -111,7 +111,7 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
   },
   imgWrap: {
-    height: 250,
+    height: 275,
     justifyContent: 'center',
     width: '100%',
   },
@@ -137,5 +137,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginTop: 5,
     marginBottom: 20,
+  },
+  dot: {
+    width: 8,
+    height: 8,
+    borderRadius: 4,
+    marginHorizontal: 4,
   },
 });
