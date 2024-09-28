@@ -12,7 +12,7 @@ import {Fonts} from '../../../constants/fonts';
 import {Colors} from '../../../constants/colors';
 import {featuredProducts} from '../../../constants';
 import {useNavigation} from '@react-navigation/native';
-import {renderStars, thousandSeparator} from '../../../utils';
+import {thousandSeparator} from '../../../utils';
 
 const FeaturedProducts = () => {
   const navigation = useNavigation();
@@ -29,6 +29,24 @@ const FeaturedProducts = () => {
       }
       flatListRef.current.scrollToIndex({index: currentIndex});
     }
+  };
+
+  const renderStars = rating => {
+    const stars = [];
+    const fullStars = Math?.floor(rating);
+    const isHalfStar = rating % 1 !== 0;
+
+    // Add full stars
+    for (let i = 0; i < fullStars; i++) {
+      stars.push(<FillStar key={i} />);
+    }
+
+    // Add half star if necessary
+    if (isHalfStar) {
+      stars.push(<HalfStar key="half" />);
+    }
+
+    return stars;
   };
 
   const renderProduct = ({item}) => (

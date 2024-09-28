@@ -46,6 +46,8 @@ import Product4 from './Product4.png';
 import Next from './Next.svg';
 import FillStar from './FillStar.svg';
 import HalfStar from './HalfStar.svg';
+import HalfStarTwo from './HalfStarTwo.png';
+import FillStarTwo from './FillStarTwo.png';
 import OfferIcon from './offer.png';
 import OopsIcon from './oops.png';
 import FlatHeel from './FlatBanner.png';
@@ -118,4 +120,6 @@ export {
   SettingIcon,
   leftArrow,
   CartTwo,
+  HalfStarTwo,
+  FillStarTwo,
 };

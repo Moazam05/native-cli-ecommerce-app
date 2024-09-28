@@ -15,24 +15,7 @@ import {featuredProducts, imagesData} from '../../constants/index';
 import Swiper from 'react-native-swiper';
 import {Fonts} from '../../constants/fonts';
 import {thousandSeparator} from '../../utils';
-
-const renderStars = rating => {
-  const stars = [];
-  const fullStars = Math?.floor(rating);
-  const isHalfStar = rating % 1 !== 0;
-
-  // Add full stars
-  for (let i = 0; i < fullStars; i++) {
-    stars.push(<FillStar key={i} />);
-  }
-
-  // Add half star if necessary
-  if (isHalfStar) {
-    stars.push(<HalfStar key="half" />);
-  }
-
-  return stars;
-};
+import RatingStar from '../../components/RatingStar';
 
 const ProductDetail = () => {
   const navigation = useNavigation();
@@ -127,9 +110,12 @@ const ProductDetail = () => {
         <Text style={styles.title}>{selectedProduct?.name}</Text>
 
         <View style={styles.starWrap}>
-          <Text style={styles.star}>
+          {/* <Text style={styles.star}>
             {renderStars(selectedProduct?.rating)}
-          </Text>
+          </Text> */}
+          <View>
+            <RatingStar rating={selectedProduct?.rating} />
+          </View>
           <Text style={styles.count}>
             ({thousandSeparator(selectedProduct?.ratingCount)})
           </Text>
