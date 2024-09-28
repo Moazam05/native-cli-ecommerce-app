@@ -45,7 +45,7 @@ const ProductDetail = () => {
         </View>
       </View>
 
-      <View>
+      <View style={styles.imgWrap}>
         <Image source={selectedProduct?.image} style={styles.productImage} />
       </View>
     </SafeAreaView>
@@ -79,9 +79,13 @@ const styles = StyleSheet.create({
     height: 32,
     resizeMode: 'contain',
   },
+  imgWrap: {
+    padding: 16,
+  },
   productImage: {
     width: '100%',
     height: 215,
-    resizeMode: 'contain',
+    resizeMode: 'cover',
+    borderRadius: 16,
   },
 });
