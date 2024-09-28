@@ -27,19 +27,18 @@ const WishList = () => {
   };
 
   const renderItem = ({item}) => (
-    <></>
-    // <View style={styles.productContainer}>
-    //   <Image source={{uri: item.image}} style={styles.productImage} />
-    //   <View style={styles.productInfo}>
-    //     <Text style={styles.productTitle}>{item.title}</Text>
-    //     <View style={styles.priceWrap}>
-    //       <Text style={styles.productPrice}>${item.price.toFixed(2)}</Text>
-    //       <TouchableOpacity onPress={() => removeFromWishlist(item)}>
-    //         <Image source={WishlistFill} style={styles.wishlistIcon} />
-    //       </TouchableOpacity>
-    //     </View>
-    //   </View>
-    // </View>
+    <View style={styles.productContainer}>
+      <Image source={{uri: item.image}} style={styles.productImage} />
+      <View style={styles.productInfo}>
+        <Text style={styles.productTitle}>{item.title}</Text>
+        <View style={styles.priceWrap}>
+          <Text style={styles.productPrice}>${item.price.toFixed(2)}</Text>
+          <TouchableOpacity onPress={() => removeFromWishlist(item)}>
+            <Image source={WishlistFill} style={styles.wishlistIcon} />
+          </TouchableOpacity>
+        </View>
+      </View>
+    </View>
   );
 
   return (
