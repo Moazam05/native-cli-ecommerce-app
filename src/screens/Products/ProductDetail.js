@@ -116,6 +116,9 @@ const ProductDetail = () => {
               <Image source={CartTwo} style={styles.cartIcon} />
             </TouchableOpacity>
           </View>
+          <View style={styles.badge}>
+            <Text style={styles.badgeText}>{cartProducts.length}</Text>
+          </View>
         </View>
         {/* Swiper */}
         <View style={styles.imgWrap}>
@@ -235,6 +238,13 @@ const ProductDetail = () => {
               </View>
             )}
           </View>
+
+          <View style={styles.delivery}>
+            <Text style={styles.deliveryText}>Delivery in</Text>
+            <Text style={styles.deliveryText}>
+              {selectedProduct?.deliveryDays} days
+            </Text>
+          </View>
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -265,6 +275,23 @@ const styles = StyleSheet.create({
   },
   rightIcons: {
     flexDirection: 'row',
+    position: 'relative',
+  },
+  badge: {
+    position: 'absolute',
+    top: 7,
+    right: 7,
+    backgroundColor: '#F83758',
+    width: 17,
+    height: 17,
+    borderRadius: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  badgeText: {
+    color: '#fff',
+    fontSize: 10,
+    fontFamily: Fonts.SEMIBOLD,
   },
   cartIcon: {
     width: 32,
@@ -469,5 +496,20 @@ const styles = StyleSheet.create({
     color: '#F83758',
     fontFamily: Fonts.SEMIBOLD,
     marginHorizontal: 8,
+  },
+  delivery: {
+    backgroundColor: '#FFCCD5',
+    borderRadius: 5,
+    paddingVertical: 8,
+    paddingHorizontal: 20,
+    marginTop: 16,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  deliveryText: {
+    fontSize: 14,
+    color: Colors.BLACK,
+    fontFamily: Fonts.SEMIBOLD,
   },
 });

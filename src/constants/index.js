@@ -102,6 +102,7 @@ export const featuredProducts = [
     ratingCount: 5680,
     image: Product1,
     linkId: 1,
+    deliveryDays: '3-4',
     productSize: [
       {
         id: 1,
@@ -132,6 +133,7 @@ export const featuredProducts = [
     ratingCount: 3445,
     image: Product2,
     linkId: 2,
+    deliveryDays: '2-3',
     productSize: [
       {
         id: 1,
@@ -162,6 +164,7 @@ export const featuredProducts = [
     ratingCount: 3004,
     image: Product3,
     linkId: 3,
+    deliveryDays: '4-5',
     productSize: [
       {
         id: 1,
@@ -188,6 +191,7 @@ export const featuredProducts = [
     ratingCount: 1500,
     image: Product4,
     linkId: 4,
+    deliveryDays: '2-3',
     productSize: [
       {
         id: 1,
