@@ -1,81 +1,30 @@
+import {useNavigation, useRoute} from '@react-navigation/native';
 import React, {useEffect, useState} from 'react';
 import {
-  View,
-  Text,
-  StyleSheet,
   Image,
-  TouchableOpacity,
-  ScrollView,
   StatusBar,
+  StyleSheet,
+  TouchableOpacity,
+  View,
 } from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import {
-  Back,
-  CartIcon,
-  CartTwo,
-  leftArrow,
-  Star,
-  WishlistFill,
-  WishlistIcon,
-} from '../../assets/images';
-import Header from '../../components/Header';
-import {useNavigation, useRoute} from '@react-navigation/native';
-import {useDispatch} from 'react-redux';
-import {
-  selectWishlistProducts,
-  setWishListProducts,
-} from '../../redux/wishlist/wishlistsSlice';
-import useTypedSelector from '../../hooks/useTypedSelector';
-import {
-  selectedProducts,
-  incrementProductQuantity,
-  decrementProductQuantity,
-  setCartProducts,
-} from '../../redux/products/productsSlice';
+import {CartTwo, leftArrow} from '../../assets/images';
 import {Colors} from '../../constants/colors';
+import {featuredProducts} from '../../constants/index';
 
 const ProductDetail = () => {
   const navigation = useNavigation();
   const route = useRoute();
-  const dispatch = useDispatch();
-
   const {item} = route.params;
 
-  console.log('item', item);
+  const [selectedProduct, setSelectedProduct] = useState();
 
-  const wishListProducts = useTypedSelector(selectWishlistProducts);
-  const cartProducts = useTypedSelector(selectedProducts);
+  useEffect(() => {
+    const product = featuredProducts.find(pr => pr.linkId === item.linkId);
+    setSelectedProduct(product);
+  }, [item]);
 
-  const [isFavorited, setIsFavorited] = useState(false);
-  const [isInCart, setIsInCart] = useState(false);
-  const [productQuantity, setProductQuantity] = useState(0);
-
-  // useEffect(() => {
-  //   const isProductInWishlist = wishListProducts.some(
-  //     product => product.id === item.id,
-  //   );
-  //   setIsFavorited(isProductInWishlist);
-  // }, [item.id, wishListProducts]);
-
-  // useEffect(() => {
-  //   const productInCart = cartProducts.find(product => product.id === item.id);
-  //   if (productInCart) {
-  //     setIsInCart(true);
-  //     setProductQuantity(productInCart.quantity);
-  //   } else {
-  //     setIsInCart(false);
-  //     setProductQuantity(0);
-  //   }
-  // }, [cartProducts, item.id]);
-
-  const toggleFavorite = () => {
-    setIsFavorited(prev => !prev);
-    dispatch(setWishListProducts(item));
-  };
-
-  const addToCartHandler = () => {
-    dispatch(setCartProducts(item));
-  };
+  console.log('selectedProduct', selectedProduct);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -94,6 +43,10 @@ const ProductDetail = () => {
             <Image source={CartTwo} style={styles.cartIcon} />
           </TouchableOpacity>
         </View>
+      </View>
+
+      <View>
+        <Image source={selectedProduct?.image} style={styles.productImage} />
       </View>
     </SafeAreaView>
   );
@@ -124,6 +77,11 @@ const styles = StyleSheet.create({
   cartIcon: {
     width: 32,
     height: 32,
+    resizeMode: 'contain',
+  },
+  productImage: {
+    width: '100%',
+    height: 215,
     resizeMode: 'contain',
   },
 });

@@ -101,6 +101,7 @@ export const featuredProducts = [
     rating: 4.5,
     ratingCount: 5680,
     image: Product1,
+    linkId: 1,
     productSize: [
       {
         id: 1,
@@ -130,6 +131,7 @@ export const featuredProducts = [
     rating: 4.5,
     ratingCount: 3445,
     image: Product2,
+    linkId: 2,
     productSize: [
       {
         id: 1,
@@ -159,6 +161,7 @@ export const featuredProducts = [
     rating: 4.5,
     ratingCount: 3004,
     image: Product3,
+    linkId: 3,
     productSize: [
       {
         id: 1,
@@ -184,6 +187,7 @@ export const featuredProducts = [
     rating: 4,
     ratingCount: 1500,
     image: Product4,
+    linkId: 4,
     productSize: [
       {
         id: 1,
@@ -213,6 +217,7 @@ export const discountedProducts = [
     oldPrice: '9999',
     off: '50% OFF',
     image: Product3,
+    linkId: 3,
   },
   {
     id: 2,
@@ -221,6 +226,7 @@ export const discountedProducts = [
     oldPrice: '2499',
     off: '30% OFF',
     image: Product4,
+    linkId: 4,
   },
   {
     id: 3,
@@ -229,6 +235,7 @@ export const discountedProducts = [
     oldPrice: '2499',
     off: '40% OFF',
     image: Product1,
+    linkId: 1,
   },
   {
     id: 4,
@@ -237,5 +244,6 @@ export const discountedProducts = [
     oldPrice: '3199',
     off: '22% OFF',
     image: Product2,
+    linkId: 2,
   },
 ];
