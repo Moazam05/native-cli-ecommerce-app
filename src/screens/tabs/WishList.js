@@ -59,7 +59,7 @@ const WishList = () => {
         <View style={styles.starWrap}>
           <View>
             {/* Rating */}
-            <RatingStar rating={item?.rating} />
+            <RatingStar rating={item?.rating} size={14} />
           </View>
           <Text style={styles.count}>
             ({thousandSeparator(item?.ratingCount)})
@@ -127,15 +127,15 @@ const styles = StyleSheet.create({
   },
   wishlistIcon: {
     position: 'absolute',
-    top: 10,
-    right: 10,
+    top: 8,
+    right: 8,
     backgroundColor: '#F9F9F9',
-    padding: 8,
+    padding: 6,
     borderRadius: 50,
   },
   wishlistIconImage: {
-    width: 18,
-    height: 18,
+    width: 14,
+    height: 14,
     tintColor: '#F83758',
   },
   productInfo: {

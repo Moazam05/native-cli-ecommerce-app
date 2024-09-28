@@ -2,9 +2,11 @@ import {View, StyleSheet, Image} from 'react-native';
 import React from 'react';
 import {FillStarTwo, HalfStarTwo} from '../assets/images';
 
-const RatingStar = ({rating}) => {
+const RatingStar = ({rating, size}) => {
   const fullStars = Math.floor(rating);
   const hasHalfStar = rating % 1 !== 0;
+
+  const starSize = size || 18;
 
   return (
     <View style={styles.wrap}>
@@ -13,10 +15,15 @@ const RatingStar = ({rating}) => {
           <Image
             key={`full-${index}`}
             source={FillStarTwo}
-            style={styles.img}
+            style={[styles.img, {width: starSize, height: starSize}]} // Use the dynamic size
           />
         ))}
-        {hasHalfStar && <Image source={HalfStarTwo} style={styles.img} />}
+        {hasHalfStar && (
+          <Image
+            source={HalfStarTwo}
+            style={[styles.img, {width: starSize, height: starSize}]} // Use the dynamic size
+          />
+        )}
       </View>
     </View>
   );
@@ -34,8 +41,6 @@ const styles = StyleSheet.create({
     gap: 1,
   },
   img: {
-    width: 18,
-    height: 18,
     resizeMode: 'contain',
   },
 });
