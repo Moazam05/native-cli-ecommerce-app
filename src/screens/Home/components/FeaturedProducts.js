@@ -112,7 +112,7 @@ const styles = StyleSheet.create({
   productWrap: {
     backgroundColor: Colors.WHITE,
     width: 170,
-    marginHorizontal: 8,
+    marginHorizontal: 5,
     borderRadius: 4,
   },
   image: {
