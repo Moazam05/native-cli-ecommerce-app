@@ -22,9 +22,9 @@ import Wishlist from '../tabs/WishList';
 import Profile from '../tabs/Profile';
 import {Colors} from '../../constants/colors';
 import {Fonts} from '../../constants/fonts';
-import Notification from '../tabs/Notification';
 import useTypedSelector from '../../hooks/useTypedSelector';
 import {selectedProducts} from '../../redux/products/productsSlice';
+import Cart from '../Cart/Cart';
 
 const HomeScreen = () => {
   const cartProducts = useTypedSelector(selectedProducts);
@@ -61,11 +61,11 @@ const HomeScreen = () => {
         {selectedTab === 0 ? (
           <Home />
         ) : selectedTab === 1 ? (
-          <Search />
-        ) : selectedTab === 2 ? (
           <Wishlist />
+        ) : selectedTab === 2 ? (
+          <Cart />
         ) : selectedTab === 3 ? (
-          <Notification />
+          <Search />
         ) : (
           <Profile />
         )}
