@@ -20,6 +20,7 @@ import {
   selectWishlistProducts,
   setWishListProducts,
 } from '../../redux/wishlist/wishlistsSlice';
+import {MasonryFlashList} from '@shopify/flash-list';
 
 const WishList = () => {
   const navigation = useNavigation();
@@ -31,7 +32,14 @@ const WishList = () => {
     dispatch(setWishListProducts(item));
   };
 
-  const renderItem = ({item}) => <></>;
+  const renderItem = ({item}) => (
+    <View style={styles.productContainer}>
+      <Image source={item?.image} style={styles.productImage} />
+      <View style={styles.productInfo}>
+        <Text style={styles.productTitle}>{item?.name}</Text>
+      </View>
+    </View>
+  );
 
   return (
     <View style={styles.container}>
