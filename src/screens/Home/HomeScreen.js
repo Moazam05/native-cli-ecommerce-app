@@ -164,6 +164,7 @@ export default HomeScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: Colors.PRIMARY_BG,
   },
   bottomView: {
     position: 'absolute',

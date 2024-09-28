@@ -116,9 +116,11 @@ const ProductDetail = () => {
               <Image source={CartTwo} style={styles.cartIcon} />
             </TouchableOpacity>
           </View>
-          <View style={styles.badge}>
-            <Text style={styles.badgeText}>{cartProducts.length}</Text>
-          </View>
+          {cartProducts.length > 0 && (
+            <View style={styles.badge}>
+              <Text style={styles.badgeText}>{cartProducts.length}</Text>
+            </View>
+          )}
         </View>
         {/* Swiper */}
         <View style={styles.imgWrap}>

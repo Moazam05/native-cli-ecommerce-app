@@ -125,7 +125,6 @@ export default Home;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.PRIMARY_BG,
   },
   parentWrap: {
     paddingHorizontal: 16,
