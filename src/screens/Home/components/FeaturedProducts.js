@@ -12,6 +12,7 @@ import {Fonts} from '../../../constants/fonts';
 import {Colors} from '../../../constants/colors';
 import {featuredProducts} from '../../../constants';
 import {useNavigation} from '@react-navigation/native';
+import {renderStars, thousandSeparator} from '../../../utils';
 
 const FeaturedProducts = () => {
   const navigation = useNavigation();
@@ -19,28 +20,6 @@ const FeaturedProducts = () => {
 
   const productsPerPage = 2; // Show 2 products at a time
   let currentIndex = 0;
-
-  const formatPrice = price => {
-    return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ','); // Thousand separator
-  };
-
-  const renderStars = rating => {
-    const stars = [];
-    const fullStars = Math.floor(rating);
-    const isHalfStar = rating % 1 !== 0;
-
-    // Add full stars
-    for (let i = 0; i < fullStars; i++) {
-      stars.push(<FillStar key={i} />);
-    }
-
-    // Add half star if necessary
-    if (isHalfStar) {
-      stars.push(<HalfStar key="half" />);
-    }
-
-    return stars;
-  };
 
   const handleNextPress = () => {
     if (flatListRef.current) {
@@ -64,10 +43,12 @@ const FeaturedProducts = () => {
       <View style={styles.card}>
         <Text style={styles.title}>{item.name}</Text>
         <Text style={styles.description}>{item.description}</Text>
-        <Text style={styles.price}>PKR {formatPrice(item.price)}</Text>
+        <Text style={styles.price}>PKR {thousandSeparator(item.price)}</Text>
 
         <View style={styles.priceWrap}>
-          <Text style={styles.oldPrice}>PKR {formatPrice(item.oldPrice)}</Text>
+          <Text style={styles.oldPrice}>
+            PKR {thousandSeparator(item.oldPrice)}
+          </Text>
           <Text style={styles.off}>{item.off}</Text>
         </View>
 

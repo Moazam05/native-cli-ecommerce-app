@@ -4,6 +4,7 @@ import {
   Image,
   StatusBar,
   StyleSheet,
+  Text,
   TouchableOpacity,
   View,
 } from 'react-native';
@@ -12,6 +13,8 @@ import {CartTwo, leftArrow} from '../../assets/images';
 import {Colors} from '../../constants/colors';
 import {featuredProducts, imagesData} from '../../constants/index';
 import Swiper from 'react-native-swiper';
+import {Fonts} from '../../constants/fonts';
+import {renderStars, thousandSeparator} from '../../utils';
 
 const ProductDetail = () => {
   const navigation = useNavigation();
@@ -22,6 +25,7 @@ const ProductDetail = () => {
   const [selectedProduct, setSelectedProduct] = useState();
   const [productImages, setProductImages] = useState([]);
   const [activeIndex, setActiveIndex] = useState(0);
+  const [productSize, setProductSize] = useState('');
 
   useEffect(() => {
     const product = featuredProducts.find(pr => pr.linkId === item.linkId);
@@ -53,7 +57,7 @@ const ProductDetail = () => {
           </TouchableOpacity>
         </View>
       </View>
-
+      {/* Swiper */}
       <View style={styles.imgWrap}>
         <Swiper
           ref={swiperRef}
@@ -77,6 +81,46 @@ const ProductDetail = () => {
               ]}
             />
           ))}
+        </View>
+      </View>
+
+      {/* Product Info */}
+      <View style={styles.productInfo}>
+        <View style={styles.sizeWrap}>
+          <Text style={styles.sizeTitle}>Size:</Text>
+          <Text style={styles.sizeTitle}>{productSize}</Text>
+        </View>
+        <View style={styles.chipWrap}>
+          {selectedProduct?.productSize.map((size, index) => {
+            return (
+              <Text
+                key={index}
+                style={[
+                  styles.chip,
+                  productSize === size.size ? styles.activeChip : null,
+                ]}
+                onPress={() => setProductSize(size.size)}>
+                {size?.size}
+              </Text>
+            );
+          })}
+        </View>
+
+        <Text style={styles.title}>{selectedProduct.name}</Text>
+        <Text style={styles.price}>
+          PKR {thousandSeparator(selectedProduct?.price)}
+        </Text>
+
+        <View style={styles.priceWrap}>
+          <Text style={styles.oldPrice}>
+            PKR {thousandSeparator(selectedProduct?.oldPrice)}
+          </Text>
+          <Text style={styles.off}>{selectedProduct?.off}</Text>
+        </View>
+
+        <View style={styles.starWrap}>
+          <Text>{renderStars(selectedProduct?.rating)}</Text>
+          <Text style={styles.count}>({selectedProduct?.ratingCount})</Text>
         </View>
       </View>
     </SafeAreaView>
@@ -143,5 +187,86 @@ const styles = StyleSheet.create({
     height: 8,
     borderRadius: 4,
     marginHorizontal: 4,
+  },
+  productInfo: {
+    marginHorizontal: 16,
+  },
+  sizeWrap: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 5,
+  },
+  sizeTitle: {
+    fontSize: 14,
+    color: Colors.BLACK,
+    fontFamily: Fonts.SEMIBOLD,
+  },
+  chipWrap: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    marginTop: 12,
+    gap: 8,
+  },
+  chip: {
+    paddingHorizontal: 18,
+    paddingVertical: 7,
+    borderRadius: 4,
+    color: '#FA7189',
+    fontFamily: Fonts.SEMIBOLD,
+    borderColor: '#FA7189',
+    borderWidth: 1,
+    fontSize: 14,
+  },
+  activeChip: {
+    backgroundColor: '#FA7189',
+    color: Colors.WHITE,
+  },
+  prName: {
+    fontSize: 20,
+    fontFamily: Fonts.SEMIBOLD,
+    color: Colors.BLACK,
+    marginTop: 16,
+    marginBottom: 8,
+  },
+  title: {
+    fontSize: 12,
+    fontFamily: Fonts.MEDIUM,
+    color: Colors.BLACK,
+    fontWeight: '600',
+    marginBottom: 4,
+  },
+  price: {
+    fontSize: 12,
+    fontFamily: Fonts.MEDIUM,
+    color: Colors.BLACK,
+    fontWeight: '600',
+  },
+  priceWrap: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 2,
+  },
+  oldPrice: {
+    fontSize: 12,
+    color: '#BBBBBB',
+    textDecorationLine: 'line-through',
+    fontFamily: Fonts.LIGHT,
+  },
+  off: {
+    fontSize: 10,
+    color: '#FE735C',
+    marginLeft: 4,
+    fontFamily: Fonts.REGULAR,
+  },
+  starWrap: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: 4,
+    gap: 4,
+  },
+  count: {
+    fontSize: 10,
+    color: '#A4A9B3',
+    fontFamily: Fonts.REGULAR,
   },
 });
