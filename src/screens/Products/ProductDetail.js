@@ -6,11 +6,14 @@ import {
   Image,
   TouchableOpacity,
   ScrollView,
+  StatusBar,
 } from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {
   Back,
   CartIcon,
+  CartTwo,
+  leftArrow,
   Star,
   WishlistFill,
   WishlistIcon,
@@ -29,7 +32,7 @@ import {
   decrementProductQuantity,
   setCartProducts,
 } from '../../redux/products/productsSlice';
-import {Colors} from 'react-native/Libraries/NewAppScreen';
+import {Colors} from '../../constants/colors';
 
 const ProductDetail = () => {
   const navigation = useNavigation();
@@ -74,7 +77,26 @@ const ProductDetail = () => {
     dispatch(setCartProducts(item));
   };
 
-  return <SafeAreaView style={styles.container}></SafeAreaView>;
+  return (
+    <SafeAreaView style={styles.container}>
+      <StatusBar
+        barStyle="dark-content"
+        translucent
+        backgroundColor={Colors.PRIMARY_BG}
+      />
+      {/* Top Bar */}
+      <View style={styles.topBar}>
+        <TouchableOpacity onPress={() => navigation.goBack()}>
+          <Image source={leftArrow} style={styles.backIcon} />
+        </TouchableOpacity>
+        <View style={styles.rightIcons}>
+          <TouchableOpacity>
+            <Image source={CartTwo} style={styles.cartIcon} />
+          </TouchableOpacity>
+        </View>
+      </View>
+    </SafeAreaView>
+  );
 };
 
 export default ProductDetail;
@@ -83,5 +105,25 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Colors.PRIMARY_BG,
+  },
+  topBar: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingHorizontal: 16,
+    paddingVertical: 12,
+  },
+  backIcon: {
+    width: 20,
+    height: 20,
+    resizeMode: 'contain',
+  },
+  rightIcons: {
+    flexDirection: 'row',
+  },
+  cartIcon: {
+    width: 32,
+    height: 32,
+    resizeMode: 'contain',
   },
 });
