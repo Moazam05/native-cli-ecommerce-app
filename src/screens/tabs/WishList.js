@@ -14,43 +14,57 @@ import {
   NavigationIcon,
   UserIcon,
   WishlistFill,
-} from '../../assets/images'; // Add HeartIcon if not available
+} from '../../assets/images';
 import useTypedSelector from '../../hooks/useTypedSelector';
 import {
   selectWishlistProducts,
   setWishListProducts,
 } from '../../redux/wishlist/wishlistsSlice';
+import {Fonts} from '../../constants/fonts';
+import {Colors} from '../../constants/colors';
+import {thousandSeparator} from '../../utils';
+import RatingStar from '../../components/RatingStar';
 
 const WishList = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
   const wishListProducts = useTypedSelector(selectWishlistProducts);
 
+  // Generate a random height between 120 and 180 for the product container
   const randomHeight = () => {
     return Math.floor(Math.random() * (180 - 120 + 1)) + 120;
   };
+
+  // Function to remove item from wishlist
   const removeFromWishlist = item => {
     dispatch(setWishListProducts(item));
   };
+
   const renderItem = ({item}) => (
-    <View style={[styles.productContainer, {height: randomHeight()}]}>
-      <Image source={item?.image} style={styles.productImage} />
-      {/* Wishlist Icon */}
+    <View style={styles.productContainer}>
+      <Image
+        source={item?.image}
+        style={[styles.productImage, {height: randomHeight()}]}
+      />
       <TouchableOpacity
         style={styles.wishlistIcon}
         onPress={() => removeFromWishlist(item)}>
-        <Image
-          source={WishlistFill}
-          style={{
-            width: 18,
-            height: 18,
-            tintColor: '#F83758',
-          }}
-        />
+        <Image source={WishlistFill} style={styles.wishlistIconImage} />
       </TouchableOpacity>
       <View style={styles.productInfo}>
         <Text style={styles.productTitle}>{item?.name}</Text>
         <Text style={styles.productDescription}>{item?.description}</Text>
+        <Text style={styles.price}>PKR {thousandSeparator(item?.price)}</Text>
+
+        <View style={styles.starWrap}>
+          <View>
+            {/* Rating */}
+            <RatingStar rating={item?.rating} />
+          </View>
+          <Text style={styles.count}>
+            ({thousandSeparator(item?.ratingCount)})
+          </Text>
+        </View>
       </View>
     </View>
   );
@@ -71,9 +85,9 @@ const WishList = () => {
           data={wishListProducts}
           renderItem={renderItem}
           keyExtractor={item => item.id.toString()}
-          key={2} // This forces re-render when numColumns changes (currently fixed at 2)
+          key={2} // Force re-render when numColumns changes
           contentContainerStyle={styles.listContainer}
-          numColumns={2} // Ensures two items per row
+          numColumns={2} // Display two items per row
           ListEmptyComponent={
             <Text style={styles.emptyText}>No items in your wishlist</Text>
           }
@@ -104,6 +118,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     overflow: 'hidden',
     position: 'relative',
+    backgroundColor: '#fff',
   },
   productImage: {
     width: '100%',
@@ -118,22 +133,50 @@ const styles = StyleSheet.create({
     padding: 8,
     borderRadius: 50,
   },
+  wishlistIconImage: {
+    width: 18,
+    height: 18,
+    tintColor: '#F83758',
+  },
   productInfo: {
     padding: 8,
     backgroundColor: '#fff',
   },
   productTitle: {
     fontSize: 16,
-    fontWeight: 'bold',
+    fontFamily: Fonts.MEDIUM,
+    color: Colors.BLACK,
+    marginBottom: 4,
   },
   productDescription: {
-    fontSize: 14,
-    color: '#888',
+    fontSize: 10,
+    fontFamily: Fonts.REGULAR,
+    color: Colors.BLACK,
   },
   emptyText: {
     textAlign: 'center',
     marginTop: 20,
     fontSize: 16,
     color: '#888',
+  },
+  listContainer: {
+    paddingBottom: 80,
+  },
+  price: {
+    fontSize: 12,
+    fontFamily: Fonts.MEDIUM,
+    color: Colors.BLACK,
+    marginTop: 4,
+  },
+  starWrap: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: 4,
+  },
+  count: {
+    fontSize: 12,
+    fontFamily: Fonts.REGULAR,
+    color: '#A4A9B3',
+    marginLeft: 4,
   },
 });
