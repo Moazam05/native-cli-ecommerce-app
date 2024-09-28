@@ -101,6 +101,24 @@ export const featuredProducts = [
     rating: 4.5,
     ratingCount: 5680,
     image: Product1,
+    productSize: [
+      {
+        id: 1,
+        size: 'S',
+      },
+      {
+        id: 2,
+        size: 'M',
+      },
+      {
+        id: 3,
+        size: 'L',
+      },
+      {
+        id: 4,
+        size: 'XL',
+      },
+    ],
   },
   {
     id: 2,
@@ -112,6 +130,24 @@ export const featuredProducts = [
     rating: 4.5,
     ratingCount: 3445,
     image: Product2,
+    productSize: [
+      {
+        id: 1,
+        size: '6 UK',
+      },
+      {
+        id: 2,
+        size: '7 UK',
+      },
+      {
+        id: 3,
+        size: '8 UK',
+      },
+      {
+        id: 4,
+        size: '9 UK',
+      },
+    ],
   },
   {
     id: 3,
@@ -123,6 +159,20 @@ export const featuredProducts = [
     rating: 4.5,
     ratingCount: 3004,
     image: Product3,
+    productSize: [
+      {
+        id: 1,
+        size: '44mm',
+      },
+      {
+        id: 2,
+        size: '46mm',
+      },
+      {
+        id: 3,
+        size: '48mm',
+      },
+    ],
   },
   {
     id: 4,
@@ -134,6 +184,24 @@ export const featuredProducts = [
     rating: 4,
     ratingCount: 1500,
     image: Product4,
+    productSize: [
+      {
+        id: 1,
+        size: '6 UK',
+      },
+      {
+        id: 2,
+        size: '7 UK',
+      },
+      {
+        id: 3,
+        size: '8 UK',
+      },
+      {
+        id: 4,
+        size: '9 UK',
+      },
+    ],
   },
 ];
 
