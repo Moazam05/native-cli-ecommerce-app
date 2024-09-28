@@ -23,8 +23,12 @@ import Profile from '../tabs/Profile';
 import {Colors} from '../../constants/colors';
 import {Fonts} from '../../constants/fonts';
 import Notification from '../tabs/Notification';
+import useTypedSelector from '../../hooks/useTypedSelector';
+import {selectedProducts} from '../../redux/products/productsSlice';
 
 const HomeScreen = () => {
+  const cartProducts = useTypedSelector(selectedProducts);
+
   const [selectedTab, setSelectedTab] = useState(0);
   const [isKeyboardVisible, setIsKeyboardVisible] = useState(false);
 
@@ -79,7 +83,7 @@ const HomeScreen = () => {
                 ]}
               />
               <Text
-                style={selectedTab === 0 ? styles.activeLabel : styles.label}>
+                style={[styles.label, selectedTab === 0 && styles.activeLabel]}>
                 Home
               </Text>
             </TouchableOpacity>
@@ -95,11 +99,12 @@ const HomeScreen = () => {
                 ]}
               />
               <Text
-                style={selectedTab === 1 ? styles.activeLabel : styles.label}>
+                style={[styles.label, selectedTab === 1 && styles.activeLabel]}>
                 Wishlist
               </Text>
             </TouchableOpacity>
 
+            {/* Important */}
             <View style={styles.cartContainer}>
               <TouchableOpacity
                 style={[
@@ -109,13 +114,27 @@ const HomeScreen = () => {
                 onPress={() => setSelectedTab(2)}>
                 <Image
                   source={CartIcon}
-                  style={
-                    selectedTab === 2
-                      ? styles.lastActiveBottomTabIcon
-                      : styles.bottomTabIcon
-                  }
+                  style={[
+                    styles.bottomTabIcon,
+                    selectedTab === 2 && styles.lastActiveBottomTabIcon,
+                  ]}
                 />
               </TouchableOpacity>
+              {cartProducts.length > 0 && (
+                <View
+                  style={[
+                    styles.badge,
+                    selectedTab === 2 && styles.activeBadge,
+                  ]}>
+                  <Text
+                    style={[
+                      styles.badgeText,
+                      selectedTab === 2 && styles.activeBadgeText,
+                    ]}>
+                    {cartProducts.length}
+                  </Text>
+                </View>
+              )}
             </View>
 
             <TouchableOpacity
@@ -129,7 +148,7 @@ const HomeScreen = () => {
                 ]}
               />
               <Text
-                style={selectedTab === 3 ? styles.activeLabel : styles.label}>
+                style={[styles.label, selectedTab === 3 && styles.activeLabel]}>
                 Search
               </Text>
             </TouchableOpacity>
@@ -145,7 +164,7 @@ const HomeScreen = () => {
                 ]}
               />
               <Text
-                style={selectedTab === 4 ? styles.activeLabel : styles.label}>
+                style={[styles.label, selectedTab === 4 && styles.activeLabel]}>
                 Setting
               </Text>
             </TouchableOpacity>
@@ -207,6 +226,32 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+    position: 'relative',
+  },
+  badge: {
+    position: 'absolute',
+    top: -25,
+    right: 10,
+    backgroundColor: '#EB3030',
+    width: 18,
+    height: 18,
+    borderRadius: 9,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  badgeText: {
+    fontSize: 10,
+    color: Colors.WHITE,
+    fontFamily: Fonts.REGULAR,
+  },
+  activeBadge: {
+    backgroundColor: Colors.WHITE,
+    borderWidth: 1,
+    borderColor: '#EB3030',
+  },
+  activeBadgeText: {
+    color: '#EB3030',
+    fontSize: 10,
   },
   cartTab: {
     backgroundColor: Colors.WHITE,
