@@ -175,7 +175,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#fff',
     borderTopColor: '#DADADA',
-    borderWidth: 1,
+    borderTopWidth: 1,
+    borderBottomWidth: 0,
+    borderLeftWidth: 0,
+    borderRightWidth: 0,
   },
   bottomTab: {
     flex: 1,
