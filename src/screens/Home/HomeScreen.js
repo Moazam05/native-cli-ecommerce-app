@@ -73,11 +73,10 @@ const HomeScreen = () => {
               onPress={() => setSelectedTab(0)}>
               <Image
                 source={HomeIcon}
-                style={
-                  selectedTab === 0
-                    ? styles.activeBottomTabIcon
-                    : styles.bottomTabIcon
-                }
+                style={[
+                  styles.bottomTabIcon,
+                  selectedTab === 0 && styles.activeBottomTabIcon,
+                ]}
               />
               <Text
                 style={selectedTab === 0 ? styles.activeLabel : styles.label}>
@@ -90,11 +89,10 @@ const HomeScreen = () => {
               onPress={() => setSelectedTab(1)}>
               <Image
                 source={WishlistIcon}
-                style={
-                  selectedTab === 1
-                    ? styles.activeBottomTabIcon
-                    : styles.bottomTabIcon
-                }
+                style={[
+                  styles.bottomTabIcon,
+                  selectedTab === 1 && styles.activeBottomTabIcon,
+                ]}
               />
               <Text
                 style={selectedTab === 1 ? styles.activeLabel : styles.label}>
@@ -104,9 +102,10 @@ const HomeScreen = () => {
 
             <View style={styles.cartContainer}>
               <TouchableOpacity
-                style={
-                  selectedTab === 2 ? styles.activeCartTab : styles.cartTab
-                }
+                style={[
+                  styles.cartTab,
+                  selectedTab === 2 && styles.activeCartTab,
+                ]}
                 onPress={() => setSelectedTab(2)}>
                 <Image
                   source={CartIcon}
@@ -124,11 +123,10 @@ const HomeScreen = () => {
               onPress={() => setSelectedTab(3)}>
               <Image
                 source={BottomSearch}
-                style={
-                  selectedTab === 3
-                    ? styles.activeBottomTabIcon
-                    : styles.bottomTabIcon
-                }
+                style={[
+                  styles.bottomTabIcon,
+                  selectedTab === 3 && styles.activeBottomTabIcon,
+                ]}
               />
               <Text
                 style={selectedTab === 3 ? styles.activeLabel : styles.label}>
@@ -141,11 +139,10 @@ const HomeScreen = () => {
               onPress={() => setSelectedTab(4)}>
               <Image
                 source={SettingIcon}
-                style={
-                  selectedTab === 4
-                    ? styles.activeBottomTabIcon
-                    : styles.bottomTabIcon
-                }
+                style={[
+                  styles.bottomTabIcon,
+                  selectedTab === 4 && styles.activeBottomTabIcon,
+                ]}
               />
               <Text
                 style={selectedTab === 4 ? styles.activeLabel : styles.label}>
@@ -193,10 +190,7 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
   },
   activeBottomTabIcon: {
-    width: 19,
-    height: 24,
     tintColor: '#EB3030',
-    resizeMode: 'contain',
   },
   label: {
     fontSize: 12,
@@ -230,18 +224,6 @@ const styles = StyleSheet.create({
   },
   activeCartTab: {
     backgroundColor: '#EB3030',
-    width: 50,
-    height: 50,
-    borderRadius: 25,
-    justifyContent: 'center',
-    alignItems: 'center',
-    top: -25,
-    boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',
-    shadowColor: '#000',
-    shadowOffset: {width: 0, height: 2},
-    shadowOpacity: 0.1,
-    shadowRadius: 8,
-    elevation: 5,
   },
   lastActiveBottomTabIcon: {
     width: 19,
