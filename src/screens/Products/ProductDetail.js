@@ -10,7 +10,7 @@ import {
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {CartTwo, leftArrow} from '../../assets/images';
 import {Colors} from '../../constants/colors';
-import {featuredProducts} from '../../constants/index';
+import {featuredProducts, imagesData} from '../../constants/index';
 
 const ProductDetail = () => {
   const navigation = useNavigation();
@@ -18,13 +18,17 @@ const ProductDetail = () => {
   const {item} = route.params;
 
   const [selectedProduct, setSelectedProduct] = useState();
+  const [productImages, setProductImages] = useState([]);
 
   useEffect(() => {
     const product = featuredProducts.find(pr => pr.linkId === item.linkId);
     setSelectedProduct(product);
+
+    const findImages = imagesData.filter(pr => pr.linkId === item.linkId);
+    setProductImages(findImages);
   }, [item]);
 
-  console.log('selectedProduct', selectedProduct);
+  console.log('productImages', productImages);
 
   return (
     <SafeAreaView style={styles.container}>

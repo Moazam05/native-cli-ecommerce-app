@@ -209,6 +209,29 @@ export const featuredProducts = [
   },
 ];
 
+export const imagesData = [
+  {
+    id: 1,
+    linkId: 1,
+    images: [Product1, Product1],
+  },
+  {
+    id: 2,
+    linkId: 2,
+    images: [Product2, Product2],
+  },
+  {
+    id: 3,
+    linkId: 3,
+    images: [Product3, Product3],
+  },
+  {
+    id: 4,
+    linkId: 4,
+    images: [Product4, Product4],
+  },
+];
+
 export const discountedProducts = [
   {
     id: 1,
