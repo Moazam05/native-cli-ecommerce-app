@@ -30,9 +30,9 @@ const WishList = () => {
   const dispatch = useDispatch();
   const wishListProducts = useTypedSelector(selectWishlistProducts);
 
-  // Generate a random height between 120 and 180 for the product container
+  // Randomly return 136 or 196
   const randomHeight = () => {
-    return Math.floor(Math.random() * (180 - 120 + 1)) + 120;
+    return Math.random() < 0.5 ? 136 : 196;
   };
 
   // Function to remove item from wishlist
@@ -88,6 +88,7 @@ const WishList = () => {
           key={2} // Force re-render when numColumns changes
           contentContainerStyle={styles.listContainer}
           numColumns={2} // Display two items per row
+          showsVerticalScrollIndicator={false}
           ListEmptyComponent={
             <Text style={styles.emptyText}>No items in your wishlist</Text>
           }
@@ -113,16 +114,17 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   productContainer: {
-    flex: 1,
     margin: 8,
-    borderRadius: 10,
+    borderRadius: 8,
     overflow: 'hidden',
     position: 'relative',
     backgroundColor: '#fff',
+    width: 163,
+    height: 'fit-content',
   },
   productImage: {
-    width: '100%',
     height: '100%',
+    width: '100%',
     resizeMode: 'cover',
   },
   wishlistIcon: {
@@ -160,7 +162,7 @@ const styles = StyleSheet.create({
     color: '#888',
   },
   listContainer: {
-    paddingBottom: 80,
+    paddingBottom: 150,
   },
   price: {
     fontSize: 12,
