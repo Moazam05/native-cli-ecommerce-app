@@ -124,8 +124,8 @@ const styles = StyleSheet.create({
   },
   imgWrap: {
     width: '100%',
-    height: '100%',
-    resizeMode: 'contain',
+    height: 120,
+    resizeMode: 'cover',
   },
   card: {
     marginHorizontal: 4,
