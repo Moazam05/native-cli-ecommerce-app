@@ -94,12 +94,13 @@ const Search = () => {
         ref={flatListRef}
         data={featuredProducts}
         keyExtractor={item => item.id.toString()}
-        showsHorizontalScrollIndicator={false}
+        showsVerticalScrollIndicator={false}
         renderItem={renderProduct}
         snapToAlignment="center"
         decelerationRate="fast"
         numColumns={2}
         key={2}
+        contentContainerStyle={styles.listContainer}
       />
     </View>
   );
@@ -202,5 +203,8 @@ const styles = StyleSheet.create({
     color: '#FE735C',
     marginLeft: 4,
     fontFamily: Fonts.REGULAR,
+  },
+  listContainer: {
+    paddingBottom: 100,
   },
 });
