@@ -12,6 +12,9 @@ import {
   Product2,
   Product4,
   Product3,
+  Product5,
+  Product6,
+  Product7,
 } from '../assets/images';
 
 export const onboarding = [
@@ -208,6 +211,99 @@ export const featuredProducts = [
       {
         id: 4,
         size: '9 UK',
+      },
+    ],
+  },
+  {
+    id: 5,
+    name: 'Black Winter Hoodie',
+    description: 'Autumn And Winter Casual cotton-padded jacket',
+    price: '2999',
+    oldPrice: '3999',
+    off: '25% OFF',
+    rating: 4.5,
+    ratingCount: 2000,
+    image: Product5,
+    linkId: 5,
+    deliveryDays: '3-4',
+    productSize: [
+      {
+        id: 1,
+        size: 'S',
+      },
+      {
+        id: 2,
+        size: 'M',
+      },
+      {
+        id: 3,
+        size: 'L',
+      },
+      {
+        id: 4,
+        size: 'XL',
+      },
+    ],
+  },
+  {
+    id: 6,
+    name: 'Imported Jacket',
+    description: 'This warm and comfortable jacket is great for learni',
+    price: '5500',
+    oldPrice: '6999',
+    off: '20% OFF',
+    rating: 4,
+    ratingCount: 1000,
+    image: Product6,
+    linkId: 6,
+    deliveryDays: '4-5',
+    productSize: [
+      {
+        id: 1,
+        size: 'S',
+      },
+      {
+        id: 2,
+        size: 'M',
+      },
+      {
+        id: 3,
+        size: 'L',
+      },
+      {
+        id: 4,
+        size: 'XL',
+      },
+    ],
+  },
+  {
+    id: 7,
+    name: 'Mens Starry',
+    description: 'Mens Starry Sky Printed Shirt 100% Cotton Fabric',
+    price: '1999',
+    oldPrice: '2999',
+    off: '33% OFF',
+    rating: 4.5,
+    ratingCount: 500,
+    image: Product7,
+    linkId: 7,
+    deliveryDays: '2-3',
+    productSize: [
+      {
+        id: 1,
+        size: 'S',
+      },
+      {
+        id: 2,
+        size: 'M',
+      },
+      {
+        id: 3,
+        size: 'L',
+      },
+      {
+        id: 4,
+        size: 'XL',
       },
     ],
   },

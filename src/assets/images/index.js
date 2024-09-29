@@ -43,6 +43,9 @@ import Product1 from './Product1.png';
 import Product2 from './Product2.png';
 import Product3 from './Product3.png';
 import Product4 from './Product4.png';
+import Product5 from './Product5.png';
+import Product6 from './Product6.png';
+import Product7 from './Product7.png';
 import Next from './Next.svg';
 import FillStar from './FillStar.svg';
 import HalfStar from './HalfStar.svg';
@@ -128,4 +131,7 @@ export {
   SecureIcon,
   ReturnPolicyIcon,
   AddToCart,
+  Product5,
+  Product6,
+  Product7,
 };
