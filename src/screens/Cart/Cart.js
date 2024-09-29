@@ -32,6 +32,7 @@ import {Fonts} from '../../constants/fonts';
 import {Colors} from '../../constants/colors';
 import {selectAddress} from '../../redux/address/addressSlice';
 import RatingStar from '../../components/RatingStar';
+import {thousandSeparator} from '../../utils';
 
 const Cart = () => {
   const navigation = useNavigation();
@@ -56,6 +57,7 @@ const Cart = () => {
   };
 
   const renderItem = ({item}) => {
+    console.log('item', item);
     return (
       <>
         <View style={styles.productContainer}>
@@ -65,23 +67,27 @@ const Cart = () => {
               <Image source={item?.image} style={styles.productImage} />
               {/* Take 70% */}
               <View style={styles.productDetails}>
-                <Text style={styles.productTitle}>{item.name}</Text>
+                <Text style={styles.productTitle}>{item?.name}</Text>
                 <View style={styles.variantWrap}>
                   <Text style={styles.variantTitle}>Variations:</Text>
                   <Text style={styles.variantValue}>Black</Text>
                 </View>
 
                 <View style={styles.ratingWrap}>
-                  <Text style={styles.rating}>{item.rating}</Text>
+                  <Text style={styles.rating}>{item?.rating}</Text>
 
                   <RatingStar rating={item?.rating} size={12} />
                 </View>
 
                 <View style={styles.priceWrap}>
-                  <Text style={styles.productPrice}>${item.price}</Text>
+                  <Text style={styles.productPrice}>
+                    Rs: {thousandSeparator(item?.price)}
+                  </Text>
                   <View>
-                    <Text style={styles.off}>upto 50% off</Text>
-                    <Text style={styles.offPrice}>400</Text>
+                    <Text style={styles.off}>upto {item?.off}</Text>
+                    <Text style={styles.offPrice}>
+                      {thousandSeparator(item.oldPrice)}
+                    </Text>
                   </View>
                 </View>
               </View>
