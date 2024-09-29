@@ -136,18 +136,16 @@ const ProductDetail = () => {
             ))}
           </Swiper>
 
-          <View style={styles.wishWrap}>
-            <TouchableOpacity onPress={toggleFavorite}>
-              <Image
-                source={isFavorited ? WishlistFill : WishlistIcon}
-                // style={styles.wishlistIcon}
-                style={[
-                  styles.wishlistIcon,
-                  isFavorited ? styles.activeWishlistIcon : null,
-                ]}
-              />
-            </TouchableOpacity>
-          </View>
+          <TouchableOpacity style={styles.wishWrap} onPress={toggleFavorite}>
+            <Image
+              source={isFavorited ? WishlistFill : WishlistIcon}
+              // style={styles.wishlistIcon}
+              style={[
+                styles.wishlistIcon,
+                isFavorited ? styles.activeWishlistIcon : null,
+              ]}
+            />
+          </TouchableOpacity>
 
           <View style={styles.pagination}>
             {productImages.map((_, index) => (
@@ -235,7 +233,10 @@ const ProductDetail = () => {
                 <TouchableOpacity
                   style={styles.quantityButton}
                   onPress={() => dispatch(incrementProductQuantity(item.id))}>
-                  <Text style={styles.quantityButtonText}>+</Text>
+                  <Text
+                    style={[styles.quantityButtonText, styles.plusQuantity]}>
+                    +
+                  </Text>
                 </TouchableOpacity>
               </View>
             )}
@@ -481,7 +482,6 @@ const styles = StyleSheet.create({
     borderColor: '#F83758',
     borderRadius: 4,
     width: 100,
-    justifyContent: 'space-between',
     paddingHorizontal: 8,
   },
   quantityButton: {
@@ -492,6 +492,10 @@ const styles = StyleSheet.create({
     fontSize: 20,
     color: '#F83758',
     fontFamily: Fonts.SEMIBOLD,
+    width: 30,
+  },
+  plusQuantity: {
+    textAlign: 'right',
   },
   cartQuantity: {
     fontSize: 16,
