@@ -58,9 +58,25 @@ const Cart = () => {
     return (
       <>
         <View style={styles.productContainer}>
-          <Image source={item?.image} style={styles.productImage} />
-          <View style={styles.productDetails}>
-            <Text style={styles.productTitle}>{item?.name}</Text>
+          <View style={styles.prWrap}>
+            {/* take 30% */}
+            <Image source={item?.image} style={styles.productImage} />
+            {/* Take 70% */}
+            <View style={styles.productDetails}>
+              <Text style={styles.productTitle}>{item.name}</Text>
+              <View style={styles.variantWrap}>
+                <Text style={styles.variantTitle}>Variations:</Text>
+                <Text style={styles.variantValue}>Black</Text>
+              </View>
+
+              <View style={styles.priceWrap}>
+                <Text style={styles.productPrice}>${item.price}</Text>
+                <View>
+                  <Text style={styles.off}>upto 50% off</Text>
+                  <Text style={styles.offPrice}>400</Text>
+                </View>
+              </View>
+            </View>
           </View>
         </View>
       </>
@@ -102,6 +118,10 @@ const Cart = () => {
         <View style={styles.addressTwo}>
           <Image source={AddTwoIcon} style={styles.addIcon} />
         </View>
+      </View>
+
+      <View style={styles.shoppingWrap}>
+        <Text style={styles.shoppingTitle}>Shopping List</Text>
       </View>
 
       {/* FlatList to handle scrolling of products */}
@@ -184,10 +204,10 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     paddingHorizontal: 16,
-    gap: 10,
+    gap: 15,
   },
   addAddress: {
-    width: '80%',
+    width: '77%',
     backgroundColor: Colors.WHITE,
     borderRadius: 6,
     padding: 12,
@@ -195,16 +215,21 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowRadius: 10,
     elevation: 3,
+    height: 75,
   },
   innerWrap: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+    position: 'relative',
   },
   editIcon: {
     width: 15,
     height: 15,
     resizeMode: 'contain',
+    position: 'absolute',
+    right: 0,
+    top: -3,
   },
   addressTwo: {
     width: '20%',
@@ -218,6 +243,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowRadius: 10,
     elevation: 3,
+    height: 75,
   },
   addIcon: {
     width: 25,
@@ -234,11 +260,99 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontFamily: Fonts.REGULAR,
     color: Colors.BLACK,
-    // marginTop: 6,
   },
   contactWrap: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: 5,
+  },
+  shoppingWrap: {
+    paddingHorizontal: 16,
+    paddingTop: 24,
+    paddingBottom: 12,
+  },
+  shoppingTitle: {
+    fontSize: 14,
+    fontFamily: Fonts.SEMIBOLD,
+    color: Colors.BLACK,
+  },
+
+  productContainer: {
+    paddingHorizontal: 16,
+  },
+  prWrap: {
+    flexDirection: 'row',
+    padding: 10,
+    backgroundColor: Colors.WHITE,
+    borderRadius: 6,
+    shadowColor: '#000',
+    shadowOpacity: 0.1,
+    shadowRadius: 10,
+    elevation: 3,
+    marginBottom: 12,
+  },
+  productImage: {
+    width: 125,
+    height: 125,
+    borderRadius: 10,
+  },
+  productDetails: {
+    marginLeft: 12,
+  },
+  productTitle: {
+    fontSize: 14,
+    fontFamily: Fonts.SEMIBOLD,
+    color: Colors.BLACK,
+    marginTop: 6,
+  },
+  variantWrap: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: 8,
+    gap: 6,
+  },
+  variantTitle: {
+    fontSize: 12,
+    fontFamily: Fonts.MEDIUM,
+    color: Colors.BLACK,
+  },
+  variantValue: {
+    fontSize: 10,
+    fontFamily: Fonts.REGULAR,
+    color: Colors.BLACK,
+    marginLeft: 6,
+    borderWidth: 1,
+    borderColor: '#0E0808',
+    borderRadius: 2,
+    paddingVertical: 2,
+    paddingHorizontal: 6,
+  },
+  priceWrap: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: 10,
+    gap: 15,
+  },
+  productPrice: {
+    fontSize: 16,
+    fontFamily: Fonts.SEMIBOLD,
+    color: Colors.BLACK,
+    borderWidth: 1,
+    borderColor: '#CACACA',
+    borderRadius: 4,
+    paddingVertical: 2,
+    paddingHorizontal: 6,
+  },
+
+  off: {
+    fontSize: 10,
+    fontFamily: Fonts.MEDIUM,
+    color: '#EB3030',
+  },
+  offPrice: {
+    fontSize: 12,
+    fontFamily: Fonts.MEDIUM,
+    color: '#A7A7A7',
+    textDecorationLine: 'line-through',
   },
 });
