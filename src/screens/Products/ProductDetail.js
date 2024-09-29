@@ -10,28 +10,21 @@ import {
   View,
 } from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
+import Swiper from 'react-native-swiper';
+import {useDispatch} from 'react-redux';
 import {
   AddToCart,
   CartTwo,
-  FillStar,
-  HalfStar,
   leftArrow,
   ReturnPolicyIcon,
   SecureIcon,
   WishlistFill,
   WishlistIcon,
 } from '../../assets/images';
-import {Colors} from '../../constants/colors';
-import {featuredProducts, imagesData} from '../../constants/index';
-import Swiper from 'react-native-swiper';
-import {Fonts} from '../../constants/fonts';
-import {thousandSeparator} from '../../utils';
 import RatingStar from '../../components/RatingStar';
-import {useDispatch} from 'react-redux';
-import {
-  selectWishlistProducts,
-  setWishListProducts,
-} from '../../redux/wishlist/wishlistsSlice';
+import {Colors} from '../../constants/colors';
+import {Fonts} from '../../constants/fonts';
+import {featuredProducts, imagesData} from '../../constants/index';
 import useTypedSelector from '../../hooks/useTypedSelector';
 import {
   decrementProductQuantity,
@@ -39,6 +32,11 @@ import {
   selectedProducts,
   setCartProducts,
 } from '../../redux/products/productsSlice';
+import {
+  selectWishlistProducts,
+  setWishListProducts,
+} from '../../redux/wishlist/wishlistsSlice';
+import {thousandSeparator} from '../../utils';
 
 const ProductDetail = () => {
   const navigation = useNavigation();
