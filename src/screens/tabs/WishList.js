@@ -41,7 +41,11 @@ const WishList = () => {
   };
 
   const renderItem = ({item}) => (
-    <View style={styles.productContainer}>
+    <TouchableOpacity
+      style={styles.productContainer}
+      onPress={() => {
+        navigation.navigate('ProductDetail', {item});
+      }}>
       <Image
         source={item?.image}
         style={[styles.productImage, {height: randomHeight()}]}
@@ -66,7 +70,7 @@ const WishList = () => {
           </Text>
         </View>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 
   return (

@@ -1,5 +1,5 @@
 import {useNavigation} from '@react-navigation/native';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   FlatList,
   Image,
@@ -27,9 +27,25 @@ import DiscountedProducts from '../Home/components/DiscountedProducts';
 import SummerBanner from '../Home/components/SummerBanner';
 import SponsoredBanner from '../Home/components/SponsoredBanner';
 
-const Home = () => {
+const Home = ({setSelectedTab}) => {
   const navigation = useNavigation();
   const [searchText, setSearchText] = useState('');
+  const [debouncedSearch, setDebouncedSearch] = useState(searchText);
+
+  // Debouncing the searchText to avoid navigation on every keystroke
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setDebouncedSearch(searchText);
+    }, 300); // Delay of 300ms
+
+    return () => clearTimeout(timer);
+  }, [searchText]);
+
+  useEffect(() => {
+    if (debouncedSearch) {
+      setSelectedTab(3); // Set the selected tab to Search
+    }
+  }, [debouncedSearch, navigation, setSelectedTab]);
 
   const renderCategoryItem = ({item}) => (
     <TouchableOpacity>
