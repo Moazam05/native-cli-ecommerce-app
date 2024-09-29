@@ -31,6 +31,7 @@ import {
 import {Fonts} from '../../constants/fonts';
 import {Colors} from '../../constants/colors';
 import {selectAddress} from '../../redux/address/addressSlice';
+import RatingStar from '../../components/RatingStar';
 
 const Cart = () => {
   const navigation = useNavigation();
@@ -59,23 +60,37 @@ const Cart = () => {
       <>
         <View style={styles.productContainer}>
           <View style={styles.prWrap}>
-            {/* take 30% */}
-            <Image source={item?.image} style={styles.productImage} />
-            {/* Take 70% */}
-            <View style={styles.productDetails}>
-              <Text style={styles.productTitle}>{item.name}</Text>
-              <View style={styles.variantWrap}>
-                <Text style={styles.variantTitle}>Variations:</Text>
-                <Text style={styles.variantValue}>Black</Text>
-              </View>
+            <View style={styles.innerWrapTwo}>
+              {/* take 30% */}
+              <Image source={item?.image} style={styles.productImage} />
+              {/* Take 70% */}
+              <View style={styles.productDetails}>
+                <Text style={styles.productTitle}>{item.name}</Text>
+                <View style={styles.variantWrap}>
+                  <Text style={styles.variantTitle}>Variations:</Text>
+                  <Text style={styles.variantValue}>Black</Text>
+                </View>
 
-              <View style={styles.priceWrap}>
-                <Text style={styles.productPrice}>${item.price}</Text>
-                <View>
-                  <Text style={styles.off}>upto 50% off</Text>
-                  <Text style={styles.offPrice}>400</Text>
+                <View style={styles.ratingWrap}>
+                  <Text style={styles.rating}>{item.rating}</Text>
+
+                  <RatingStar rating={item?.rating} size={12} />
+                </View>
+
+                <View style={styles.priceWrap}>
+                  <Text style={styles.productPrice}>${item.price}</Text>
+                  <View>
+                    <Text style={styles.off}>upto 50% off</Text>
+                    <Text style={styles.offPrice}>400</Text>
+                  </View>
                 </View>
               </View>
+            </View>
+
+            <View style={[styles.lineTwo]} />
+            <View style={styles.orderWrap}>
+              <Text style={styles.totalOr}>Total Orders</Text>
+              <Text style={styles.totalOrderPrice}>300</Text>
             </View>
           </View>
         </View>
@@ -281,7 +296,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
   },
   prWrap: {
-    flexDirection: 'row',
     padding: 10,
     backgroundColor: Colors.WHITE,
     borderRadius: 6,
@@ -290,6 +304,9 @@ const styles = StyleSheet.create({
     shadowRadius: 10,
     elevation: 3,
     marginBottom: 12,
+  },
+  innerWrapTwo: {
+    flexDirection: 'row',
   },
   productImage: {
     width: 125,
@@ -340,8 +357,8 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#CACACA',
     borderRadius: 4,
-    paddingVertical: 2,
-    paddingHorizontal: 6,
+    paddingVertical: 4,
+    paddingHorizontal: 12,
   },
 
   off: {
@@ -354,5 +371,37 @@ const styles = StyleSheet.create({
     fontFamily: Fonts.MEDIUM,
     color: '#A7A7A7',
     textDecorationLine: 'line-through',
+  },
+  ratingWrap: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: 8,
+    gap: 6,
+  },
+  rating: {
+    fontSize: 12,
+    fontFamily: Fonts.MEDIUM,
+    color: Colors.BLACK,
+  },
+
+  lineTwo: {
+    height: 1,
+    backgroundColor: '#C6C6C6',
+    marginVertical: 12,
+  },
+  orderWrap: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  totalOr: {
+    fontSize: 12,
+    fontFamily: Fonts.MEDIUM,
+    color: Colors.BLACK,
+  },
+  totalOrderPrice: {
+    fontSize: 12,
+    fontFamily: Fonts.SEMIBOLD,
+    color: Colors.BLACK,
   },
 });
