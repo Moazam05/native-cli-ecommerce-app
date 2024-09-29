@@ -1,6 +1,7 @@
 import {useNavigation} from '@react-navigation/native';
 import React, {useEffect, useRef, useState} from 'react';
 import {
+  Dimensions,
   FlatList,
   Image,
   ImageBackground,
@@ -25,6 +26,9 @@ import useTypedSelector from '../../hooks/useTypedSelector';
 import {selectSearchbarText} from '../../redux/searchbar/searchbarSlice';
 import {thousandSeparator} from '../../utils';
 
+// Get the screen width
+const screenWidth = Dimensions.get('window').width;
+
 const Search = () => {
   const navigation = useNavigation();
   const flatListRef = useRef(null);
@@ -47,39 +51,46 @@ const Search = () => {
     setFilteredProducts(filtered);
   }, [searchText]);
 
-  const renderProduct = ({item}) => (
-    <TouchableOpacity
-      style={styles.productWrap}
-      onPress={() => {
-        navigation.navigate('ProductDetail', {item});
-      }}>
-      <View style={styles.image}>
-        <Image source={item.image} style={styles.imgWrap} />
-      </View>
-      <View style={styles.card}>
-        <Text style={styles.title}>{item.name}</Text>
-        <Text style={styles.description}>{item.description}</Text>
-        <Text style={styles.price}>PKR {thousandSeparator(item.price)}</Text>
+  const renderProduct = ({item, index}) => {
+    // If it's the last item and it's an odd item, give it half width
+    const isHalfWidth =
+      filteredProducts.length % 2 !== 0 &&
+      index === filteredProducts.length - 1;
+    const itemWidth = isHalfWidth ? screenWidth / 2.2 : screenWidth / 2.2;
 
-        <View style={styles.priceWrap}>
-          <Text style={styles.oldPrice}>
-            PKR {thousandSeparator(item.oldPrice)}
-          </Text>
-          <Text style={styles.off}>{item.off}</Text>
+    return (
+      <TouchableOpacity
+        style={[styles.productWrap, {width: itemWidth}]}
+        onPress={() => {
+          navigation.navigate('ProductDetail', {item});
+        }}>
+        <View style={styles.image}>
+          <Image source={item.image} style={styles.imgWrap} />
         </View>
+        <View style={styles.card}>
+          <Text style={styles.title}>{item.name}</Text>
+          <Text style={styles.description}>{item.description}</Text>
+          <Text style={styles.price}>PKR {thousandSeparator(item.price)}</Text>
 
-        <View style={styles.starWrap}>
-          <View>
-            {/* Rating */}
-            <RatingStar rating={item?.rating} size={14} />
+          <View style={styles.priceWrap}>
+            <Text style={styles.oldPrice}>
+              PKR {thousandSeparator(item.oldPrice)}
+            </Text>
+            <Text style={styles.off}>{item.off}</Text>
           </View>
-          <Text style={styles.count}>
-            ({thousandSeparator(item?.ratingCount)})
-          </Text>
+
+          <View style={styles.starWrap}>
+            <View>
+              <RatingStar rating={item?.rating} size={14} />
+            </View>
+            <Text style={styles.count}>
+              ({thousandSeparator(item?.ratingCount)})
+            </Text>
+          </View>
         </View>
-      </View>
-    </TouchableOpacity>
-  );
+      </TouchableOpacity>
+    );
+  };
 
   return (
     <View style={styles.container}>
@@ -109,17 +120,14 @@ const Search = () => {
         )}
       </View>
 
-      {/* Products*/}
+      {/* Products */}
       <FlatList
         ref={flatListRef}
         data={filteredProducts} // Use filtered products
         keyExtractor={item => item.id.toString()}
         showsVerticalScrollIndicator={false}
         renderItem={renderProduct}
-        snapToAlignment="center"
-        decelerationRate="fast"
         numColumns={2}
-        key={2}
         contentContainerStyle={styles.listContainer}
       />
     </View>
@@ -167,7 +175,6 @@ const styles = StyleSheet.create({
   },
   productWrap: {
     backgroundColor: Colors.WHITE,
-    width: 170,
     marginHorizontal: 5,
     borderRadius: 4,
     marginBottom: 10,
