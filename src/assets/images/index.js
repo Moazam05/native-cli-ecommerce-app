@@ -65,6 +65,7 @@ import CartTwo from './cartTwo.png';
 import SecureIcon from './secure.png';
 import ReturnPolicyIcon from './returnPolicy.png';
 import AddToCart from './AddToCart.png';
+import LocationIcon from './location.png';
 
 export {
   Back,
@@ -134,4 +135,5 @@ export {
   Product5,
   Product6,
   Product7,
+  LocationIcon,
 };
