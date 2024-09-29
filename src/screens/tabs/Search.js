@@ -23,6 +23,7 @@ import {featuredProducts} from '../../constants';
 import {thousandSeparator} from '../../utils';
 import {Fonts} from '../../constants/fonts';
 import {Colors} from '../../constants/colors';
+import RatingStar from '../../components/RatingStar';
 
 const Search = () => {
   const navigation = useNavigation();
@@ -56,6 +57,16 @@ const Search = () => {
             PKR {thousandSeparator(item.oldPrice)}
           </Text>
           <Text style={styles.off}>{item.off}</Text>
+        </View>
+
+        <View style={styles.starWrap}>
+          <View>
+            {/* Rating */}
+            <RatingStar rating={item?.rating} size={14} />
+          </View>
+          <Text style={styles.count}>
+            ({thousandSeparator(item?.ratingCount)})
+          </Text>
         </View>
       </View>
     </TouchableOpacity>
@@ -152,27 +163,38 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     marginBottom: 10,
   },
+  starWrap: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 4,
+    marginBottom: 6,
+  },
+  count: {
+    fontSize: 10,
+    color: '#828282',
+    fontFamily: Fonts.REGULAR,
+  },
   image: {
     width: '100%',
-    height: 120,
+    height: 150,
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 4,
   },
   imgWrap: {
     width: '100%',
-    height: '100%',
-    resizeMode: 'contain',
+    height: 150,
+    resizeMode: 'cover',
+    borderRadius: 4,
   },
   card: {
     marginHorizontal: 4,
     marginVertical: 8,
   },
   title: {
-    fontSize: 12,
+    fontSize: 16,
     fontFamily: Fonts.MEDIUM,
     color: Colors.BLACK,
-    fontWeight: '600',
     marginBottom: 4,
   },
   description: {
@@ -185,12 +207,13 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontFamily: Fonts.MEDIUM,
     color: Colors.BLACK,
-    fontWeight: '600',
+    marginBottom: 4,
   },
   priceWrap: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: 2,
+    marginBottom: 4,
   },
   oldPrice: {
     fontSize: 12,

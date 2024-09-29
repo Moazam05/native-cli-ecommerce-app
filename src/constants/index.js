@@ -330,6 +330,21 @@ export const imagesData = [
     linkId: 4,
     images: [Product4, Product4],
   },
+  {
+    id: 5,
+    linkId: 5,
+    images: [Product5, Product5],
+  },
+  {
+    id: 6,
+    linkId: 6,
+    images: [Product6, Product6],
+  },
+  {
+    id: 7,
+    linkId: 7,
+    images: [Product7, Product7],
+  },
 ];
 
 export const discountedProducts = [
