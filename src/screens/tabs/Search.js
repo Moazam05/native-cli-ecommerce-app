@@ -56,7 +56,7 @@ const Search = () => {
     const isHalfWidth =
       filteredProducts.length % 2 !== 0 &&
       index === filteredProducts.length - 1;
-    const itemWidth = isHalfWidth ? screenWidth / 2.2 : screenWidth / 2.2;
+    const itemWidth = isHalfWidth ? screenWidth / 2.3 : screenWidth / 2.3;
 
     return (
       <TouchableOpacity
@@ -129,6 +129,12 @@ const Search = () => {
         renderItem={renderProduct}
         numColumns={2}
         contentContainerStyle={styles.listContainer}
+        ListEmptyComponent={
+          <>
+            <Text style={styles.emptyCont}>No products found</Text>
+            <Text style={styles.emptyCont}>Try different keywords</Text>
+          </>
+        }
       />
     </View>
   );
@@ -167,6 +173,10 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: '#333',
     paddingLeft: 15,
+  },
+  emptyCont: {
+    textAlign: 'center',
+    marginTop: 20,
   },
   icon: {
     width: 20,

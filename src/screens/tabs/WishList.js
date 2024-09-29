@@ -119,7 +119,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   productContainer: {
-    margin: 8,
+    margin: 6,
     borderRadius: 8,
     overflow: 'hidden',
     position: 'relative',
