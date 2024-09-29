@@ -26,26 +26,27 @@ import FlatBanner from '../Home/components/FlatBanner';
 import DiscountedProducts from '../Home/components/DiscountedProducts';
 import SummerBanner from '../Home/components/SummerBanner';
 import SponsoredBanner from '../Home/components/SponsoredBanner';
+import {setSearchbarText} from '../../redux/searchbar/searchbarSlice';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {useDispatch} from 'react-redux';
 
 const Home = ({setSelectedTab}) => {
   const navigation = useNavigation();
-  const [searchText, setSearchText] = useState('');
-  const [debouncedSearch, setDebouncedSearch] = useState(searchText);
+  const dispatch = useDispatch();
 
-  // Debouncing the searchText to avoid navigation on every keystroke
+  const [searchText, setSearchText] = useState('');
+
   useEffect(() => {
     const timer = setTimeout(() => {
-      setDebouncedSearch(searchText);
-    }, 300); // Delay of 300ms
+      if (searchText) {
+        dispatch(setSearchbarText(searchText));
+        AsyncStorage.setItem('searchbarText', JSON.stringify(searchText));
+        setSelectedTab(3); // Set the selected tab to Search
+      }
+    }, 200);
 
     return () => clearTimeout(timer);
-  }, [searchText]);
-
-  useEffect(() => {
-    if (debouncedSearch) {
-      setSelectedTab(3); // Set the selected tab to Search
-    }
-  }, [debouncedSearch, navigation, setSelectedTab]);
+  }, [searchText, dispatch, setSelectedTab]);
 
   const renderCategoryItem = ({item}) => (
     <TouchableOpacity>
