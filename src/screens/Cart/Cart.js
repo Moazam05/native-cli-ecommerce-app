@@ -148,6 +148,7 @@ const Cart = () => {
         ListEmptyComponent={
           <Text style={styles.emptyText}>Your shopping bag is empty</Text>
         }
+        showsVerticalScrollIndicator={false}
         ListFooterComponent={
           /* Payment details section after product list */
           <View>
@@ -220,6 +221,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingHorizontal: 16,
     gap: 15,
+    marginTop: 3,
   },
   addAddress: {
     width: '77%',
@@ -403,5 +405,8 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontFamily: Fonts.SEMIBOLD,
     color: Colors.BLACK,
+  },
+  productList: {
+    paddingBottom: 80,
   },
 });
