@@ -6,6 +6,7 @@ import {
   Image,
   TouchableOpacity,
   FlatList,
+  Dimensions,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {useDispatch} from 'react-redux';
@@ -25,53 +26,54 @@ import {Colors} from '../../constants/colors';
 import {thousandSeparator} from '../../utils';
 import RatingStar from '../../components/RatingStar';
 
+const {width} = Dimensions.get('window'); // Get screen width
+
 const WishList = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
   const wishListProducts = useTypedSelector(selectWishlistProducts);
-
-  // Randomly return 136 or 196
-  const randomHeight = () => {
-    return Math.random() < 0.5 ? 136 : 136;
-  };
 
   // Function to remove item from wishlist
   const removeFromWishlist = item => {
     dispatch(setWishListProducts(item));
   };
 
-  const renderItem = ({item}) => (
-    <TouchableOpacity
-      style={styles.productContainer}
-      onPress={() => {
-        navigation.navigate('ProductDetail', {item});
-      }}>
-      <Image
-        source={item?.image}
-        style={[styles.productImage, {height: randomHeight()}]}
-      />
-      <TouchableOpacity
-        style={styles.wishlistIcon}
-        onPress={() => removeFromWishlist(item)}>
-        <Image source={WishlistFill} style={styles.wishlistIconImage} />
-      </TouchableOpacity>
-      <View style={styles.productInfo}>
-        <Text style={styles.productTitle}>{item?.name}</Text>
-        <Text style={styles.productDescription}>{item?.description}</Text>
-        <Text style={styles.price}>PKR {thousandSeparator(item?.price)}</Text>
+  const renderItem = ({item, index}) => {
+    // Calculate item width based on number of products
+    const numProducts = wishListProducts.length;
+    const isThirdItem = index === 2 && numProducts === 3;
+    const itemWidth = isThirdItem ? width / 2 - 24 : width / 2 - 28; // Adjust width for 3rd item or even products
 
-        <View style={styles.starWrap}>
-          <View>
-            {/* Rating */}
-            <RatingStar rating={item?.rating} size={14} />
+    return (
+      <TouchableOpacity
+        style={[styles.productContainer, {width: itemWidth}]}
+        onPress={() => {
+          navigation.navigate('ProductDetail', {item});
+        }}>
+        <Image source={item?.image} style={styles.productImage} />
+        <TouchableOpacity
+          style={styles.wishlistIcon}
+          onPress={() => removeFromWishlist(item)}>
+          <Image source={WishlistFill} style={styles.wishlistIconImage} />
+        </TouchableOpacity>
+        <View style={styles.productInfo}>
+          <Text style={styles.productTitle}>{item?.name}</Text>
+          <Text style={styles.productDescription}>{item?.description}</Text>
+          <Text style={styles.price}>PKR {thousandSeparator(item?.price)}</Text>
+
+          <View style={styles.starWrap}>
+            <View>
+              {/* Rating */}
+              <RatingStar rating={item?.rating} size={14} />
+            </View>
+            <Text style={styles.count}>
+              ({thousandSeparator(item?.ratingCount)})
+            </Text>
           </View>
-          <Text style={styles.count}>
-            ({thousandSeparator(item?.ratingCount)})
-          </Text>
         </View>
-      </View>
-    </TouchableOpacity>
-  );
+      </TouchableOpacity>
+    );
+  };
 
   return (
     <View style={styles.container}>
@@ -89,7 +91,6 @@ const WishList = () => {
           data={wishListProducts}
           renderItem={renderItem}
           keyExtractor={item => item.id.toString()}
-          key={2} // Force re-render when numColumns changes
           contentContainerStyle={styles.listContainer}
           numColumns={2} // Display two items per row
           showsVerticalScrollIndicator={false}
@@ -123,10 +124,9 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
     position: 'relative',
     backgroundColor: '#fff',
-    width: 163,
   },
   productImage: {
-    height: '100%',
+    height: 150, // Adjusted height
     width: '100%',
     resizeMode: 'cover',
   },
