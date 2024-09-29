@@ -32,7 +32,7 @@ const WishList = () => {
 
   // Randomly return 136 or 196
   const randomHeight = () => {
-    return Math.random() < 0.5 ? 136 : 196;
+    return Math.random() < 0.5 ? 136 : 136;
   };
 
   // Function to remove item from wishlist
@@ -120,7 +120,6 @@ const styles = StyleSheet.create({
     position: 'relative',
     backgroundColor: '#fff',
     width: 163,
-    height: 'fit-content',
   },
   productImage: {
     height: '100%',
@@ -162,7 +161,7 @@ const styles = StyleSheet.create({
     color: '#888',
   },
   listContainer: {
-    paddingBottom: 150,
+    paddingBottom: 140,
   },
   price: {
     fontSize: 12,
