@@ -66,6 +66,8 @@ import SecureIcon from './secure.png';
 import ReturnPolicyIcon from './returnPolicy.png';
 import AddToCart from './AddToCart.png';
 import LocationIcon from './location.png';
+import AddTwoIcon from './AddTwo.png';
+import EditTwoIcon from './EditTwo.png';
 
 export {
   Back,
@@ -136,4 +138,6 @@ export {
   Product6,
   Product7,
   LocationIcon,
+  AddTwoIcon,
+  EditTwoIcon,
 };
