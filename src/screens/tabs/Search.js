@@ -1,16 +1,15 @@
+import {useNavigation} from '@react-navigation/native';
+import React, {useEffect, useRef, useState} from 'react';
 import {
-  View,
-  Text,
-  StyleSheet,
-  TextInput,
-  TouchableOpacity,
-  ImageBackground,
   FlatList,
   Image,
+  ImageBackground,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
 } from 'react-native';
-import React, {useEffect, useRef, useState} from 'react';
-import useTypedSelector from '../../hooks/useTypedSelector';
-import {selectSearchbarText} from '../../redux/searchbar/searchbarSlice';
 import {
   ClearIcon,
   Logo,
@@ -18,12 +17,13 @@ import {
   SearchIcon,
   UserIcon,
 } from '../../assets/images';
-import {useNavigation} from '@react-navigation/native';
-import {featuredProducts} from '../../constants';
-import {thousandSeparator} from '../../utils';
-import {Fonts} from '../../constants/fonts';
-import {Colors} from '../../constants/colors';
 import RatingStar from '../../components/RatingStar';
+import {featuredProducts} from '../../constants';
+import {Colors} from '../../constants/colors';
+import {Fonts} from '../../constants/fonts';
+import useTypedSelector from '../../hooks/useTypedSelector';
+import {selectSearchbarText} from '../../redux/searchbar/searchbarSlice';
+import {thousandSeparator} from '../../utils';
 
 const Search = () => {
   const navigation = useNavigation();
@@ -31,12 +31,21 @@ const Search = () => {
   const getSearchText = useTypedSelector(selectSearchbarText);
 
   const [searchText, setSearchText] = useState('');
+  const [filteredProducts, setFilteredProducts] = useState(featuredProducts);
 
   useEffect(() => {
     if (getSearchText) {
       setSearchText(getSearchText);
     }
   }, [getSearchText]);
+
+  // Effect to filter products based on search text
+  useEffect(() => {
+    const filtered = featuredProducts.filter(product =>
+      product.name.toLowerCase().includes(searchText.toLowerCase()),
+    );
+    setFilteredProducts(filtered);
+  }, [searchText]);
 
   const renderProduct = ({item}) => (
     <TouchableOpacity
@@ -103,7 +112,7 @@ const Search = () => {
       {/* Products*/}
       <FlatList
         ref={flatListRef}
-        data={featuredProducts}
+        data={filteredProducts} // Use filtered products
         keyExtractor={item => item.id.toString()}
         showsVerticalScrollIndicator={false}
         renderItem={renderProduct}

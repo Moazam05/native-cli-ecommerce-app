@@ -25,8 +25,12 @@ import {Fonts} from '../../constants/fonts';
 import useTypedSelector from '../../hooks/useTypedSelector';
 import {selectedProducts} from '../../redux/products/productsSlice';
 import Cart from '../Cart/Cart';
+import {useDispatch} from 'react-redux';
+import {setSearchbarText} from '../../redux/searchbar/searchbarSlice';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const HomeScreen = () => {
+  const dispatch = useDispatch();
   const cartProducts = useTypedSelector(selectedProducts);
 
   const [selectedTab, setSelectedTab] = useState(0);
@@ -48,6 +52,15 @@ const HomeScreen = () => {
       keyboardDidHideListener.remove();
     };
   }, []);
+
+  useEffect(() => {
+    // Clear search text if tab is changed
+    if (selectedTab !== 3) {
+      dispatch(setSearchbarText(''));
+      AsyncStorage.removeItem('searchbarText');
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedTab]);
 
   return (
     <>
