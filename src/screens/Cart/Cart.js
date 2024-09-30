@@ -34,12 +34,14 @@ import {Colors} from '../../constants/colors';
 import {selectAddress} from '../../redux/address/addressSlice';
 import RatingStar from '../../components/RatingStar';
 import {thousandSeparator} from '../../utils';
+import {selectProductSize} from '../../redux/productSize/productSizeSlice';
 
 const Cart = ({setSelectedTab}) => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
   const cartProducts = useTypedSelector(selectedProducts);
   const addressList = useTypedSelector(selectAddress);
+  const productSize = useTypedSelector(selectProductSize);
 
   const [address, setAddress] = useState('');
 
@@ -58,7 +60,7 @@ const Cart = ({setSelectedTab}) => {
   };
 
   const renderItem = ({item}) => {
-    console.log('item', item);
+    const findProductSize = productSize.find(prSize => prSize.id === item.id);
     return (
       <>
         <View style={styles.productContainer}>
@@ -71,7 +73,9 @@ const Cart = ({setSelectedTab}) => {
                 <Text style={styles.productTitle}>{item?.name}</Text>
                 <View style={styles.variantWrap}>
                   <Text style={styles.variantTitle}>Variations:</Text>
-                  <Text style={styles.variantValue}>{item?.size}</Text>
+                  <Text style={styles.variantValue}>
+                    {findProductSize?.size}
+                  </Text>
                 </View>
 
                 <View style={styles.ratingWrap}>
