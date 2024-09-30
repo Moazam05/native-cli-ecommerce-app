@@ -1,27 +1,24 @@
+import {useNavigation, useRoute} from '@react-navigation/native';
+import {Formik} from 'formik';
 import React, {useEffect, useState} from 'react';
 import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
   ActivityIndicator,
-  KeyboardAvoidingView,
-  ScrollView,
-  Platform,
   Image,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
 } from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import Header from '../../components/Header';
-import {Back, leftArrow} from '../../assets/images';
-import {useNavigation, useRoute} from '@react-navigation/native';
 import {useDispatch} from 'react-redux';
-import {Formik} from 'formik';
 import * as Yup from 'yup';
-import {addAddress, updateAddress} from '../../redux/address/addressSlice';
+import {leftArrow} from '../../assets/images';
+import CustomButton from '../../components/CustomButton';
 import TextField from '../../components/TextField';
 import {Colors} from '../../constants/colors';
 import {Fonts} from '../../constants/fonts';
-import CustomButton from '../../components/CustomButton';
+import {addAddress, updateAddress} from '../../redux/address/addressSlice';
 
 // Validation Schema
 const validationSchema = Yup.object().shape({

@@ -16,6 +16,8 @@ import {
   Back,
   DeleteIcon,
   EditIcon,
+  EditTwoIcon,
+  leftArrow,
   TickIcon,
 } from '../../assets/images';
 import useTypedSelector from '../../hooks/useTypedSelector';
@@ -25,6 +27,8 @@ import {
   setDefaultAddress,
 } from '../../redux/address/addressSlice';
 import {useDispatch} from 'react-redux';
+import {Colors} from '../../constants/colors';
+import {Fonts} from '../../constants/fonts';
 
 const AddressList = () => {
   const dispatch = useDispatch();
@@ -55,58 +59,52 @@ const AddressList = () => {
   };
 
   const renderItem = ({item}) => (
-    <TouchableOpacity
-      style={[styles.card, item.isDefault && styles.defaultCard]}
-      onPress={() => handleSetDefault(item.id)}>
-      <View style={styles.cardContent}>
-        <Text style={styles.cardTitle}>
-          {item.addressType ? item.addressType : 'Home'}
-        </Text>
+    <>
+      <View style={styles.addAddress}>
+        <View style={styles.innerWrap}>
+          <Text style={styles.tagTitle}>Address:</Text>
+          <Image source={EditTwoIcon} style={styles.editIcon} />
+        </View>
 
-        {item.isDefault && (
-          <Image
-            source={TickIcon}
-            style={StyleSheet.compose(styles.tickIcon, {tintColor: '#44b678'})}
-          />
-        )}
+        <View style={styles.addressOuter}>
+          <Text style={styles.tagTitleTwo}>
+            {item.address}, {item.city}, {item.state}, {item.postal}
+          </Text>
+          <Text style={styles.cardTitle}>
+            {item.addressType ? item.addressType : 'Home'}
+          </Text>
+        </View>
+        <View style={styles.contactWrap}>
+          <Text style={styles.tagTitleTwo}>Contact:</Text>
+          <Text style={styles.tagTitleTwo}>{item.phone}</Text>
+        </View>
       </View>
-      <Text style={styles.cardText}>{item.address}</Text>
-      <Text style={styles.cardText}>
-        {item.city}, {item.state} {item.postal}
-      </Text>
-      <View style={styles.buttonContainer}>
-        <TouchableOpacity
-          style={styles.editButton}
-          onPress={() => navigation.navigate('CreateAddress', {address: item})}>
-          <Image
-            source={EditIcon}
-            style={StyleSheet.compose(styles.icon, {tintColor: '#ffffff'})}
-          />
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          style={styles.deleteButton}
-          onPress={() => handleDelete(item.id)}>
-          <Image source={DeleteIcon} style={styles.icon} />
-        </TouchableOpacity>
-      </View>
-    </TouchableOpacity>
+    </>
   );
 
   return (
     <SafeAreaView style={styles.container}>
-      <Header
-        leftIcon={Back}
-        title="Addresses"
-        leftClick={() => navigation.goBack()}
-      />
-      <FlatList
-        data={addressList}
-        renderItem={renderItem}
-        keyExtractor={item => item.id}
-        contentContainerStyle={styles.listContainer}
-        showsVerticalScrollIndicator={false}
-      />
+      {/* Top Bar */}
+      <View style={styles.topBar}>
+        <TouchableOpacity
+          onPress={() => {
+            navigation.goBack();
+          }}>
+          <Image source={leftArrow} style={styles.backIcon} />
+        </TouchableOpacity>
+        <Text style={styles.title}>Address List</Text>
+        <Text style={styles.h}>H</Text>
+      </View>
+
+      <View style={styles.addressWrap}>
+        <FlatList
+          data={addressList}
+          renderItem={renderItem}
+          keyExtractor={item => item.id}
+          contentContainerStyle={styles.listContainer}
+          showsVerticalScrollIndicator={false}
+        />
+      </View>
       <TouchableOpacity
         style={styles.addButton}
         onPress={() => navigation.navigate('CreateAddress')}>
@@ -121,81 +119,37 @@ export default AddressList;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f8f8f8',
+    backgroundColor: Colors.PRIMARY_BG,
   },
   listContainer: {
     paddingBottom: 80,
     marginTop: 15,
   },
-  card: {
-    backgroundColor: '#ffffff',
-    borderRadius: 10,
-    padding: 15,
-    marginVertical: 10,
-    elevation: 3,
-    shadowColor: '#000',
-    shadowOpacity: 0.1,
-    shadowRadius: 5,
-    shadowOffset: {width: 0, height: 2},
-    margin: 20,
-  },
-  defaultCard: {
-    borderColor: '#44b678',
-    borderWidth: 2,
-  },
-  cardTitle: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    color: '#333',
-  },
-  cardText: {
-    fontSize: 14,
-    color: '#555',
-    marginVertical: 2,
-  },
-  cardContent: {
+  topBar: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+    paddingVertical: 12,
+    paddingHorizontal: 16,
   },
-  tickIcon: {
-    width: 20,
-    height: 20,
-    marginLeft: 10,
-  },
-  buttonContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginTop: 10,
-  },
-  editButton: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: '#4caf50',
-    padding: 8,
-    borderRadius: 5,
-  },
-  deleteButton: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: '#f44336',
-    padding: 10,
-    borderRadius: 5,
-  },
-  buttonText: {
-    color: '#ffffff',
-    marginLeft: 5,
-  },
-  icon: {
-    width: 17,
-    height: 17,
+  backIcon: {
+    width: 10,
+    height: 19,
     resizeMode: 'contain',
+  },
+  title: {
+    fontSize: 18,
+    fontFamily: Fonts.SEMIBOLD,
+    color: Colors.BLACK,
+  },
+  h: {
+    opacity: 0,
   },
   addButton: {
     position: 'absolute',
     bottom: 20,
     right: 20,
-    backgroundColor: '#0786DAFD',
+    backgroundColor: Colors.PRIMARY,
     borderRadius: 50,
     padding: 15,
     elevation: 5,
@@ -204,5 +158,62 @@ const styles = StyleSheet.create({
     width: 18,
     height: 18,
     tintColor: '#ffffff',
+  },
+  addAddress: {
+    flex: 1,
+    backgroundColor: Colors.WHITE,
+    borderRadius: 6,
+    padding: 12,
+    shadowColor: '#000',
+    shadowOpacity: 0.1,
+    shadowRadius: 10,
+    elevation: 3,
+    // height: 75,
+  },
+  innerWrap: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    position: 'relative',
+  },
+  tagTitle: {
+    fontSize: 12,
+    fontFamily: Fonts.MEDIUM,
+    color: Colors.BLACK,
+    marginBottom: 6,
+  },
+  editIcon: {
+    width: 15,
+    height: 15,
+    resizeMode: 'contain',
+    position: 'absolute',
+    right: 0,
+    top: -3,
+  },
+  tagTitleTwo: {
+    fontSize: 12,
+    fontFamily: Fonts.REGULAR,
+    color: Colors.BLACK,
+  },
+  contactWrap: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 5,
+  },
+  addressWrap: {
+    marginHorizontal: 16,
+  },
+  cardTitle: {
+    borderColor: '#44b678',
+    borderWidth: 1,
+    borderRadius: 5,
+    fontSize: 12,
+    paddingVertical: 2,
+    paddingHorizontal: 5,
+  },
+  addressOuter: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
 });
