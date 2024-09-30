@@ -68,6 +68,10 @@ import AddToCart from './AddToCart.png';
 import LocationIcon from './location.png';
 import AddTwoIcon from './AddTwo.png';
 import EditTwoIcon from './EditTwo.png';
+import Visa from './visa.png';
+import MasterCard from './master.png';
+import PayPal from './paypal.png';
+import Apple from './apple.png';
 
 export {
   Back,
@@ -140,4 +144,8 @@ export {
   LocationIcon,
   AddTwoIcon,
   EditTwoIcon,
+  Visa,
+  MasterCard,
+  PayPal,
+  Apple,
 };

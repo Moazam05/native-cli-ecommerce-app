@@ -170,7 +170,7 @@ const Checkout = () => {
             <View style={styles.buttonFooter}>
               <CustomButton
                 name="Proceed to Payment"
-                onPress={() => navigation.navigate('Checkout')}
+                onPress={() => navigation.navigate('Payment')}
                 // eslint-disable-next-line react-native/no-inline-styles
                 loginStyle={{marginTop: 0}}
                 // eslint-disable-next-line react-native/no-inline-styles
