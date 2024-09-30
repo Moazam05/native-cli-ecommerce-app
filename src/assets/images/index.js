@@ -71,7 +71,7 @@ import EditTwoIcon from './EditTwo.png';
 import Visa from './visa.png';
 import MasterCard from './master.png';
 import PayPal from './paypal.png';
-import Apple from './apple.png';
+import Cash from './wallet.png';
 
 export {
   Back,
@@ -147,5 +147,5 @@ export {
   Visa,
   MasterCard,
   PayPal,
-  Apple,
+  Cash,
 };
