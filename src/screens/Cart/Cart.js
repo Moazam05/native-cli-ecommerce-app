@@ -114,82 +114,74 @@ const Cart = ({setSelectedTab}) => {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
-      <StatusBar
-        barStyle="dark-content"
-        translucent
-        backgroundColor={Colors.PRIMARY_BG}
-      />
-      {/* Top Bar */}
-      <View style={styles.topBar}>
-        <TouchableOpacity
-          onPress={() => {
-            if (navigation.canGoBack()) {
-              navigation.goBack();
-            } else {
-              setSelectedTab(0);
-            }
-          }}>
-          <Image source={leftArrow} style={styles.backIcon} />
-        </TouchableOpacity>
-        <Text style={styles.title}>Shopping Bag</Text>
-        <Text style={styles.h}>H</Text>
-      </View>
-
-      <View style={styles.line} />
-
-      <View style={styles.address}>
-        <Image source={LocationIcon} style={styles.location} />
-        <Text style={styles.addressTitle}>Delivery Address</Text>
-      </View>
-
-      <View style={styles.addressWrap}>
-        <View style={styles.addAddress}>
-          <View style={styles.innerWrap}>
-            <Text style={styles.tagTitle}>Address:</Text>
-            <Image source={EditTwoIcon} style={styles.editIcon} />
-          </View>
-
-          <Text style={styles.tagTitleTwo}>MM Alam Road Lahore</Text>
-          <View style={styles.contactWrap}>
-            <Text style={styles.tagTitleTwo}>Contact:</Text>
-            <Text style={styles.tagTitleTwo}>+992 123 4567</Text>
-          </View>
-        </View>
-
-        <View style={styles.addressTwo}>
-          <Image source={AddTwoIcon} style={styles.addIcon} />
-        </View>
-      </View>
-
-      <View style={styles.shoppingWrap}>
-        <Text style={styles.shoppingTitle}>Shopping List</Text>
-      </View>
-
-      {/* FlatList to handle scrolling of products */}
-      <FlatList
-        data={cartProducts}
-        keyExtractor={item => item.id.toString()}
-        renderItem={renderItem}
-        contentContainerStyle={styles.productList}
-        ListEmptyComponent={
-          <Text style={styles.emptyText}>Your shopping bag is empty</Text>
-        }
-        showsVerticalScrollIndicator={false}
-        ListFooterComponent={
-          /* Payment details section after product list */
-          <View>
+    <FlatList
+      data={cartProducts}
+      keyExtractor={item => item.id.toString()}
+      ListHeaderComponent={
+        <View style={styles.container}>
+          {/* Top Bar */}
+          <View style={styles.topBar}>
             <TouchableOpacity
-              style={styles.checkoutButton}
               onPress={() => {
-                navigation.navigate('Checkout');
+                if (navigation.canGoBack()) {
+                  navigation.goBack();
+                } else {
+                  setSelectedTab(0);
+                }
               }}>
-              <Text style={styles.checkoutText}>Proceed to Checkout</Text>
+              <Image source={leftArrow} style={styles.backIcon} />
             </TouchableOpacity>
+            <Text style={styles.title}>Shopping Bag</Text>
+            <Text style={styles.h}>H</Text>
           </View>
-        }
-      />
-    </SafeAreaView>
+
+          <View style={styles.line} />
+
+          <View style={styles.address}>
+            <Image source={LocationIcon} style={styles.location} />
+            <Text style={styles.addressTitle}>Delivery Address</Text>
+          </View>
+
+          <View style={styles.addressWrap}>
+            <View style={styles.addAddress}>
+              <View style={styles.innerWrap}>
+                <Text style={styles.tagTitle}>Address:</Text>
+                <Image source={EditTwoIcon} style={styles.editIcon} />
+              </View>
+
+              <Text style={styles.tagTitleTwo}>MM Alam Road Lahore</Text>
+              <View style={styles.contactWrap}>
+                <Text style={styles.tagTitleTwo}>Contact:</Text>
+                <Text style={styles.tagTitleTwo}>+992 123 4567</Text>
+              </View>
+            </View>
+
+            <View style={styles.addressTwo}>
+              <Image source={AddTwoIcon} style={styles.addIcon} />
+            </View>
+          </View>
+
+          <View style={styles.shoppingWrap}>
+            <Text style={styles.shoppingTitle}>Shopping List</Text>
+          </View>
+          <View style={styles.categories}>
+            <FlatList
+              data={cartProducts}
+              keyExtractor={item => item.id.toString()}
+              renderItem={renderItem}
+              contentContainerStyle={styles.productList}
+              ListEmptyComponent={
+                <Text style={styles.emptyText}>Your shopping bag is empty</Text>
+              }
+            />
+          </View>
+        </View>
+      }
+      showsVerticalScrollIndicator={false}
+      renderItem={null} // Since categories are part of ListHeaderComponent
+      ListFooterComponent={<View style={styles.footer} />}
+      contentContainerStyle={styles.contentContainer}
+    />
   );
 };
 
@@ -435,7 +427,10 @@ const styles = StyleSheet.create({
     fontFamily: Fonts.SEMIBOLD,
     color: Colors.BLACK,
   },
-  productList: {
-    paddingBottom: 80,
+  footer: {
+    marginBottom: 80,
+  },
+  contentContainer: {
+    paddingTop: 20,
   },
 });
