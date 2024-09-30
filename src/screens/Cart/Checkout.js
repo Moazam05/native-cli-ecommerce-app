@@ -47,29 +47,19 @@ const Checkout = () => {
                 <View>
                   <Text style={styles.productTitle}>{item?.name}</Text>
                   <View style={styles.variantWrap}>
-                    <View
-                      style={{
-                        flexDirection: 'row',
-                        alignItems: 'center',
-                        justifyContent: 'space-between',
-                        gap: 6,
-                        flex: 1,
-                      }}>
-                      <View
-                        style={{
-                          flexDirection: 'row',
-                          alignItems: 'center',
-                          gap: 6,
-                        }}>
-                        <Text style={styles.variantTitle}>Variations:</Text>
-                        <Text style={styles.variantValue}>
-                          {findProductSize?.size}
-                        </Text>
-                      </View>
-                      <View style={styles.priceWrap}>
-                        <Text style={styles.productPrice}>
-                          Rs: {thousandSeparator(item?.price)}
-                        </Text>
+                    <View style={styles.variantWrap}>
+                      <View style={styles.variantInnerWrap}>
+                        <View style={styles.variantInnerLeft}>
+                          <Text style={styles.variantTitle}>Variations:</Text>
+                          <Text style={styles.variantValue}>
+                            {findProductSize?.size}
+                          </Text>
+                        </View>
+                        <View style={styles.priceWrap}>
+                          <Text style={styles.productPrice}>
+                            Rs: {thousandSeparator(item?.price)}
+                          </Text>
+                        </View>
                       </View>
                     </View>
                   </View>
@@ -135,7 +125,6 @@ const Checkout = () => {
               />
             </View>
 
-            {/* add css */}
             <View style={styles.wrap}>
               <Text style={styles.sectionTitle}>Order Payment Details</Text>
 
@@ -148,7 +137,17 @@ const Checkout = () => {
 
               <View style={styles.detailsContainer}>
                 <Text style={styles.detailLabel}>Delivery Fee</Text>
-                <Text style={styles.detailValue}>Free</Text>
+                <Text style={styles.free}>Free</Text>
+              </View>
+            </View>
+            <View style={styles.orderTotal}>
+              <View style={styles.line} />
+
+              <View style={styles.detailsContainer}>
+                <Text style={styles.orderLabel}>Order Total</Text>
+                <Text style={styles.detailValue}>
+                  Rs. {thousandSeparator(calculateTotal())}
+                </Text>
               </View>
             </View>
           </View>
@@ -165,12 +164,14 @@ const Checkout = () => {
                     {thousandSeparator(calculateTotal())}
                   </Text>
                 </View>
-                <Text style={styles.footerDetail}> Total</Text>
+                <TouchableOpacity onPress={() => navigation.goBack()}>
+                  <Text style={styles.footerDetail}>View Details</Text>
+                </TouchableOpacity>
               </View>
 
               <View style={styles.buttonFooter}>
                 <CustomButton
-                  name="Proceed to Checkout"
+                  name="Proceed to Payment"
                   onPress={() => navigation.navigate('Checkout')}
                   // eslint-disable-next-line react-native/no-inline-styles
                   loginStyle={{marginTop: 0}}
@@ -338,7 +339,6 @@ const styles = StyleSheet.create({
     color: Colors.BLACK,
   },
   footer: {
-    marginBottom: 60,
     marginTop: 20,
   },
   contentContainer: {
@@ -361,7 +361,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#F2F2F2',
     paddingTop: 35,
-    paddingBottom: 53,
+    paddingBottom: 45,
     paddingHorizontal: 22,
     borderTopLeftRadius: 30,
     borderTopRightRadius: 30,
@@ -387,6 +387,7 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontFamily: Fonts.SEMIBOLD,
     color: Colors.PRIMARY,
+    textDecorationLine: 'underline',
   },
   pkrWrap: {
     flexDirection: 'row',
@@ -395,6 +396,61 @@ const styles = StyleSheet.create({
   },
   pkr: {
     fontSize: 13,
+    fontFamily: Fonts.MEDIUM,
+    color: Colors.BLACK,
+  },
+
+  variantInnerWrap: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    gap: 6,
+    flex: 1,
+  },
+  variantInnerLeft: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
+  },
+
+  wrap: {
+    paddingHorizontal: 16,
+    paddingVertical: 12,
+  },
+  sectionTitle: {
+    fontSize: 17,
+    fontFamily: Fonts.SEMIBOLD,
+    color: Colors.BLACK,
+    marginBottom: 12,
+  },
+  detailsContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingVertical: 5,
+  },
+  detailLabel: {
+    fontSize: 16,
+    fontFamily: Fonts.REGULAR,
+    color: Colors.BLACK,
+  },
+  detailValue: {
+    fontSize: 16,
+    fontFamily: Fonts.SEMIBOLD,
+    color: Colors.BLACK,
+  },
+  free: {
+    fontSize: 16,
+    fontFamily: Fonts.SEMIBOLD,
+    color: Colors.PRIMARY,
+  },
+  orderTotal: {
+    paddingHorizontal: 16,
+    marginTop: 12,
+    marginBottom: 12,
+  },
+  orderLabel: {
+    fontSize: 17,
     fontFamily: Fonts.MEDIUM,
     color: Colors.BLACK,
   },
