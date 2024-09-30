@@ -15,6 +15,7 @@ import {
   AddTwoIcon,
   DeleteIcon,
   EditTwoIcon,
+  EmptyCart,
   leftArrow,
   LocationIcon,
 } from '../../assets/images';
@@ -160,35 +161,40 @@ const Cart = ({setSelectedTab}) => {
 
             <View style={styles.line} />
 
-            <View style={styles.address}>
-              <Image source={LocationIcon} style={styles.location} />
-              <Text style={styles.addressTitle}>Delivery Address</Text>
-            </View>
-
-            <View style={styles.addressWrap}>
-              <View style={styles.addAddress}>
-                <View style={styles.innerWrap}>
-                  <Text style={styles.tagTitle}>Address:</Text>
-                  <Image source={EditTwoIcon} style={styles.editIcon} />
+            {cartProducts.length > 0 && (
+              <View>
+                <View style={styles.address}>
+                  <Image source={LocationIcon} style={styles.location} />
+                  <Text style={styles.addressTitle}>Delivery Address</Text>
                 </View>
 
-                <Text style={styles.tagTitleTwo}>MM Alam Road Lahore</Text>
-                <View style={styles.contactWrap}>
-                  <Text style={styles.tagTitleTwo}>Contact:</Text>
-                  <Text style={styles.tagTitleTwo}>+992 123 4567</Text>
+                <View style={styles.addressWrap}>
+                  <View style={styles.addAddress}>
+                    <View style={styles.innerWrap}>
+                      <Text style={styles.tagTitle}>Address:</Text>
+                      <Image source={EditTwoIcon} style={styles.editIcon} />
+                    </View>
+
+                    <Text style={styles.tagTitleTwo}>MM Alam Road Lahore</Text>
+                    <View style={styles.contactWrap}>
+                      <Text style={styles.tagTitleTwo}>Contact:</Text>
+                      <Text style={styles.tagTitleTwo}>+992 123 4567</Text>
+                    </View>
+                  </View>
+
+                  <TouchableOpacity
+                    style={styles.addressTwo}
+                    onPress={() => navigation.navigate('AddressList')}>
+                    <Image source={AddTwoIcon} style={styles.addIcon} />
+                  </TouchableOpacity>
+                </View>
+
+                <View style={styles.shoppingWrap}>
+                  <Text style={styles.shoppingTitle}>Shopping List</Text>
                 </View>
               </View>
+            )}
 
-              <TouchableOpacity
-                style={styles.addressTwo}
-                onPress={() => navigation.navigate('AddressList')}>
-                <Image source={AddTwoIcon} style={styles.addIcon} />
-              </TouchableOpacity>
-            </View>
-
-            <View style={styles.shoppingWrap}>
-              <Text style={styles.shoppingTitle}>Shopping List</Text>
-            </View>
             <View
               style={[
                 styles.categories,
@@ -200,9 +206,12 @@ const Cart = ({setSelectedTab}) => {
                 renderItem={renderItem}
                 contentContainerStyle={styles.productList}
                 ListEmptyComponent={
-                  <Text style={styles.emptyText}>
-                    Your shopping bag is empty
-                  </Text>
+                  <>
+                    <Text style={styles.emptyText}>
+                      Your shopping bag is empty
+                    </Text>
+                    <Image source={EmptyCart} style={styles.emptyCart} />
+                  </>
                 }
               />
             </View>
@@ -213,36 +222,38 @@ const Cart = ({setSelectedTab}) => {
         contentContainerStyle={styles.contentContainer}
       />
 
-      <View
-        style={[
-          styles.addButton,
-          navigation.canGoBack() && styles.activeAddButton,
-        ]}>
-        <View style={styles.footer}>
-          <View style={styles.innerFooter}>
-            <View style={styles.foFirst}>
-              <View style={styles.pkrWrap}>
-                <Text style={styles.pkr}>PKR</Text>
-                <Text style={styles.footerPrice}>
-                  {thousandSeparator(calculateTotal())}
-                </Text>
+      {cartProducts.length > 0 && (
+        <View
+          style={[
+            styles.addButton,
+            navigation.canGoBack() && styles.activeAddButton,
+          ]}>
+          <View style={styles.footer}>
+            <View style={styles.innerFooter}>
+              <View style={styles.foFirst}>
+                <View style={styles.pkrWrap}>
+                  <Text style={styles.pkr}>PKR</Text>
+                  <Text style={styles.footerPrice}>
+                    {thousandSeparator(calculateTotal())}
+                  </Text>
+                </View>
+                <Text style={styles.footerDetail}> Total</Text>
               </View>
-              <Text style={styles.footerDetail}> Total</Text>
-            </View>
 
-            <View style={styles.buttonFooter}>
-              <CustomButton
-                name="Proceed to Checkout"
-                onPress={() => navigation.navigate('Checkout')}
-                // eslint-disable-next-line react-native/no-inline-styles
-                loginStyle={{marginTop: 0}}
-                // eslint-disable-next-line react-native/no-inline-styles
-                buttonStyle={{fontSize: 15}}
-              />
+              <View style={styles.buttonFooter}>
+                <CustomButton
+                  name="Proceed to Checkout"
+                  onPress={() => navigation.navigate('Checkout')}
+                  // eslint-disable-next-line react-native/no-inline-styles
+                  loginStyle={{marginTop: 0}}
+                  // eslint-disable-next-line react-native/no-inline-styles
+                  buttonStyle={{fontSize: 15}}
+                />
+              </View>
             </View>
           </View>
         </View>
-      </View>
+      )}
     </SafeAreaView>
   );
 };
@@ -260,6 +271,21 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingBottom: 12,
     paddingHorizontal: 16,
+  },
+  emptyText: {
+    fontSize: 16,
+    fontFamily: Fonts.MEDIUM,
+    color: '#888',
+    textAlign: 'center',
+    marginTop: 20,
+  },
+  emptyCart: {
+    width: 30,
+    height: 30,
+    resizeMode: 'contain',
+    alignSelf: 'center',
+    marginTop: 20,
+    tintColor: Colors.PRIMARY,
   },
   backIcon: {
     width: 10,

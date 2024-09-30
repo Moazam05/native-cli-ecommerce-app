@@ -15,6 +15,7 @@ import {
   NavigationIcon,
   UserIcon,
   WishlistFill,
+  WishlistIcon,
 } from '../../assets/images';
 import useTypedSelector from '../../hooks/useTypedSelector';
 import {
@@ -95,7 +96,10 @@ const WishList = () => {
           numColumns={2} // Display two items per row
           showsVerticalScrollIndicator={false}
           ListEmptyComponent={
-            <Text style={styles.emptyText}>No items in your wishlist</Text>
+            <>
+              <Text style={styles.emptyText}>No items in your wishlist</Text>
+              <Image source={WishlistIcon} style={styles.emptyCart} />
+            </>
           }
         />
       </View>
@@ -163,6 +167,14 @@ const styles = StyleSheet.create({
     marginTop: 20,
     fontSize: 16,
     color: '#888',
+  },
+  emptyCart: {
+    width: 30,
+    height: 30,
+    resizeMode: 'contain',
+    alignSelf: 'center',
+    marginTop: 20,
+    tintColor: Colors.PRIMARY,
   },
   listContainer: {
     paddingBottom: 140,
