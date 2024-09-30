@@ -1,42 +1,35 @@
+import {useNavigation} from '@react-navigation/native';
 import React, {useEffect, useState} from 'react';
 import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  Image,
-  FlatList,
-  StatusBar,
   Alert,
+  FlatList,
+  Image,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
 } from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import {useNavigation} from '@react-navigation/native';
-import useTypedSelector from '../../hooks/useTypedSelector';
-import {
-  selectedProducts,
-  removeProduct,
-  incrementProductQuantity,
-  decrementProductQuantity,
-} from '../../redux/products/productsSlice';
 import {useDispatch} from 'react-redux';
-import Header from '../../components/Header';
 import {
   AddTwoIcon,
-  Back,
-  CartIcon,
   DeleteIcon,
   EditTwoIcon,
   leftArrow,
   LocationIcon,
-  NavigationIcon,
 } from '../../assets/images';
-import {Fonts} from '../../constants/fonts';
-import {Colors} from '../../constants/colors';
-import {selectAddress} from '../../redux/address/addressSlice';
-import RatingStar from '../../components/RatingStar';
-import {thousandSeparator} from '../../utils';
-import {selectProductSize} from '../../redux/productSize/productSizeSlice';
 import CustomButton from '../../components/CustomButton';
+import RatingStar from '../../components/RatingStar';
+import {Colors} from '../../constants/colors';
+import {Fonts} from '../../constants/fonts';
+import useTypedSelector from '../../hooks/useTypedSelector';
+import {selectAddress} from '../../redux/address/addressSlice';
+import {
+  removeProduct,
+  selectedProducts,
+} from '../../redux/products/productsSlice';
+import {selectProductSize} from '../../redux/productSize/productSizeSlice';
+import {thousandSeparator} from '../../utils';
 
 const Cart = ({setSelectedTab}) => {
   const navigation = useNavigation();
@@ -196,7 +189,11 @@ const Cart = ({setSelectedTab}) => {
             <View style={styles.shoppingWrap}>
               <Text style={styles.shoppingTitle}>Shopping List</Text>
             </View>
-            <View style={styles.categories}>
+            <View
+              style={[
+                styles.categories,
+                navigation.canGoBack() && styles.activeCategories,
+              ]}>
               <FlatList
                 data={cartProducts}
                 keyExtractor={item => item.id.toString()}
@@ -216,7 +213,11 @@ const Cart = ({setSelectedTab}) => {
         contentContainerStyle={styles.contentContainer}
       />
 
-      <View style={styles.addButton}>
+      <View
+        style={[
+          styles.addButton,
+          navigation.canGoBack() && styles.activeAddButton,
+        ]}>
         <View style={styles.footer}>
           <View style={styles.innerFooter}>
             <View style={styles.foFirst}>
@@ -267,6 +268,9 @@ const styles = StyleSheet.create({
   },
   categories: {
     paddingBottom: 200,
+  },
+  activeCategories: {
+    paddingBottom: 140,
   },
   title: {
     fontSize: 18,
@@ -552,8 +556,11 @@ const styles = StyleSheet.create({
 
   addButton: {
     position: 'absolute',
-    bottom: 0, // 65
+    bottom: 65,
     right: 0,
     left: 0,
+  },
+  activeAddButton: {
+    bottom: 0,
   },
 });
