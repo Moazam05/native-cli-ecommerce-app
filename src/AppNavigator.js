@@ -17,6 +17,7 @@ import Welcome from './screens/Welcome/Welcome';
 import {Colors} from './constants/colors';
 import ForgotPassword from './screens/Authentication/ForgotPassword';
 import PreMain from './screens/PreMain';
+import Home from './screens/tabs/Home';
 
 const Stack = createNativeStackNavigator();
 
@@ -76,6 +77,14 @@ const AppNavigator = () => {
             <Stack.Screen
               name="ProductDetail"
               component={ProductDetail}
+              options={{
+                headerShown: false,
+              }}
+            />
+
+            <Stack.Screen
+              name="Home"
+              component={Home}
               options={{
                 headerShown: false,
               }}

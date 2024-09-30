@@ -126,15 +126,18 @@ const ProductDetail = () => {
           <TouchableOpacity onPress={() => navigation.goBack()}>
             <Image source={leftArrow} style={styles.backIcon} />
           </TouchableOpacity>
-          <View style={styles.rightIcons}>
-            <TouchableOpacity>
-              <Image source={CartTwo} style={styles.cartIcon} />
-            </TouchableOpacity>
-          </View>
+
+          <TouchableOpacity
+            style={styles.rightIcons}
+            onPress={() => navigation.navigate('Cart')}>
+            <Image source={CartTwo} style={styles.cartIcon} />
+          </TouchableOpacity>
           {cartProducts.length > 0 && (
-            <View style={styles.badge}>
+            <TouchableOpacity
+              style={styles.badge}
+              onPress={() => navigation.navigate('Cart')}>
               <Text style={styles.badgeText}>{cartProducts.length}</Text>
-            </View>
+            </TouchableOpacity>
           )}
         </View>
         {/* Swiper */}
