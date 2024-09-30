@@ -38,25 +38,27 @@ const Checkout = () => {
       </View>
 
       <View style={styles.wrap}>
-        <View>
-          <Text>Order Payment Details</Text>
+        <Text style={styles.sectionTitle}>Order Payment Details</Text>
 
-          <View>
-            <Text>Order Amounts</Text>
-            <Text> Rs. {thousandSeparator(calculateTotal())}</Text>
-          </View>
+        <View style={styles.detailsContainer}>
+          <Text style={styles.detailLabel}>Order Amounts</Text>
+          <Text style={styles.detailValue}>
+            Rs. {thousandSeparator(calculateTotal())}
+          </Text>
+        </View>
 
-          <View>
-            <Text>Delivery Fee</Text>
-            <Text> Free </Text>
-          </View>
+        <View style={styles.detailsContainer}>
+          <Text style={styles.detailLabel}>Delivery Fee</Text>
+          <Text style={styles.free}>Free</Text>
         </View>
 
         <View style={styles.line} />
 
-        <View>
-          <Text>Order Total</Text>
-          <Text> Rs. {thousandSeparator(calculateTotal())}</Text>
+        <View style={styles.detailsContainer}>
+          <Text style={styles.detailLabel}>Order Total</Text>
+          <Text style={styles.detailValue}>
+            Rs. {thousandSeparator(calculateTotal())}
+          </Text>
         </View>
       </View>
     </SafeAreaView>
@@ -76,6 +78,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingVertical: 12,
     paddingHorizontal: 16,
+    borderBottomWidth: 1,
+    borderBottomColor: '#CACACA',
   },
   backIcon: {
     width: 10,
@@ -92,5 +96,37 @@ const styles = StyleSheet.create({
   },
   wrap: {
     paddingHorizontal: 16,
+  },
+  sectionTitle: {
+    fontSize: 16,
+    fontFamily: Fonts.MEDIUM,
+    color: Colors.BLACK,
+    marginBottom: 25,
+    marginTop: 35,
+  },
+  detailsContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: 20,
+  },
+  detailLabel: {
+    fontSize: 16,
+    fontFamily: Fonts.REGULAR,
+    color: Colors.BLACK,
+  },
+  detailValue: {
+    fontSize: 16,
+    fontFamily: Fonts.SEMIBOLD,
+    color: Colors.BLACK,
+  },
+  line: {
+    height: 1,
+    backgroundColor: '#C6C6C6',
+    marginVertical: 20,
+  },
+  free: {
+    fontSize: 14,
+    fontFamily: Fonts.SEMIBOLD,
+    color: Colors.PRIMARY,
   },
 });
