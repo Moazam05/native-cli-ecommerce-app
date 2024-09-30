@@ -37,6 +37,10 @@ import {
   setWishListProducts,
 } from '../../redux/wishlist/wishlistsSlice';
 import {thousandSeparator} from '../../utils';
+import {
+  selectProductSize,
+  setProductSizeStore,
+} from '../../redux/productSize/productSizeSlice';
 
 const ProductDetail = () => {
   const navigation = useNavigation();
@@ -47,6 +51,7 @@ const ProductDetail = () => {
 
   const wishListProducts = useTypedSelector(selectWishlistProducts);
   const cartProducts = useTypedSelector(selectedProducts);
+  const getProductSize = useTypedSelector(selectProductSize);
 
   const [selectedProduct, setSelectedProduct] = useState();
   const [productImages, setProductImages] = useState([]);
@@ -65,7 +70,13 @@ const ProductDetail = () => {
     if (findImages) {
       setProductImages(findImages.images);
     }
-  }, [item]);
+
+    // find product size
+    const tempProductSize = getProductSize.find(pr => pr.id === item.id);
+    if (tempProductSize) {
+      setProductSize(tempProductSize.size);
+    }
+  }, [getProductSize, item]);
 
   useEffect(() => {
     const isProductInWishlist = wishListProducts.some(
@@ -91,9 +102,13 @@ const ProductDetail = () => {
   };
 
   const addToCartHandler = () => {
-    // add size in item json
-    item.size = productSize;
     dispatch(setCartProducts(item));
+  };
+
+  const handleProductSize = size => {
+    setProductSize(size);
+    const newItem = {...item, size};
+    dispatch(setProductSizeStore(newItem));
   };
 
   return (
@@ -175,7 +190,9 @@ const ProductDetail = () => {
                     styles.chip,
                     productSize === size.size ? styles.activeChip : null,
                   ]}
-                  onPress={() => setProductSize(size.size)}>
+                  onPress={() => {
+                    handleProductSize(size.size);
+                  }}>
                   {size?.size}
                 </Text>
               );
@@ -227,7 +244,6 @@ const ProductDetail = () => {
                 <TouchableOpacity
                   style={styles.quantityButton}
                   onPress={() => {
-                    item.size = productSize;
                     dispatch(decrementProductQuantity(item.id));
                   }}>
                   <Text style={styles.quantityButtonText}>-</Text>
@@ -236,7 +252,6 @@ const ProductDetail = () => {
                 <TouchableOpacity
                   style={styles.quantityButton}
                   onPress={() => {
-                    item.size = productSize;
                     dispatch(incrementProductQuantity(item.id));
                   }}>
                   <Text

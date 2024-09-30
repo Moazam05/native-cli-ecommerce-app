@@ -8,23 +8,31 @@ import wishListReducer from './wishlist/wishlistsSlice';
 import addressReducer from './address/addressSlice';
 import authReducer from './auth/authSlice';
 import searchbarReducer from './searchbar/searchbarSlice';
+import productSizeReducer from './productSize/productSizeSlice';
 
 // Configurations for redux-persist
 const persistConfig = {
   key: 'root',
   storage: AsyncStorage,
-  whitelist: ['products', 'wishListProducts', 'address', 'auth', 'searchbar'], // Slices to persist
+  whitelist: [
+    'products',
+    'wishListProducts',
+    'address',
+    'auth',
+    'searchbar',
+    'productSize',
+  ],
 };
 
 // Combine your reducers
 const rootReducer = combineReducers({
-  [apiSlice.reducerPath]: apiSlice.reducer, // For API Integration
-
+  [apiSlice.reducerPath]: apiSlice.reducer,
   products: productsReducer,
   wishListProducts: wishListReducer,
   address: addressReducer,
   auth: authReducer,
   searchbar: searchbarReducer,
+  productSize: productSizeReducer,
 });
 
 // Create a persisted reducer
@@ -36,8 +44,8 @@ export const store = configureStore({
     getDefaultMiddleware({
       immutableCheck: false,
       serializableCheck: false,
-    }).concat(apiSlice.middleware), // Include middleware for both API slices
+    }).concat(apiSlice.middleware),
 });
 
-// Export the persistor, which will be used in your app entry file
+// Export the persistor
 export const persistor = persistStore(store);
