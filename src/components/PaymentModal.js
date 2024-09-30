@@ -24,7 +24,10 @@ const PaymentModal = ({visible, setModalVisible}) => {
               buttonStyle={styles.homeText}
               onPress={() => {
                 setModalVisible(false);
-                navigation.navigate('Main');
+                navigation.reset({
+                  index: 0,
+                  routes: [{name: 'Main'}],
+                });
               }}
             />
             <CustomButton
