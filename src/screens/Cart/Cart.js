@@ -137,7 +137,9 @@ const Cart = ({setSelectedTab}) => {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView
+      // eslint-disable-next-line react-native/no-inline-styles
+      style={[styles.container, navigation.canGoBack() && {marginTop: 36}]}>
       <FlatList
         data={cartProducts}
         keyExtractor={item => item.id.toString()}
