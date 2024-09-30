@@ -84,7 +84,7 @@ const Checkout = () => {
         data={cartProducts}
         keyExtractor={item => item.id.toString()}
         ListHeaderComponent={
-          <View style={styles.container}>
+          <View>
             {/* Top Bar */}
             <View style={styles.topBar}>
               <TouchableOpacity

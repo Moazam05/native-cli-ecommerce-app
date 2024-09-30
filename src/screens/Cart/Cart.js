@@ -143,74 +143,80 @@ const Cart = ({setSelectedTab}) => {
   };
 
   return (
-    <FlatList
-      data={cartProducts}
-      keyExtractor={item => item.id.toString()}
-      ListHeaderComponent={
-        <View style={styles.container}>
-          {/* Top Bar */}
-          <View style={styles.topBar}>
-            <TouchableOpacity
-              onPress={() => {
-                if (navigation.canGoBack()) {
-                  navigation.goBack();
-                } else {
-                  setSelectedTab(0);
-                }
-              }}>
-              <Image source={leftArrow} style={styles.backIcon} />
-            </TouchableOpacity>
-            <Text style={styles.title}>Shopping Bag</Text>
-            <Text style={styles.h}>H</Text>
-          </View>
-
-          <View style={styles.line} />
-
-          <View style={styles.address}>
-            <Image source={LocationIcon} style={styles.location} />
-            <Text style={styles.addressTitle}>Delivery Address</Text>
-          </View>
-
-          <View style={styles.addressWrap}>
-            <View style={styles.addAddress}>
-              <View style={styles.innerWrap}>
-                <Text style={styles.tagTitle}>Address:</Text>
-                <Image source={EditTwoIcon} style={styles.editIcon} />
-              </View>
-
-              <Text style={styles.tagTitleTwo}>MM Alam Road Lahore</Text>
-              <View style={styles.contactWrap}>
-                <Text style={styles.tagTitleTwo}>Contact:</Text>
-                <Text style={styles.tagTitleTwo}>+992 123 4567</Text>
-              </View>
+    <SafeAreaView style={styles.container}>
+      <FlatList
+        data={cartProducts}
+        keyExtractor={item => item.id.toString()}
+        ListHeaderComponent={
+          <View style={styles.container}>
+            {/* Top Bar */}
+            <View style={styles.topBar}>
+              <TouchableOpacity
+                onPress={() => {
+                  if (navigation.canGoBack()) {
+                    navigation.goBack();
+                  } else {
+                    setSelectedTab(0);
+                  }
+                }}>
+                <Image source={leftArrow} style={styles.backIcon} />
+              </TouchableOpacity>
+              <Text style={styles.title}>Shopping Bag</Text>
+              <Text style={styles.h}>H</Text>
             </View>
 
-            <TouchableOpacity
-              style={styles.addressTwo}
-              onPress={() => navigation.navigate('AddressList')}>
-              <Image source={AddTwoIcon} style={styles.addIcon} />
-            </TouchableOpacity>
-          </View>
+            <View style={styles.line} />
 
-          <View style={styles.shoppingWrap}>
-            <Text style={styles.shoppingTitle}>Shopping List</Text>
+            <View style={styles.address}>
+              <Image source={LocationIcon} style={styles.location} />
+              <Text style={styles.addressTitle}>Delivery Address</Text>
+            </View>
+
+            <View style={styles.addressWrap}>
+              <View style={styles.addAddress}>
+                <View style={styles.innerWrap}>
+                  <Text style={styles.tagTitle}>Address:</Text>
+                  <Image source={EditTwoIcon} style={styles.editIcon} />
+                </View>
+
+                <Text style={styles.tagTitleTwo}>MM Alam Road Lahore</Text>
+                <View style={styles.contactWrap}>
+                  <Text style={styles.tagTitleTwo}>Contact:</Text>
+                  <Text style={styles.tagTitleTwo}>+992 123 4567</Text>
+                </View>
+              </View>
+
+              <TouchableOpacity
+                style={styles.addressTwo}
+                onPress={() => navigation.navigate('AddressList')}>
+                <Image source={AddTwoIcon} style={styles.addIcon} />
+              </TouchableOpacity>
+            </View>
+
+            <View style={styles.shoppingWrap}>
+              <Text style={styles.shoppingTitle}>Shopping List</Text>
+            </View>
+            <View style={styles.categories}>
+              <FlatList
+                data={cartProducts}
+                keyExtractor={item => item.id.toString()}
+                renderItem={renderItem}
+                contentContainerStyle={styles.productList}
+                ListEmptyComponent={
+                  <Text style={styles.emptyText}>
+                    Your shopping bag is empty
+                  </Text>
+                }
+              />
+            </View>
           </View>
-          <View style={styles.categories}>
-            <FlatList
-              data={cartProducts}
-              keyExtractor={item => item.id.toString()}
-              renderItem={renderItem}
-              contentContainerStyle={styles.productList}
-              ListEmptyComponent={
-                <Text style={styles.emptyText}>Your shopping bag is empty</Text>
-              }
-            />
-          </View>
-        </View>
-      }
-      showsVerticalScrollIndicator={false}
-      renderItem={null} // Since categories are part of ListHeaderComponent
-      ListFooterComponent={
+        }
+        showsVerticalScrollIndicator={false}
+        renderItem={null} // Since categories are part of ListHeaderComponent
+        contentContainerStyle={styles.contentContainer}
+      />
+
+      <View style={styles.addButton}>
         <View style={styles.footer}>
           <View style={styles.innerFooter}>
             <View style={styles.foFirst}>
@@ -235,9 +241,8 @@ const Cart = ({setSelectedTab}) => {
             </View>
           </View>
         </View>
-      }
-      contentContainerStyle={styles.contentContainer}
-    />
+      </View>
+    </SafeAreaView>
   );
 };
 
@@ -259,6 +264,9 @@ const styles = StyleSheet.create({
     width: 10,
     height: 19,
     resizeMode: 'contain',
+  },
+  categories: {
+    paddingBottom: 200,
   },
   title: {
     fontSize: 18,
@@ -483,10 +491,7 @@ const styles = StyleSheet.create({
     fontFamily: Fonts.SEMIBOLD,
     color: Colors.BLACK,
   },
-  footer: {
-    marginBottom: 60,
-    marginTop: 20,
-  },
+
   contentContainer: {
     paddingTop: 20,
   },
@@ -507,7 +512,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#F2F2F2',
     paddingTop: 35,
-    paddingBottom: 53,
+    paddingBottom: 40,
     paddingHorizontal: 22,
     borderTopLeftRadius: 30,
     borderTopRightRadius: 30,
@@ -543,5 +548,12 @@ const styles = StyleSheet.create({
     fontSize: 13,
     fontFamily: Fonts.MEDIUM,
     color: Colors.BLACK,
+  },
+
+  addButton: {
+    position: 'absolute',
+    bottom: 0, // 65
+    right: 0,
+    left: 0,
   },
 });
