@@ -211,9 +211,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 30,
     marginVertical: 20,
   },
-  keyboardAvoidingView: {
-    flex: 1,
-  },
+
   scrollContainer: {
     paddingBottom: 20,
   },
