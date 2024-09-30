@@ -185,9 +185,11 @@ const Cart = ({setSelectedTab}) => {
               </View>
             </View>
 
-            <View style={styles.addressTwo}>
+            <TouchableOpacity
+              style={styles.addressTwo}
+              onPress={() => navigation.navigate('AddressList')}>
               <Image source={AddTwoIcon} style={styles.addIcon} />
-            </View>
+            </TouchableOpacity>
           </View>
 
           <View style={styles.shoppingWrap}>
