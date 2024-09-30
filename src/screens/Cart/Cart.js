@@ -36,7 +36,7 @@ import RatingStar from '../../components/RatingStar';
 import {thousandSeparator} from '../../utils';
 import {selectProductSize} from '../../redux/productSize/productSizeSlice';
 
-const Cart = () => {
+const Cart = ({setSelectedTab}) => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
   const cartProducts = useTypedSelector(selectedProducts);
@@ -124,7 +124,11 @@ const Cart = () => {
       <View style={styles.topBar}>
         <TouchableOpacity
           onPress={() => {
-            navigation.navigate('Home');
+            if (navigation.canGoBack()) {
+              navigation.goBack();
+            } else {
+              setSelectedTab(0);
+            }
           }}>
           <Image source={leftArrow} style={styles.backIcon} />
         </TouchableOpacity>
@@ -194,6 +198,7 @@ export default Cart;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: Colors.PRIMARY_BG,
   },
   topBar: {
     flexDirection: 'row',
@@ -334,9 +339,10 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   productImage: {
-    width: 125,
-    height: 125,
+    width: 110,
+    height: 120,
     borderRadius: 10,
+    resizeMode: 'cover',
   },
   productDetails: {
     marginLeft: 12,
