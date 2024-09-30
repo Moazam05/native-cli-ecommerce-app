@@ -61,6 +61,12 @@ const Cart = ({setSelectedTab}) => {
     dispatch(removeProduct(id));
   };
 
+  const calculateTotal = () => {
+    return cartProducts
+      .reduce((total, product) => total + product.price * product.quantity, 0)
+      .toFixed(2);
+  };
+
   const renderItem = ({item}) => {
     const findProductSize = productSize.find(prSize => prSize.id === item.id);
     return (
@@ -206,12 +212,22 @@ const Cart = ({setSelectedTab}) => {
         <View style={styles.footer}>
           <View style={styles.innerFooter}>
             <View style={styles.foFirst}>
-              <Text style={styles.footerPrice}>PKR 5000</Text>
-              <Text style={styles.footerDetail}> View Detail</Text>
+              <View style={styles.pkrWrap}>
+                <Text style={styles.pkr}>PKR</Text>
+                <Text style={styles.footerPrice}>
+                  {thousandSeparator(calculateTotal())}
+                </Text>
+              </View>
+              <Text style={styles.footerDetail}> Total</Text>
             </View>
 
             <View style={styles.buttonFooter}>
-              <CustomButton name="Proceed to Checkout" />
+              <CustomButton
+                name="Proceed to Checkout"
+                onPress={() => navigation.navigate('Checkout')}
+                loginStyle={{marginTop: 0}}
+                buttonStyle={{fontSize: 15}}
+              />
             </View>
           </View>
         </View>
@@ -485,19 +501,24 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    backgroundColor: '#F8F8F8',
-    paddingVertical: 32,
+    backgroundColor: '#F2F2F2',
+    paddingTop: 35,
+    paddingBottom: 53,
     paddingHorizontal: 22,
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
-    borderTopWidth: 1,
-    borderTopColor: '#DADADA',
+    borderTopLeftRadius: 30,
+    borderTopRightRadius: 30,
+    borderBottomWidth: 0,
+    borderLeftWidth: 0,
+    borderRightWidth: 0,
   },
   buttonFooter: {
-    width: '65%',
+    width: '62%',
   },
   foFirst: {
-    width: '30%',
+    width: '35%',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   footerPrice: {
     fontSize: 16,
@@ -508,5 +529,15 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontFamily: Fonts.SEMIBOLD,
     color: Colors.PRIMARY,
+  },
+  pkrWrap: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 5,
+  },
+  pkr: {
+    fontSize: 13,
+    fontFamily: Fonts.MEDIUM,
+    color: Colors.BLACK,
   },
 });
