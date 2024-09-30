@@ -7,6 +7,7 @@ import {
   Image,
   FlatList,
   StatusBar,
+  Alert,
 } from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {useNavigation} from '@react-navigation/native';
@@ -103,9 +104,30 @@ const Cart = ({setSelectedTab}) => {
               <Text style={styles.totalOr}>
                 Total Orders ({item?.quantity}) :
               </Text>
-              <Text style={styles.totalOrderPrice}>
-                Rs: {thousandSeparator(item?.quantity * item?.price)}
-              </Text>
+              <View style={styles.deleteWrap}>
+                <Text style={styles.totalOrderPrice}>
+                  Rs: {thousandSeparator(item?.quantity * item?.price)}
+                </Text>
+                <TouchableOpacity
+                  onPress={() => {
+                    Alert.alert(
+                      'Confirm deletion',
+                      'Are you sure you want to delete this product?',
+                      [
+                        {
+                          text: 'Cancel',
+                          style: 'cancel',
+                        },
+                        {
+                          text: 'OK',
+                          onPress: () => handleRemoveProduct(item.id),
+                        },
+                      ],
+                    );
+                  }}>
+                  <Image source={DeleteIcon} style={styles.deleteIcon} />
+                </TouchableOpacity>
+              </View>
             </View>
           </View>
         </View>
@@ -432,5 +454,15 @@ const styles = StyleSheet.create({
   },
   contentContainer: {
     paddingTop: 20,
+  },
+  deleteWrap: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 15,
+  },
+  deleteIcon: {
+    width: 15,
+    height: 15,
+    resizeMode: 'contain',
   },
 });
