@@ -19,12 +19,13 @@ const TextField = ({
   secureTextEntry,
   multiline,
   leftIcon,
+  inputWrap,
 }) => {
   const [showPassword, setShowPassword] = useState(false);
 
   return (
     <View style={styles.inputContainer}>
-      <View style={[styles.input, error ? styles.inputError : null]}>
+      <View style={[styles.input, inputWrap, error ? styles.inputError : null]}>
         {leftIcon && <View style={styles.leftIconContainer}>{leftIcon}</View>}
         <TextInput
           style={[styles.textInput, multiline ? styles.multilineInput : null]}

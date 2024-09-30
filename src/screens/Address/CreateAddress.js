@@ -118,6 +118,11 @@ const CreateAddress = () => {
                   onChangeText={handleChange('state')}
                   onBlur={handleBlur('state')}
                   error={touched.state && errors.state}
+                  inputWrap={{
+                    height: 48,
+                    backgroundColor: 'transparent',
+                    borderRadius: 8,
+                  }}
                 />
               </View>
 
@@ -128,6 +133,11 @@ const CreateAddress = () => {
                   onChangeText={handleChange('city')}
                   onBlur={handleBlur('city')}
                   error={touched.city && errors.city}
+                  inputWrap={{
+                    height: 48,
+                    backgroundColor: 'transparent',
+                    borderRadius: 8,
+                  }}
                 />
               </View>
 
@@ -139,6 +149,11 @@ const CreateAddress = () => {
                   onBlur={handleBlur('postalCode')}
                   error={touched.postalCode && errors.postalCode}
                   keyboardType="number-pad"
+                  inputWrap={{
+                    height: 48,
+                    backgroundColor: 'transparent',
+                    borderRadius: 8,
+                  }}
                 />
               </View>
 
@@ -149,6 +164,11 @@ const CreateAddress = () => {
                   onChangeText={handleChange('address')}
                   onBlur={handleBlur('address')}
                   error={touched.address && errors.address}
+                  inputWrap={{
+                    height: 48,
+                    backgroundColor: 'transparent',
+                    borderRadius: 8,
+                  }}
                 />
               </View>
 
@@ -160,6 +180,11 @@ const CreateAddress = () => {
                   onBlur={handleBlur('phone')}
                   error={touched.phone && errors.phone}
                   keyboardType="number-pad"
+                  inputWrap={{
+                    height: 48,
+                    backgroundColor: 'transparent',
+                    borderRadius: 8,
+                  }}
                 />
               </View>
 
