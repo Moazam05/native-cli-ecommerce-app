@@ -9,19 +9,14 @@ import {
   View,
 } from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import {
-  AddTwoIcon,
-  EditTwoIcon,
-  leftArrow,
-  LocationIcon,
-} from '../../assets/images';
+import {leftArrow} from '../../assets/images';
+import CustomButton from '../../components/CustomButton';
 import {Colors} from '../../constants/colors';
 import {Fonts} from '../../constants/fonts';
 import useTypedSelector from '../../hooks/useTypedSelector';
 import {selectedProducts} from '../../redux/products/productsSlice';
-import {thousandSeparator} from '../../utils';
-import CustomButton from '../../components/CustomButton';
 import {selectProductSize} from '../../redux/productSize/productSizeSlice';
+import {thousandSeparator} from '../../utils';
 
 const Checkout = () => {
   const navigation = useNavigation();
@@ -143,7 +138,7 @@ const Checkout = () => {
             <View style={styles.orderTotal}>
               <View style={styles.line} />
 
-              <View style={styles.detailsContainer}>
+              <View style={styles.detailsContainerLast}>
                 <Text style={styles.orderLabel}>Order Total</Text>
                 <Text style={styles.detailValue}>
                   Rs. {thousandSeparator(calculateTotal())}
@@ -154,36 +149,37 @@ const Checkout = () => {
         }
         showsVerticalScrollIndicator={false}
         renderItem={null} // Since categories are part of ListHeaderComponent
-        ListFooterComponent={
-          <View style={styles.footer}>
-            <View style={styles.innerFooter}>
-              <View style={styles.foFirst}>
-                <View style={styles.pkrWrap}>
-                  <Text style={styles.pkr}>PKR</Text>
-                  <Text style={styles.footerPrice}>
-                    {thousandSeparator(calculateTotal())}
-                  </Text>
-                </View>
-                <TouchableOpacity onPress={() => navigation.goBack()}>
-                  <Text style={styles.footerDetail}>View Details</Text>
-                </TouchableOpacity>
-              </View>
-
-              <View style={styles.buttonFooter}>
-                <CustomButton
-                  name="Proceed to Payment"
-                  onPress={() => navigation.navigate('Checkout')}
-                  // eslint-disable-next-line react-native/no-inline-styles
-                  loginStyle={{marginTop: 0}}
-                  // eslint-disable-next-line react-native/no-inline-styles
-                  buttonStyle={{fontSize: 15}}
-                />
-              </View>
-            </View>
-          </View>
-        }
         contentContainerStyle={styles.contentContainer}
       />
+
+      <View style={styles.addButton}>
+        <View style={styles.footer}>
+          <View style={styles.innerFooter}>
+            <View style={styles.foFirst}>
+              <View style={styles.pkrWrap}>
+                <Text style={styles.pkr}>PKR</Text>
+                <Text style={styles.footerPrice}>
+                  {thousandSeparator(calculateTotal())}
+                </Text>
+              </View>
+              <TouchableOpacity onPress={() => navigation.goBack()}>
+                <Text style={styles.footerDetail}>View Details</Text>
+              </TouchableOpacity>
+            </View>
+
+            <View style={styles.buttonFooter}>
+              <CustomButton
+                name="Proceed to Payment"
+                onPress={() => navigation.navigate('Checkout')}
+                // eslint-disable-next-line react-native/no-inline-styles
+                loginStyle={{marginTop: 0}}
+                // eslint-disable-next-line react-native/no-inline-styles
+                buttonStyle={{fontSize: 15}}
+              />
+            </View>
+          </View>
+        </View>
+      </View>
     </SafeAreaView>
   );
 };
@@ -429,6 +425,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingVertical: 5,
   },
+  detailsContainerLast: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingVertical: 5,
+    marginBottom: 150,
+  },
   detailLabel: {
     fontSize: 16,
     fontFamily: Fonts.REGULAR,
@@ -453,5 +456,11 @@ const styles = StyleSheet.create({
     fontSize: 17,
     fontFamily: Fonts.MEDIUM,
     color: Colors.BLACK,
+  },
+  addButton: {
+    position: 'absolute',
+    bottom: 0,
+    right: 0,
+    left: 0,
   },
 });
