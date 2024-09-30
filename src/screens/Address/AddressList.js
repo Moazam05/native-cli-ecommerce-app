@@ -60,25 +60,54 @@ const AddressList = () => {
 
   const renderItem = ({item}) => (
     <>
-      <View style={styles.addAddress}>
+      <TouchableOpacity
+        style={[styles.addAddress, item.isDefault && styles.defaultCard]}
+        onPress={() => handleSetDefault(item.id)}>
         <View style={styles.innerWrap}>
           <Text style={styles.tagTitle}>Address:</Text>
-          <Image source={EditTwoIcon} style={styles.editIcon} />
+          <TouchableOpacity
+            onPress={() =>
+              navigation.navigate('CreateAddress', {address: item})
+            }>
+            <Image source={EditTwoIcon} style={styles.editIcon} />
+          </TouchableOpacity>
         </View>
 
+        <Text style={styles.cardTitle}>
+          {item.addressType ? item.addressType : 'Home'}
+        </Text>
         <View style={styles.addressOuter}>
           <Text style={styles.tagTitleTwo}>
             {item.address}, {item.city}, {item.state}, {item.postal}
           </Text>
-          <Text style={styles.cardTitle}>
-            {item.addressType ? item.addressType : 'Home'}
-          </Text>
         </View>
-        <View style={styles.contactWrap}>
-          <Text style={styles.tagTitleTwo}>Contact:</Text>
-          <Text style={styles.tagTitleTwo}>{item.phone}</Text>
+
+        <View style={styles.deleteWrap}>
+          <View style={styles.contactWrap}>
+            <Text style={styles.tagTitleTwo}>Contact:</Text>
+            <Text style={styles.tagTitleTwo}>{item.phone}</Text>
+          </View>
+          <TouchableOpacity
+            onPress={() => {
+              Alert.alert(
+                'Confirm deletion',
+                'Are you sure you want to delete this address?',
+                [
+                  {
+                    text: 'Cancel',
+                    style: 'cancel',
+                  },
+                  {
+                    text: 'OK',
+                    onPress: () => handleDelete(item.id),
+                  },
+                ],
+              );
+            }}>
+            <Image source={DeleteIcon} style={styles.deleteIcon} />
+          </TouchableOpacity>
         </View>
-      </View>
+      </TouchableOpacity>
     </>
   );
 
@@ -95,6 +124,10 @@ const AddressList = () => {
         <Text style={styles.title}>Address List</Text>
         <Text style={styles.h}>H</Text>
       </View>
+
+      <Text style={styles.cardSubTitle}>
+        Click on the card to make it the default delivery
+      </Text>
 
       <View style={styles.addressWrap}>
         <FlatList
@@ -124,6 +157,13 @@ const styles = StyleSheet.create({
   listContainer: {
     paddingBottom: 80,
     marginTop: 15,
+  },
+  cardSubTitle: {
+    fontSize: 11,
+    fontFamily: Fonts.REGULAR,
+    color: Colors.BLACK,
+    marginHorizontal: 16,
+    marginTop: 10,
   },
   topBar: {
     flexDirection: 'row',
@@ -168,6 +208,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowRadius: 10,
     elevation: 3,
+    marginBottom: 15,
     // height: 75,
   },
   innerWrap: {
@@ -210,10 +251,23 @@ const styles = StyleSheet.create({
     fontSize: 12,
     paddingVertical: 2,
     paddingHorizontal: 5,
+    width: 50,
+    textAlign: 'center',
+    marginBottom: 8,
   },
-  addressOuter: {
+
+  deleteWrap: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+  },
+  deleteIcon: {
+    width: 18,
+    height: 18,
+    resizeMode: 'contain',
+  },
+  defaultCard: {
+    borderColor: '#44b678',
+    borderWidth: 1,
   },
 });
