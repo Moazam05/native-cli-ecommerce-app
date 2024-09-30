@@ -533,8 +533,8 @@ const styles = StyleSheet.create({
     gap: 15,
   },
   deleteIcon: {
-    width: 15,
-    height: 15,
+    width: 17,
+    height: 17,
     resizeMode: 'contain',
   },
 

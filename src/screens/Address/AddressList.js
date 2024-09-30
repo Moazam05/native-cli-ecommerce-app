@@ -1,34 +1,25 @@
-import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  Image,
-  FlatList,
-  Alert,
-} from 'react-native';
-import React from 'react';
-import {SafeAreaView} from 'react-native-safe-area-context';
-import Header from '../../components/Header';
 import {useNavigation} from '@react-navigation/native';
+import React from 'react';
 import {
-  AddIcon,
-  Back,
-  DeleteIcon,
-  EditIcon,
-  EditTwoIcon,
-  leftArrow,
-  TickIcon,
-} from '../../assets/images';
-import useTypedSelector from '../../hooks/useTypedSelector';
-import {
-  selectAddress,
-  deleteAddress,
-  setDefaultAddress,
-} from '../../redux/address/addressSlice';
+  Alert,
+  FlatList,
+  Image,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
+import {SafeAreaView} from 'react-native-safe-area-context';
 import {useDispatch} from 'react-redux';
+import {AddIcon, DeleteIcon, EditTwoIcon, leftArrow} from '../../assets/images';
 import {Colors} from '../../constants/colors';
 import {Fonts} from '../../constants/fonts';
+import useTypedSelector from '../../hooks/useTypedSelector';
+import {
+  deleteAddress,
+  selectAddress,
+  setDefaultAddress,
+} from '../../redux/address/addressSlice';
 
 const AddressList = () => {
   const dispatch = useDispatch();
