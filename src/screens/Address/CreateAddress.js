@@ -8,16 +8,20 @@ import {
   KeyboardAvoidingView,
   ScrollView,
   Platform,
+  Image,
 } from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import Header from '../../components/Header';
-import {Back} from '../../assets/images';
+import {Back, leftArrow} from '../../assets/images';
 import {useNavigation, useRoute} from '@react-navigation/native';
 import {useDispatch} from 'react-redux';
 import {Formik} from 'formik';
 import * as Yup from 'yup';
 import {addAddress, updateAddress} from '../../redux/address/addressSlice';
 import TextField from '../../components/TextField';
+import {Colors} from '../../constants/colors';
+import {Fonts} from '../../constants/fonts';
+import CustomButton from '../../components/CustomButton';
 
 // Validation Schema
 const validationSchema = Yup.object().shape({
@@ -25,6 +29,7 @@ const validationSchema = Yup.object().shape({
   city: Yup.string().required('City is required'),
   postalCode: Yup.string().required('Postal Code is required'),
   address: Yup.string().required('Address is required'),
+  phone: Yup.string().required('Phone is required'),
 });
 
 const CreateAddress = () => {
@@ -44,6 +49,7 @@ const CreateAddress = () => {
     city: address ? address.city : '',
     postalCode: address ? address.postal : '',
     address: address ? address.address : '',
+    phone: address ? address.phone : '',
   };
 
   const handleSave = values => {
@@ -54,6 +60,7 @@ const CreateAddress = () => {
       postal: values.postalCode,
       address: values.address,
       addressType: isHome ? 'Home' : 'Office',
+      phone: values.phone,
     };
 
     if (address) {
@@ -74,28 +81,37 @@ const CreateAddress = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Header
-        leftIcon={Back}
-        title={address ? 'Edit Address' : 'Create Address'}
-        leftClick={() => navigation.goBack()}
-      />
-      <KeyboardAvoidingView
-        style={styles.keyboardAvoidingView}
-        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
-        <ScrollView contentContainerStyle={styles.scrollContainer}>
-          <Formik
-            initialValues={initialValues}
-            validationSchema={validationSchema}
-            onSubmit={handleSave}>
-            {({
-              handleChange,
-              handleBlur,
-              handleSubmit,
-              values,
-              errors,
-              touched,
-            }) => (
-              <View style={styles.formContainer}>
+      {/* Top Bar */}
+      <View style={styles.topBar}>
+        <TouchableOpacity
+          onPress={() => {
+            navigation.goBack();
+          }}>
+          <Image source={leftArrow} style={styles.backIcon} />
+        </TouchableOpacity>
+        <Text style={styles.title}>
+          {address ? 'Edit Address' : 'Create Address'}
+        </Text>
+        <Text style={styles.h}>H</Text>
+      </View>
+
+      <ScrollView
+        contentContainerStyle={styles.scrollContainer}
+        showsVerticalScrollIndicator={false}>
+        <Formik
+          initialValues={initialValues}
+          validationSchema={validationSchema}
+          onSubmit={handleSave}>
+          {({
+            handleChange,
+            handleBlur,
+            handleSubmit,
+            values,
+            errors,
+            touched,
+          }) => (
+            <View style={styles.formContainer}>
+              <View style={styles.fieldContainer}>
                 <TextField
                   placeholder="State"
                   value={values.state}
@@ -103,7 +119,9 @@ const CreateAddress = () => {
                   onBlur={handleBlur('state')}
                   error={touched.state && errors.state}
                 />
+              </View>
 
+              <View style={styles.fieldContainer}>
                 <TextField
                   placeholder="City"
                   value={values.city}
@@ -111,7 +129,9 @@ const CreateAddress = () => {
                   onBlur={handleBlur('city')}
                   error={touched.city && errors.city}
                 />
+              </View>
 
+              <View style={styles.fieldContainer}>
                 <TextField
                   placeholder="Postal Code"
                   value={values.postalCode}
@@ -120,62 +140,73 @@ const CreateAddress = () => {
                   error={touched.postalCode && errors.postalCode}
                   keyboardType="number-pad"
                 />
+              </View>
 
+              <View style={styles.fieldContainer}>
                 <TextField
                   placeholder="Address"
                   value={values.address}
                   onChangeText={handleChange('address')}
                   onBlur={handleBlur('address')}
                   error={touched.address && errors.address}
-                  multiline
-                  numberOfLines={4}
                 />
+              </View>
 
-                <View style={styles.toggleContainer}>
-                  <TouchableOpacity
-                    style={[styles.toggleButton, isHome && styles.activeToggle]}
-                    onPress={() => setIsHome(true)}>
-                    <Text
-                      style={[
-                        styles.toggleText,
-                        isHome && styles.activeToggleText,
-                      ]}>
-                      Home
-                    </Text>
-                  </TouchableOpacity>
-                  <TouchableOpacity
-                    style={[
-                      styles.toggleButton,
-                      !isHome && styles.activeToggle,
-                    ]}
-                    onPress={() => setIsHome(false)}>
-                    <Text
-                      style={[
-                        styles.toggleText,
-                        !isHome && styles.activeToggleText,
-                      ]}>
-                      Office
-                    </Text>
-                  </TouchableOpacity>
-                </View>
+              <View style={styles.fieldContainer}>
+                <TextField
+                  placeholder="Phone"
+                  value={values.phone}
+                  onChangeText={handleChange('phone')}
+                  onBlur={handleBlur('phone')}
+                  error={touched.phone && errors.phone}
+                  keyboardType="number-pad"
+                />
+              </View>
 
+              <View style={styles.toggleContainer}>
                 <TouchableOpacity
-                  style={styles.saveButton}
-                  onPress={handleSubmit}
-                  disabled={loading}>
-                  {loading ? (
-                    <ActivityIndicator color="#ffffff" />
-                  ) : (
-                    <Text style={styles.buttonText}>
-                      {address ? 'Update' : 'Create'}
-                    </Text>
-                  )}
+                  style={[styles.toggleButton, isHome && styles.activeToggle]}
+                  onPress={() => setIsHome(true)}>
+                  <Text
+                    style={[
+                      styles.toggleText,
+                      isHome && styles.activeToggleText,
+                    ]}>
+                    Home
+                  </Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={[styles.toggleButton, !isHome && styles.activeToggle]}
+                  onPress={() => setIsHome(false)}>
+                  <Text
+                    style={[
+                      styles.toggleText,
+                      !isHome && styles.activeToggleText,
+                    ]}>
+                    Office
+                  </Text>
                 </TouchableOpacity>
               </View>
-            )}
-          </Formik>
-        </ScrollView>
-      </KeyboardAvoidingView>
+
+              <View style={styles.buttonWrap}>
+                <CustomButton
+                  name={
+                    loading ? (
+                      <ActivityIndicator color="#ffffff" />
+                    ) : address ? (
+                      'Update'
+                    ) : (
+                      'Create'
+                    )
+                  }
+                  onPress={handleSubmit}
+                  disabled={loading}
+                />
+              </View>
+            </View>
+          )}
+        </Formik>
+      </ScrollView>
     </SafeAreaView>
   );
 };
@@ -185,16 +216,36 @@ export default CreateAddress;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f8f8f8',
+    backgroundColor: Colors.PRIMARY_BG,
   },
-  keyboardAvoidingView: {
-    flex: 1,
+  topBar: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingVertical: 12,
+    paddingHorizontal: 16,
+  },
+  backIcon: {
+    width: 10,
+    height: 19,
+    resizeMode: 'contain',
+  },
+  title: {
+    fontSize: 18,
+    fontFamily: Fonts.SEMIBOLD,
+    color: Colors.BLACK,
+  },
+  h: {
+    opacity: 0,
   },
   scrollContainer: {
-    padding: 20,
+    marginHorizontal: 16,
   },
   formContainer: {
-    paddingVertical: 20,
+    marginTop: 25,
+  },
+  fieldContainer: {
+    marginBottom: 15,
   },
   toggleContainer: {
     flexDirection: 'row',
@@ -219,21 +270,7 @@ const styles = StyleSheet.create({
   activeToggleText: {
     color: '#fff',
   },
-  saveButton: {
-    backgroundColor: '#0786DAFD',
-    padding: 12,
-    borderRadius: 5,
-    alignItems: 'center',
-    marginTop: 10,
-  },
-  buttonText: {
-    color: '#fff',
-    fontWeight: '500',
-    fontSize: 16,
-  },
-  errorText: {
-    color: 'red',
-    fontSize: 12,
-    marginBottom: 10,
+  buttonWrap: {
+    marginTop: 20,
   },
 });
