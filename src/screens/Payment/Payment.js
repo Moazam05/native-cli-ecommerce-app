@@ -15,6 +15,7 @@ import {Fonts} from '../../constants/fonts';
 import useTypedSelector from '../../hooks/useTypedSelector';
 import {selectedProducts} from '../../redux/products/productsSlice';
 import {thousandSeparator} from '../../utils';
+import CustomButton from '../../components/CustomButton';
 
 const paymentMethods = [
   {
@@ -32,6 +33,7 @@ const paymentMethods = [
     image: PayPal,
     cardNo: '**** **** **** 9012',
   },
+
   {
     id: 4,
     image: Cash,
@@ -126,6 +128,19 @@ const Payment = () => {
             ))}
           </View>
         </View>
+
+        <View style={styles.buttonFooter}>
+          <CustomButton
+            name="Continue"
+            // onPress={() => navigation.navigate('Payment')}
+            // eslint-disable-next-line react-native/no-inline-styles
+            loginStyle={{
+              borderRadius: 10,
+              paddingHorizontal: 20,
+              paddingVertical: 13,
+            }}
+          />
+        </View>
       </ScrollView>
     </SafeAreaView>
   );
@@ -197,8 +212,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#C6C6C6',
   },
   payment: {
-    width: 45,
-    height: 45,
+    width: 35,
+    height: 35,
     resizeMode: 'contain',
   },
   paymentWrap: {
@@ -206,7 +221,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     paddingHorizontal: 20,
-    paddingVertical: 12,
+    paddingVertical: 8,
     backgroundColor: '#F4F4F4',
     borderRadius: 8,
     marginBottom: 15,
@@ -237,5 +252,11 @@ const styles = StyleSheet.create({
   disabledStyle: {
     backgroundColor: '#E0E0E0',
     borderColor: '#C6C6C6',
+  },
+
+  buttonFooter: {
+    paddingHorizontal: 28,
+    marginBottom: 20,
+    marginTop: 10,
   },
 });
