@@ -225,7 +225,9 @@ const Cart = ({setSelectedTab}) => {
               <CustomButton
                 name="Proceed to Checkout"
                 onPress={() => navigation.navigate('Checkout')}
+                // eslint-disable-next-line react-native/no-inline-styles
                 loginStyle={{marginTop: 0}}
+                // eslint-disable-next-line react-native/no-inline-styles
                 buttonStyle={{fontSize: 15}}
               />
             </View>

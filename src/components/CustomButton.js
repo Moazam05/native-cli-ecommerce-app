@@ -3,13 +3,20 @@ import React from 'react';
 import {Colors} from '../constants/colors';
 import {Fonts} from '../constants/fonts';
 
-const CustomButton = ({name, onPress, disabled}) => {
+const CustomButton = ({
+  name,
+  onPress,
+  disabled,
+  style,
+  loginStyle,
+  buttonStyle,
+}) => {
   return (
     <TouchableOpacity
-      style={styles.loginButton}
+      style={[styles.loginButton, style, loginStyle]} // Spread the styles here
       onPress={onPress}
       disabled={disabled}>
-      <Text style={styles.buttonText}>{name}</Text>
+      <Text style={[styles.buttonText, buttonStyle]}>{name}</Text>
     </TouchableOpacity>
   );
 };
