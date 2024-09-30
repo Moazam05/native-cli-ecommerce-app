@@ -91,6 +91,8 @@ const ProductDetail = () => {
   };
 
   const addToCartHandler = () => {
+    // add size in item json
+    item.size = productSize;
     dispatch(setCartProducts(item));
   };
 
@@ -224,13 +226,19 @@ const ProductDetail = () => {
               <View style={styles.quantityContainer}>
                 <TouchableOpacity
                   style={styles.quantityButton}
-                  onPress={() => dispatch(decrementProductQuantity(item.id))}>
+                  onPress={() => {
+                    item.size = productSize;
+                    dispatch(decrementProductQuantity(item.id));
+                  }}>
                   <Text style={styles.quantityButtonText}>-</Text>
                 </TouchableOpacity>
                 <Text style={styles.cartQuantity}>{productQuantity}</Text>
                 <TouchableOpacity
                   style={styles.quantityButton}
-                  onPress={() => dispatch(incrementProductQuantity(item.id))}>
+                  onPress={() => {
+                    item.size = productSize;
+                    dispatch(incrementProductQuantity(item.id));
+                  }}>
                   <Text
                     style={[styles.quantityButtonText, styles.plusQuantity]}>
                     +

@@ -76,7 +76,7 @@ const HomeScreen = () => {
         ) : selectedTab === 1 ? (
           <Wishlist />
         ) : selectedTab === 2 ? (
-          <Cart />
+          <Cart setSelectedTab={setSelectedTab} />
         ) : selectedTab === 3 ? (
           <Search />
         ) : (

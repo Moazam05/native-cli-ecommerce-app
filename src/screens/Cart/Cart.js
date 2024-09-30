@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   Image,
   FlatList,
+  StatusBar,
 } from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {useNavigation} from '@react-navigation/native';
@@ -34,7 +35,7 @@ import {selectAddress} from '../../redux/address/addressSlice';
 import RatingStar from '../../components/RatingStar';
 import {thousandSeparator} from '../../utils';
 
-const Cart = () => {
+const Cart = ({setSelectedTab}) => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
   const cartProducts = useTypedSelector(selectedProducts);
@@ -70,7 +71,7 @@ const Cart = () => {
                 <Text style={styles.productTitle}>{item?.name}</Text>
                 <View style={styles.variantWrap}>
                   <Text style={styles.variantTitle}>Variations:</Text>
-                  <Text style={styles.variantValue}>Black</Text>
+                  <Text style={styles.variantValue}>{item?.size}</Text>
                 </View>
 
                 <View style={styles.ratingWrap}>
@@ -95,8 +96,12 @@ const Cart = () => {
 
             <View style={[styles.lineTwo]} />
             <View style={styles.orderWrap}>
-              <Text style={styles.totalOr}>Total Orders</Text>
-              <Text style={styles.totalOrderPrice}>300</Text>
+              <Text style={styles.totalOr}>
+                Total Orders ({item?.quantity}) :
+              </Text>
+              <Text style={styles.totalOrderPrice}>
+                Rs: {thousandSeparator(item?.quantity * item?.price)}
+              </Text>
             </View>
           </View>
         </View>
@@ -106,9 +111,17 @@ const Cart = () => {
 
   return (
     <SafeAreaView style={styles.container}>
+      <StatusBar
+        barStyle="dark-content"
+        translucent
+        backgroundColor={Colors.PRIMARY_BG}
+      />
       {/* Top Bar */}
       <View style={styles.topBar}>
-        <TouchableOpacity onPress={() => navigation.goBack()}>
+        <TouchableOpacity
+          onPress={() => {
+            setSelectedTab(0);
+          }}>
           <Image source={leftArrow} style={styles.backIcon} />
         </TouchableOpacity>
         <Text style={styles.title}>Shopping Bag</Text>
