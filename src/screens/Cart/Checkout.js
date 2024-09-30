@@ -134,6 +134,23 @@ const Checkout = () => {
                 }
               />
             </View>
+
+            {/* add css */}
+            <View style={styles.wrap}>
+              <Text style={styles.sectionTitle}>Order Payment Details</Text>
+
+              <View style={styles.detailsContainer}>
+                <Text style={styles.detailLabel}>Order Amounts</Text>
+                <Text style={styles.detailValue}>
+                  Rs. {thousandSeparator(calculateTotal())}
+                </Text>
+              </View>
+
+              <View style={styles.detailsContainer}>
+                <Text style={styles.detailLabel}>Delivery Fee</Text>
+                <Text style={styles.detailValue}>Free</Text>
+              </View>
+            </View>
           </View>
         }
         showsVerticalScrollIndicator={false}
