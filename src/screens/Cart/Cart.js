@@ -36,6 +36,7 @@ import {selectAddress} from '../../redux/address/addressSlice';
 import RatingStar from '../../components/RatingStar';
 import {thousandSeparator} from '../../utils';
 import {selectProductSize} from '../../redux/productSize/productSizeSlice';
+import CustomButton from '../../components/CustomButton';
 
 const Cart = ({setSelectedTab}) => {
   const navigation = useNavigation();
@@ -201,7 +202,20 @@ const Cart = ({setSelectedTab}) => {
       }
       showsVerticalScrollIndicator={false}
       renderItem={null} // Since categories are part of ListHeaderComponent
-      ListFooterComponent={<View style={styles.footer} />}
+      ListFooterComponent={
+        <View style={styles.footer}>
+          <View style={styles.innerFooter}>
+            <View style={styles.foFirst}>
+              <Text style={styles.footerPrice}>PKR 5000</Text>
+              <Text style={styles.footerDetail}> View Detail</Text>
+            </View>
+
+            <View style={styles.buttonFooter}>
+              <CustomButton name="Proceed to Checkout" />
+            </View>
+          </View>
+        </View>
+      }
       contentContainerStyle={styles.contentContainer}
     />
   );
@@ -450,7 +464,8 @@ const styles = StyleSheet.create({
     color: Colors.BLACK,
   },
   footer: {
-    marginBottom: 80,
+    marginBottom: 60,
+    marginTop: 20,
   },
   contentContainer: {
     paddingTop: 20,
@@ -464,5 +479,34 @@ const styles = StyleSheet.create({
     width: 15,
     height: 15,
     resizeMode: 'contain',
+  },
+
+  innerFooter: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    backgroundColor: '#F8F8F8',
+    paddingVertical: 32,
+    paddingHorizontal: 22,
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+    borderTopWidth: 1,
+    borderTopColor: '#DADADA',
+  },
+  buttonFooter: {
+    width: '65%',
+  },
+  foFirst: {
+    width: '30%',
+  },
+  footerPrice: {
+    fontSize: 16,
+    fontFamily: Fonts.MEDIUM,
+    color: Colors.BLACK,
+  },
+  footerDetail: {
+    fontSize: 12,
+    fontFamily: Fonts.SEMIBOLD,
+    color: Colors.PRIMARY,
   },
 });
