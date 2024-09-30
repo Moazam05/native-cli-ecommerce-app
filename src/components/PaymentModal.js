@@ -2,8 +2,13 @@ import {View, Text, Modal, StyleSheet, Dimensions, Image} from 'react-native';
 import React from 'react';
 import {ThankYou} from '../assets/images';
 import {Fonts} from '../constants/fonts';
+import CustomButton from './CustomButton';
+import {Colors} from '../constants/colors';
+import {useNavigation} from '@react-navigation/native';
 
-const PaymentModal = ({visible, onClose}) => {
+const PaymentModal = ({visible, setModalVisible}) => {
+  const navigation = useNavigation();
+
   return (
     <Modal visible={visible} transparent>
       <View style={styles.modalView}>
@@ -11,6 +16,27 @@ const PaymentModal = ({visible, onClose}) => {
           <Image source={ThankYou} style={styles.thank} />
 
           <Text style={styles.payment}>Payment done successfully</Text>
+
+          <View style={styles.buttonContainer}>
+            <CustomButton
+              name="Go to home"
+              loginStyle={styles.homeWrap}
+              buttonStyle={styles.homeText}
+              onPress={() => {
+                setModalVisible(false);
+                navigation.navigate('Main');
+              }}
+            />
+            <CustomButton
+              name="Track Order"
+              loginStyle={styles.trackWrap}
+              buttonStyle={styles.trackText}
+              onPress={() => {
+                setModalVisible(false);
+                navigation.navigate('History');
+              }}
+            />
+          </View>
         </View>
       </View>
     </Modal>
@@ -47,5 +73,35 @@ const styles = StyleSheet.create({
     fontFamily: Fonts.SEMIBOLD,
     color: '#222',
     marginBottom: 25,
+  },
+  buttonContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: 25,
+    gap: 15,
+  },
+
+  homeWrap: {
+    borderRadius: 4,
+    paddingHorizontal: 10,
+    paddingVertical: 5,
+    marginTop: 0,
+    backgroundColor: 'transparent',
+    borderColor: Colors.PRIMARY,
+    borderWidth: 1,
+  },
+  homeText: {
+    fontSize: 12,
+    color: Colors.PRIMARY,
+    fontFamily: Fonts.REGULAR,
+  },
+  trackWrap: {
+    borderRadius: 4,
+    paddingHorizontal: 10,
+    paddingVertical: 5,
+    marginTop: 0,
+  },
+  trackText: {
+    fontSize: 12,
   },
 });

@@ -150,7 +150,7 @@ const Payment = () => {
       </ScrollView>
 
       {/* Modal */}
-      <PaymentModal visible={modalVisible} />
+      <PaymentModal visible={modalVisible} setModalVisible={setModalVisible} />
     </SafeAreaView>
   );
 };
