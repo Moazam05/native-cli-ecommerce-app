@@ -72,6 +72,7 @@ import Visa from './visa.png';
 import MasterCard from './master.png';
 import PayPal from './paypal.png';
 import Cash from './wallet.png';
+import ThankYou from './Thank.png';
 
 export {
   Back,
@@ -148,4 +149,5 @@ export {
   MasterCard,
   PayPal,
   Cash,
+  ThankYou,
 };

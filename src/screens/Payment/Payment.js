@@ -16,6 +16,7 @@ import useTypedSelector from '../../hooks/useTypedSelector';
 import {selectedProducts} from '../../redux/products/productsSlice';
 import {thousandSeparator} from '../../utils';
 import CustomButton from '../../components/CustomButton';
+import PaymentModal from '../../components/PaymentModal';
 
 const paymentMethods = [
   {
@@ -46,6 +47,7 @@ const Payment = () => {
   const cartProducts = useTypedSelector(selectedProducts);
 
   const [selectPayment, setSelectPayment] = useState(4);
+  const [modalVisible, setModalVisible] = useState(false);
 
   const calculateTotal = () => {
     return cartProducts
@@ -132,7 +134,11 @@ const Payment = () => {
         <View style={styles.buttonFooter}>
           <CustomButton
             name="Continue"
-            // onPress={() => navigation.navigate('Payment')}
+            onPress={() => {
+              if (selectPayment === 4) {
+                setModalVisible(true);
+              }
+            }}
             // eslint-disable-next-line react-native/no-inline-styles
             loginStyle={{
               borderRadius: 10,
@@ -142,6 +148,9 @@ const Payment = () => {
           />
         </View>
       </ScrollView>
+
+      {/* Modal */}
+      <PaymentModal visible={modalVisible} />
     </SafeAreaView>
   );
 };
