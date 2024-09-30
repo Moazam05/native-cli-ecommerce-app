@@ -1,6 +1,13 @@
 import {useNavigation} from '@react-navigation/native';
 import React, {useState} from 'react';
-import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {
+  Image,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {Cash, leftArrow, MasterCard, PayPal, Visa} from '../../assets/images';
 import {Colors} from '../../constants/colors';
@@ -46,64 +53,80 @@ const Payment = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      {/* Top Bar */}
-      <View style={styles.topBar}>
-        <TouchableOpacity
-          onPress={() => {
-            if (navigation.canGoBack()) {
-              navigation.goBack();
-            } else {
-              navigation.navigate('Home');
-            }
-          }}>
-          <Image source={leftArrow} style={styles.backIcon} />
-        </TouchableOpacity>
-        <Text style={styles.title}>Payment</Text>
-        <Text style={styles.h}>H</Text>
-      </View>
-      <View style={styles.line} />
-
-      <View style={styles.totalWrap}>
-        <View style={styles.wrap}>
-          <Text style={styles.subTotal}>Sub Total</Text>
-          <Text style={styles.subPrice}>
-            Rs {thousandSeparator(calculateTotal())}
-          </Text>
+      <ScrollView showsVerticalScrollIndicator={false}>
+        {/* Top Bar */}
+        <View style={styles.topBar}>
+          <TouchableOpacity
+            onPress={() => {
+              if (navigation.canGoBack()) {
+                navigation.goBack();
+              } else {
+                navigation.navigate('Home');
+              }
+            }}>
+            <Image source={leftArrow} style={styles.backIcon} />
+          </TouchableOpacity>
+          <Text style={styles.title}>Payment</Text>
+          <Text style={styles.h}>H</Text>
         </View>
-        <View style={styles.wrap}>
-          <Text style={styles.subTotal}>Shipping</Text>
-          <Text style={styles.subPrice}>Free</Text>
-        </View>
+        <View style={styles.line} />
 
-        <View style={styles.wrap}>
-          <Text style={styles.total}> Total</Text>
-          <Text style={styles.price}>
-            Rs {thousandSeparator(calculateTotal())}
-          </Text>
-        </View>
+        <View style={styles.totalWrap}>
+          <View style={styles.wrap}>
+            <Text style={styles.subTotal}>Sub Total</Text>
+            <Text style={styles.subPrice}>
+              Rs {thousandSeparator(calculateTotal())}
+            </Text>
+          </View>
+          <View style={styles.wrap}>
+            <Text style={styles.subTotal}>Shipping</Text>
+            <Text style={styles.subPrice}>Free</Text>
+          </View>
 
-        <View style={styles.lineTwo} />
-      </View>
+          <View style={styles.wrap}>
+            <Text style={styles.total}> Total</Text>
+            <Text style={styles.price}>
+              Rs {thousandSeparator(calculateTotal())}
+            </Text>
+          </View>
 
-      <View>
-        <Text style={styles.paymentTitle}>Payment Methods</Text>
-        <View style={styles.pWrap}>
-          {paymentMethods.map(method => (
-            <TouchableOpacity
-              key={method.id}
-              style={[
-                styles.paymentWrap,
-                selectPayment === method.id && styles.activeBorder,
-              ]}
-              onPress={() => {
-                setSelectPayment(method.id);
-              }}>
-              <Image source={method.image} style={styles.payment} />
-              <Text style={styles.cardNo}>{method.cardNo}</Text>
-            </TouchableOpacity>
-          ))}
+          <View style={styles.lineTwo} />
         </View>
-      </View>
+        <View>
+          <Text style={styles.paymentTitle}>Payment Methods</Text>
+          <View style={styles.pWrap}>
+            {paymentMethods.map(method => (
+              <TouchableOpacity
+                key={method.id}
+                style={[
+                  styles.paymentWrap,
+                  selectPayment === method.id && styles.activeBorder,
+                  method.id !== 4 && styles.disabledStyle,
+                ]}
+                onPress={() => {
+                  if (method.id === 4) {
+                    setSelectPayment(method.id);
+                  }
+                }}
+                activeOpacity={method.id === 4 ? 0.6 : 1}>
+                <Image
+                  source={method.image}
+                  // eslint-disable-next-line react-native/no-inline-styles
+                  style={[styles.payment, method.id !== 4 && {opacity: 0.5}]}
+                />
+                <Text
+                  style={[
+                    styles.cardNo,
+                    // eslint-disable-next-line react-native/no-inline-styles
+                    method.id !== 4 && {color: '#A8A8A9'},
+                  ]}>
+                  {method.cardNo}
+                </Text>
+              </TouchableOpacity>
+            ))}
+          </View>
+        </View>
+      </ScrollView>
     </SafeAreaView>
   );
 };
@@ -209,5 +232,10 @@ const styles = StyleSheet.create({
   activeBorder: {
     borderWidth: 1,
     borderColor: Colors.PRIMARY,
+  },
+
+  disabledStyle: {
+    backgroundColor: '#E0E0E0',
+    borderColor: '#C6C6C6',
   },
 });
