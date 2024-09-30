@@ -8,8 +8,8 @@ import {
   Text,
   TouchableOpacity,
   View,
+  SafeAreaView,
 } from 'react-native';
-import {SafeAreaView} from 'react-native-safe-area-context';
 import {useDispatch} from 'react-redux';
 import {
   AddTwoIcon,
@@ -141,7 +141,7 @@ const Cart = ({setSelectedTab}) => {
         data={cartProducts}
         keyExtractor={item => item.id.toString()}
         ListHeaderComponent={
-          <View style={styles.container}>
+          <View>
             {/* Top Bar */}
             <View style={styles.topBar}>
               <TouchableOpacity
