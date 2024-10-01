@@ -32,7 +32,7 @@ import {
 import {selectProductSize} from '../../redux/productSize/productSizeSlice';
 import {thousandSeparator} from '../../utils';
 
-const Cart = ({setSelectedTab}) => {
+const Cart = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
   const route = useRoute();
