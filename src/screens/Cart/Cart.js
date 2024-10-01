@@ -1,4 +1,4 @@
-import {useNavigation} from '@react-navigation/native';
+import {useNavigation, useRoute} from '@react-navigation/native';
 import React, {useEffect, useState} from 'react';
 import {
   Alert,
@@ -35,9 +35,11 @@ import {thousandSeparator} from '../../utils';
 const Cart = ({setSelectedTab}) => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
+  const route = useRoute();
   const cartProducts = useTypedSelector(selectedProducts);
   const addressList = useTypedSelector(selectAddress);
   const productSize = useTypedSelector(selectProductSize);
+  const {comeFromProductDetail} = route.params || {};
 
   const [address, setAddress] = useState('');
 
@@ -137,9 +139,7 @@ const Cart = ({setSelectedTab}) => {
   };
 
   return (
-    <SafeAreaView
-      // eslint-disable-next-line react-native/no-inline-styles
-      style={[styles.container, navigation.canGoBack() && {marginTop: 36}]}>
+    <SafeAreaView style={styles.container}>
       <FlatList
         data={cartProducts}
         keyExtractor={item => item.id.toString()}
@@ -149,11 +149,10 @@ const Cart = ({setSelectedTab}) => {
             <View style={styles.topBar}>
               <TouchableOpacity
                 onPress={() => {
-                  if (navigation.canGoBack()) {
-                    navigation.goBack();
-                  } else {
-                    setSelectedTab(0);
-                  }
+                  navigation.reset({
+                    index: 0,
+                    routes: [{name: 'Main'}],
+                  });
                 }}>
                 <Image source={leftArrow} style={styles.backIcon} />
               </TouchableOpacity>
@@ -200,7 +199,7 @@ const Cart = ({setSelectedTab}) => {
             <View
               style={[
                 styles.categories,
-                navigation.canGoBack() && styles.activeCategories,
+                comeFromProductDetail && styles.activeCategories,
               ]}>
               <FlatList
                 data={cartProducts}
@@ -228,7 +227,7 @@ const Cart = ({setSelectedTab}) => {
         <View
           style={[
             styles.addButton,
-            navigation.canGoBack() && styles.activeAddButton,
+            comeFromProductDetail && styles.activeAddButton,
           ]}>
           <View style={styles.footer}>
             <View style={styles.innerFooter}>

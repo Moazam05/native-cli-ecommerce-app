@@ -132,7 +132,7 @@ const ProductDetail = () => {
             onPress={() => {
               navigation.reset({
                 index: 2,
-                routes: [{name: 'Cart'}],
+                routes: [{name: 'Cart', params: {comeFromProductDetail: true}}],
               });
             }}>
             <Image source={CartTwo} style={styles.cartIcon} />
@@ -143,7 +143,9 @@ const ProductDetail = () => {
               onPress={() => {
                 navigation.reset({
                   index: 2,
-                  routes: [{name: 'Cart'}],
+                  routes: [
+                    {name: 'Cart', params: {comeFromProductDetail: true}},
+                  ],
                 });
               }}>
               <Text style={styles.badgeText}>{cartProducts.length}</Text>
