@@ -75,6 +75,7 @@ import Cash from './wallet.png';
 import ThankYou from './Thank.png';
 import EmptyCart from './emptyCart.png';
 import UserTwo from './UserTwo.png';
+import Logout from './logout.png';
 
 export {
   Back,
@@ -154,4 +155,5 @@ export {
   ThankYou,
   EmptyCart,
   UserTwo,
+  Logout,
 };

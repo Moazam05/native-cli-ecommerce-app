@@ -20,6 +20,7 @@ import PreMain from './screens/PreMain';
 import Home from './screens/tabs/Home';
 import Payment from './screens/Payment/Payment';
 import History from './screens/History';
+import ChangePassword from './screens/Authentication/ChangePassword';
 
 const Stack = createNativeStackNavigator();
 
@@ -95,6 +96,14 @@ const AppNavigator = () => {
             <Stack.Screen
               name="History"
               component={History}
+              options={{
+                headerShown: false,
+              }}
+            />
+
+            <Stack.Screen
+              name="ChangePassword"
+              component={ChangePassword}
               options={{
                 headerShown: false,
               }}

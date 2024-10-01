@@ -14,7 +14,7 @@ import {useDispatch} from 'react-redux';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useNavigation} from '@react-navigation/native';
 import {Colors} from '../../constants/colors';
-import {leftArrow, UserTwo} from '../../assets/images';
+import {AddIcon, leftArrow, Logout, UserTwo} from '../../assets/images';
 import {Fonts} from '../../constants/fonts';
 import TextField from '../../components/TextField';
 
@@ -23,9 +23,6 @@ const Profile = () => {
   const navigation = useNavigation();
 
   const loginUser = useTypedSelector(selectedUser);
-  const firstLetter = loginUser?.name?.charAt(0)?.toUpperCase();
-
-  console.log('login user', loginUser);
 
   const handleLogout = () => {
     dispatch(setUser(null));
@@ -35,21 +32,23 @@ const Profile = () => {
 
   return (
     <SafeAreaView style={styles.container}>
+      {/* Top Bar */}
+      <View style={styles.topBar}>
+        <TouchableOpacity
+          onPress={() => {
+            navigation.reset({
+              index: 0,
+              routes: [{name: 'Main'}],
+            });
+          }}>
+          <Image source={leftArrow} style={styles.backIcon} />
+        </TouchableOpacity>
+        <Text style={styles.title}>Setting</Text>
+        <Text style={styles.h}>H</Text>
+      </View>
       <ScrollView
         contentContainerStyle={styles.scrollContainer}
         showsVerticalScrollIndicator={false}>
-        {/* Top Bar */}
-        <View style={styles.topBar}>
-          <TouchableOpacity
-            onPress={() => {
-              navigation.goBack();
-            }}>
-            <Image source={leftArrow} style={styles.backIcon} />
-          </TouchableOpacity>
-          <Text style={styles.title}>Setting</Text>
-          <Text style={styles.h}>H</Text>
-        </View>
-
         <View style={styles.userIconWrap}>
           <Image source={UserTwo} style={styles.userIcon} />
         </View>
@@ -84,8 +83,22 @@ const Profile = () => {
               editable={false}
             />
           </View>
+
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate('ChangePassword');
+            }}>
+            <Text style={styles.change}>Change Password</Text>
+          </TouchableOpacity>
         </View>
       </ScrollView>
+      <TouchableOpacity
+        style={styles.addButton}
+        onPress={() => {
+          handleLogout();
+        }}>
+        <Image source={Logout} style={styles.add} />
+      </TouchableOpacity>
     </SafeAreaView>
   );
 };
@@ -128,10 +141,10 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
   },
   scrollContainer: {
-    marginHorizontal: 16,
+    marginHorizontal: 24,
   },
   formContainer: {
-    marginTop: 25,
+    marginTop: 35,
   },
   personal: {
     fontSize: 18,
@@ -147,5 +160,26 @@ const styles = StyleSheet.create({
     fontFamily: Fonts.REGULAR,
     color: Colors.BLACK,
     marginBottom: 10,
+  },
+  change: {
+    fontSize: 12,
+    fontFamily: Fonts.MEDIUM,
+    color: Colors.PRIMARY,
+    textDecorationLine: 'underline',
+    textAlign: 'right',
+  },
+  addButton: {
+    position: 'absolute',
+    bottom: 80,
+    right: 20,
+    backgroundColor: Colors.PRIMARY,
+    borderRadius: 50,
+    padding: 15,
+    elevation: 5,
+  },
+  add: {
+    width: 20,
+    height: 20,
+    tintColor: '#ffffff',
   },
 });
