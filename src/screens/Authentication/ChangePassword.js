@@ -103,7 +103,7 @@ const ChangePassword = () => {
                 />
 
                 {errors.oldPassword && (
-                  <Text style={{color: 'red'}}>{errors.oldPassword}</Text>
+                  <Text style={styles.errorText}>{errors.oldPassword}</Text>
                 )}
               </View>
 
@@ -123,7 +123,7 @@ const ChangePassword = () => {
                   }}
                 />
                 {errors.newPassword && (
-                  <Text style={{color: 'red'}}>{errors.newPassword}</Text>
+                  <Text style={styles.errorText}>{errors.newPassword}</Text>
                 )}
               </View>
 
@@ -143,7 +143,7 @@ const ChangePassword = () => {
                   }}
                 />
                 {errors.confirmPassword && (
-                  <Text style={{color: 'red'}}>{errors.confirmPassword}</Text>
+                  <Text style={styles.errorText}>{errors.confirmPassword}</Text>
                 )}
               </View>
 
@@ -151,6 +151,7 @@ const ChangePassword = () => {
                 <CustomButton
                   name="Change Password"
                   onPress={handleSubmit}
+                  // eslint-disable-next-line react-native/no-inline-styles
                   loginStyle={{
                     borderRadius: 8,
                   }}
@@ -221,5 +222,9 @@ const styles = StyleSheet.create({
     fontFamily: Fonts.REGULAR,
     color: Colors.BLACK,
     marginBottom: 10,
+  },
+  errorText: {
+    color: Colors.PRIMARY,
+    fontSize: 12,
   },
 });

@@ -6,6 +6,7 @@ import {
   Image,
   SafeAreaView,
   ScrollView,
+  Alert,
 } from 'react-native';
 import React from 'react';
 import useTypedSelector from '../../hooks/useTypedSelector';
@@ -25,9 +26,25 @@ const Profile = () => {
   const loginUser = useTypedSelector(selectedUser);
 
   const handleLogout = () => {
-    dispatch(setUser(null));
-    AsyncStorage.removeItem('user');
-    navigation.navigate('Login');
+    Alert.alert(
+      'Confirm Logout',
+      'Are you sure you want to log out?',
+      [
+        {
+          text: 'Cancel',
+          style: 'cancel',
+        },
+        {
+          text: 'Logout',
+          onPress: () => {
+            dispatch(setUser(null));
+            AsyncStorage.removeItem('user');
+            navigation.navigate('Login');
+          },
+        },
+      ],
+      {cancelable: false},
+    );
   };
 
   return (
