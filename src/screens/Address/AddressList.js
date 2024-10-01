@@ -116,9 +116,11 @@ const AddressList = () => {
         <Text style={styles.h}>H</Text>
       </View>
 
-      <Text style={styles.cardSubTitle}>
-        Click on the card to make it the default delivery
-      </Text>
+      {addressList.length > 0 && (
+        <Text style={styles.cardSubTitle}>
+          Click on the card to make it the default delivery
+        </Text>
+      )}
 
       <View style={styles.addressWrap}>
         <FlatList

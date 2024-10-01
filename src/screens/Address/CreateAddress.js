@@ -38,7 +38,7 @@ const CreateAddress = () => {
   const [isHome, setIsHome] = useState(true);
 
   // Get the address from the route params
-  const {address} = route.params || {};
+  const {address, comeFromCart} = route.params || {};
 
   // Initial values for Formik
   const initialValues = {
@@ -67,7 +67,14 @@ const CreateAddress = () => {
       // Add new address
       dispatch(addAddress(addressData));
     }
-    navigation.navigate('AddressList');
+    if (comeFromCart) {
+      navigation.reset({
+        index: 2,
+        routes: [{name: 'Cart', params: {comeFromProductDetail: true}}],
+      });
+    } else {
+      navigation.navigate('AddressList');
+    }
   };
 
   useEffect(() => {
@@ -82,7 +89,14 @@ const CreateAddress = () => {
       <View style={styles.topBar}>
         <TouchableOpacity
           onPress={() => {
-            navigation.goBack();
+            if (comeFromCart) {
+              navigation.reset({
+                index: 2,
+                routes: [{name: 'Cart', params: {comeFromProductDetail: true}}],
+              });
+            } else {
+              navigation.goBack();
+            }
           }}>
           <Image source={leftArrow} style={styles.backIcon} />
         </TouchableOpacity>

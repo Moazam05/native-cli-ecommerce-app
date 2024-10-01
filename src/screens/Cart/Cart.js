@@ -41,7 +41,6 @@ const Cart = () => {
   const addressList = useTypedSelector(selectAddress);
   const productSize = useTypedSelector(selectProductSize);
   const {comeFromProductDetail} = route.params || {};
-
   const [address, setAddress] = useState('');
 
   useEffect(() => {
@@ -50,9 +49,6 @@ const Cart = () => {
       setAddress(defaultAddress || {});
     }
   }, [addressList]);
-
-  console.log('addressList', addressList);
-  console.log('address', address);
 
   const handleRemoveProduct = id => {
     dispatch(removeProduct(id));
@@ -181,13 +177,25 @@ const Cart = () => {
                   <View style={styles.addAddress}>
                     <View style={styles.innerWrap}>
                       <Text style={styles.tagTitle}>Address:</Text>
-                      <Image source={EditTwoIcon} style={styles.editIcon} />
+                      <TouchableOpacity
+                        style={styles.editIconWrap}
+                        onPress={() =>
+                          navigation.navigate('CreateAddress', {
+                            address: address,
+                            comeFromCart: true,
+                          })
+                        }>
+                        <Image source={EditTwoIcon} style={styles.editIcon} />
+                      </TouchableOpacity>
                     </View>
 
-                    <Text style={styles.tagTitleTwo}>MM Alam Road Lahore</Text>
+                    <Text style={styles.tagTitleTwo}>
+                      {address?.address}, {address?.city}, {address?.state},{' '}
+                      {address?.postal}
+                    </Text>
                     <View style={styles.contactWrap}>
                       <Text style={styles.tagTitleTwo}>Contact:</Text>
-                      <Text style={styles.tagTitleTwo}>+992 123 4567</Text>
+                      <Text style={styles.tagTitleTwo}>{address?.phone}</Text>
                     </View>
                   </View>
 
@@ -363,13 +371,15 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     position: 'relative',
   },
+  editIconWrap: {
+    position: 'absolute',
+    right: 0,
+    top: -3,
+  },
   editIcon: {
     width: 15,
     height: 15,
     resizeMode: 'contain',
-    position: 'absolute',
-    right: 0,
-    top: -3,
   },
   addressTwo: {
     width: '20%',
