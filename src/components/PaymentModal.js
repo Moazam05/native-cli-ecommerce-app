@@ -1,16 +1,43 @@
-import {View, Text, Modal, StyleSheet, Dimensions, Image} from 'react-native';
+import {
+  View,
+  Text,
+  Modal,
+  StyleSheet,
+  Dimensions,
+  Image,
+  StatusBar,
+} from 'react-native';
 import React from 'react';
 import {ThankYou} from '../assets/images';
 import {Fonts} from '../constants/fonts';
 import CustomButton from './CustomButton';
 import {Colors} from '../constants/colors';
 import {useNavigation} from '@react-navigation/native';
+import {useDispatch} from 'react-redux';
+import {setCartProducts} from '../redux/products/productsSlice';
+import {setProductSizeStore} from '../redux/productSize/productSizeSlice';
 
 const PaymentModal = ({visible, setModalVisible}) => {
   const navigation = useNavigation();
+  const dispatch = useDispatch();
+
+  const homeHandler = () => {
+    setModalVisible(false);
+    navigation.reset({
+      index: 0,
+      routes: [{name: 'Main'}],
+    });
+    dispatch(setCartProducts([]));
+    dispatch(setProductSizeStore([]));
+  };
 
   return (
-    <Modal visible={visible} transparent>
+    <Modal visible={visible} transparent={true} animationType="slide">
+      <StatusBar
+        barStyle="light-content"
+        translucent
+        backgroundColor="rgba(0, 0, 0, 0.5)"
+      />
       <View style={styles.modalView}>
         <View style={styles.mainView}>
           <Image source={ThankYou} style={styles.thank} />
@@ -23,11 +50,7 @@ const PaymentModal = ({visible, setModalVisible}) => {
               loginStyle={styles.homeWrap}
               buttonStyle={styles.homeText}
               onPress={() => {
-                setModalVisible(false);
-                navigation.reset({
-                  index: 0,
-                  routes: [{name: 'Main'}],
-                });
+                homeHandler();
               }}
             />
             <CustomButton
