@@ -76,7 +76,7 @@ const Profile = () => {
           <View style={styles.fieldContainer}>
             <Text style={styles.label}>Name</Text>
             <TextField
-              placeholder="State"
+              placeholder="Name"
               value={loginUser?.name}
               inputWrap={{
                 height: 48,
@@ -90,7 +90,7 @@ const Profile = () => {
           <View style={styles.fieldContainer}>
             <Text style={styles.label}>Email Address</Text>
             <TextField
-              placeholder="State"
+              placeholder="Email Address"
               value={loginUser?.email}
               inputWrap={{
                 height: 48,
