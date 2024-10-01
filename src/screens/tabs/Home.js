@@ -1,6 +1,7 @@
 import {useNavigation} from '@react-navigation/native';
 import React, {useEffect, useState} from 'react';
 import {
+  Button,
   FlatList,
   Image,
   StyleSheet,
@@ -29,6 +30,7 @@ import SponsoredBanner from '../Home/components/SponsoredBanner';
 import {setSearchbarText} from '../../redux/searchbar/searchbarSlice';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useDispatch} from 'react-redux';
+import Toast from 'react-native-toast-message';
 
 const Home = ({setSelectedTab}) => {
   const navigation = useNavigation();
@@ -58,6 +60,13 @@ const Home = ({setSelectedTab}) => {
       </View>
     </TouchableOpacity>
   );
+
+  const handlePress = () => {
+    Toast.show({
+      type: 'success',
+      text1: 'Operation successful!',
+    });
+  };
 
   return (
     <FlatList
@@ -92,6 +101,10 @@ const Home = ({setSelectedTab}) => {
                   </TouchableOpacity>
                 )}
               </View>
+            </View>
+
+            <View>
+              <Button title="Press me" onPress={handlePress} />
             </View>
 
             {/* Categories */}
