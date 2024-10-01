@@ -41,6 +41,7 @@ const Cart = () => {
   const addressList = useTypedSelector(selectAddress);
   const productSize = useTypedSelector(selectProductSize);
   const {comeFromProductDetail} = route.params || {};
+
   const [address, setAddress] = useState('');
 
   useEffect(() => {
@@ -48,7 +49,7 @@ const Cart = () => {
       const defaultAddress = addressList.find(add => add.isDefault);
       setAddress(defaultAddress || {});
     }
-  }, [addressList]);
+  }, [addressList, comeFromProductDetail]);
 
   const handleRemoveProduct = id => {
     dispatch(removeProduct(id));
@@ -135,6 +136,9 @@ const Cart = () => {
     );
   };
 
+  const itItAddress =
+    address?.address && address?.city && address?.state && address?.postal;
+
   return (
     <SafeAreaView
       // eslint-disable-next-line react-native/no-inline-styles
@@ -177,22 +181,26 @@ const Cart = () => {
                   <View style={styles.addAddress}>
                     <View style={styles.innerWrap}>
                       <Text style={styles.tagTitle}>Address:</Text>
-                      <TouchableOpacity
-                        style={styles.editIconWrap}
-                        onPress={() =>
-                          navigation.navigate('CreateAddress', {
-                            address: address,
-                            comeFromCart: true,
-                          })
-                        }>
-                        <Image source={EditTwoIcon} style={styles.editIcon} />
-                      </TouchableOpacity>
+                      {itItAddress && (
+                        <TouchableOpacity
+                          style={styles.editIconWrap}
+                          onPress={() =>
+                            navigation.navigate('CreateAddress', {
+                              address: address,
+                              comeFromCart: true,
+                            })
+                          }>
+                          <Image source={EditTwoIcon} style={styles.editIcon} />
+                        </TouchableOpacity>
+                      )}
                     </View>
 
-                    <Text style={styles.tagTitleTwo}>
-                      {address?.address}, {address?.city}, {address?.state},{' '}
-                      {address?.postal}
-                    </Text>
+                    {itItAddress && (
+                      <Text style={styles.tagTitleTwo}>
+                        {address?.address}, {address?.city}, {address?.state},{' '}
+                        {address?.postal}
+                      </Text>
+                    )}
                     <View style={styles.contactWrap}>
                       <Text style={styles.tagTitleTwo}>Contact:</Text>
                       <Text style={styles.tagTitleTwo}>{address?.phone}</Text>
@@ -260,10 +268,18 @@ const Cart = () => {
               <View style={styles.buttonFooter}>
                 <CustomButton
                   name="Proceed to Checkout"
-                  onPress={() => navigation.navigate('Checkout')}
-                  // eslint-disable-next-line react-native/no-inline-styles
+                  onPress={() => {
+                    if (address?.phone) {
+                      navigation.navigate('Checkout');
+                    } else {
+                      Alert.alert(
+                        'No Address',
+                        'Please add an address to proceed',
+                      );
+                      return;
+                    }
+                  }}
                   loginStyle={{marginTop: 0}}
-                  // eslint-disable-next-line react-native/no-inline-styles
                   buttonStyle={{fontSize: 15}}
                 />
               </View>

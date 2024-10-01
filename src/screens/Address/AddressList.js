@@ -80,20 +80,7 @@ const AddressList = () => {
           </View>
           <TouchableOpacity
             onPress={() => {
-              Alert.alert(
-                'Confirm deletion',
-                'Are you sure you want to delete this address?',
-                [
-                  {
-                    text: 'Cancel',
-                    style: 'cancel',
-                  },
-                  {
-                    text: 'OK',
-                    onPress: () => handleDelete(item.id),
-                  },
-                ],
-              );
+              handleDelete(item.id);
             }}>
             <Image source={DeleteIcon} style={styles.deleteIcon} />
           </TouchableOpacity>
