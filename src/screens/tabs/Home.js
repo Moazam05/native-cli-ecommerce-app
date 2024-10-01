@@ -1,7 +1,6 @@
-import {useNavigation} from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, {useEffect, useState} from 'react';
 import {
-  Button,
   FlatList,
   Image,
   StyleSheet,
@@ -10,6 +9,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
+import {useDispatch} from 'react-redux';
 import {
   ClearIcon,
   Logo,
@@ -20,20 +20,16 @@ import {
 import {categoriesData} from '../../constants';
 import {Colors} from '../../constants/colors';
 import {Fonts} from '../../constants/fonts';
-import Banners from '../Home/components/Banners';
-import FeaturedProducts from '../Home/components/FeaturedProducts';
-import OfferBanner from '../Home/components/OfferBanner';
-import FlatBanner from '../Home/components/FlatBanner';
-import DiscountedProducts from '../Home/components/DiscountedProducts';
-import SummerBanner from '../Home/components/SummerBanner';
-import SponsoredBanner from '../Home/components/SponsoredBanner';
 import {setSearchbarText} from '../../redux/searchbar/searchbarSlice';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import {useDispatch} from 'react-redux';
-import Toast from 'react-native-toast-message';
+import Banners from '../Home/components/Banners';
+import DiscountedProducts from '../Home/components/DiscountedProducts';
+import FeaturedProducts from '../Home/components/FeaturedProducts';
+import FlatBanner from '../Home/components/FlatBanner';
+import OfferBanner from '../Home/components/OfferBanner';
+import SponsoredBanner from '../Home/components/SponsoredBanner';
+import SummerBanner from '../Home/components/SummerBanner';
 
 const Home = ({setSelectedTab}) => {
-  const navigation = useNavigation();
   const dispatch = useDispatch();
 
   const [searchText, setSearchText] = useState('');
@@ -69,11 +65,15 @@ const Home = ({setSelectedTab}) => {
         <View style={styles.parentWrap}>
           {/* Top Bar */}
           <View style={styles.topBar}>
-            <TouchableOpacity onPress={() => navigation.openDrawer()}>
+            <TouchableOpacity
+            // onPress={() => navigation.openDrawer()}
+            >
               <NavigationIcon />
             </TouchableOpacity>
             <Logo />
-            <UserIcon />
+            <TouchableOpacity onPress={() => setSelectedTab(4)}>
+              <UserIcon />
+            </TouchableOpacity>
           </View>
 
           {/* Search Bar */}

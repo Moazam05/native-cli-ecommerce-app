@@ -74,11 +74,11 @@ const HomeScreen = () => {
         {selectedTab === 0 ? (
           <Home setSelectedTab={setSelectedTab} />
         ) : selectedTab === 1 ? (
-          <Wishlist />
+          <Wishlist setSelectedTab={setSelectedTab} />
         ) : selectedTab === 2 ? (
           <Cart />
         ) : selectedTab === 3 ? (
-          <Search />
+          <Search setSelectedTab={setSelectedTab} />
         ) : (
           <Profile />
         )}

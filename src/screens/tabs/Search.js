@@ -29,7 +29,7 @@ import {thousandSeparator} from '../../utils';
 // Get the screen width
 const screenWidth = Dimensions.get('window').width;
 
-const Search = () => {
+const Search = ({setSelectedTab}) => {
   const navigation = useNavigation();
   const flatListRef = useRef(null);
   const getSearchText = useTypedSelector(selectSearchbarText);
@@ -96,11 +96,15 @@ const Search = () => {
     <View style={styles.container}>
       {/* Top Bar */}
       <View style={styles.topBar}>
-        <TouchableOpacity onPress={() => navigation.openDrawer()}>
+        <TouchableOpacity
+        // onPress={() => navigation.openDrawer()}
+        >
           <NavigationIcon />
         </TouchableOpacity>
         <Logo />
-        <UserIcon />
+        <TouchableOpacity onPress={() => setSelectedTab(4)}>
+          <UserIcon />
+        </TouchableOpacity>
       </View>
 
       {/* Search Bar */}
@@ -130,10 +134,10 @@ const Search = () => {
         numColumns={2}
         contentContainerStyle={styles.listContainer}
         ListEmptyComponent={
-          <>
+          <View style={styles.emptyWrap}>
             <Text style={styles.emptyCont}>No products found</Text>
             <Text style={styles.emptyCont}>Try different keywords</Text>
-          </>
+          </View>
         }
       />
     </View>
@@ -174,9 +178,13 @@ const styles = StyleSheet.create({
     color: '#333',
     paddingLeft: 15,
   },
+  emptyWrap: {
+    marginTop: 20,
+  },
   emptyCont: {
     textAlign: 'center',
-    marginTop: 20,
+    // marginTop: 20,
+    marginBottom: 10,
   },
   icon: {
     width: 20,

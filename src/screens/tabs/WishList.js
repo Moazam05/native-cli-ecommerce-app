@@ -29,7 +29,7 @@ import RatingStar from '../../components/RatingStar';
 
 const {width} = Dimensions.get('window'); // Get screen width
 
-const WishList = () => {
+const WishList = ({setSelectedTab}) => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
   const wishListProducts = useTypedSelector(selectWishlistProducts);
@@ -81,11 +81,15 @@ const WishList = () => {
       <View style={styles.parentWrap}>
         {/* Top Bar */}
         <View style={styles.topBar}>
-          <TouchableOpacity onPress={() => navigation.openDrawer()}>
+          <TouchableOpacity
+          // onPress={() => navigation.openDrawer()}
+          >
             <NavigationIcon />
           </TouchableOpacity>
           <Logo />
-          <UserIcon />
+          <TouchableOpacity onPress={() => setSelectedTab(4)}>
+            <UserIcon />
+          </TouchableOpacity>
         </View>
 
         <FlatList
