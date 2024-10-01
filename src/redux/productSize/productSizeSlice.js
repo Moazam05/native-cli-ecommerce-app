@@ -34,11 +34,17 @@ const productSizeSlice = createSlice({
         state.initialData.push({...product});
       }
     },
+
+    // New action to clear all products
+    clearProductSizeStore(state) {
+      state.initialData = [];
+    },
   },
 });
 
 // Export actions and reducer
-export const {setProductSizeStore} = productSizeSlice.actions;
+export const {setProductSizeStore, clearProductSizeStore} =
+  productSizeSlice.actions;
 export default productSizeSlice.reducer;
 
 // Selector to get product sizes

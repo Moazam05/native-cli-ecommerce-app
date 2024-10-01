@@ -150,7 +150,7 @@ const Cart = () => {
       />
       <FlatList
         data={cartProducts}
-        keyExtractor={item => item.id.toString()}
+        keyExtractor={item => item?.id?.toString()}
         ListHeaderComponent={
           <View>
             {/* Top Bar */}
@@ -227,7 +227,7 @@ const Cart = () => {
               ]}>
               <FlatList
                 data={cartProducts}
-                keyExtractor={item => item.id.toString()}
+                keyExtractor={item => item?.id?.toString()}
                 renderItem={renderItem}
                 contentContainerStyle={styles.productList}
                 ListEmptyComponent={

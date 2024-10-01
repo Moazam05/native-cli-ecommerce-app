@@ -56,6 +56,11 @@ const productsSlice = createSlice({
       const productId = action.payload;
       state.data = state.data.filter(product => product.id !== productId);
     },
+
+    // New action to clear all products
+    clearCart(state) {
+      state.data = [];
+    },
   },
 });
 
@@ -64,6 +69,7 @@ export const {
   incrementProductQuantity,
   decrementProductQuantity,
   removeProduct,
+  clearCart,
 } = productsSlice.actions;
 export default productsSlice.reducer;
 

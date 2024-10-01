@@ -14,8 +14,8 @@ import CustomButton from './CustomButton';
 import {Colors} from '../constants/colors';
 import {useNavigation} from '@react-navigation/native';
 import {useDispatch} from 'react-redux';
-import {setCartProducts} from '../redux/products/productsSlice';
-import {setProductSizeStore} from '../redux/productSize/productSizeSlice';
+import {clearCart} from '../redux/products/productsSlice';
+import {clearProductSizeStore} from '../redux/productSize/productSizeSlice';
 
 const PaymentModal = ({visible, setModalVisible}) => {
   const navigation = useNavigation();
@@ -27,8 +27,8 @@ const PaymentModal = ({visible, setModalVisible}) => {
       index: 0,
       routes: [{name: 'Main'}],
     });
-    dispatch(setCartProducts([]));
-    dispatch(setProductSizeStore([]));
+    dispatch(clearCart([]));
+    dispatch(clearProductSizeStore([]));
   };
 
   return (
