@@ -5,7 +5,6 @@ import {Formik} from 'formik';
 import React, {useState} from 'react';
 import {
   ActivityIndicator,
-  Alert,
   Image,
   ScrollView,
   StatusBar,
@@ -15,6 +14,7 @@ import {
 } from 'react-native';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
 import {SafeAreaView} from 'react-native-safe-area-context';
+import Toast from 'react-native-toast-message';
 import {useDispatch} from 'react-redux';
 import * as Yup from 'yup';
 import {
@@ -27,7 +27,6 @@ import TextField from '../../components/TextField';
 import {Colors} from '../../constants/colors';
 import {Fonts} from '../../constants/fonts';
 import {setUser} from '../../redux/auth/authSlice';
-import Toast from 'react-native-toast-message';
 
 // Validation Schema
 const validationSchema = Yup.object().shape({

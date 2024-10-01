@@ -279,7 +279,9 @@ const Cart = () => {
                       return;
                     }
                   }}
+                  // eslint-disable-next-line react-native/no-inline-styles
                   loginStyle={{marginTop: 0}}
+                  // eslint-disable-next-line react-native/no-inline-styles
                   buttonStyle={{fontSize: 15}}
                 />
               </View>

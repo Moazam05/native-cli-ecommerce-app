@@ -1,23 +1,23 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {useNavigation} from '@react-navigation/native';
+import React from 'react';
 import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
+  Alert,
   Image,
   SafeAreaView,
   ScrollView,
-  Alert,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
 } from 'react-native';
-import React from 'react';
+import {useDispatch} from 'react-redux';
+import {leftArrow, Logout, UserTwo} from '../../assets/images';
+import TextField from '../../components/TextField';
+import {Colors} from '../../constants/colors';
+import {Fonts} from '../../constants/fonts';
 import useTypedSelector from '../../hooks/useTypedSelector';
 import {selectedUser, setUser} from '../../redux/auth/authSlice';
-import {useDispatch} from 'react-redux';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import {useNavigation} from '@react-navigation/native';
-import {Colors} from '../../constants/colors';
-import {AddIcon, leftArrow, Logout, UserTwo} from '../../assets/images';
-import {Fonts} from '../../constants/fonts';
-import TextField from '../../components/TextField';
 
 const Profile = () => {
   const dispatch = useDispatch();
