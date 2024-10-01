@@ -21,8 +21,12 @@ import * as Yup from 'yup';
 // Validation Schema
 const validationSchema = Yup.object().shape({
   oldPassword: Yup.string().required('Old Password is required'),
-  newPassword: Yup.string().required('New Password is required'),
-  confirmPassword: Yup.string().required('Confirm Password is required'),
+  newPassword: Yup.string()
+    .required('New Password is required')
+    .min(6, 'New Password must be at least 6 characters'),
+  confirmPassword: Yup.string()
+    .required('Confirm Password is required')
+    .oneOf([Yup.ref('newPassword'), null], 'Passwords must match'),
 });
 
 const ChangePassword = () => {
@@ -48,10 +52,7 @@ const ChangePassword = () => {
       <View style={styles.topBar}>
         <TouchableOpacity
           onPress={() => {
-            navigation.reset({
-              index: 0,
-              routes: [{name: 'Main'}],
-            });
+            navigation.goBack();
           }}>
           <Image source={leftArrow} style={styles.backIcon} />
         </TouchableOpacity>
@@ -99,8 +100,11 @@ const ChangePassword = () => {
                     backgroundColor: 'transparent',
                     borderRadius: 8,
                   }}
-                  editable={false}
                 />
+
+                {errors.oldPassword && (
+                  <Text style={{color: 'red'}}>{errors.oldPassword}</Text>
+                )}
               </View>
 
               <View style={styles.fieldContainer}>
@@ -117,8 +121,10 @@ const ChangePassword = () => {
                     backgroundColor: 'transparent',
                     borderRadius: 8,
                   }}
-                  editable={false}
                 />
+                {errors.newPassword && (
+                  <Text style={{color: 'red'}}>{errors.newPassword}</Text>
+                )}
               </View>
 
               <View style={styles.fieldContainer}>
@@ -135,8 +141,10 @@ const ChangePassword = () => {
                     backgroundColor: 'transparent',
                     borderRadius: 8,
                   }}
-                  editable={false}
                 />
+                {errors.confirmPassword && (
+                  <Text style={{color: 'red'}}>{errors.confirmPassword}</Text>
+                )}
               </View>
 
               <View style={styles.buttonWrap}>
@@ -206,7 +214,7 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
   },
   fieldContainer: {
-    marginBottom: 25,
+    height: 80,
   },
   label: {
     fontSize: 12,
