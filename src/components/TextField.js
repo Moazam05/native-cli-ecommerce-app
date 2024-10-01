@@ -20,6 +20,7 @@ const TextField = ({
   multiline,
   leftIcon,
   inputWrap,
+  editable,
 }) => {
   const [showPassword, setShowPassword] = useState(false);
 
@@ -39,6 +40,7 @@ const TextField = ({
           numberOfLines={multiline ? 3 : 1}
           textAlignVertical={multiline ? 'top' : 'center'}
           placeholderTextColor="#676767"
+          editable={editable}
         />
       </View>
       {secureTextEntry && (
