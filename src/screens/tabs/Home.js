@@ -61,13 +61,6 @@ const Home = ({setSelectedTab}) => {
     </TouchableOpacity>
   );
 
-  const handlePress = () => {
-    Toast.show({
-      type: 'success',
-      text1: 'Operation successful!',
-    });
-  };
-
   return (
     <FlatList
       data={categoriesData}
@@ -101,10 +94,6 @@ const Home = ({setSelectedTab}) => {
                   </TouchableOpacity>
                 )}
               </View>
-            </View>
-
-            <View>
-              <Button title="Press me" onPress={handlePress} />
             </View>
 
             {/* Categories */}

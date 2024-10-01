@@ -27,6 +27,7 @@ import TextField from '../../components/TextField';
 import {Colors} from '../../constants/colors';
 import {Fonts} from '../../constants/fonts';
 import {setUser} from '../../redux/auth/authSlice';
+import Toast from 'react-native-toast-message';
 
 // Validation Schema
 const validationSchema = Yup.object().shape({
@@ -51,7 +52,11 @@ const Login = () => {
         .get();
 
       if (querySnapshot.empty) {
-        Alert.alert('Error', 'User does not exist');
+        Toast.show({
+          type: 'error',
+          text1: 'User does not exist',
+          position: 'top',
+        });
         return;
       }
 
@@ -61,14 +66,26 @@ const Login = () => {
         dispatch(setUser(userData));
         AsyncStorage.setItem('user', JSON.stringify(userData));
 
-        Alert.alert('Success', 'Successfully signed in');
+        Toast.show({
+          type: 'success',
+          text1: 'Successfully signed in',
+          position: 'top',
+        });
         navigation.navigate('PreMain');
       } else {
-        Alert.alert('Error', 'Invalid credentials');
+        Toast.show({
+          type: 'error',
+          text1: 'Invalid credentials',
+          position: 'top',
+        });
       }
     } catch (error) {
       console.error('Error signing in: ', error);
-      Alert.alert('Error', 'Something went wrong');
+      Toast.show({
+        type: 'error',
+        text1: 'Something went wrong',
+        position: 'top',
+      });
     } finally {
       setLoading(false);
     }

@@ -1,6 +1,7 @@
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import Toast from 'react-native-toast-message';
+import {Colors} from '../constants/colors';
 
 const toastConfig = {
   success: ({text1}) => (
@@ -16,22 +17,24 @@ const toastConfig = {
 };
 
 const ToastComponent = () => {
-  return <Toast config={toastConfig} />;
+  return <Toast config={toastConfig} visibilityTime={2500} />;
 };
 
 const styles = StyleSheet.create({
   toast: {
-    backgroundColor: 'green',
-    padding: 10,
+    backgroundColor: '#039694',
+    paddingHorizontal: 20,
+    paddingVertical: 10,
     borderRadius: 5,
   },
   errorToast: {
-    backgroundColor: 'red',
-    padding: 10,
+    backgroundColor: Colors.PRIMARY,
+    paddingHorizontal: 20,
+    paddingVertical: 10,
     borderRadius: 5,
   },
   toastText: {
-    color: 'white',
+    color: Colors.WHITE,
   },
 });
 

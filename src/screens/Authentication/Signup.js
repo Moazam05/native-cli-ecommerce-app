@@ -24,6 +24,7 @@ import CustomButton from '../../components/CustomButton';
 import TextField from '../../components/TextField';
 import {Colors} from '../../constants/colors';
 import {Fonts} from '../../constants/fonts';
+import Toast from 'react-native-toast-message';
 
 // Validation Schema
 const validationSchema = Yup.object().shape({
@@ -52,11 +53,19 @@ const Signup = () => {
         email: values.email,
         password: values.password,
       });
-      Alert.alert('Success', 'Account created successfully');
+      Toast.show({
+        type: 'success',
+        text1: 'Account created successfully',
+        position: 'top',
+      });
       navigation.navigate('Login');
     } catch (error) {
       console.error('Error adding user: ', error);
-      Alert.alert('Error', 'Something went wrong');
+      Toast.show({
+        type: 'error',
+        text1: 'Something went wrong',
+        position: 'top',
+      });
     } finally {
       setLoading(false);
     }
