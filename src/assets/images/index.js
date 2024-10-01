@@ -76,6 +76,7 @@ import ThankYou from './Thank.png';
 import EmptyCart from './emptyCart.png';
 import UserTwo from './UserTwo.png';
 import Logout from './logout.png';
+import LoaderImg from './loader.png';
 
 export {
   Back,
@@ -156,4 +157,5 @@ export {
   EmptyCart,
   UserTwo,
   Logout,
+  LoaderImg,
 };

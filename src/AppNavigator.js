@@ -1,26 +1,27 @@
-import React, {useEffect, useState} from 'react';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {NavigationContainer} from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {NavigationContainer} from '@react-navigation/native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import React, {useEffect, useState} from 'react';
+import {Image, StatusBar, StyleSheet, View} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
-import {setUser, selectedUser} from './redux/auth/authSlice'; // Assuming you have setUser action
-import Main from './screens/Main';
-import ProductDetail from './screens/Products/ProductDetail';
-import Cart from './screens/Cart/Cart';
-import Login from './screens/Authentication/Login';
-import Signup from './screens/Authentication/Signup';
-import Checkout from './screens/Cart/Checkout';
+import {LoaderImg} from './assets/images';
+import {Colors} from './constants/colors';
+import {selectedUser, setUser} from './redux/auth/authSlice'; // Assuming you have setUser action
 import AddressList from './screens/Address/AddressList';
 import CreateAddress from './screens/Address/CreateAddress';
-import {ActivityIndicator, StyleSheet, View} from 'react-native';
-import Welcome from './screens/Welcome/Welcome';
-import {Colors} from './constants/colors';
-import ForgotPassword from './screens/Authentication/ForgotPassword';
-import PreMain from './screens/PreMain';
-import Home from './screens/tabs/Home';
-import Payment from './screens/Payment/Payment';
-import History from './screens/History';
 import ChangePassword from './screens/Authentication/ChangePassword';
+import ForgotPassword from './screens/Authentication/ForgotPassword';
+import Login from './screens/Authentication/Login';
+import Signup from './screens/Authentication/Signup';
+import Cart from './screens/Cart/Cart';
+import Checkout from './screens/Cart/Checkout';
+import History from './screens/History';
+import Main from './screens/Main';
+import Payment from './screens/Payment/Payment';
+import PreMain from './screens/PreMain';
+import ProductDetail from './screens/Products/ProductDetail';
+import Home from './screens/tabs/Home';
+import Welcome from './screens/Welcome/Welcome';
 
 const Stack = createNativeStackNavigator();
 
@@ -51,7 +52,12 @@ const AppNavigator = () => {
   if (isLoading) {
     return (
       <View style={styles.loadingContainer}>
-        <ActivityIndicator size="large" color={Colors.PRIMARY} />
+        <StatusBar
+          barStyle="dark-content"
+          translucent
+          backgroundColor={Colors.PRIMARY_BG}
+        />
+        <Image source={LoaderImg} style={styles.loaderImg} />
       </View>
     );
   }
@@ -61,13 +67,13 @@ const AppNavigator = () => {
       <Stack.Navigator>
         {loginUser ? (
           <>
-            {/* <Stack.Screen
+            <Stack.Screen
               name="PreMain"
               component={PreMain}
               options={{
                 headerShown: false,
               }}
-            /> */}
+            />
 
             <Stack.Screen
               name="Main"
@@ -194,5 +200,10 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  loaderImg: {
+    width: 150,
+    height: 150,
+    resizeMode: 'contain',
   },
 });
