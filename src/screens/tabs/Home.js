@@ -147,7 +147,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
   },
   topBar: {
-    paddingVertical: 12,
+    // paddingVertical: 12,
+    paddingBottom: 12,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
