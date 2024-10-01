@@ -9,6 +9,7 @@ import {
   TouchableOpacity,
   View,
   SafeAreaView,
+  StatusBar,
 } from 'react-native';
 import {useDispatch} from 'react-redux';
 import {
@@ -139,7 +140,14 @@ const Cart = () => {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView
+      // eslint-disable-next-line react-native/no-inline-styles
+      style={[styles.container, comeFromProductDetail && {marginTop: 24}]}>
+      <StatusBar
+        barStyle="dark-content"
+        translucent
+        backgroundColor={Colors.PRIMARY_BG}
+      />
       <FlatList
         data={cartProducts}
         keyExtractor={item => item.id.toString()}
