@@ -1,21 +1,4 @@
 {
   "name": "ECommerce",
-  "displayName": "ECommerce",
-  "version": "1.0.0",
-  "orientation": "portrait",
-
-  "splash": {
-    "image": "./src/assets/images/splash.jpg",
-    "resizeMode": "contain",
-    "backgroundColor": "#ffffff"
-  },
-
-  "icon": "./src/assets/images/androidLogo.png",
-
-  "android": {
-    "adaptiveIcon": {
-      "foregroundImage": "./src/assets/images/androidLogo.png",
-      "backgroundColor": "#ffffff"
-    }
-  }
+  "displayName": "ECommerce"
 }
