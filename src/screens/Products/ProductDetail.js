@@ -129,13 +129,23 @@ const ProductDetail = () => {
 
           <TouchableOpacity
             style={styles.rightIcons}
-            onPress={() => navigation.navigate('Cart')}>
+            onPress={() => {
+              navigation.reset({
+                index: 2,
+                routes: [{name: 'Cart'}],
+              });
+            }}>
             <Image source={CartTwo} style={styles.cartIcon} />
           </TouchableOpacity>
           {cartProducts.length > 0 && (
             <TouchableOpacity
               style={styles.badge}
-              onPress={() => navigation.navigate('Cart')}>
+              onPress={() => {
+                navigation.reset({
+                  index: 2,
+                  routes: [{name: 'Cart'}],
+                });
+              }}>
               <Text style={styles.badgeText}>{cartProducts.length}</Text>
             </TouchableOpacity>
           )}
