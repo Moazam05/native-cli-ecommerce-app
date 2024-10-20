@@ -1,79 +1,76 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
 
-# Getting Started
+# React Native Ecommerce App
 
->**Note**: Make sure you have completed the [React Native - Environment Setup](https://reactnative.dev/docs/environment-setup) instructions till "Creating a new application" step, before proceeding.
+An e-commerce mobile app built with React Native CLI, allowing users to browse and order products with ease. Includes product selection and order tracking functionalities.
 
-## Step 1: Start the Metro Server
 
-First, you will need to start **Metro**, the JavaScript _bundler_ that ships _with_ React Native.
 
-To start Metro, run the following command from the _root_ of your React Native project:
+## Features
 
-```bash
-# using npm
-npm start
+**User Authentication**  
+- Easily create an account with minimal information.
 
-# OR using Yarn
-yarn start
-```
+**Product Discovery**  
+- Easily browse and search for products in various categories.
+- Filter and sort products to find exactly what you're looking for.
 
-## Step 2: Start your Application
+**Order Management**  
+- Add items to the cart and proceed to checkout.
+- Track orders and view order history for seamless management.
 
-Let Metro Bundler run in its _own_ terminal. Open a _new_ terminal from the _root_ of your React Native project. Run the following command to start your _Android_ or _iOS_ app:
+**Wishlist**  
+- Save your favorite products to a wishlist for future purchases.
 
-### For Android
+**Profile Management**  
+- Update your profile details effortlessly.
 
-```bash
-# using npm
-npm run android
+## Tech Stack
 
-# OR using Yarn
-yarn android
-```
+**Client:** React Native, Redux Toolkit, Redux Persist, Formik & Yup, React Navigation
 
-### For iOS
+**Database:** Firestore (Firebase)
 
-```bash
-# using npm
-npm run ios
+**Storage:** Async Storage
 
-# OR using Yarn
-yarn ios
-```
+**Additional Libraries:** React Native Gesture Handler, React Native Reanimated, React Native Toast Message, React Native Swiper
 
-If everything is set up _correctly_, you should see your new app running in your _Android Emulator_ or _iOS Simulator_ shortly provided you have set up your emulator/simulator correctly.
 
-This is one way to run your app — you can also run it directly from within Android Studio and Xcode respectively.
+## Screenshots
 
-## Step 3: Modifying your App
+![Onboarding 1](https://i.ibb.co/mTqqkJY/1.png)
 
-Now that you have successfully run the app, let's modify it.
+![Onboarding 2](https://i.ibb.co/D8h3B7M/2.png)
 
-1. Open `App.tsx` in your text editor of choice and edit some lines.
-2. For **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Developer Menu** (<kbd>Ctrl</kbd> + <kbd>M</kbd> (on Window and Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (on macOS)) to see your changes!
+![Onboarding 3](https://i.ibb.co/pwJTBBn/3.png)
 
-   For **iOS**: Hit <kbd>Cmd ⌘</kbd> + <kbd>R</kbd> in your iOS Simulator to reload the app and see your changes!
+![Login](https://i.ibb.co/s2zpSdX/4.png)
 
-## Congratulations! :tada:
+![Sign Up](https://i.ibb.co/wNbRfhV/5.png)
 
-You've successfully run and modified your React Native App. :partying_face:
+![Forgot Password](https://i.ibb.co/0tnY3ds/6.png)
 
-### Now what?
+![Splash Screen](https://i.ibb.co/3v2JwD0/7.png)
 
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [Introduction to React Native](https://reactnative.dev/docs/getting-started).
+![Home 1](https://i.ibb.co/HNQNntK/10.jpg)
 
-# Troubleshooting
+![Wishlist](https://i.ibb.co/cFGwVcG/10.png)
 
-If you can't get this to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
+![Search](https://i.ibb.co/cTbL56F/11.png)
 
-# Learn More
+![Profile](https://i.ibb.co/vmySDrF/12.png)
 
-To learn more about React Native, take a look at the following resources:
+![Change Password](https://i.ibb.co/x3SF9bp/13.png)
 
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+![Product Detail](https://i.ibb.co/KmfDHCM/14.png)
+
+![Shopping Bag](https://i.ibb.co/r0qTN5n/15.png)
+
+![Create Address](https://i.ibb.co/BjwVQ6Y/16.png)
+
+![Address Listt](https://i.ibb.co/vwmz1gg/17.png)
+
+![Checkout](https://i.ibb.co/mS8yVRG/19.png)
+
+![Payment](https://i.ibb.co/cDfm6tQ/20.png)
+
+![Payment Success](https://i.ibb.co/WyLzVGb/21.png)
