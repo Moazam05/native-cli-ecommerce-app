@@ -53,7 +53,7 @@ const Signup = () => {
     setLoading(true);
     try {
       const payload = {
-        name: values.userName,
+        name: values.name,
         email: values.email.toLowerCase(),
         password: values.password,
       };
