@@ -9,6 +9,7 @@ import addressReducer from './address/addressSlice';
 import authReducer from './auth/authSlice';
 import searchbarReducer from './searchbar/searchbarSlice';
 import productSizeReducer from './productSize/productSizeSlice';
+import userReducer from './users/userSlice';
 
 // Configurations for redux-persist
 const persistConfig = {
@@ -21,6 +22,7 @@ const persistConfig = {
     'auth',
     'searchbar',
     'productSize',
+    'users',
   ],
 };
 
@@ -33,6 +35,7 @@ const rootReducer = combineReducers({
   auth: authReducer,
   searchbar: searchbarReducer,
   productSize: productSizeReducer,
+  users: userReducer,
 });
 
 // Create a persisted reducer

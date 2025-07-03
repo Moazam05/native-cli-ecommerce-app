@@ -1,5 +1,4 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import firestore from '@react-native-firebase/firestore';
 import {useNavigation} from '@react-navigation/native';
 import {Formik} from 'formik';
 import React, {useState} from 'react';
@@ -27,6 +26,8 @@ import TextField from '../../components/TextField';
 import {Colors} from '../../constants/colors';
 import {Fonts} from '../../constants/fonts';
 import {setUser} from '../../redux/auth/authSlice';
+import useTypedSelector from '../../hooks/useTypedSelector';
+import {selectUsers} from '../../redux/users/userSlice';
 
 // Validation Schema
 const validationSchema = Yup.object().shape({
@@ -39,54 +40,46 @@ const validationSchema = Yup.object().shape({
 const Login = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
+  const usersList = useTypedSelector(selectUsers);
 
   const [loading, setLoading] = useState(false);
 
-  const handleSignin = async values => {
-    setLoading(true);
+  const handleSignIn = async values => {
     try {
-      const querySnapshot = await firestore()
-        .collection('Users')
-        .where('email', '==', values.email)
-        .get();
+      setLoading(true);
 
-      if (querySnapshot.empty) {
-        Toast.show({
-          type: 'error',
-          text1: 'User does not exist',
-          position: 'top',
-        });
-        return;
+      // Find user based on email
+      const findUser = usersList.find(
+        user => user.email === values.email.toLowerCase(),
+      );
+
+      if (!findUser) {
+        throw new Error('User not found');
       }
 
-      const userData = querySnapshot.docs[0].data();
+      if (findUser.password !== values.password) {
+        throw new Error('Invalid password');
+      }
 
-      if (userData.password === values.password) {
-        dispatch(setUser(userData));
-        AsyncStorage.setItem('user', JSON.stringify(userData));
+      setTimeout(async () => {
+        setLoading(false);
+        // Set user in local storage
+        await AsyncStorage.setItem('user', JSON.stringify(findUser));
+        dispatch(setUser(findUser));
+        // Navigate to home screen
+        navigation.navigate('PreMain');
 
         Toast.show({
           type: 'success',
-          text1: 'Successfully signed in',
-          position: 'top',
+          text1: 'Logged in successfully',
         });
-        navigation.navigate('PreMain');
-      } else {
-        Toast.show({
-          type: 'error',
-          text1: 'Invalid credentials',
-          position: 'top',
-        });
-      }
+      }, 2000);
     } catch (error) {
-      console.error('Error signing in: ', error);
+      setLoading(false);
       Toast.show({
         type: 'error',
-        text1: 'Something went wrong',
-        position: 'top',
+        text1: error.message,
       });
-    } finally {
-      setLoading(false);
     }
   };
 
@@ -111,7 +104,7 @@ const Login = () => {
             <Formik
               initialValues={{email: '', password: ''}}
               validationSchema={validationSchema}
-              onSubmit={handleSignin}>
+              onSubmit={handleSignIn}>
               {({
                 handleChange,
                 handleBlur,

@@ -1,4 +1,3 @@
-import firestore from '@react-native-firebase/firestore';
 import {useNavigation} from '@react-navigation/native';
 import {Formik} from 'formik';
 import React, {useState} from 'react';
@@ -24,6 +23,9 @@ import TextField from '../../components/TextField';
 import {Colors} from '../../constants/colors';
 import {Fonts} from '../../constants/fonts';
 import Toast from 'react-native-toast-message';
+import {useDispatch} from 'react-redux';
+import useTypedSelector from '../../hooks/useTypedSelector';
+import {addUser, selectUsers} from '../../redux/users/userSlice';
 
 // Validation Schema
 const validationSchema = Yup.object().shape({
@@ -41,32 +43,49 @@ const validationSchema = Yup.object().shape({
 
 const Signup = () => {
   const navigation = useNavigation();
+  const dispatch = useDispatch();
+  const usersList = useTypedSelector(selectUsers);
 
   const [loading, setLoading] = useState(false);
 
-  const handleSignup = async values => {
-    setLoading(true);
+  const handleSignUp = async values => {
     try {
-      await firestore().collection('Users').add({
-        name: values.name,
-        email: values.email,
+      setLoading(true);
+      const payload = {
+        name: values.userName,
+        email: values.email.toLowerCase(),
         password: values.password,
-      });
-      Toast.show({
-        type: 'success',
-        text1: 'Account created successfully',
-        position: 'top',
-      });
-      navigation.navigate('Login');
+      };
+
+      // find user based on email
+      const findUser = usersList.find(
+        user => user.email === values.email.toLowerCase(),
+      );
+      if (findUser) {
+        setLoading(false);
+        Toast.show({
+          type: 'error',
+          text1: 'User already exists with this email',
+        });
+        return;
+      }
+      await dispatch(addUser(payload));
+
+      // Add a 2-second delay before navigating
+      setTimeout(() => {
+        setLoading(false);
+        Toast.show({
+          type: 'success',
+          text1: 'Account created successfully',
+        });
+        navigation.navigate('Login');
+      }, 2000); // 2000 milliseconds = 2 seconds
     } catch (error) {
-      console.error('Error adding user: ', error);
+      setLoading(false);
       Toast.show({
         type: 'error',
-        text1: 'Something went wrong',
-        position: 'top',
+        text1: 'Error signing up',
       });
-    } finally {
-      setLoading(false);
     }
   };
 
@@ -89,7 +108,7 @@ const Signup = () => {
               confirmPassword: '',
             }}
             validationSchema={validationSchema}
-            onSubmit={handleSignup}>
+            onSubmit={handleSignUp}>
             {({
               handleChange,
               handleBlur,
