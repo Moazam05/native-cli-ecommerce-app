@@ -59,7 +59,8 @@ const PaymentModal = ({visible, setModalVisible}) => {
               buttonStyle={styles.trackText}
               onPress={() => {
                 setModalVisible(false);
-                navigation.navigate('History');
+                // navigation.navigate('History');
+                homeHandler();
               }}
             />
           </View>

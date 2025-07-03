@@ -15,7 +15,6 @@ import Login from './screens/Authentication/Login';
 import Signup from './screens/Authentication/Signup';
 import Cart from './screens/Cart/Cart';
 import Checkout from './screens/Cart/Checkout';
-import History from './screens/History';
 import Main from './screens/Main';
 import Payment from './screens/Payment/Payment';
 import PreMain from './screens/PreMain';
@@ -94,14 +93,6 @@ const AppNavigator = () => {
             <Stack.Screen
               name="Home"
               component={Home}
-              options={{
-                headerShown: false,
-              }}
-            />
-
-            <Stack.Screen
-              name="History"
-              component={History}
               options={{
                 headerShown: false,
               }}
