@@ -6,7 +6,7 @@ import {Image, StatusBar, StyleSheet, View} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import {LoaderImg} from './assets/images';
 import {Colors} from './constants/colors';
-import {selectedUser, setUser} from './redux/auth/authSlice'; // Assuming you have setUser action
+import {selectedUser, setUser} from './redux/auth/authSlice';
 import AddressList from './screens/Address/AddressList';
 import CreateAddress from './screens/Address/CreateAddress';
 import ChangePassword from './screens/Authentication/ChangePassword';
@@ -21,6 +21,7 @@ import PreMain from './screens/PreMain';
 import ProductDetail from './screens/Products/ProductDetail';
 import Home from './screens/tabs/Home';
 import Welcome from './screens/Welcome/Welcome';
+import WebViewScreen from './components/WebViewScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -28,6 +29,8 @@ const AppNavigator = () => {
   const [isLoading, setIsLoading] = useState(true);
   const dispatch = useDispatch();
   const loginUser = useSelector(selectedUser);
+
+  console.log('Login User:', loginUser);
 
   useEffect(() => {
     // Fetch user from AsyncStorage on app load
@@ -145,6 +148,15 @@ const AppNavigator = () => {
                 headerShown: false,
               }}
             />
+
+            {/* Add WebView Screen */}
+            <Stack.Screen
+              name="WebViewScreen"
+              component={WebViewScreen}
+              options={{
+                headerShown: false,
+              }}
+            />
           </>
         ) : (
           <>
@@ -173,6 +185,15 @@ const AppNavigator = () => {
             <Stack.Screen
               name="ForgotPassword"
               component={ForgotPassword}
+              options={{
+                headerShown: false,
+              }}
+            />
+
+            {/* Add WebView Screen for non-logged users too */}
+            <Stack.Screen
+              name="WebViewScreen"
+              component={WebViewScreen}
               options={{
                 headerShown: false,
               }}
