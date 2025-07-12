@@ -107,6 +107,18 @@ const Profile = () => {
             }}>
             <Text style={styles.change}>Change Password</Text>
           </TouchableOpacity>
+
+          <TouchableOpacity
+            style={{
+              marginTop: 20,
+            }}
+            onPress={() => {
+              navigation.navigate('WebViewScreen', {
+                url: 'https://sites.google.com/view/zynix-apps/home',
+              });
+            }}>
+            <Text style={styles.change}>Privacy Policy</Text>
+          </TouchableOpacity>
         </View>
       </ScrollView>
       <TouchableOpacity
