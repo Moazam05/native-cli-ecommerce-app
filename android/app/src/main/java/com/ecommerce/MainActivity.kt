@@ -1,4 +1,4 @@
-package com.ecommerce
+package com.ecommerceMyApp
 
 import android.os.Bundle;
 import com.facebook.react.ReactActivity
